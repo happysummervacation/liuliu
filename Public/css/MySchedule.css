@@ -1,0 +1,24 @@
+table{
+	text-align: center;
+	overflow: auto;
+}
+
+td{
+	font-size: 20px;
+}
+
+.overfw,.teacheranbalet{
+	overflow: auto;
+}
+
+@media screen and (max-width: 1300px){ 
+	table,table td{
+		font-size: 10px;
+		overflow: hidden;
+		text-align: center;
+	    white-space: nowrap;
+	    text-overflow:ellipsis;
+	    overflow: hidden;
+	}
+
+}

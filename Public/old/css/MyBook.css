@@ -1,0 +1,13 @@
+.panel-heading,.panel-body,.panel-footer{
+	text-align: center;
+	widows: 100%;
+}
+
+.panel-body img{
+	height: 200px;
+	width: 60%;
+}
+
+.panel-footer button{
+	width: 40%;
+}

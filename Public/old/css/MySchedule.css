@@ -1,0 +1,12 @@
+table{
+	text-align: center;
+	overflow: auto;
+}
+
+td{
+	font-size: 20px;
+}
+
+.overfw,.teacheranbalet{
+	overflow: auto;
+}
