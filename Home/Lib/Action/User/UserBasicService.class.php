@@ -174,7 +174,7 @@
 				$data['status'] = 1;
 				$data['identity'] = 4;
 				$result = $userOp->addUser($data);
-				if($result){
+				if($result['status']){
 					$message['status'] = true;
 					$message['message'] = "用户创建成功";
 					return $message;
@@ -226,7 +226,60 @@
 				$data['status'] = 1;
 				$data['identity'] = 2;
 				$result = $userOp->addUser($data);
-				if($result){
+				if($result['status']){
+					$message['status'] = true;
+					$message['message'] = "用户创建成功";
+					return $message;
+				}else{
+					$message['status'] = false;
+					$message['message'] = "用户创建失败";
+					return $message;
+				}
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*添加教师
+		*/
+		public function addTeacherInfo($postData = null){
+			$message = array();
+			//先做密码相同的判断
+			if($postData['password'] != $postData['check_password']){
+				$message['status'] = false;
+				$message['message'] = "密码与确认密码不相同";
+				return $message;
+			}
+			//先做手机,email,账号相同的判断
+			import("Home.Action.User.UserBasicOperate");
+			$userOp = new UserBasicOperate();
+
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phone'];
+			$data['account'] = $postData['account'];
+			$result = $userOp->CountUserFieldData($data);
+
+			if((int)$result[0]['email'] > 0){
+				$message['status'] = false;
+				$message['message'] = "邮箱重复";
+				return $message;
+			}elseif((int)$result[0]['phone'] > 0){
+				$message['status'] = false;
+				$message['message'] = "手机号重复";
+				return $message;
+			}elseif((int)$result[0]['phone'] > 0){
+				$message['status'] = false;
+				$message['message'] = "手机号重复";
+				return $message;
+			}else{
+				$data['teacher_type'] = $postData['teacher_type'];
+				$data['country'] = $postData['country'];
+				$data['password'] = md5($postData['password']);
+				$data['status'] = 1;
+				$data['identity'] = 1;
+				$result = $userOp->addUser($data);
+
+				if($result['status']){
 					$message['status'] = true;
 					$message['message'] = "用户创建成功";
 					return $message;

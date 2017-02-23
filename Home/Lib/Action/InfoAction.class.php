@@ -183,7 +183,12 @@
 			if($identity == 4 || $identity == "4"){
 				if($type == "add" || $type == "0"){
 					if($person == "teacher"){
-
+						$result = $userOp->addTeacherInfo($_POST);
+						if($result['status']){
+							$this->success($result['message']);
+						}else{
+							$this->error($result['message']);
+						}
 					}elseif($person == "admin"){
 						$result = $userOp->addAdminInfo($_POST);
 						if($result['status']){
