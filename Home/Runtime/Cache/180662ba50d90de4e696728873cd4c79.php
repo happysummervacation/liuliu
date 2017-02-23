@@ -1,5 +1,4 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
-少套餐介绍
 <html lang="en">
 
 <head>
@@ -311,6 +310,7 @@
                                             <th>套餐价格</th>
                                             <th>课程类型</th>
                                             <th>教师类型</th>
+                                            <th>教师国籍</th>
                                             <th>套餐类型</th>
                                             <th>学生类型</th>
                                             <th>学生人数</th>
@@ -325,12 +325,13 @@
                                             <!-- 示例 -->
                                             <td>1001</td>
                                             <td>清明大礼包</td>
-                                            <td>7874.00</td>
-                                            <td value='2'>少儿</td>
+                                            <td>7874</td>
+                                            <td value='0'>少儿</td>
                                             <td value='1'>名师</td>
-                                            <td value='1'>课时类</td>
-                                            <td value='1'>一对一</td>
-                                            <td >15</td>
+                                            <td value='0'>中教</td>
+                                            <td value='0'>课时类</td>
+                                            <td value='0'>一对一</td>
+                                            <td >1</td>
                                             <td>17</td>
                                             <td>2017-2-19 8:00:00</td>
                                             <td>30</td>
@@ -338,6 +339,7 @@
                                                 <button class="btn btn-default modifypackage" data-toggle="modal" data-target="#packagemodify">修改</button>
                                                 <button class="btn btn-danger">删除</button>
                                             </td>
+                                            <span style="display: none" name='description'>这里是套餐描述</span>
                                             <!-- 示例 -->
                                         </tr>
                                     </tbody>
@@ -362,7 +364,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="javascript:return confirm('您确认要提交表单吗？');">
+                            <form class="form-horizontal" method="post" action="<?php echo U('Package/packageManage');?>/type/update" onsubmit="javascript:return confirm('您确认要提交表单吗？');">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -379,10 +381,9 @@
                                   <label  class="col-sm-4 control-label">课程类型</label>
                                   <div class="col-sm-6">
                                     <select class="form-control" name="classType">
-                                        <!-- <option value="1">成人类</option>
-                                        <option value="2">少儿</option>
-                                        <option value="3">雅思类</option> -->
-                                        <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value="<?php echo ($vo["packageconID"]); ?>"><?php echo ($vo["packageName"]); ?></option><?php endforeach; endif; ?>
+                                        <option value="1">成人类</option>
+                                        <option value="0">少儿</option>
+                                        <option value="2">雅思类</option>
                                     </select>
                                   </div>
                                 </div>
@@ -390,8 +391,17 @@
                                   <label class="col-sm-4 control-label">教师类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="teacherType">
-                                        <option value="1">普通</option>
-                                        <option value="2">名师</option>
+                                        <option value="0">普通</option>
+                                        <option value="1">名师</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">教师国籍</label>
+                                  <div class="col-sm-6">
+                                    <select  class="form-control" name="teacherNation">
+                                        <option value="0">中教</option>
+                                        <option value="1">外交</option>
                                     </select>
                                   </div>
                                 </div>
@@ -399,8 +409,8 @@
                                   <label class="col-sm-4 control-label">套餐类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="packageType">
-                                        <option value="1">课时套餐</option>
-                                        <option value="2">卡类套餐</option>
+                                        <option value="0">课时套餐</option>
+                                        <option value="1">卡类套餐</option>
                                     </select>
                                   </div>
                                 </div>
@@ -408,8 +418,8 @@
                                   <label class="col-sm-4 control-label">学生类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="studentType">
-                                        <option value="1">一对一课程</option>
-                                        <option value="2">小班课程</option>
+                                        <option value="0">一对一课程</option>
+                                        <option value="1">小班课程</option>
                                     </select>
                                   </div>
                                 </div>
@@ -429,6 +439,12 @@
                                   <label class="col-sm-4 control-label">生效天数</label>
                                   <div class="col-sm-6">
                                     <input type="number" name="dayNumber" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">套餐描述</label>
+                                  <div class="col-sm-6">
+                                    <textarea name='description' class="form-control"></textarea>
                                   </div>
                                 </div>
 
@@ -450,7 +466,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="javascript:return confirm('您确认要提交表单吗？');">
+                            <form class="form-horizontal" method="post" action="<?php echo U('Package/packageManage');?>/type/add" onsubmit="javascript:return confirm('您确认要提交表单吗？');">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -467,7 +483,9 @@
                                   <label  class="col-sm-4 control-label">课程类型</label>
                                   <div class="col-sm-6">
                                     <select class="form-control" name="classType">
-                                        <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value="<?php echo ($vo["packageconID"]); ?>"><?php echo ($vo["packageName"]); ?></option><?php endforeach; endif; ?>
+                                        <option value="1">成人类</option>
+                                        <option value="0">少儿</option>
+                                        <option value="2">雅思类</option>
                                     </select>
                                   </div>
                                 </div>
@@ -475,8 +493,17 @@
                                   <label class="col-sm-4 control-label">教师类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="teacherType">
-                                        <option value="1">普通</option>
-                                        <option value="2">名师</option>
+                                        <option value="0">普通</option>
+                                        <option value="1">名师</option>
+                                    </select>
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">教师国籍</label>
+                                  <div class="col-sm-6">
+                                    <select  class="form-control" name="teacherNation">
+                                        <option value="0">中教</option>
+                                        <option value="1">外交</option>
                                     </select>
                                   </div>
                                 </div>
@@ -484,8 +511,8 @@
                                   <label class="col-sm-4 control-label">套餐类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="packageType">
-                                        <option value="1">课时套餐</option>
-                                        <option value="2">卡类套餐</option>
+                                        <option value="0">课时套餐</option>
+                                        <option value="1">卡类套餐</option>
                                     </select>
                                   </div>
                                 </div>
@@ -493,8 +520,8 @@
                                   <label class="col-sm-4 control-label">学生类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="studentType">
-                                        <option value="1">一对一课程</option>
-                                        <option value="2">小班课程</option>
+                                        <option value="0">一对一课程</option>
+                                        <option value="1">小班课程</option>
                                     </select>
                                   </div>
                                 </div>
@@ -514,6 +541,12 @@
                                   <label class="col-sm-4 control-label">生效天数</label>
                                   <div class="col-sm-6">
                                     <input type="number" name="dayNumber" class="form-control">
+                                  </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">套餐描述</label>
+                                  <div class="col-sm-6">
+                                    <textarea name='description' class="form-control"></textarea>
                                   </div>
                                 </div>
                         </div>
@@ -566,23 +599,31 @@
             $('input[name=packagPrice]').eq(0).val($('.modifypackage').parents('tr').children().eq(2).html());
             $('select[name=classType]').eq(0).val($('.modifypackage').parents('tr').children().eq(3).attr('value'));
             $('select[name=teacherType]').eq(0).val($('.modifypackage').parents('tr').children().eq(4).attr('value'));
-            $('select[name=packageType]').eq(0).val($('.modifypackage').parents('tr').children().eq(5).attr('value'));
-            $('select[name=studentType]').eq(0).val($('.modifypackage').parents('tr').children().eq(6).attr('value'));
-            $('input[name=studentNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(7).html());
-            $('input[name=classNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(8).html());
-            $('input[name=dayNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(10).html());
+            $('select[name=teacherNation]').eq(0).val($('.modifypackage').parents('tr').children().eq(5).attr('value'));
 
-            changereadonly(0);
+
+            $('select[name=packageType]').eq(0).val($('.modifypackage').parents('tr').children().eq(6).attr('value'));
+            $('select[name=studentType]').eq(0).val($('.modifypackage').parents('tr').children().eq(7).attr('value'));
+            $('input[name=studentNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(8).html());
+            $('input[name=classNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(9).html());
+            $('input[name=dayNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(11).html());
+            $('textarea[name=description]').eq(0).html($('span[name=description]').html());
+
+            if($('select[name=studentType]').eq(0).val()==0){
+                $('input[name=studentNumber]').eq(0).attr('readonly','readonly');
+            }else{
+                $('input[name=studentNumber]').eq(0).removeAttr('readonly');
+            }
             changereadonly(1);
         }
 
         function changereadonly(number){
-            if($('select[name=studentType]').eq(number).val()==1){
+            if($('select[name=studentType]').eq(number).val()==0){
                 $('input[name=studentNumber]').eq(number).val('1');
                 $('input[name=studentNumber]').eq(number).attr('readonly','readonly');
             }else{
-               $('input[name=studentNumber]').eq(number).val(' ');
-            $('input[name=studentNumber]').eq(number).removeAttr('readonly');
+                $('input[name=studentNumber]').eq(number).val(' ');
+                $('input[name=studentNumber]').eq(number).removeAttr('readonly');
             }
         }
 

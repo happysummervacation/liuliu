@@ -1,5 +1,12 @@
 <?php
 	class LoginAction extends Action{
+		public function __construct(){
+            //获取系统设置
+            // import("Home.Action.System.SystemBasicOperate");
+			// $systemOp = new SystemBasicOperate();
+            // $result = $systemOp->getSystemSet();
+        }
+
 		public function _empty(){
         	echo "访问路径出错";
         }

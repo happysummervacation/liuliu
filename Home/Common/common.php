@@ -148,3 +148,137 @@
 				return;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*创建课程顾问动作日志记录
+		*/
+		function createActionLog($txt = "",$time = null){
+			//如果输入的时间为空就默认使用当前的日期
+	    	if(is_null($time)){
+	    		$time = getTime();
+	    	}
+	    	$year = date('Y',$time);
+	    	$month = date('m',$time);
+	    	$day = date('d',$time);
+
+	    	if(!file_exists("./Record/$year/$month/$day")){
+	    		if(!mkdir("./Record/$year/$month/$day",0777,true)){
+	    			echo "can not create /Record/$year/$month/$day";
+	    			return false;
+	    		}
+	    	}
+
+	        try{
+	            $filename = "./Record/$year/$month/$day/".date('Y-m-d',$time)."-".md5(date('Y-m-d',$time));
+	            if(!file_exists($filename)){
+	                if(!touch($filename)){
+	                	echo "创建错误日志记录文件失败";
+	                	return false;
+	                }
+	            }
+	            $txt = date('Y-m-d H:i:s',$time)."       ".$txt."\n";
+	            if(!file_put_contents($filename,$txt,FILE_APPEND | LOCK_EX)){
+	            	echo "敏感记录错误";
+	            	return false;
+	            }
+	        }catch(Exception $e){
+	            echo "敏感日志记录有问题";
+	            return false;
+	        }
+		}
+
+		/*
+		*俞鹏泽
+		*错误的日志记录
+		*/
+		function createErrorLog($txt = "",$time = null){
+			//如果输入的时间为空就默认使用当前的日期
+	    	if(is_null($time)){
+	    		$time = getTime();
+	    	}
+	    	$year = date('Y',$time);
+	    	$month = date('m',$time);
+	    	$day = date('d',$time);
+	    	//判断是否存在指定的文件夹
+	    	if(!file_exists("./ErrorLog")){
+	    		if(!mkdir("./ErrorLog",0777,true)){
+	    			echo "不能创建ErrorLog文件夹";
+	    			return false;
+	    		}
+	    	}
+	    	if(!file_exists("./ErrorLog/$year/$month/$day")){
+	    		if(!mkdir("./ErrorLog/$year/$month/$day",0777,true)){
+	    			echo "./ErrorLog/$year/$month/$day";
+	    			return false;
+	    		}
+	    	}
+
+	        try{
+	            $filename = "./ErrorLog/$year/$month/$day/".date('Y-m-d',$time)."-".md5(date('Y-m-d',$time));
+	            if(!file_exists($filename)){
+	                if(!touch($filename)){
+	                	echo "创建错误日志记录文件失败";
+	                	return false;
+	                }
+	            }
+	            $txt = date('Y-m-d H:i:s',$time)."       ".$txt."\n";
+	            if(!file_put_contents($filename,$txt,FILE_APPEND | LOCK_EX)){
+	            	echo "日志记录错误";
+	            	return false;
+	            }
+	        }catch(Exception $e){
+	            echo "错误日志记录有问题";
+	            return false;
+	        }
+		}
+
+		/*
+		*俞鹏泽
+		*支付宝的日志记录
+		*/
+		/*
+		*俞鹏泽
+		*用来记录用户的支付记录
+		*/
+		function AlipayLog($txt = "",$time = null){
+			//如果输入的时间为空就默认使用当前的日期
+	    	if(is_null($time)){
+	    		$time = getTime();
+	    	}
+	    	$year = date('Y',$time);
+	    	$month = date('m',$time);
+	    	$day = date('d',$time);
+	    	//判断是否存在指定的文件夹
+	    	if(!file_exists("./AlipayRecord")){
+	    		if(!mkdir("./AlipayRecord",0777,true)){
+	    			echo "不能创建AlipayRecord文件夹";
+	    			return false;
+	    		}
+	    	}
+
+	    	if(!file_exists("./AlipayRecord/$year/$month/$day")){
+	    		if(!mkdir("./AlipayRecord/$year/$month/$day",0777,true)){
+	    			echo "./AlipayRecord/$year/$month/$day";
+	    			return false;
+	    		}
+	    	}
+
+	        try{
+	            $filename = "./AlipayRecord/$year/$month/$day/".date('Y-m-d',$time)."-".md5(date('Y-m-d',$time));
+	            if(!file_exists($filename)){
+	                if(!touch($filename)){
+	                	echo "创建用户支付日志记录文件失败";
+	                	return false;
+	                }
+	            }
+	            $txt = date('Y-m-d H:i:s',$time)."       ".$txt."\n";
+	            if(!file_put_contents($filename,$txt,FILE_APPEND | LOCK_EX)){
+	            	echo "用户支付日志记录错误";
+	            	return false;
+	            }
+	        }catch(Exception $e){
+	            echo "用户支付日志记录有问题";
+	            return false;
+	        }
+		}

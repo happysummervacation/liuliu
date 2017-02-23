@@ -45,17 +45,34 @@
 
 		public function packageManage(){
 			$this->CheckSession();
+			import("Home.Action.Package.PackageBasicService");
+			$packageOp = new PackageBasicService();
 
 			$type = $_GET['type'];
 
 			$identity = $_SESSION['identity'];
 			if($identity == 4 || $identity == "4"){
 				if($type == "add" || $type == "0"){
-
-				}elseif($type == "delete" || $type == "1"){
-
-				}elseif($type == "update" || $type == "2"){
-
+					$result = $packageOp->addPackageInfo($_POST);
+					if($result['status']){
+						$this->success("添加成功");
+					}else{
+						$this->error("添加失败");
+					}
+				}elseif($type == "update" || $type == "1"){
+					$result = $packageOp->updatePackageInfo(null,$_POST);
+					if($result['status']){
+						$this->success("修改成功");
+					}else{
+						$this->error("修改失败");
+					}
+				}elseif($type == "delete" || $type == "2"){
+					$result = $packageOp->deletePackageInfo(null);
+					if($result['status']){
+						$this->success("删除成功");
+					}else{
+						$this->error("删除失败");
+					}
 				}else{
 					$this->error("没有对应的操作");
 					return;
