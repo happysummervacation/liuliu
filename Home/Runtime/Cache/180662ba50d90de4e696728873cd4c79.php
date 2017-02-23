@@ -242,7 +242,7 @@
                             <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/TimeSet');?>"> 参数设置</a>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
                                 </li>
                                 <li>
                                      <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
@@ -337,7 +337,7 @@
                                             <td>30</td>
                                             <td>
                                                 <button class="btn btn-default modifypackage" data-toggle="modal" data-target="#packagemodify">修改</button>
-                                                <button class="btn btn-danger">删除</button>
+                                                <button class="btn btn-danger" onclick="deletePackage()">删除</button>
                                             </td>
                                             <span style="display: none" name='description'>这里是套餐描述</span>
                                             <!-- 示例 -->
@@ -348,7 +348,7 @@
                         </div>
                         <div class="panel-footer" style="overflow: auto;">
                             <div class="pull-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#packageopen">开放套餐</button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#packagemodify2">开放套餐</button>
                             </div>
                         </div>
                     </div>
@@ -364,7 +364,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" method="post" action="<?php echo U('Package/packageManage');?>/type/update" onsubmit="javascript:return confirm('您确认要提交表单吗？');">
+                            <form class="form-horizontal" onsubmit="changsubmit()">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -447,7 +447,12 @@
                                     <textarea name='description' class="form-control"></textarea>
                                   </div>
                                 </div>
-
+                                <div class="form-group" style="display: none;">
+                                  <label  class="col-sm-4 control-label">套餐编号</label>
+                                  <div class="col-sm-6">
+                                    <input type="text" name="packageId" class="form-control">
+                                  </div>
+                                </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -459,14 +464,14 @@
             </div>
             <!-- 模态框 -->
             <!-- 模态框,套餐开放 -->
-            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="packageopen">
+           <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="packagemodify2">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" method="post" action="<?php echo U('Package/packageManage');?>/type/add" onsubmit="javascript:return confirm('您确认要提交表单吗？');">
+                            <form class="form-horizontal" onsubmit="changsubmit()">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -525,7 +530,7 @@
                                     </select>
                                   </div>
                                 </div>
-                                <div class="form-group studentNumberlist">
+                                <div class="form-group">
                                   <label class="col-sm-4 control-label">学生人数</label>
                                   <div class="col-sm-6">
                                     <input type="number" name="studentNumber" class="form-control">
@@ -549,6 +554,12 @@
                                     <textarea name='description' class="form-control"></textarea>
                                   </div>
                                 </div>
+                                <div class="form-group" style="display: none;">
+                                <label  class="col-sm-4 control-label">套餐编号</label>
+                                <div class="col-sm-6">
+                                  <input type="text" name="packageId" class="form-control">
+                                </div>
+
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -595,13 +606,12 @@
         });
         // alert($('.modifypackage').parents('tr').children().eq(3).attr('value'));
         function fillform(){
+            $('input[name=packageId]').eq(0).val($('.modifypackage').parents('tr').children().eq(0).html());
             $('input[name=packageName]').eq(0).val($('.modifypackage').parents('tr').children().eq(1).html());
             $('input[name=packagPrice]').eq(0).val($('.modifypackage').parents('tr').children().eq(2).html());
             $('select[name=classType]').eq(0).val($('.modifypackage').parents('tr').children().eq(3).attr('value'));
             $('select[name=teacherType]').eq(0).val($('.modifypackage').parents('tr').children().eq(4).attr('value'));
             $('select[name=teacherNation]').eq(0).val($('.modifypackage').parents('tr').children().eq(5).attr('value'));
-
-
             $('select[name=packageType]').eq(0).val($('.modifypackage').parents('tr').children().eq(6).attr('value'));
             $('select[name=studentType]').eq(0).val($('.modifypackage').parents('tr').children().eq(7).attr('value'));
             $('input[name=studentNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(8).html());
@@ -609,10 +619,13 @@
             $('input[name=dayNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(11).html());
             $('textarea[name=description]').eq(0).html($('span[name=description]').html());
 
+
             if($('select[name=studentType]').eq(0).val()==0){
                 $('input[name=studentNumber]').eq(0).attr('readonly','readonly');
+                $('select[name=packageType]').eq(0).attr('disabled','diabled');
             }else{
                 $('input[name=studentNumber]').eq(0).removeAttr('readonly');
+                $('select[name=packageType]').eq(0).removeAttr('disabled');
             }
             changereadonly(1);
         }
@@ -620,10 +633,29 @@
         function changereadonly(number){
             if($('select[name=studentType]').eq(number).val()==0){
                 $('input[name=studentNumber]').eq(number).val('1');
+                $('select[name=packageType]').eq(number).val('0');
                 $('input[name=studentNumber]').eq(number).attr('readonly','readonly');
+                $('select[name=packageType]').eq(number).attr('disabled','diabled');
             }else{
-                $('input[name=studentNumber]').eq(number).val(' ');
+                $('input[name=studentNumber]').eq(number).val('');
                 $('input[name=studentNumber]').eq(number).removeAttr('readonly');
+                $('select[name=packageType]').eq(number).removeAttr('disabled');
+            }
+        }
+
+        function deletePackage(){
+            var packageId=$('.modifypackage').parents('tr').children().eq(0).html();
+            if(confirm('确认删除套餐?')){
+                window.location.href='https://www.baidu.com/packageId/'+packageId;
+            }
+        }
+
+        function changsubmit(){
+            if(confirm('确认提交?')){
+                $('select[name=packageType]').removeAttr('disabled');
+                return true;
+            }else{
+                return false;
             }
         }
 

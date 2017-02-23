@@ -6,6 +6,10 @@
 			return $result[0];
 		}
 
+		/*
+		*俞鹏泽
+		*更新系统的参数
+		*/
 		public function updateSystemSet($Data = null){
 			$message = array();
 			if(is_null($Data)){
@@ -15,8 +19,9 @@
 			}
 
 			$inquiry = new Model("systemset");
-			$result = $inquiry->where("systemID")->save($Data);
-			if($result || $result == 0){
+			$result = $inquiry->where("systemID=1")->save($Data);
+
+			if($result || $result == 0 || $result != false){
 				$message['status'] = true;
 				$message['message'] = "更新系统参数成功";
 				return $message;

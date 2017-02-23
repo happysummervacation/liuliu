@@ -248,7 +248,7 @@
                             <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/TimeSet');?>"> 参数设置</a>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
                                 </li>
                                 <li>
                                      <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>

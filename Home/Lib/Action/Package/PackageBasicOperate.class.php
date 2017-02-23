@@ -37,18 +37,22 @@
 			$inquiry = new Model("package");
 			if(is_null($condition)){
 				if(is_null($fieldString)){
-					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID")
+					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID
+					 and isdelete=0")
 					->select();
 				}else{
-					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID")
+					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID
+					 and isdelete=0")
 					->field($fieldString)->select();
 				}
 			}else{
 				if(is_null($fieldString)){
-					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID")
+					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID
+					 and isdelete=0")
 					->where($condition)->select();
 				}else{
-					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID")
+					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID
+					 and isdelete=0")
 					->where($condition)->select();
 				}
 			}

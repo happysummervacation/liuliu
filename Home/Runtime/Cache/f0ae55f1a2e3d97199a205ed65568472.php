@@ -23,8 +23,6 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <!-- 表单验证 -->
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/yanzheng/tip-yellowsimple/tip-yellowsimple.css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -239,7 +237,7 @@
                             <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/TimeSet');?>"> 参数设置</a>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
                                 </li>
                                 <li>
                                      <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
@@ -287,98 +285,169 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">创建教师</h1>
+                        <h1 class="page-header">系统设置</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.row -->
+                <!-- 取消课程比率设置 -->
                 <div class="row">
-                    <div class="col-md-8 col-md-offset-2">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">教师创建</div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" action="<?php echo U('Root/CreateTeacherAccoutWithInfo');?>" method="post">
-                                  <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">教师昵称：</label>
-                                    <div class="col-sm-8">
-                                      <input name="register_id" type="text" class="form-control" id="inputEmail3" placeholder="用户名" valType="required" msg="<font color=red>*</font>用户名不能为空">
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">联系方式：</label>
-                                    <div class="col-sm-8">
-                                      <input name="phone" type="text" class="form-control" id="inputEmail3" placeholder="手机号">
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="inputEmail3" class="col-sm-4 control-label">邮箱：</label>
-                                    <div class="col-sm-8">
-                                      <input name="email" type="text" class="form-control" id="inputEmail3" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确">
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">国家:</label>
-                                    <div class="col-sm-8">
-                                      <input name="country" type="text" class="form-control" id="inputPassword3" placeholder="国家"  valType="required" msg="<font color=red>*</font>国家不能为空">
-                                    </div>
-                                  </div>
-                                   <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">教师类别:</label>
-                                    <div class="col-sm-8">
-                                      <select name="teacher_type" class="form-control">
-                                          <option value ="1">外教</option>
-                                          <option value ="0">中教</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">教师级别:</label>
-                                    <label for="inputPassword3" class="col-sm-2 control-label">少儿类:</label>
-                                    <div class="col-sm-6">
-                                      <select name="teacher_level_1" class="form-control">
-                                          <option value ="1">名师</option>
-                                          <option value ="0">普通</option>
-                                          <option value = "-1">不任教</option>
-                                      </select>
-                                    </div>
-                                    <label for="inputPassword3" class="col-sm-2 col-sm-offset-4 control-label"  style="margin-top: 10px;">成人类:</label>
-                                    <div class="col-sm-6"  style="margin-top: 10px;">
-                                      <select name="teacher_level_2" class="form-control">
-                                          <option value ="1">名师</option>
-                                          <option value ="0">普通</option>
-                                          <option value = "-1">不任教</option>
-                                      </select>
-                                    </div>
-                                    <label for="inputPassword3" class="col-sm-2 col-sm-offset-4 control-label"  style="margin-top: 10px;">雅思类:</label>
-                                    <div class="col-sm-6"  style="margin-top: 10px;">
-                                      <select name="teacher_level_3" class="form-control">
-                                          <option value ="1">名师</option>
-                                          <option value ="0">普通</option>
-                                          <option value = "-1">不任教</option>
-                                      </select>
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">密码:</label>
-                                    <div class="col-sm-8">
-                                      <input name="password" type="password" class="form-control" id="inputPassword3" placeholder="密码"  valType="required" msg="<font color=red>*</font>密码不能为空">
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <label for="inputPassword3" class="col-sm-4 control-label">确认密码:</label>
-                                    <div class="col-sm-8">
-                                      <input name="check_password" type="password" class="form-control" id="inputPassword3" placeholder="验证密码"  valType="required" msg="<font color=red>*</font>确认不能为空">
-                                    </div>
-                                  </div>
-                                  <div class="form-group">
-                                    <div class="col-sm-offset-4 col-sm-4">
-                                      <button type="submit" class="btn btn-primary" style="width: 100%;">创建</button>
-                                    </div>
-                                  </div>
-                                </form>
+                    <div class="col-lg-4">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">课程开始前订课截止时间(小时)</div>
+                        <div class="panel-body">
+                          <form action="<?php echo U('System/updateSystemSet');?>/typeName/appointCourseDeadline" method="post" onsubmit="javascript:return confirm('确认操作!')">
+                            <div class="col-xs-8">
+                              <input type="number" name="appointCourseDeadline" class="form-control" value="<?php echo ($systemSet['appointCourseDeadline']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
                             </div>
                         </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">学生课前上课邮件提醒时间(小时)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="classRemindTime" class="form-control" value="<?php echo ($systemSet['classRemindTime']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">课前可退课时间(小时)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="cancelCourseDeadline" class="form-control" value="<?php echo ($systemSet['cancelCourseDeadline']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-6">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">课前学生退课邮件提醒时间(小时)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-4">
+                              <input type="number" name="remindEndTime" class="form-control" value="<?php echo ($systemSet['remindEndTime']/3600); ?>">
+                            </div>
+                            <label class="col-xs-1 control-label" style="height:30px;line-height:30px;">到</label>
+                             <div class="col-xs-4">
+                              <input type="number" name="remindStartTime" class="form-control" value="<?php echo ($systemSet['remindStartTime']/3600); ?>">
+                            </div>
+                            <div class="col-xs-3">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
 
+                    <div class="col-lg-3">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">开课按钮提前生效(分钟)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="buttonEffectTime" class="form-control" value="<?php echo ($systemSet['buttonEffectTime']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">课后按钮延迟失效(分钟)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="buttonLostTime" class="form-control" value="<?php echo ($systemSet['buttonLostTime']/60); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-4">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">月评截止时间(小时)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="monthDeadline" class="form-control" value="<?php echo ($systemSet['monthDeadline']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">周评截止时间(小时)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="weekDeadline" class="form-control" value="<?php echo ($systemSet['weekDeadline']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                      <div class="panel panel-default">
+                        <div class="panel-heading">一对一课程评价截止时间(小时)</div>
+                        <div class="panel-body">
+                            <div class="col-xs-8">
+                              <input type="number" name="dayDeadline" class="form-control" value="<?php echo ($systemSet['dayDeadline']/3600); ?>">
+                            </div>
+                            <div class="col-xs-4">
+                              <button class="btn btn-primary">确认</button>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">小班课评价截止时间(小时)</div>
+                            <div class="panel-body">
+                                <div class="col-xs-8">
+                                  <input type="number" name="groupDeadline" class="form-control" value="<?php echo ($systemSet['groupDeadline']/3600); ?>">
+                                </div>
+                                <div class="col-xs-4">
+                                  <button class="btn btn-primary">确认</button>
+                                </div>
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-lg-4">
+                          <div class="panel panel-default">
+                            <div class="panel-heading">学生购买套餐取消的课程次数比率(课/次)</div>
+                            <div class="panel-body">
+                                <div class="col-xs-8">
+                                  <input type="number" name="cancelClassRate" class="form-control" value="<?php echo ($systemSet['cancelClassRate']); ?>">
+                                </div>
+                                <div class="col-xs-4">
+                                  <button class="btn btn-primary">确认</button>
+                                </div>
+                            </div>
+                          </div>
+                      </form>
                     </div>
                 </div>
             </div>
@@ -392,7 +461,6 @@
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 
-    <script src="__PUBLIC__/js/jquery/jquery-migrate-1.1.1.js"></script>
     <!-- Bootstrap Core JavaScript -->
     <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
@@ -404,15 +472,9 @@
 
     <script src="__PUBLIC__/js/time.js"></script>
 
-    <!-- 表单验证 -->
-    <script type="text/javascript" src="__PUBLIC__/js/yanzheng/jquery.poshytip.js"></script>
-    <script type='text/javascript' src='__PUBLIC__/js/yanzheng/jq.validate.js'></script>
     <script type="text/javascript">
-        $(function(e) {
-            var vali=new Validators();
-            $("#btn").bind("click", vali.subByJs);
-        });
         upDateTime();
+        // $('.stoptime').val('<{default}>');
     </script>
 
 </body>

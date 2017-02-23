@@ -65,7 +65,7 @@ exit;
 
 			import("Home.Action.Package.PackageBasicOperate");
 			$packageOp = new PackageBasicOperate();
-			$result = $packageOp->addPackage($data);
+			// $result = $packageOp->updatePackageInfo($data);
 			if($result){
 				$message['status'] = true;
 				$message['message'] = "套餐数据创建成功";
@@ -73,6 +73,33 @@ exit;
 			}else{
 				$message['status'] = false;
 				$message['message'] = "套餐数据创建失败";
+				return $message;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*套餐信息删除
+		*/
+		public function deletePackageInfo($packageID = null){
+			$message = array();
+			if(is_null($packageID)){
+				$message['status'] = false;
+				$message['message'] = "没有要删除的套餐";
+				return $message;
+			}
+
+			import("Home.Action.Package.PackageBasicOperate");
+			$packageOp = new PackageBasicOperate();
+			$data['isdelete'] = 1;
+			// $result = $packageOp->updatePackageInfo($data);
+			if($result){
+				$message['status'] = true;
+				$message['message'] = "套餐数据删除成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "套餐数据删除失败";
 				return $message;
 			}
 		}

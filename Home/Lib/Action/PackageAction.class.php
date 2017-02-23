@@ -27,16 +27,24 @@
 		public function packageShow(){
 			$this->CheckSession();
 			import("Home.Action.Package.PackageConfigBasicOperate");
+			import("Home.Action.Package.PackageBasicOperate");
 			$configOp = new PackageConfigBasicOperate();
+			$packageOp = new PackageBasicOperate();
 
 			$identity = $_SESSION['identity'];
 			if($identity == 4 || $identity == "4"){
 				$result = $configOp->getPackageConfigInfo();
+				$packageResult = $packageOp->getPackageInfo();
+
+				$this->assign("packageList",$packageResult);
 				$this->assign('packageConfig',$result);
 				$this->display("Root:PackageManage");
 				return;
 			}elseif($identity == 0 || $identity = "0"){
-
+				$packageResult = $packageOp->getPackageInfo();
+				$this->assign('packageList',$packageResult);
+				$this->display("Student:NewPackage");
+				return;
 			}else{
 				$this->error("你没有权限查看该页面内容");
 				return;
