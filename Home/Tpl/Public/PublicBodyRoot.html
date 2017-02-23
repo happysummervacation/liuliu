@@ -1,0 +1,247 @@
+<div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+           <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <php> echo count($unreadmessage)</php>
+                      <i class="fa fa-envelope fa-fw"></i>
+                      <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <foreach name="unreadmessage" item="value">
+                            <eq name="value['isdelete']" value="0">
+                            <li>
+                                <a href="<{:U('Root/InformationCenter')}>">
+                                <div>
+                                    <strong><{$value['account']}></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><{$value['create_time']|date="Y-m-d H:i:s",###}></em>
+                                    </span>
+                                </div>
+                                <div><{$value['content']}></div>
+                                </a>
+                            </li>
+                            </eq>
+                        </foreach>
+                        <li>
+                        <!-- 9.06修改01 -->
+                            <a class="text-center" href="<{:U('Root/InformationCenter')}>">
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <!-- //9.06修改01 -->
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- 中英文切换 -->
+                <!-- <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
+                        </li>
+                    </ul>
+                </li> -->
+                <!-- 用户 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<{:U('Login/doLogout')}>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <!-- <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="<{:U('UserCenter/index')}>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Root/SearchTeacher')}>">搜索教师</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/CheckTeacher')}>">查看教师</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/CreateTeacher')}>">创建教师</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<{:U('Root/SearchTeacher')}>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Info/showCreateUser')}>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Info/showCreateUser')}>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Root/SearchStudent')}>">搜索学生</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/CheckStudent')}>">查看学生</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<{:U('Root/SearchStudent')}>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Root/CheckStudent')}>"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Root/SearchAdmin')}>">搜索顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/CheckAdmin')}>">查看顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/CreateAdmin')}>">创建顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/DownloadLogfile')}>">
+                                    操作历史
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<{:U('Root/SearchAdmin')}>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Root/CheckAdmin')}>"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Info/showCreateUser')}>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Root/DownloadLogfile')}>"> <i class="fa fa-umbrella fa-fw"></i>
+                            操作历史
+                            </a>
+                        </li>
+
+                        <!-- <li>
+                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                              <li>
+                                  <a href="<{:U('Root/Information')}>">查看管理员</a>
+                              </li>
+                              <li>
+                                  <a href="<{:U('Root/CreateRoot')}>">创建管理员</a>
+                              </li>
+                          </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<{:U('Info/Information')}>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Info/showCreateUser')}>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Root/TimeSet')}>"> 参数设置</a>
+                                </li>
+                                <li>
+                                     <a href="<{:U('Package/packageShow')}>"> 套餐管理</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/salaryMgr')}>">
+                                        工资管理
+                                    </a>
+                                    <!-- <a href="">
+                                        工资管理
+                                    </a> -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Root/MaterialManage')}>"> 教材管理</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Root/OtherMaterial')}>"> 其他教材管理</a>
+                                </li>
+                                 <li>
+                                     <a href="<{:U('Root/VideoManage')}>"> 视频管理</a>
+                                </li>
+                            </ul>
+                                    <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                             <a href="<{:U('Root/Message')}>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>

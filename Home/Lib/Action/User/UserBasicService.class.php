@@ -1,0 +1,241 @@
+<?php
+	class UserBasicService extends Action{
+		private $imageType = array('jpg', 'gif', 'png', 'jpeg');
+
+		/*
+		*俞鹏泽
+		*学生的信息的更新
+		*/
+		public function updateStudentInfo($StudentID = null,$StudentAccount = null,$postData = null,$fileData = null){
+			$message = array();
+			if(is_null($StudentID) && is_null($StudentAccount)){
+				$message['status'] = false;
+				$message['message'] = "用户的ID与账号都是空的,更新失败";
+				return $message;
+			}
+			if(is_null($postData) && is_null($fileData)){
+				$message['status'] = false;
+				$message['message'] = "用户要更新的数据没有,更新失败";
+				return $message;
+			}
+
+			$filePath = null;
+			if(!is_null($fileData)){
+				$filePath = UploadOneFile("./UserImage/",5242880,$this->imageType);
+			}
+
+			$data = array();
+			$data['chinesename'] = $postData['chinesename'];
+			$data['englishname'] = $postData['englishname'];
+			$data['age'] = $postData['age'];
+			$data['sex'] = $postData['sex'];
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phonenumber'];
+			$data['QQ'] = $postData['qq'];
+			$data['weixin'] = $postData['weixin'];
+			$data['skype'] = $postData['skype'];
+			$data['country'] = $postData['country'];
+
+			if(!is_null($filePath)){
+				$data['image_path'] = '/liuliu'.explode(".",$filePath[0]['savepath'])[1].$filePath[0]['savename'];
+			}
+
+			import("Home.Action.User.UserBasicOperate");
+			$UserOp = new UserBasicOperate();
+
+			$result = $UserOp->updateUserInfo($StudentID,$StudentAccount,$data);
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*学生的信息的更新
+		*/
+		public function updateTeacherInfo($TeacherID = null,$TeacherAccount = null,$postData = null,$fileData = null){
+			$message = array();
+			if(is_null($TeacherID) && is_null($TeacherAccount)){
+				$message['status'] = false;
+				$message['message'] = "用户的ID与账号都是空的,更新失败";
+				return $message;
+			}
+			if(is_null($postData) && is_null($fileData)){
+				$message['status'] = false;
+				$message['message'] = "用户要更新的数据没有,更新失败";
+				return $message;
+			}
+
+			$filePath = null;
+			if(!is_null($fileData)){
+				$filePath = UploadOneFile("./UserImage/",5242880,$this->imageType);
+			}
+
+			$data = array();
+			$data['chinesename'] = $postData['chinesename'];
+			$data['englishname'] = $postData['englishname'];
+			$data['age'] = $postData['age'];
+			$data['sex'] = $postData['sex'];
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phonenumber'];
+			$data['QQ'] = $postData['qq'];
+			$data['weixin'] = $postData['weixin'];
+			$data['skype'] = $postData['skype'];
+			$data['country'] = $postData['country'];
+
+			if(!is_null($filePath)){
+				$data['image_path'] = '/liuliu'.explode(".",$filePath[0]['savepath'])[1].$filePath[0]['savename'];
+			}
+
+			import("Home.Action.User.UserBasicOperate");
+			$UserOp = new UserBasicOperate();
+
+			$result = $UserOp->updateUserInfo($TeacherID,$TeacherAccount,$data);
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*root的信息的更新
+		*/
+		public function updateRootInfo($RootID = null,$RootAccount = null,$postData = null,$fileData = null){
+			$message = array();
+			if(is_null($RootID) && is_null($RootAccount)){
+				$message['status'] = false;
+				$message['message'] = "用户的ID与账号都是空的,更新失败";
+				return $message;
+			}
+			if(is_null($postData) && is_null($fileData)){
+				$message['status'] = false;
+				$message['message'] = "用户要更新的数据没有,更新失败";
+				return $message;
+			}
+
+			// $filePath = null;
+			// if(!is_null($fileData)){
+			// 	$filePath = UploadOneFile("./UserImage/",5242880,$this->imageType);
+			// }
+
+			$data = array();
+			$data['chinesename'] = $postData['chinesename'];
+			$data['englishname'] = $postData['englishname'];
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phone'];
+
+			if(!is_null($filePath)){
+				$data['image_path'] = '/liuliu'.explode(".",$filePath[0]['savepath'])[1].$filePath[0]['savename'];
+			}
+
+			import("Home.Action.User.UserBasicOperate");
+			$UserOp = new UserBasicOperate();
+
+			$result = $UserOp->updateUserInfo($RootID,$RootAccount,$data);
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*增加root的操作
+		*/
+		public function addRootInfo($postData = null){
+			$message = array();
+			//先做密码相同的判断
+			if($postData['password'] != $postData['check_password']){
+				$message['status'] = false;
+				$message['message'] = "密码与确认密码不相同";
+				return $message;
+			}
+			//先做手机,email,账号相同的判断
+			import("Home.Action.User.UserBasicOperate");
+			$userOp = new UserBasicOperate();
+
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phone'];
+			$data['account'] = $postData['account'];
+			$result = $userOp->CountUserFieldData($data);
+			if((int)$result[0]['email'] > 0){
+				$message['status'] = false;
+				$message['message'] = "邮箱重复";
+				return $message;
+			}elseif((int)$result[0]['phone'] > 0){
+				$message['status'] = false;
+				$message['message'] = "手机号重复";
+				return $message;
+			}elseif((int)$result[0]['phone'] > 0){
+				$message['status'] = false;
+				$message['message'] = "手机号重复";
+				return $message;
+			}else{
+				$data['QQ'] = $postData['qq'];
+				$data['chinesename'] = $postData['name'];
+				$data['sex'] = $postData['sex'];
+				$data['password'] = md5($postData['password']);
+				$data['status'] = 1;
+				$data['identity'] = 4;
+				$result = $userOp->addUser($data);
+				if($result){
+					$message['status'] = true;
+					$message['message'] = "用户创建成功";
+					return $message;
+				}else{
+					$message['status'] = false;
+					$message['message'] = "用户创建失败";
+					return $message;
+				}
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*增加root的操作
+		*/
+		public function addAdminInfo($postData = null){
+			$message = array();
+			//先做密码相同的判断
+			if($postData['password'] != $postData['check_password']){
+				$message['status'] = false;
+				$message['message'] = "密码与确认密码不相同";
+				return $message;
+			}
+			//先做手机,email,账号相同的判断
+			import("Home.Action.User.UserBasicOperate");
+			$userOp = new UserBasicOperate();
+
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phone'];
+			$data['account'] = $postData['account'];
+			$result = $userOp->CountUserFieldData($data);
+			if((int)$result[0]['email'] > 0){
+				$message['status'] = false;
+				$message['message'] = "邮箱重复";
+				return $message;
+			}elseif((int)$result[0]['phone'] > 0){
+				$message['status'] = false;
+				$message['message'] = "手机号重复";
+				return $message;
+			}elseif((int)$result[0]['phone'] > 0){
+				$message['status'] = false;
+				$message['message'] = "手机号重复";
+				return $message;
+			}else{
+				$data['QQ'] = $postData['qq'];
+				$data['chinesename'] = $postData['name'];
+				$data['sex'] = $postData['sex'];
+				$data['password'] = md5($postData['password']);
+				$data['status'] = 1;
+				$data['identity'] = 2;
+				$result = $userOp->addUser($data);
+				if($result){
+					$message['status'] = true;
+					$message['message'] = "用户创建成功";
+					return $message;
+				}else{
+					$message['status'] = false;
+					$message['message'] = "用户创建失败";
+					return $message;
+				}
+			}
+		}
+	}
+ ?>

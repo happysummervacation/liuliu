@@ -93,7 +93,6 @@
                     $result = $inquiry->select();
                 }
             }
-            
             return $result;
         }
 
@@ -112,7 +111,11 @@
 
             $inquiry = new Model('register');
 
-            $result = $inquiry->where("ID={$userID} or account={$Account}")->save($Data);
+            if(!is_null($userID)){
+                $result = $inquiry->where("ID={$userID}")->save($Data);
+            }else{
+                $result = $inquiry->where("account={$Account}")->save($Data);
+            }
 
             if($result || $result == 0){
                 $message['status'] = true;
@@ -189,14 +192,6 @@
                 $message['message'] = "要统计的用户的字段为空";
                 return $message;
             }
-
-            // for ($i = 0; $i < count($Field); $i++) {
-            //     if($i == count($Field)-1){
-            //         $sql = $sql."count({$Field[$i]} or null) as '{$Field[$i]}' ";
-            //     }else{
-            //         $sql = $sql."count({$Field[$i]} or null) as '{$Field[$i]}',";
-            //     }
-            // }
             foreach ($Field as $key => $value) {
                 $sql = $sql."count($key='$value' or null) as $key,";
             }

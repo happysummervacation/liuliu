@@ -9,6 +9,16 @@
         	$this->redirect('Login/Login');
         }
 
+		//不仅要查看登录的用户名，还要查看登录者的身份
+	    public function CheckSession(){
+			if(isset($_SESSION['account']) && $_SESSION['account']!='' && !is_null($_SESSION['identity'])){
+				;
+			}else{
+				$this->error('请先登录',U('Login/Login'));
+				return;
+			}
+		}
+
 		/*
 		*俞鹏泽
 		*显示登录页面
@@ -35,6 +45,8 @@
 			$checkPassword = md5($this->_post("checkPassword","trim"));
 			$data['phone'] = $this->_post("phoneNumber","trim");
 			$data['email'] = $this->_post("email","trim");
+			$data['identity'] = 0;
+			$data['status'] = 1;
 
 			if($checkPassword != $data['password']){
 				$this->error("密码与确认密码不相同");
@@ -93,7 +105,7 @@
 				$_SESSION['account'] = $result[0]['account'];
 				$_SESSION['email'] = $result[0]['email'];
 				$_SESSION['phone'] = $result[0]['phone'];
-				$_SESSION['idetity'] = $result[0]['identity'];
+				$_SESSION['identity'] = $result[0]['identity'];
 
 				/*进行页面的跳转*/
 				if($result[0]['identity'] == "0" || $result[0]['identity'] == 0){
@@ -111,6 +123,23 @@
 					return;
 				}
 			}
+		}
+
+		/*
+		*俞鹏泽
+		*用户的登出操作
+		*/
+		public function doLogout(){
+			$this->CheckSession();
+			//清空session中的值
+			unset($_SESSION['ID']);
+			unset($_SESSION['account']);
+			unset($_SESSION['email']);
+			unset($_SESSION['phone']);
+			unset($_SESSION['identity']);
+			//销毁session值
+			session('[destroy]');
+			$this->redirect('Login/Login');
 		}
 	}
  ?>

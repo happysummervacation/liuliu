@@ -1,0 +1,396 @@
+<!-- 登录时的首页面,学生个人主页 -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>学员中心</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Timeline CSS -->
+    <link href="__PUBLIC__/dist/css/timeline.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+    <include file="Public:PublicBody" />
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">学员中心</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <!-- <i class="fa fa-user fa-5x"></i> -->
+                                        <img src="<{$studentinfo[0]['image_path']}>" height="76" width="57"/>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge simpleline">
+                                        <php>
+                                        if($studentinfo['0']['chinesename']==null){
+                                            echo $studentinfo['0']['account'];
+                                        }else{
+                                            echo $studentinfo['0']['chinesename'];
+                                        }
+                                        </php>
+                                        </div>
+                                        <div>STUDENT</div>
+                                    </div>
+                                </div>
+                            </div>
+                           <!--  <a href="Information.html"> -->
+                            <a href="<{:U('Student/Information')}>">
+                                <div class="panel-footer">
+                                    <span class="pull-left">个人信息</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-green">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-money fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge  simpleline"><!-- <{$studentinfo['0']['student_sum_money']}>元 -->
+                                        <{$classnumber['o_f_h_ClassNumber']}>|<{$classnumber['o_f_a_ClassNumber']}>
+                                        </div>
+                                        <div>外教课:已上|预订总数</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <a href="MyPackage.html"> -->
+                            <a href="<{:U('Student/BookingCourse')}>">
+                                <div class="panel-footer">
+                                    <span class="pull-left">预约课程</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-yellow">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-calendar fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge  simpleline">
+                                         <!-- <{$classnumber}>
+                                        课时 -->
+                                        <{$classnumber['o_c_h_ClassNumber']}>|<{$classnumber['o_c_a_ClassNumber']}>    
+                                        </div>
+                                        <div>中教课:已上|预订总数</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <a href="MySchedule.html"> -->
+                            <a href="<{:U('Student/BookingCourse')}>">
+                                <div class="panel-footer">
+                                    <span class="pull-left">预约课程</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-xs-3">
+                                        <i class="fa fa-exclamation-circle fa-5x"></i>
+                                    </div>
+                                    <div class="col-xs-9 text-right">
+                                        <div class="huge  simpleline"><!-- <{$otopackage}>|<{$otmpackage}> -->
+                                        <{$classnumber['g_h_ClassNumber']}>|<{$classnumber['g_a_ClassNumber']}>
+                                        </div>
+                                        <div>小班课:已上|预订总数</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <a href="NewPackage.html"> -->
+                            <a href="<{:U('Student/BookingCourse')}>">
+                                <div class="panel-footer">
+                                    <span class="pull-left">预约课程</span>
+                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">
+                                课程进度
+                            </div>
+                            <div class="panel-body">
+                                <div class="" style="overflow: auto">
+                                    <div class="col-lg-4">
+                                        <h4>已上教材进度:&nbsp;<{$studentinfo['0']['book_progress']}>&nbsp;|教材总进度:&nbsp;<{$studentinfo['0']['book_full_progress']}>&nbsp;</h4>
+                                    </div>
+                                    <div class="col-lg-8">
+                                        <div class="progress" style="margin-top: 10px;">
+                                            <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: <{$jindu}>%">
+                                                <span class="sr-only"><{$jindu}> Complete (success)</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    评论给信息
+                                </div>
+                                <!-- .panel-heading -->
+                                <div class="panel-body">
+                                    <div class="panel-group" id="accordion">
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">近三条评价</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseOne" class="panel-collapse collapse in">
+                                                <div class="panel-body">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                               <th>评论编号</th>
+                                                               <th>评论教师</th>
+                                                               <th>评论等级</th>
+                                                               <th>评论内容</th>
+                                                               <th>评论时间</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                                <foreach name="classcomment" item="value">
+                                                                  <tr>
+                                                                    <td><{$value['comment_id']}></td>
+                                                                    <td><{$value['account']}></td>
+                                                                    <td><{$value['comment_level']}></td>
+                                                                    <td><{$value['comment_content']}></td>
+                                                                    <td><{$value['comment_time']|date="Y-m-d H:i:s",###}></td>
+                                                                    </tr>
+                                                                </foreach>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">近三周周评</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseTwo" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                    <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                               <th>评论编号</th>
+                                                               <th>评论教师</th>
+                                                               <th>评论等级</th>
+                                                               <th>评论内容</th>
+                                                               <th>评论时间</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <foreach name="weekcomment" item="value">
+                                                                <tr>
+                                                                    <td><{$value['comment_id']}></td>
+                                                                    <td><{$value['account']}></td>
+                                                                    <td><{$value['comment_level']}></td>
+                                                                    <td><{$value['comment_content']}></td>
+                                                                    <td><{$value['comment_time']|date="Y-m-d H:i:s",###}></td>
+                                                                </tr>
+                                                            </foreach>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">近三月月评</a>
+                                                </h4>
+                                            </div>
+                                            <div id="collapseThree" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                   <table class="table table-striped">
+                                                        <thead>
+                                                            <tr>
+                                                               <th>评论编号</th>
+                                                               <th>评论教师</th>
+                                                               <th>评论等级</th>
+                                                               <th>评论内容</th>
+                                                               <th>评论时间</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <tr>
+                                                                <foreach name="monthcomment" item="value">
+                                                                    <td><{$value['comment_id']}></td>
+                                                                    <td><{$value['account']}></td>
+                                                                    <td><{$value['comment_level']}></td>
+                                                                    <td><{$value['comment_content']}></td>
+                                                                    <td><{$value['comment_time']|date="Y-m-d H:i:s",###}></td>
+                                                                </foreach>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- .panel-body -->
+                                <div class="panel-footer" style="overflow:auto">
+                                    <div class="pull-right">
+                                        <a href="CourseeValuation.html"><button class="btn btn-primary">评论详细</button></a>
+                                    </div>
+                                </div>
+                        </div>
+                    <!-- /.panel -->
+                    </div>
+                    <!-- <div class="col-lg-8">
+                        <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <i class="fa fa-clock-o fa-fw"></i> 任务时间表
+                        </div>
+                        /.panel-heading
+                        <div class="panel-body" style="overflow: auto;height: 200px;">
+                            <ul class="timeline">
+                                <li>
+                                    <div class="timeline-badge"><i class="fa fa-check"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">STEVEN老师的少儿英语</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i>10min ago</small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>下一节课程即将开始</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="timeline-inverted">
+                                    <div class="timeline-badge warning"><i class="fa fa-credit-card"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">账户管理员</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i>60min ago</small>
+                                            </p>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>账户余额即将不足</p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="timeline-badge danger"><i class="fa fa-bomb"></i>
+                                    </div>
+                                    <div class="timeline-panel">
+                                        <div class="timeline-heading">
+                                            <h4 class="timeline-title">课程顾问</h4>
+                                            <p><small class="text-muted"><i class="fa fa-clock-o"></i>120min ago</small>
+                                        </div>
+                                        <div class="timeline-body">
+                                            <p>你有一门的课程评分较低</p>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        /.panel-body
+                    </div> -->
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+<!--     <script src="../../bower_components/raphael/raphael-min.js"></script>
+    <script src="../../bower_components/morrisjs/morris.min.js"></script>
+    <script src="../../js/morris-data.js"></script> -->
+
+    <!-- Custom Theme JavaScript -->
+    <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+
+    <script src="__PUBLIC__/js/time.js"></script>
+
+    <script type="text/javascript">
+        upDateTime();
+    </script>
+
+</body>
+
+</html>

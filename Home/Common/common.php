@@ -46,7 +46,7 @@
 		*俞鹏泽
 		*获取当前的月的开始时间与结束时间
 		*/
-		function getMonthStartEndTime(){
+		function getThisMonthStartEndTime(){
         $this_month_start_time = strtotime(date('Y-m-01 H:i:s', strtotime(date("Y-m-d",getTime()))));
         $this_month_end_time = strtotime(date('Y-m-d H:i:s',$this_month_start_time)." +1 month");
         $arr = array();
@@ -71,13 +71,80 @@
 		*获取莫一天的开始时间与结束时间
 		*/
 		function GetOneDayStartEndTime($time = null){
-				if($time == null){
-						return null;
-				}else{
-					  $OnedayStartTime = strtotime(date('Y-m-d',$time));
-						$OnedayEndTime = strtotime(date('Y-m-d H:i:s',$OnedayStartTime)." +1 day");
-						$arr = array();
-						array_push($arr,$OnedayStartTime,$OnedayEndTime);
-						return $arr;
+			if($time == null){
+				return null;
+			}else{
+				$OnedayStartTime = strtotime(date('Y-m-d',$time));
+				$OnedayEndTime = strtotime(date('Y-m-d H:i:s',$OnedayStartTime)." +1 day");
+				$arr = array();
+				array_push($arr,$OnedayStartTime,$OnedayEndTime);
+				return $arr;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*上传单个文件
+		*/
+		//参数一:文件路径
+		//参数二:文件大小
+		//参数三:文件的类型.必须是数组
+		function UploadOneFile($Path = null,$fileSize = null,$fileType = null){
+			$message = array();
+			if(is_null($Path)){
+				$message['status'] = false;
+				$message['message'] = "文件路径没有指定";
+				return $message;
+			}
+			if(is_null($fileSize)){
+				$message['status'] = false;
+				$message['message'] = "文件大小限定没有指定";
+				return $message;
+			}
+			if(is_null($fileType)){
+				$message['status'] = false;
+				$message['message'] = "文件类型限定没有指定";
+				return $message;
+			}
+
+			import('ORG.Net.UploadFile');
+			$upload = new UploadFile();// 实例化上传类
+			$upload->maxSize  = $fileSize ;// 设置附件上传大小
+			$upload->allowExts  = $fileType;// 设置附件上传类型
+			$upload->savePath =  $Path;// 设置附件上传目录
+			if(!$upload->upload()) {// 上传错误提示错误信息
+				$message['status'] = false;
+				$message['message'] = $upload->getErrorMsg();
+				return $message;
+			}else{// 上传成功 获取上传文件信息
+				$info =  $upload->getUploadFileInfo();
+				return $info;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*下载单个文件
+		*/
+		function downloadOneFile($filePath = null,$fileType = "txt",$fileName = "download"){
+			//如果文件名是null就直接返回
+			if(is_null($filePath)){
+				echo "文件路径错误";
+				return;
+			}
+
+			//如果存在文件就直接进行下载
+			if(file_exists($filePath)){
+				header("Content-type:application/".$fileType);
+				header("Content-Disposition:attachment;filename='{$fileName}.{$fileType}'");
+
+				$myfile = fopen($filePath,"r");
+				while(!feof($myfile)){
+					echo fgets($myfile);
 				}
+				fclose($myfile);
+			}else{
+				echo "文件不存在";
+				return;
+			}
 		}

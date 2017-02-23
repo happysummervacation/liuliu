@@ -1,0 +1,171 @@
+<div id="wrapper">
+
+        <!-- Navigation -->
+        <!-- 标题 -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <php>echo count($unreadmessage)</php>
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <foreach name="unreadmessage" item="value">
+                            <eq name="value['isdelete']" value="0">
+                            <li>
+                                <a href="<{:U('Admin/InformationCenter')}>">
+                                <div>
+                                    <strong><{$value['account']}></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><{$value['create_time']|date="Y-m-d H:i:s",###}></em>
+                                    </span>
+                                </div>
+                                <div><{$value['content']}></div>
+                                </a>
+                            </li>
+                            </eq>
+                        </foreach>
+                        <li>
+                            <a class="text-center" href="<{:U('Admin/InformationCenter')}>">
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- 中英文切换 -->
+                <!-- <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
+                        </li>
+                    </ul>
+                </li> -->
+                <!-- 用户 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<{:U('Login/doLogout')}>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <!-- <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="<{:U('Admin/index')}>"><i class="fa fa-home fa-fw"></i> 顾问中心</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Admin/SearchTeacher')}>">搜索教师账户</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Admin/CheckTeacher')}>">查看教师</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<{:U('Admin/CheckTeacher')}>"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<{:U('Admin/SearchStudent')}>">搜索学生账号</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Admin/CheckStudent')}>">分管学员</a>
+                                </li>
+                                <li>
+                                    <a href="<{:U('Admin/MyStudent')}>">查看学员</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<{:U('Admin/CheckStudent')}>"> <i class="fa fa-users fa-fw"></i> 分管学员</a>
+                        </li>
+                        <li>
+                            <a href="<{:U('Admin/MyStudent')}>"> <i class="fa fa-users fa-fw"></i> 查看学员</a>
+                        </li>
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i> 课程顾问信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="Information.html">个人信息</a> -->
+                                    <a href="<{:U('Admin/Information')}>"> 课程顾问信息</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="ResetPassword.html">修改密码</a> -->
+                                    <a href="<{:U('Admin/ResetPassword')}>"> 修改密码</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                             <a href="<{:U('Admin/Book')}>"><i class="fa fa-exchange fa-fw"></i> 教材库</a>
+                        </li>
+                        <li>
+                             <a href="<{:U('Admin/FeedBack')}>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
+                        </li>
+                        <li>
+                             <a href="<{:U('Admin/MyExamination')}>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                        </li>
+                         <li>
+                             <a href="<{:U('Admin/Notice')}>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
