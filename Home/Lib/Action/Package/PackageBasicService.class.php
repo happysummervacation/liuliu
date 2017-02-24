@@ -16,6 +16,7 @@
 			$data['teacher_nation'] = $postData['teacherNation'];
 			$data['teacher_type'] = $postData['teacherType'];
 			$data['time'] = $postData['dayNumber'];
+			$data['package_name'] = $postData['packageName'];
 			$data['package_content'] = $postData['description'];
 			$data['package_money'] = $postData['packagPrice'];
 			$data['create_time'] = getTime();
@@ -47,8 +48,13 @@
 				$message['message'] = "没有要添加的数据";
 				return $message;
 			}
-dump($postData);
-exit;
+
+			if(is_null($packageID)){
+				$message['status'] = false;
+				$message['message'] = "没有指定套餐";
+				return $message;
+			}
+
 			$data['category'] = $postData['classType'];
 			$data['class_type'] = $postData['studentType'];
 			$data['package_type'] = $postData['packageType'];
@@ -57,6 +63,7 @@ exit;
 			$data['teacher_nation'] = $postData['teacherNation'];
 			$data['teacher_type'] = $postData['teacherType'];
 			$data['time'] = $postData['dayNumber'];
+			$data['package_name'] = $postData['packageName'];
 			$data['package_content'] = $postData['description'];
 			$data['package_money'] = $postData['packagPrice'];
 			$data['create_time'] = getTime();
@@ -65,7 +72,7 @@ exit;
 
 			import("Home.Action.Package.PackageBasicOperate");
 			$packageOp = new PackageBasicOperate();
-			// $result = $packageOp->updatePackageInfo($data);
+			$result = $packageOp->updatePackageInfo($packageID,$data);
 			if($result){
 				$message['status'] = true;
 				$message['message'] = "套餐数据创建成功";
@@ -92,7 +99,7 @@ exit;
 			import("Home.Action.Package.PackageBasicOperate");
 			$packageOp = new PackageBasicOperate();
 			$data['isdelete'] = 1;
-			// $result = $packageOp->updatePackageInfo($data);
+			$result = $packageOp->updatePackageInfo($packageID,$data);
 			if($result){
 				$message['status'] = true;
 				$message['message'] = "套餐数据删除成功";

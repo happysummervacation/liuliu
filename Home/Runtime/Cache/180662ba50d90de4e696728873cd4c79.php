@@ -1,6 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-
+这里的模板渲染还有问题,主要是少儿,雅思等课程的渲染
 <head>
 
     <meta charset="utf-8">
@@ -308,11 +308,11 @@
                                             <th>套餐编号</th>
                                             <th>套餐名称</th>
                                             <th>套餐价格</th>
-                                            <th>课程类型</th>
+                                            <th>课程类别</th>
                                             <th>教师类型</th>
                                             <th>教师国籍</th>
                                             <th>套餐类型</th>
-                                            <th>学生类型</th>
+                                            <th>课程类型</th>
                                             <th>学生人数</th>
                                             <th>课时数量</th>
                                             <th>创建时间</th>
@@ -321,27 +321,42 @@
                                         </tr>
                                     </thead>
                                     <tbody >
-                                        <tr>
-                                            <!-- 示例 -->
-                                            <td>1001</td>
-                                            <td>清明大礼包</td>
-                                            <td>7874</td>
-                                            <td value='0'>少儿</td>
-                                            <td value='1'>名师</td>
-                                            <td value='0'>中教</td>
-                                            <td value='0'>课时类</td>
-                                            <td value='0'>一对一</td>
-                                            <td >1</td>
-                                            <td>17</td>
-                                            <td>2017-2-19 8:00:00</td>
-                                            <td>30</td>
+                                        <!--  chenzeqi  -->
+                                        <?php if(is_array($packageList)): foreach($packageList as $key=>$packageList): ?><tr>
+                                            <td><?php echo ($packageList['package_id']); ?></td>
+                                            <td><?php echo ($packageList['package_name']); ?></td>
+                                            <td><?php echo ($packageList['package_money']); ?></td>
+                                            <td value="<?php echo ($packageList['category']); ?>">
+                                            <!-- <?php if($packageList['category'] == 0): ?>少儿
+                                            <?php elseif($packageList['category'] == 1): ?>成人
+                                            <?php elseif($packageList['category'] == 2): ?>雅思<?php endif; ?> -->
+                                            <?php echo ($packageList['packageName']); ?>
+                                            </td>
+                                            <td value="<?php echo ($packageList['teacher_type']); ?>">
+                                            <?php if($packageList['teacher_type'] == 0): ?>普教
+                                            <?php else: ?>名师<?php endif; ?></td>
+                                            <td value="<?php echo ($packageList['teacher_nation']); ?>">
+                                            <?php if($packageList['teacher_nation'] == 0): ?>中教
+                                            <?php else: ?>外教<?php endif; ?></td>
+                                            <td value="<?php echo ($packageList['package_type']); ?>">
+                                            <?php if($packageList['package_type'] == 0): ?>课时类套餐
+                                                <?php else: ?>卡类套餐<?php endif; ?></td>
+                                            <td value="<?php echo ($packageList['class_type']); ?>">
+                                            <?php if($packageList['class_type'] == 0): ?>一对一
+                                            <?php else: ?>小班<?php endif; ?></td>
+                                            <td><?php echo ($packageList['student_number']); ?></td>
+                                            <td><?php echo ($packageList['class_number']); ?></td>
+                                            <td><?php echo date('Y-m-d',$packageList['create_time']);?></td>
+                                            <td><?php echo ($packageList['time']); ?></td>
                                             <td>
                                                 <button class="btn btn-default modifypackage" data-toggle="modal" data-target="#packagemodify">修改</button>
                                                 <button class="btn btn-danger" onclick="deletePackage()">删除</button>
+                                                <span style="display: none" name='description'><?php echo ($packageList['package_content']); ?></span>
                                             </td>
-                                            <span style="display: none" name='description'>这里是套餐描述</span>
+
                                             <!-- 示例 -->
-                                        </tr>
+                                        </tr><?php endforeach; endif; ?>
+                                        <!--  chenzeqi  -->
                                     </tbody>
                                 </table>
                             </div>
@@ -364,7 +379,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="changsubmit()">
+                            <form class="form-horizontal" onsubmit="changsubmit()" action="<?php echo U('Package/packageManage');?>/type/update" method="post">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -378,12 +393,13 @@
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label  class="col-sm-4 control-label">课程类型</label>
+                                  <label  class="col-sm-4 control-label">课程类别</label>
                                   <div class="col-sm-6">
                                     <select class="form-control" name="classType">
-                                        <option value="1">成人类</option>
+                                        <!-- <option value="1">成人类</option>
                                         <option value="0">少儿</option>
-                                        <option value="2">雅思类</option>
+                                        <option value="2">雅思类</option> -->
+                                        <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value="<?php echo ($vo['packageconID']); ?>"><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
                                     </select>
                                   </div>
                                 </div>
@@ -401,7 +417,7 @@
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="teacherNation">
                                         <option value="0">中教</option>
-                                        <option value="1">外交</option>
+                                        <option value="1">外教</option>
                                     </select>
                                   </div>
                                 </div>
@@ -415,7 +431,7 @@
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label class="col-sm-4 control-label">学生类型</label>
+                                  <label class="col-sm-4 control-label">课程类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="studentType">
                                         <option value="0">一对一课程</option>
@@ -488,9 +504,10 @@
                                   <label  class="col-sm-4 control-label">课程类型</label>
                                   <div class="col-sm-6">
                                     <select class="form-control" name="classType">
-                                        <option value="1">成人类</option>
+                                        <!-- <option value="1">成人类</option>
                                         <option value="0">少儿</option>
-                                        <option value="2">雅思类</option>
+                                        <option value="2">雅思类</option> -->
+                                        <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value="<?php echo ($vo['packageconID']); ?>"><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
                                     </select>
                                   </div>
                                 </div>
@@ -508,7 +525,7 @@
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="teacherNation">
                                         <option value="0">中教</option>
-                                        <option value="1">外交</option>
+                                        <option value="1">外教</option>
                                     </select>
                                   </div>
                                 </div>
@@ -602,51 +619,48 @@
                     responsive: true
             });
 
-            fillform();
+            $('.modifypackage').click(function(){
+                $('input[name=packageId]').eq(0).val($(this).parents('tr').children().eq(0).html());
+                $('input[name=packageName]').eq(0).val($(this).parents('tr').children().eq(1).html());
+                $('input[name=packagPrice]').eq(0).val($(this).parents('tr').children().eq(2).html());
+                $('select[name=classType]').eq(0).val($(this).parents('tr').children().eq(3).attr('value'));
+                $('select[name=teacherType]').eq(0).val($(this).parents('tr').children().eq(4).attr('value'));
+                $('select[name=teacherNation]').eq(0).val($(this).parents('tr').children().eq(5).attr('value'));
+                $('select[name=packageType]').eq(0).val($(this).parents('tr').children().eq(6).attr('value'));
+                $('select[name=studentType]').eq(0).val($(this).parents('tr').children().eq(7).attr('value'));
+                $('input[name=studentNumber]').eq(0).val($(this).parents('tr').children().eq(8).html());
+                $('input[name=classNumber]').eq(0).val($(this).parents('tr').children().eq(9).html());
+                $('input[name=dayNumber]').eq(0).val($(this).parents('tr').children().eq(11).html());
+                $('textarea[name=description]').eq(0).html($(this).parents('tr').find('span').html());
+
+                if($('select[name=studentType]').eq(0).val()==0){
+                    $('input[name=studentNumber]').eq(0).attr('readonly','readonly');
+                    $('select[name=packageType]').eq(0).removeAttr('disabled');
+                }else{
+                    $('input[name=studentNumber]').eq(0).removeAttr('readonly');
+                    $('select[name=packageType]').eq(0).attr('disabled','diabled');
+                }
+                changereadonly(1);
+            });
         });
-        // alert($('.modifypackage').parents('tr').children().eq(3).attr('value'));
-        function fillform(){
-            $('input[name=packageId]').eq(0).val($('.modifypackage').parents('tr').children().eq(0).html());
-            $('input[name=packageName]').eq(0).val($('.modifypackage').parents('tr').children().eq(1).html());
-            $('input[name=packagPrice]').eq(0).val($('.modifypackage').parents('tr').children().eq(2).html());
-            $('select[name=classType]').eq(0).val($('.modifypackage').parents('tr').children().eq(3).attr('value'));
-            $('select[name=teacherType]').eq(0).val($('.modifypackage').parents('tr').children().eq(4).attr('value'));
-            $('select[name=teacherNation]').eq(0).val($('.modifypackage').parents('tr').children().eq(5).attr('value'));
-            $('select[name=packageType]').eq(0).val($('.modifypackage').parents('tr').children().eq(6).attr('value'));
-            $('select[name=studentType]').eq(0).val($('.modifypackage').parents('tr').children().eq(7).attr('value'));
-            $('input[name=studentNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(8).html());
-            $('input[name=classNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(9).html());
-            $('input[name=dayNumber]').eq(0).val($('.modifypackage').parents('tr').children().eq(11).html());
-            $('textarea[name=description]').eq(0).html($('span[name=description]').html());
-
-
-            if($('select[name=studentType]').eq(0).val()==0){
-                $('input[name=studentNumber]').eq(0).attr('readonly','readonly');
-                $('select[name=packageType]').eq(0).attr('disabled','diabled');
-            }else{
-                $('input[name=studentNumber]').eq(0).removeAttr('readonly');
-                $('select[name=packageType]').eq(0).removeAttr('disabled');
-            }
-            changereadonly(1);
-        }
 
         function changereadonly(number){
             if($('select[name=studentType]').eq(number).val()==0){
                 $('input[name=studentNumber]').eq(number).val('1');
-                $('select[name=packageType]').eq(number).val('0');
                 $('input[name=studentNumber]').eq(number).attr('readonly','readonly');
-                $('select[name=packageType]').eq(number).attr('disabled','diabled');
+                $('select[name=packageType]').eq(number).removeAttr('disabled');
             }else{
                 $('input[name=studentNumber]').eq(number).val('');
                 $('input[name=studentNumber]').eq(number).removeAttr('readonly');
-                $('select[name=packageType]').eq(number).removeAttr('disabled');
+                $('select[name=packageType]').eq(number).val('0');
+                $('select[name=packageType]').eq(number).attr('disabled','diabled');
             }
         }
 
         function deletePackage(){
             var packageId=$('.modifypackage').parents('tr').children().eq(0).html();
             if(confirm('确认删除套餐?')){
-                window.location.href='https://www.baidu.com/packageId/'+packageId;
+                window.location.href="<?php echo U('Package/packageManage');?>/type/delete/PackageID/"+packageId;
             }
         }
 

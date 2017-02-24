@@ -68,18 +68,19 @@
 						$this->error("添加失败");
 					}
 				}elseif($type == "update" || $type == "1"){
-					$result = $packageOp->updatePackageInfo(null,$_POST);
+					$result = $packageOp->updatePackageInfo($_POST['packageId'],$_POST);
 					if($result['status']){
-						$this->success("修改成功");
+						$this->success("修改成功",U('Package/packageShow'));
 					}else{
-						$this->error("修改失败");
+						$this->error("修改失败",U('Package/packageShow'));
 					}
 				}elseif($type == "delete" || $type == "2"){
-					$result = $packageOp->deletePackageInfo(null);
+					$packageID = $_GET['packageID'];
+					$result = $packageOp->deletePackageInfo($packageID);
 					if($result['status']){
-						$this->success("删除成功");
+						$this->success("删除成功",U('Package/packageShow'));
 					}else{
-						$this->error("删除失败");
+						$this->error("删除失败",U('Package/packageShow'));
 					}
 				}else{
 					$this->error("没有对应的操作");
