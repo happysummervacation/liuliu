@@ -257,7 +257,7 @@
                             <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/MaterialManage');?>"> 教材管理</a>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
@@ -356,7 +356,7 @@
                         <div class="panel-heading">开课按钮提前生效(分钟)</div>
                         <div class="panel-body">
                             <div class="col-xs-8">
-                              <input type="number" name="buttonEffectTime" class="form-control" value="<?php echo ($systemSet['buttonEffectTime']/3600); ?>">
+                              <input type="number" name="buttonEffectTime" class="form-control" value="<?php echo ($systemSet['buttonEffectTime']/60); ?>">
                             </div>
                             <div class="col-xs-4">
                               <button class="btn btn-primary">确认</button>

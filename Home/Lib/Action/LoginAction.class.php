@@ -106,6 +106,9 @@
 			if($result[0]['password'] != md5($password)){
 				$this->error("登录失败");
 				return;
+			}elseif($result[0]['status'] == 0 || $result[0]['status'] == "0"){
+				$this->error("你的账户已经被管理员冻结");
+				return;
 			}else{
 				/*在session中设置必要的用户信息*/
 				$_SESSION['ID'] = $result[0]['ID'];

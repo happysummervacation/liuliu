@@ -259,7 +259,7 @@
                             <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/MaterialManage');?>"> 教材管理</a>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>

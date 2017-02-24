@@ -1,6 +1,8 @@
 <?php
 	class InfoAction extends Action{
 
+		private $resetNewPassword = "123456";
+
 		public function __construct(){
             //获取系统设置
             // $field = array();
@@ -173,6 +175,8 @@
 		public function UserManage(){
 			$this->CheckSession();
 			import("Home.Action.User.UserBasicService");
+			import("Home.Action.User.UserBasicOperate");
+			$userBasOp = new UserBasicOperate();
 			$userOp = new UserBasicService();
 
 			$type = $_GET['type'];
@@ -181,22 +185,22 @@
 			$identity = $_SESSION['identity'];
 
 			if($identity == 4 || $identity == "4"){
-				if($type == "add" || $type == "0"){
-					if($person == "teacher"){
+				if($type == "add"){     //添加用户的操作
+					if($person == "teacher"){   //添加的用户类型为教师
 						$result = $userOp->addTeacherInfo($_POST);
 						if($result['status']){
 							$this->success($result['message']);
 						}else{
 							$this->error($result['message']);
 						}
-					}elseif($person == "admin"){
+					}elseif($person == "admin"){    //添加的用户类型为课程顾问
 						$result = $userOp->addAdminInfo($_POST);
 						if($result['status']){
 							$this->success($result['message']);
 						}else{
 							$this->error($result['message']);
 						}
-					}elseif($person == "root"){
+					}elseif($person == "root"){    //添加的用户类型为最高管理员
 						$result = $userOp->addRootInfo($_POST);
 						if($result['status']){
 							$this->success($result['message']);
@@ -207,10 +211,39 @@
 						$this->error("不能增加该用户信息");
 					}
 					return;
-				}elseif($type == "delete" || $type == "1"){
+				}elseif($type == "delete"){        //删除用户
+					$userID = $_GET[''];
+					$result = $userBasOp->$userBasOp($userID);
+					if($result['status']){
+						$this->success("用户已经删除",U(''));
+					}else{
+						$this->error('用户删除失败',U(''));
+					}
+				}elseif($type == "update"){        //更新用户信息
 
-				}elseif($type == "update" || $type == "2"){
-
+				}elseif($type == "resetPassword"){   //重置用户的密码
+					$data = array();
+					$data['password'] = md5($this->resetNewPassword());
+					$result = $userBasOp->updateUserInfo($userID,null,$data);
+					if($result['status']){
+						$this->success("密码已经重置,新的密码为{$this->resetNewPassword}",U(''));
+						return;
+					}else{
+						$this->error("密码重置失败,请重试",U(''));
+						return;
+					}
+				}elseif($type == "resetStatus"){     //修改用户的状态
+					$data = array();
+					$status = $_GET[''];
+					$data['status'] = $status;
+					$result = $userBasOp->updateUserInfo($userID,null,$data);
+					if($result['status']){
+						$this->success("用户状态更改成功",U(''));
+						return;
+					}else{
+						$this->error("用户状态更改失败",U(''));
+						return;
+					}
 				}else{
 					$this->error("没有对应的操作");
 				}
@@ -220,5 +253,6 @@
 				return;
 			}
 		}
+
 	}
  ?>

@@ -262,7 +262,7 @@
                             <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/MaterialManage');?>"> 教材管理</a>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
@@ -660,7 +660,7 @@
         function deletePackage(){
             var packageId=$('.modifypackage').parents('tr').children().eq(0).html();
             if(confirm('确认删除套餐?')){
-                window.location.href="<?php echo U('Package/packageManage');?>/type/delete/PackageID/"+packageId;
+                window.location.href="<?php echo U('Package/packageManage');?>/type/delete/packageID/"+packageId;
             }
         }
 

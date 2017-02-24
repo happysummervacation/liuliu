@@ -31,14 +31,23 @@
 		public function showBookInfo(){
 			$this->CheckSession();
 
-			$idenity = $_SESSION['identity'];
-			if($identity == 4 || $identity == "4"){
+			import("Home.Action.Book.BookBasicOperate");
+			import("Home.Action.Package.PackageConfigBasicOperate");
+			$configOp = new PackageConfigBasicOperate();
+			$bookBasicOperate = new BookBasicOperate();
 
-			}elseif($identity == 2 || $identity = "2"){
+			$identity = $_SESSION['identity'];
+			if($identity == 4 || $identity == "4"){      //root
+				$bookResult = $bookBasicOperate->getBookSInfo();
+				$result = $configOp->getPackageConfigInfo();
+				$this->assign("packageConfig",$result);
+				$this->assign("bookresult",$bookResult);
+				$this->display("Root:MaterialManage");
+			}elseif($identity == 2 || $identity = "2"){  //admin
 
-			}elseif($identity == 1 || $identity == "1"){
+			}elseif($identity == 1 || $identity == "1"){   //teacher
 
-			}elseif($identity == 0 || $identity == "0"){
+			}elseif($identity == 0 || $identity == "0"){   //student
 
 			}else{
 				$this->error("用户身份错误");
@@ -54,10 +63,19 @@
 
 			$type = $_GET['type'];
 
-			$idenity = $_SESSION['identity'];
+			import("Home.Action.Book.BookBasicService");
+			$bookSer = new BookBasicService();
+
+			$identity = $_SESSION['identity'];
 			if($identity == 4 || $identity == "4"){
 				if($type == "add"){
-
+					$result = $bookSer->addBookInfo($_POST);
+					if($result['status']){
+						$this->success($result['message']);
+					}else{
+						$this->error($result['message']);
+					}
+					return;
 				}elseif($type == "update"){
 
 				}elseif($type == "delete"){

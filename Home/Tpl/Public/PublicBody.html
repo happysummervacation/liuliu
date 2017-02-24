@@ -1,19 +1,4 @@
 <div id="wrapper">
-        <?php
-          function GetMonthStartEndTime(){
-            $BeginDate = date('Y-m-d H:i:s', strtotime(date("Y-m-d")));   //本月的开始时间
-            $EndDate = date('Y-m-d H:i:s', strtotime("$BeginDate +1 month"));  //本月的结束时间即下个月的开始时间
-
-            $BeginDate = strtotime($BeginDate);
-            $EndDate = strtotime($EndDate);
-            $Date_array = array();
-
-            $Date_array[0] = $BeginDate;
-            $Date_array[1] = $EndDate;
-            return $Date_array;
-            }
-        ?>
-
         <!-- Navigation -->
 
         <!-- 标题 -->
@@ -154,7 +139,7 @@
                                 </li>
 
                                 <li >
-                                    <a href="<{:U('Student/NewPackage')}>"><i class="fa fa-legal fa-fw"></i> 购买套餐</a>
+                                    <a href="<{:U('Package/packageShow')}>"><i class="fa fa-legal fa-fw"></i> 购买套餐</a>
                                 </li>
                                 <li >
                                     <a href="<{:U('Student/DelayPackage')}>"><i class="fa fa-legal fa-fw"></i> 套餐延期</a>

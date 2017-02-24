@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>系统中心</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <include file="Public:PublicBodyRoot" />
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">教学材料</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">教材库</div>
+                        <div class="panel-body">
+                        <?php foreach ($bookresult as $key => $value) {?>
+                            <div class="col-lg-3">
+                                <div class="panel panel-default" style="height:250px;">
+                                    <div class="panel-body">
+                                        <div class="col-xs-6">
+                                            <!-- <img src="<{$value['']}>" style="width: 100%;"> -->
+                                            <img src="<{$value['bookimagelink']}>" style="width: 100%;height: 150px;">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <p style="display: none"><{$value['bookid']}></p>
+                                            <p>教材名称:<br><{$value['bookname']}></p>
+                                            <p>教材页码:<br><{$value['page']}></p>
+                                            <p>教材类型:<br><{$value['packageName']}>
+                                            <!-- <if condition="$value['book_type'] eq 1">少儿
+                                            <elseif condition="$value['book_type'] eq 2"/>成人
+                                            <elseif condition="$value['book_type'] eq 3"/>雅思
+                                            </if> -->
+                                            </p>
+                                            
+                                            
+
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <br>
+                                            <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<?php echo $value['download_link'];?>"><button class="btn btn-primary" style="width: 45%;">在线打开</button></a>
+                                            <a href="<?php
+                                $suffix_parts = path_info($value['download_link']); $suffix = $suffix_parts['extension']; $filename = $suffix_parts['filename'];?><{:U('Root/DownLoadBook',array('suffix'=>$suffix,'downfilename'=>$value['bookname'],'filename'=>$filename))}>"><button class="btn btn-primary" style="width: 45%;">
+                                            下载</button></a>
+                                            <a href="<{:U('Root/DeleteBook',array('ID'=>$value['bookid']))}>"><button button class="btn btn-primary deleteBook" style="width: 45%;">删除</button></a>
+                                            <button class="btn btn-primary changeBookInfo" data-toggle="modal" data-target="#myModal">修改教材</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php }?>
+
+                        </div>
+                        <div class="panel-footer" >
+                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">上传教材</button>
+                        </div>
+                    </div>
+
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">上传教材</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form enctype="multipart/form-data" 
+                                action="<{:U('Book/bookManage')}>/type/add" method="post">
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">教材名称:</label>
+                                    <input type="text" class="form-control" id="recipient-name" name="book_name">
+                                  </div>
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">教材页码:</label>
+                                    <input type="text" name="page" class="form-control" 
+                                    />
+                                  </div>
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">能否被学生下载：</label>
+                                    <!-- <input type="text" name="page" class="form-control" /> -->
+                                    <select name="can_load" class="control-label">
+                                        <option value="0">不能</option>
+                                        <option value="1">能</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">教材类型：</label>
+                                    <!-- <input type="text" name="page" class="form-control" /> -->
+                                    <select name="book_type" class="control-label">
+                                      <!--  <option value="1">少儿类</option> -->
+                                       <foreach name="packageConfig" item="vo">
+                                            <option value="<{$vo['packageconID']}>"><{$vo['packageName']}></option>
+                                        </foreach>
+                                        <!-- <option value="3">小班类</option> -->
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="message-text" class="control-label">上传教材(必填)(限制50M):</label>
+                                    <!-- <button class="btn btn-default">点击添加文件</button> -->
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple   name="book" value="点击添加文件" ></input>
+                                    <!-- <input name="book" type="file" class="btn btn-default" value="点击添加文件" /> -->
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="message-text" class="control-label">上传封面(选填)(限制30M):</label>
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple
+                                    name="book_image" type="file" value="点击添加文件" />
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                  </div>
+
+                                </form>
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary">提交</button>
+                            </div> -->
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">修改教材</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form enctype="multipart/form-data" id="changeBookInfo" action="<{:U('Book/bookManage')}>/type/update"  method="post">
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">教材名称:</label>
+                                    <input type="text" class="form-control Bookname" id="recipient-name" name="book_name">
+                                  </div>
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">教材页码:</label>
+                                    <input type="text" name="page" class="form-control" id="BookPage"/>
+                                  </div>
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">能否被学生下载：</label>
+                                    <!-- <input type="text" name="page" class="form-control" /> -->
+                                    <select name="can_load" class="control-label select">
+                                        <option id="optionSecond" value="1">能</option>
+                                        <option id="optionFirst" value="0" >不能</option>
+                                    </select>
+                                  </div>
+                                 <!--  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">教材类型：</label>
+                                    <select name="book_type" class="control-label">
+                                        <option value="0">少儿类</option>
+                                        <option value="1">成人类</option>
+                                        <option value="2">雅思类</option>
+                                        <option value="3">小班类</option>
+                                    </select>
+                                  </div> -->
+                                  <!-- <div class="form-group">
+                                    <label for="message-text" class="control-label">上传教材(必填)(限制100M):</label>
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple   name="book" value="点击添加文件"/>
+                                  </div> -->
+                                  <div class="form-group">
+                                    <label for="message-text" class="control-label">上传封面(选填)(限制30M):</label>
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple
+                                    name="book_image" type="file" value="点击添加文件" />
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                    <button type="submit" class="btn btn-primary">提交</button>
+                                  </div>
+
+                                </form>
+                            </div>
+
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- DataTables JavaScript -->
+    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
+    <script>
+    $(document).ready(function() {
+        $('#dataTables-example').DataTable({
+                responsive: true
+        });
+    });
+    </script>
+
+    <script src="__PUBLIC__/js/time.js"></script>
+
+    <script type="text/javascript">
+        upDateTime();
+    </script>
+
+    <script type="text/javascript">
+        $('.deleteBook').click(function(e){
+        if(confirm('是否删除该教材?')){
+          return true;
+        }else{
+          return false;
+        }
+      })
+    </script>
+
+    <script type="text/javascript">
+      // $(document).ready(function(){
+        $(".changeBookInfo").click(function(){
+          var BookID = "";
+          BookID = $(this).parent().parent().children().eq(1).children().eq(0).html();
+          $.ajax({
+            type: "POST",
+            url: "<{:U('Root/AjaxGetBookInfo')}>",
+            data: {
+              'BookID': BookID,
+            },
+            dataType: "json",
+            success: function(data){
+              // $("#editTeacherInfo").slideDown();
+              // $("#account").val(data.account);
+              // $("#chinesename").val(data.chinesename);
+              // $("#englishname").val(data.englishname);
+              // $("#email").val(data.email);
+              // $("#phone").val(data.phone);
+              // $("#qq").val(data.QQ);
+              // $("#wechat").val(data.weixin);
+              // $("#age").val(data.age);
+              // $("#country").val(data.country);
+              // $("#sex").val(data.sex);
+              // $("#skype").val(data.skype);
+              // $("#paypal").val(data.paypal);
+              // $("#bankcard").val(data.bankcard);
+              // $("#zoom").val(data.zoom);
+              // $("#teachercomment").val(data.teachercomment);
+              uploadUrl = "<{:U('Root/ChangeBookInfo')}>";
+              $(".Bookname").val(data[0]['bookname']);
+              $("#BookPage").val(data[0]['pagenumber']);
+              $('.select').val(data[0]['can_upload']);
+              $('#changeBookInfo').attr('action',uploadUrl+"/BookID/"+data[0]['bookid']);
+              
+            },
+            error: function(jqXHR){
+              alert(jqXHR.status);
+            },
+          });
+        });
+      // });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>学员中心</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/NewPackage.css">
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+
+    <style media="screen">
+    table {width:600px;table-layout:fixed;}
+    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis}
+    </style>
+
+</head>
+
+<body>
+
+    <include file="Public:PublicBody" />
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">购买套餐</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-12">
+                       <div class="panel panel-yellow">
+                           <div class="panel-heading">套餐列表</div>
+                           <div class="panel-body">
+                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="" method="post">
+                                   <div class="form-group col-md-2">
+                                       <select class="form-control">
+                                           <option value="-1">全部课程内容</option>
+                                           <option value='0'>少儿类</option>
+                                           <option value='1'>成人类</option>
+                                           <option value="2">雅思类</option>
+                                       </select>
+                                   </div>
+                                   <div class="form-group col-md-2">
+                                       <select class="form-control">
+                                           <option value="-1">全部课程类别</option>>
+                                           <option value='0'>一对一课程</option>
+                                           <option value='1'>小班课程</option>
+                                       </select>
+                                   </div>
+                                   <div class="form-group  col-md-2">
+                                       <select class="form-control">
+                                           <option value="-1">全部教师级别</option>>
+                                           <option value='0'>普通教师</option>
+                                           <option value='1'>名师</option>
+                                       </select>
+                                   </div>
+                                   <div class="form-group col-md-2">
+                                       <select class="form-control">
+                                           <option value="-1">全部教师国籍</option>>
+                                           <option value='0'>中教</option>
+                                           <option value='1'>外教</option>
+                                       </select>
+                                   </div>
+                                    <div class="form-group col-md-2">
+                                       <select class="form-control">
+                                           <option value="-1">全部套餐类型</option>>
+                                           <option value='0'>课时套餐</option>
+                                           <option value='1'>卡类套餐</option>
+                                       </select>
+                                   </div>
+                                   <div class="form-group col-md-1">
+                                       <button class="btn btn-default">
+                                           确认筛选选择
+                                       </button>
+                                   </div>
+                               </form>
+
+                               <div class="row" style="margin-top: 20px;">
+                                    <div class="col-md-3">
+                                       <div class="panel panel-default">
+                                           <div class="panel-heading" style="overflow: hidden;text-overflow :ellipsis;text-align: center;">
+                                               (套餐名称)
+                                           </div>
+                                           <div class="panel-body">
+                                               <table class="table">
+                                                   <tr>
+                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td></td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                   </tr>
+
+                                               </table>
+                                           </div>
+                                           <div class="panel-footer" style="text-align: center;">
+                                               <button class="btn btn-warning">购买套餐</button>
+                                           </div>
+                                       </div>
+                                    </div>
+                               </div>
+                           </div>
+                       </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+    <!-- jQuery -->
+    <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+
+    <script src="__PUBLIC__/js/time.js"></script>
+
+    <script type="text/javascript">
+        upDateTime();
+    </script>
+
+</body>
+
+</html>

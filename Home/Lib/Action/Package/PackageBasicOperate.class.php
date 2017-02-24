@@ -8,7 +8,7 @@
 		//参数二:null表示查询所有的字段,数组的话,表示查找数组中的对应字段
 		public function getPackageInfo($packageID = null,$Field = null){
 			$condition = "(";
-			$fieldString = "";
+			$fieldString = "(";
 
 			if(is_array($packageID)){
 				for ($i = 0; $i < count($packageID); $i++) {
@@ -27,16 +27,16 @@
 			if(!is_null($Field)){
 				for ($i=0; $i < count($Field); $i++) {
 					if($i == count($Field)-1){
-						$fieldString = $fieldString."package_id=".$Field[$i].")";
+						$fieldString = $fieldString.$Field[$i].")";
 					}else{
-						$fieldString = $fieldString."package_id=".$Field[$i]." or ";
+						$fieldString = $fieldString.$Field[$i]." or ";
 					}
 				}
 			}
 
 			$inquiry = new Model("package");
-			if(is_null($condition)){
-				if(is_null($fieldString)){
+			if(is_null($packageID)){
+				if(is_null($Field)){
 					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID
 					 and isdelete=0")
 					->select();
@@ -46,7 +46,7 @@
 					->field($fieldString)->select();
 				}
 			}else{
-				if(is_null($fieldString)){
+				if(is_null($Field)){
 					$result = $inquiry->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID
 					 and isdelete=0")
 					->where($condition)->select();

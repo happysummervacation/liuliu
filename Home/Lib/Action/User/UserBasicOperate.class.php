@@ -109,6 +109,12 @@
                 return $message;
             }
 
+            if(is_null($userID) && is_null($Account)){
+                $message['status'] = false;
+                $message['message'] = "没有该用户";
+                return $message;
+            }
+
             $inquiry = new Model('register');
 
             if(!is_null($userID)){

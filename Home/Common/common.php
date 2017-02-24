@@ -117,9 +117,41 @@
 				$message['message'] = $upload->getErrorMsg();
 				return $message;
 			}else{// 上传成功 获取上传文件信息
-				$info =  $upload->getUploadFileInfo();
-				return $info;
+				$fileInfo =  $upload->getUploadFileInfo();
+				$message['status'] = true;
+				$message['message'] = $info;
+				return $message;
 			}
+		}
+
+		/*
+		*俞鹏泽
+		*上传多个文件的
+		*/
+		//参数一:文件的路径   使用类似的数组  array('book'=>'./Book/','book_image'=>'./BookImage/');
+		//名为上传的文件的name值,值为存放的文件文件夹路径
+		//参数二:文件大小    文件的大小
+		//参数三:文件类型    使用类似的数组   array('jpg', 'gif', 'png', 'jpeg','pdf','rar','zip','txt','doc','docx')
+		function UploadFiles($Path = null,$fileSize = null,$fileType = null){
+			$message = array();
+
+            import('ORG.Net.UploadFileChange');
+            $fileInfo= '';
+            $upload = new UploadFileChange();// 实例化上传类
+            $upload->maxSize  = $fileSize ;// 设置附件上传大小  100M
+            $upload->allowExts  = $fileType;// 设置附件上传类型
+            $upload->savePath = $Path;  //'./Book/';// 设置附件上传目录
+            if(!$upload->upload()) {// 上传错误提示错误信息
+				$message['status'] = false;
+				$message['message'] = $upload->getErrorMsg();
+				return $message;
+            }else{// 上传成功 获取上传文件信息
+                $fileInfo =  $upload->getUploadFileInfo();
+				$message['status'] = true;
+				$message['message'] = $fileInfo;
+				return $message;
+            }
+
 		}
 
 		/*
