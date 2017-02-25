@@ -180,7 +180,7 @@
                             <a href="<?php echo U('Teacher/TeacherInstruction');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Teacher/ContractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
+                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
                         </li>
                         <!-- <li>
                           <span ><?php echo date('Y/m/d H:i:s',$nowtime);?></span>

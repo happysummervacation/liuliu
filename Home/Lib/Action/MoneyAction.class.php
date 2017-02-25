@@ -1,5 +1,5 @@
 <?php
-	class UserCenterAction extends Action{
+	class MoneyAction extends Action{
 		public function __construct(){
             //获取系统设置
             // $field = array();
@@ -24,29 +24,15 @@
 			}
 		}
 
-		public function index(){
+		public function showTeacherMoneySet(){
 			$this->CheckSession();
 
 			$identity = $_SESSION['identity'];
-			if($identity == 0 || $identity == "0"){
-				$this->display("Student:index");
-			}elseif($identity == 1 || $identity == "1"){
-				$this->display("Teacher:index");
-			}elseif($identity == 2 || $identity == "2"){
-				$this->display("Admin:index");
-			}elseif($identity == 4 || $identity == "4"){
-				$this->display("Root:index");
+			if(4 == $identity || "4" == $identity){
+				$this->display("Root:SetTeacherPay");
 			}else{
-				$this->error("不存在该用户的页面");
-				return;
+				$this->error("你没有权限查看该页面");
 			}
-		}
-		/*
-		*俞鹏泽
-		*显示Rule页面
-		*/
-		public function showRule(){
-
 		}
 	}
  ?>

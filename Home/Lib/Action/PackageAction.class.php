@@ -41,7 +41,10 @@
 				$this->display("Root:PackageManage");
 				return;
 			}elseif($identity == 0 || $identity = "0"){
+				$result = $configOp->getPackageConfigInfo();
 				$packageResult = $packageOp->getPackageInfo();
+
+				$this->assign('packageConfig',$result);
 				$this->assign('packageList',$packageResult);
 				$this->display("Student:NewPackage");
 				return;
@@ -53,7 +56,11 @@
 
 		public function packageManage(){
 			$this->CheckSession();
+			import("Home.Action.Package.PackageBasicOperate");
 			import("Home.Action.Package.PackageBasicService");
+			import("Home.Action.Package.PackageConfigBasicOperate");
+			$configOp = new PackageConfigBasicOperate();
+			$packageBasOp = new PackageBasicOperate();
 			$packageOp = new PackageBasicService();
 
 			$type = $_GET['type'];
@@ -85,6 +92,21 @@
 				}else{
 					$this->error("没有对应的操作");
 					return;
+				}
+			}elseif($identity == 0 || $identity == '0'){
+				if($type == 'select'){
+					$selectResult = $packageBasOp->selectPackage($_POST);
+					$result = $configOp->getPackageConfigInfo();
+					if($selectResult){
+						$this->assign('packageConfig',$result);
+						$this->assign("packageList",$selectResult);
+						$this->display("Student:NewPackage");
+						return $selectResult;
+					}else{
+						$this->error('没有符合条件的结果',U('Package/packageShow'));
+					}
+				}else{
+					$this->error("没有对应的操作");
 				}
 			}else{
 				$this->error("你没有权限进行操作");

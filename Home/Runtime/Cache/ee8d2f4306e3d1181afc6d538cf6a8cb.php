@@ -34,7 +34,7 @@
 
     <style media="screen">
     table {width:600px;table-layout:fixed;}
-    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis}
+    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis;}
     </style>
 
 </head>
@@ -93,21 +93,7 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                <!-- 中英文切换 -->
-                <!-- <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
-                        </li>
 
-                        <li class="divider"></li>
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -150,7 +136,7 @@
                             <ul class="nav nav-second-level"> -->
                                 <li>
                                     <!-- <a href="BookingCourse.html">预约课程</a> -->
-                                    <a href="<?php echo U('Student/BookingCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
+                                    <a href="<?php echo U('OrderClass/BookCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
                                 </li>
                                 <li>
                                     <!-- <a href="MySchedule.html">我的课表</a> -->
@@ -202,7 +188,7 @@
                         </li>
                         <li>
                             <!-- <a href="MyBook.html"><i class="fa fa-book fa-fw"></i> 我的教材</a> -->
-                            <a href="<?php echo U('Student/MyBook');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
                         </li>
                         <li>
                             <!-- <a href="MyContract.html"><i class="fa fa-legal fa-fw"></i> 我的合同</a> -->
@@ -234,39 +220,37 @@
                        <div class="panel panel-yellow">
                            <div class="panel-heading">套餐列表</div>
                            <div class="panel-body">
-                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="" method="post">
+                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="<?php echo U('Package/packageManage');?>/type/select" method="post">
                                    <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部课程内容</option>
-                                           <option value='0'>少儿类</option>
-                                           <option value='1'>成人类</option>
-                                           <option value="2">雅思类</option>
+                                       <select name="packageconID" class="form-control">
+                                          <option value="null">全部课程内容</option>
+                                          <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value='<?php echo ($vo['packageconID']); ?>'><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
                                        </select>
                                    </div>
                                    <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部课程类别</option>>
+                                       <select name="class_type" class="form-control">
+                                           <option value="null">全部课程类别</option>
                                            <option value='0'>一对一课程</option>
                                            <option value='1'>小班课程</option>
                                        </select>
                                    </div>
                                    <div class="form-group  col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部教师级别</option>>
+                                       <select name="teacher_type" class="form-control">
+                                           <option value="null">全部教师级别</option>
                                            <option value='0'>普通教师</option>
                                            <option value='1'>名师</option>
                                        </select>
                                    </div>
                                    <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部教师国籍</option>>
+                                       <select name="teacher_nation" class="form-control">
+                                           <option value="null">全部教师国籍</option>
                                            <option value='0'>中教</option>
                                            <option value='1'>外教</option>
                                        </select>
                                    </div>
                                     <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部套餐类型</option>>
+                                       <select name="package_type" class="form-control">
+                                           <option value="null">全部套餐类型</option>>
                                            <option value='0'>课时套餐</option>
                                            <option value='1'>卡类套餐</option>
                                        </select>
@@ -279,37 +263,83 @@
                                </form>
 
                                <div class="row" style="margin-top: 20px;">
-                                    <div class="col-md-3">
+                               <?php if(is_array($packageList)): foreach($packageList as $key=>$voList): ?><div class="col-md-3">
+
                                        <div class="panel panel-default">
+
                                            <div class="panel-heading" style="overflow: hidden;text-overflow :ellipsis;text-align: center;">
-                                               (套餐名称)
+                                               <?php echo ($voList['package_name']); ?>
                                            </div>
+
                                            <div class="panel-body">
-                                               <table class="table">
+
+                                               <table class="table" style="font-size: 14px;">
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>套餐类别</td>
+                                                       <td><?php echo ($voList['packageName']); ?>
+                                                       </td>
                                                    </tr>
                                                    <tr>
-                                                       <td></td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>课程类型</td>
+                                                       <td><?php if($voList['class_type'] == 0): ?>一对一
+                                                       <?php else: ?>小班<?php endif; ?></td>
                                                    </tr>
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>套餐类型</td>
+                                                       <td>
+                                                       <?php if($voList['package_type'] == 0): ?>课时类<?php else: ?>卡类<?php endif; ?>
+                                                       </td>
+                                                   </tr>
+                                                    <tr>
+                                                       <td>学生人数</td>
+                                                       <td>
+                                                       <?php echo ($voList['student_number']); ?>
+                                                       </td>
                                                    </tr>
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>课时数</td>
+                                                       <td>
+                                                         <?php echo ($voList['class_number']); ?>
+                                                       </td>
                                                    </tr>
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>教师国籍</td>
+                                                       <td>
+                                                       <?php if($voList['teacher_nation'] == 0): ?>中教<?php else: ?>外教<?php endif; ?>
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>教师类型</td>
+                                                       <td>
+                                                       <?php if($voList['teacher_type'] == 0): ?>普教
+                                                       <?php else: ?>名师<?php endif; ?>
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>有效天数</td>
+                                                       <td><?php echo ($voList['time']); ?></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐价格</td>
+                                                       <td><?php echo ($voList['package_money']); ?></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐内容</td>
+                                                       <td><?php echo ($voList['package_content']); ?></td>
                                                    </tr>
 
                                                </table>
+
                                            </div>
                                            <div class="panel-footer" style="text-align: center;">
-                                               <button class="btn btn-warning">购买套餐</button>
+                                               <a href="<{:U('student/buypackage',array('ID'=>$voList['package_id'])>"><button class="btn btn-warning">购买套餐</button></a>
                                            </div>
+
                                        </div>
-                                    </div>
+
+                                    </div><?php endforeach; endif; ?>
                                </div>
+
                            </div>
                        </div>
                     </div>

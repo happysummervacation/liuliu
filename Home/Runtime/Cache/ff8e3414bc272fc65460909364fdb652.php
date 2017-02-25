@@ -23,6 +23,8 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link href="__PUBLIC__/css/MyBook.css" rel="stylesheet" type="text/css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -33,7 +35,8 @@
 </head>
 
 <body>
-        <div id="wrapper">
+
+    <div id="wrapper">
         <!-- Navigation -->
 
         <!-- 标题 -->
@@ -128,7 +131,7 @@
                             <ul class="nav nav-second-level"> -->
                                 <li>
                                     <!-- <a href="BookingCourse.html">预约课程</a> -->
-                                    <a href="<?php echo U('Student/BookingCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
+                                    <a href="<?php echo U('OrderClass/BookCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
                                 </li>
                                 <li>
                                     <!-- <a href="MySchedule.html">我的课表</a> -->
@@ -180,7 +183,7 @@
                         </li>
                         <li>
                             <!-- <a href="MyBook.html"><i class="fa fa-book fa-fw"></i> 我的教材</a> -->
-                            <a href="<?php echo U('Student/MyBook');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
                         </li>
                         <li>
                             <!-- <a href="MyContract.html"><i class="fa fa-legal fa-fw"></i> 我的合同</a> -->
@@ -197,112 +200,127 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+
+  
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">学员信息</h1>
+                        <h1 class="page-header">学员教材</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">学员信息</div>
-                            <div class="panel-body">
-                                <form enctype="multipart/form-data" action="<?php echo U('Info/ChangeUserInformation');?>" method="post">
-                                    <div class="col-lg-8">
-                                        <div class="col-lg-6">
-                                            <h4>学员昵称：</h4>
-                                            <input type="text" class="form-control" name="account" value="<?php echo ($data['account']); ?>" disabled="disabled">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>中文姓名：</h4>
-                                            <input type="text" class="form-control" name="chinesename" value="<?php echo ($data['chinesename']); ?>">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>英语姓名：</h4>
-                                            <input type="text" class="form-control" name="englishname" value="<?php echo ($data['englishname']); ?>">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>年龄：</h4>
-                                            <input type="text" class="form-control age" name="age" value="<?php echo ($data['age']); ?>" maxlength="3">
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <h4>性别：</h4>
-                                            <select class="form-control" name="sex">
-                                                <?php
- if($data['sex'] == 0){ echo '<option selected="selected" value="0">女</option>'; }else{ echo '<option selected="selected" value="1">男</option>'; } ?>
-                                                <?php
- if($data['sex'] == 0){ echo '<option value="1">男</option>'; }else{ echo '<option value="0">女</option>'; } ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>邮箱：</h4>
-                                            <input type="text" class="form-control" name="email" value="<?php echo ($data['email']); ?>">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>联系号码：</h4>
-                                            <input type="text" class="form-control" name="phone" value="<?php echo ($data['phone']); ?>">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>QQ：</h4>
-                                            <input type="text" class="form-control" name="qq" value="<?php echo ($data['QQ']); ?>">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>微信：</h4>
-                                            <input type="text" class="form-control" name="weixin" value="<?php echo ($data['weixin']); ?>">
-                                        </div>
-                                        <div class="col-lg-6">
-                                            <h4>skype：</h4>
-                                            <input type="text" class="form-control" name="skype" value="<?php echo ($data['skype']); ?>">
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <h4>地址：</h4>
-                                            <input type="text" class="form-control" name="country" value="<?php echo ($data['country']); ?>">
-                                        </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">教材库</div>
+                        <div class="panel-body">
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#shangwu" data-toggle="tab">少儿类英语</a>
+                                </li>
+                                <li><a href="#shaoer" data-toggle="tab">成人类英语</a>
+                                </li>
+                                <li><a href="#shiyongkou" data-toggle="tab">雅思类口语</a>
+                                </li>
+                                <li><a href="#tuofu" data-toggle="tab">小班类口语</a>
+                                </li>
+                                <!-- <li><a href="#mianshi" data-toggle="tab">面试英语</a>
+                                </li>
+                                <li><a href="#qita" data-toggle="tab">其他英语</a>
+                                </li> -->
+                            </ul>
 
-                                        <div class="col-lg-12">
-                                            <h4>教材：</h4>
-                                            <?php if(empty($book)){echo "还没有教材";}else{ ?>
-                                              <?php if(is_array($book)): foreach($book as $key=>$vo): if($vo != "" && $vo != ";;"){ $bookname = "";$bookname = explode(";",$vo['material'])[1] ?>
-                                                  <input type="text" class="form-control" readonly="true" value="<?php echo ($bookname); ?>">
-                                                <?php } endforeach; endif; ?>
-                                            <?php } ?>
+                        <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="shangwu">
+                                <?php foreach ($bookresult as $key => $value) { if($value['book_type'] == '1'){?>
+                                    <div class="col-xs-3">
+                                        <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                            <div class="panel-heading simpleline">
+                                                教材名称:<?php echo ($value['bookname']); ?>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="<?php echo ($value['bookimagelink']); ?>" style="width: 80%;height: 200px">
+                                            </div>
+                                            <div class="panel-footer">
+                                                <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<?php echo ($value['download_link']); ?>"><button class="btn btn-danger" style="width: 45%">在线打开</button></a>
+                                                <?php if($value['can_upload']) {?>
+                                                <a href="<?php
+ $suffix_parts = path_info($value['download_link']); $suffix = $suffix_parts['extension']; $filename = $suffix_parts['filename']; echo U('Student/DownLoadBook',array('suffix'=>$suffix,'downfilename'=>$value['book_name'],'filename'=>$filename));?>"><button  class="btn btn-primary " style="width: 45%">下载</button></a>
+                                                <?php }else {echo "<button class='btn btn-primary' disabled='true'>不支持下载</button>";}?>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-4" style="text-align: center">
-                                        <br>
-                                        <!--这里的图片的路径要改-->
-                                        <div id="result">
-                                        <img id="touxxx" src="<?php if($data['image_path'] == null){echo '';} else {echo $data['image_path'];}?>"  style="width:130px;border: 2px solid #CCC;height: 130px;"  alt="没有头像!">
+                                <?php }}?>
+                                </div>
+                                <div class="tab-pane fade" id="shaoer">
+                                    <?php foreach ($bookresult as $key => $value) { if($value['book_type'] == '2'){?>
+                                    <div class="col-xs-3">
+                                        <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                            <div class="panel-heading simpleline">
+                                                教材名称:<?php echo ($value['bookname']); ?>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="<?php echo ($value['bookimagelink']); ?>" style="width: 80%;height: 200px">
+                                            </div>
+                                            <div class="panel-footer">
+                                                <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<?php echo ($value['download_link']); ?>"><button class="btn btn-danger" style="width: 45%">在线打开</button></a>
+                                                <?php if($value['can_upload']) {?>
+                                                <a href="<?php
+ $suffix_parts = path_info($value['download_link']); $suffix = $suffix_parts['extension']; $filename = $suffix_parts['filename']; echo U('Student/DownLoadBook',array('suffix'=>$suffix,'downfilename'=>$value['book_name'],'filename'=>$filename));?>"><button  class="btn btn-primary " style="width: 45%">下载</button></a>
+                                                <?php }else {echo "<button class='btn btn-primary'  disabled='true'>不支持下载</button>";}?>
+                                            </div>
                                         </div>
-                                        <br>
-                                        <br>
-                                        <div class="uploadbutton btn btn-default" style="width:50%;">
-                                            <input type="file" nv-file-select="" uploader="uploader" multiple   name="photo" value="上传头像" id="file_input"/>
-                                            上传头像
+                                    </div>
+                                    <?php }}?>
+                                </div>
+                                <div class="tab-pane fade" id="shiyongkou">
+                                    <?php foreach ($bookresult as $key => $value) { if($value['book_type'] == '3'){?>
+                                   <div class="col-xs-3">
+                                        <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                            <div class="panel-heading simpleline">
+                                                教材名称:<?php echo ($value['bookname']); ?>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="<?php echo ($value['bookimagelink']); ?>" style="width: 80%;height: 200px">
+                                            </div>
+                                            <div class="panel-footer">
+                                                <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<?php echo ($value['download_link']); ?>"><button class="btn btn-danger" style="width: 45%">在线打开</button></a>
+                                                <?php if($value['can_upload']) {?>
+                                                <a href="<?php
+ $suffix_parts = path_info($value['download_link']); $suffix = $suffix_parts['extension']; $filename = $suffix_parts['filename']; echo U('Student/DownLoadBook',array('suffix'=>$suffix,'downfilename'=>$value['book_name'],'filename'=>$filename));?>"><button  class="btn btn-primary " style="width: 45%">下载</button></a>
+                                                <?php }else {echo "<button class='btn btn-primary'  disabled='true'>不支持下载</button>";}?>
+                                            </div>
                                         </div>
-                                        <br/>
-                                        图片大小不要超过2M
-                                        <!-- <input class="btn btn-default" value="上传头像" type="file" name="photo"/> -->
                                     </div>
-                                    <div class="col-lg-12">
-                                        <br>
-
+                                    <?php }}?>
+                                </div>
+                                <div class="tab-pane fade" id="tuofu">
+                                    <?php foreach ($bookresult as $key => $value) { if($value['book_type'] == '4'){?>
+                                    <div class="col-xs-3">
+                                        <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                            <div class="panel-heading simpleline">
+                                                教材名称:<?php echo ($value['bookname']); ?>
+                                            </div>
+                                            <div class="panel-body">
+                                                <img src="<?php echo ($value['bookimagelink']); ?>" style="width: 80%;height: 200px">
+                                            </div>
+                                            <div class="panel-footer">
+                                                <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<?php echo ($value['download_link']); ?>"><button class="btn btn-danger" style="width: 45%">在线打开</button></a>
+                                                <?php if($value['can_upload']) {?>
+                                                <a href="<?php
+ $suffix_parts = path_info($value['download_link']); $suffix = $suffix_parts['extension']; $filename = $suffix_parts['filename']; echo U('Student/DownLoadBook',array('suffix'=>$suffix,'downfilename'=>$value['book_name'],'filename'=>$filename));?>"><button  class="btn btn-primary " style="width: 45%">下载</button></a>
+                                                <?php }else {echo "<button class='btn btn-primary'  disabled='true'>不支持下载</button>";}?>
+                                            </div>
+                                        </div>
                                     </div>
-
+                                    <?php }}?>
+                                </div>
                             </div>
-                            <div class="panel-footer" style="overflow: auto">
-                                <button class="btn btn-primary" type="submit" style="float: right;width: 10%;">保存</button>
-                            </div>
-                            </form>
                         </div>
-                    </div>
-                </div>
-            </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
@@ -322,44 +340,12 @@
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <script type="text/javascript" src="__PUBLIC__/js/Countries.js"></script>
-
-
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
-
-        $('.age').change(function(){
-            if ($(this).val()<0||$(this).val()>150) {
-                alert("请检查您的年龄填写是否正确");
-                $(this).val('');
-            }
-        })
-
-        var result = document.getElementById("result");
-        var input = document.getElementById("file_input");
-
-        if(typeof FileReader==='undefined'){
-            result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
-            input.setAttribute('disabled','disabled');
-        }else{
-            input.addEventListener('change',readFile,false);
-        }
-
-        function readFile(){
-            var file = this.files[0];
-            if(!/image\/\w+/.test(file.type)){
-                alert("文件图片类型文件");
-                return false;
-            }
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function(e){
-                $('#result img').attr('src',this.result);
-            }
-        }
     </script>
+
 </body>
 
 </html>

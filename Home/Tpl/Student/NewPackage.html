@@ -34,7 +34,7 @@
 
     <style media="screen">
     table {width:600px;table-layout:fixed;}
-    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis}
+    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis;}
     </style>
 
 </head>
@@ -57,39 +57,39 @@
                        <div class="panel panel-yellow">
                            <div class="panel-heading">套餐列表</div>
                            <div class="panel-body">
-                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="" method="post">
+                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="<{:U('Package/packageManage')}>/type/select" method="post">
                                    <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部课程内容</option>
-                                           <option value='0'>少儿类</option>
-                                           <option value='1'>成人类</option>
-                                           <option value="2">雅思类</option>
+                                       <select name="packageconID" class="form-control">
+                                          <option value="null">全部课程内容</option>
+                                          <foreach name="packageConfig" item="vo">
+                                          <option value='<{$vo['packageconID']}>'><{$vo['packageName']}></option>
+                                          </foreach>
                                        </select>
                                    </div>
                                    <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部课程类别</option>>
+                                       <select name="class_type" class="form-control">
+                                           <option value="null">全部课程类别</option>
                                            <option value='0'>一对一课程</option>
                                            <option value='1'>小班课程</option>
                                        </select>
                                    </div>
                                    <div class="form-group  col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部教师级别</option>>
+                                       <select name="teacher_type" class="form-control">
+                                           <option value="null">全部教师级别</option>
                                            <option value='0'>普通教师</option>
                                            <option value='1'>名师</option>
                                        </select>
                                    </div>
                                    <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部教师国籍</option>>
+                                       <select name="teacher_nation" class="form-control">
+                                           <option value="null">全部教师国籍</option>
                                            <option value='0'>中教</option>
                                            <option value='1'>外教</option>
                                        </select>
                                    </div>
                                     <div class="form-group col-md-2">
-                                       <select class="form-control">
-                                           <option value="-1">全部套餐类型</option>>
+                                       <select name="package_type" class="form-control">
+                                           <option value="null">全部套餐类型</option>>
                                            <option value='0'>课时套餐</option>
                                            <option value='1'>卡类套餐</option>
                                        </select>
@@ -102,37 +102,86 @@
                                </form>
 
                                <div class="row" style="margin-top: 20px;">
+                               <foreach name="packageList" item="voList">
                                     <div class="col-md-3">
+
                                        <div class="panel panel-default">
+
                                            <div class="panel-heading" style="overflow: hidden;text-overflow :ellipsis;text-align: center;">
-                                               (套餐名称)
+                                               <{$voList['package_name']}>
                                            </div>
+
                                            <div class="panel-body">
-                                               <table class="table">
+
+                                               <table class="table" style="font-size: 14px;">
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>套餐类别</td>
+                                                       <td><{$voList['packageName']}>
+                                                       </td>
                                                    </tr>
                                                    <tr>
-                                                       <td></td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>课程类型</td>
+                                                       <td><if condition="$voList['class_type'] eq 0">一对一
+                                                       <else />小班
+                                                       </if></td>
                                                    </tr>
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>套餐类型</td>
+                                                       <td>
+                                                       <if condition="$voList['package_type'] eq 0">课时类<else />卡类</if>
+                                                       </td>
+                                                   </tr>
+                                                    <tr>
+                                                       <td>学生人数</td>
+                                                       <td>
+                                                       <{$voList['student_number']}>
+                                                       </td>
                                                    </tr>
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>课时数</td>
+                                                       <td>
+                                                         <{$voList['class_number']}>
+                                                       </td>
                                                    </tr>
                                                    <tr>
-                                                       <td>套餐类型</td><td>课时套餐sadasdasdasdasdasdasdads</td>
+                                                       <td>教师国籍</td>
+                                                       <td>
+                                                       <if condition="$voList['teacher_nation'] eq 0">中教<else />外教</if>
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>教师类型</td>
+                                                       <td>
+                                                       <if condition="$voList['teacher_type'] eq 0">普教
+                                                       <else />名师</if>
+                                                       </td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>有效天数</td>
+                                                       <td><{$voList['time']}></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐价格</td>
+                                                       <td><{$voList['package_money']}></td>
+                                                   </tr>
+                                                   <tr>
+                                                       <td>套餐内容</td>
+                                                       <td><{$voList['package_content']}></td>
                                                    </tr>
 
                                                </table>
+
                                            </div>
                                            <div class="panel-footer" style="text-align: center;">
-                                               <button class="btn btn-warning">购买套餐</button>
+                                               <a href="<{:U('student/buypackage',array('ID'=>$voList['package_id'])>"><button class="btn btn-warning">购买套餐</button></a>
                                            </div>
+
                                        </div>
+
                                     </div>
+                                    </foreach>
                                </div>
+
                            </div>
                        </div>
                     </div>

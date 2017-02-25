@@ -183,7 +183,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/Book');?>"><i class="fa fa-exchange fa-fw"></i> 教材库</a>
+                             <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-exchange fa-fw"></i> 教材库</a>
                         </li>
                         <li>
                              <a href="<?php echo U('Admin/FeedBack');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
@@ -216,7 +216,7 @@
                         <div class="panel panel-primary">
                             <div class="panel-heading">顾问信息</div>
                             <div class="panel-body">
-                                <form enctype="multipart/form-data" action="<?php echo U('Admin/ChangeInformation');?>" method="post">
+                                <form enctype="multipart/form-data" action="<?php echo U('Info/ChangeUserInformation');?>" method="post">
                                     <div class="col-lg-8">
                                         <div class="col-lg-6">
                                             <h4>顾问昵称：</h4>
@@ -249,7 +249,7 @@
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>联系号码：</h4>
-                                            <input type="text" class="form-control" name="phonenumber" value="<?php echo ($data['phone']); ?>">
+                                            <input type="text" class="form-control" name="phone" value="<?php echo ($data['phone']); ?>">
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>QQ：</h4>
@@ -259,10 +259,10 @@
                                             <h4>微信：</h4>
                                             <input type="text" class="form-control" name="weixin" value="<?php echo ($data['weixin']); ?>">
                                         </div>
-                                        <div class="col-lg-6">
+                                        <!-- <div class="col-lg-6">
                                             <h4>skype：</h4>
                                             <input type="text" class="form-control" name="skype" value="<?php echo ($data['skype']); ?>">
-                                        </div>
+                                        </div> -->
                                         <div class="col-lg-12">
                                             <h4>地域：</h4>
                                             <input type="text" class="form-control" name="country" value="<?php echo ($data['country']); ?>">

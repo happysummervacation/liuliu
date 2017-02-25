@@ -115,5 +115,60 @@
                 return $message;
             }
 		}
+
+		/*陈泽奇
+		*第一个参数是数组,当为null时，就查询所有
+		*第二个参数是字段,当为null时，就查询所有
+		*返回符合条件的数组。
+		*/
+		public function selectPackage($postID = null,$Field = null)
+		{
+			$message = array();
+			$inquiry = new Model('package');
+			$condition = "";
+
+			if($postID['class_type'] != "null"){
+				$condition = $condition."class_type=".$postID['class_type']." and ";
+			}
+			if($postID['package_type'] != "null"){
+				$condition = $condition."package_type=".$postID['package_type']
+				." and ";
+			}
+			if($postID['teacher_type'] != "null"){
+				$condition = $condition."teacher_type=".$postID['teacher_type']
+				." and ";
+			}
+			if($postID['teacher_nation'] != "null"){
+				$condition = $condition."teacher_nation=".$postID['teacher_nation']." and ";
+			}
+			if($postID['packageconID'] != "null"){
+				$condition = $condition."category=".$postID['packageconID']." and ";
+			}
+			$condition = $condition."1";
+
+			if(is_null($Field)){
+				$result = $inquiry
+				->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID and isdelete=0")
+				->where($condition)->select();
+				return $result;
+
+			}else{
+				$fieldString = "";
+				if(!is_null($Field)){
+					for ($i=0; $i < count($Field); $i++) {
+						if($i == count($Field)-1){
+							$fieldString = $fieldString.$Field[$i].")";
+						}else{
+							$fieldString = $fieldString.$Field[$i]." or ";
+						}
+					}
+				}
+				$result = $inquiry
+				->join("inner join tp_packageconfig on tp_package.category=tp_packageconfig.packageconID and isdelete=0")
+				->where($condition)
+				->field($fieldString)->select();
+				return $result;
+			}
+		}
 	}
  ?>

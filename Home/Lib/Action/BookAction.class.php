@@ -43,7 +43,7 @@
 				$this->assign("packageConfig",$result);
 				$this->assign("bookresult",$bookResult);
 				$this->display("Root:MaterialManage");
-			}elseif($identity == 2 || $identity = "2"){  //admin
+			}elseif($identity == 2 || $identity == "2"){  //admin
 				$bookAdminResult = $bookBasicOperate->getBookSInfo();
 				$this->assign("bookresult",$bookAdminResult);
 				$this->display("Admin:Book");
@@ -52,7 +52,10 @@
 				$this->assign("bookresult",$bookResult1);
 				$this->display("Teacher:TeachingMaterials");
 			}elseif($identity == 0 || $identity == "0"){   //student
-
+				$bookStudentResult = $bookBasicOperate->getBookSInfo();
+				$this->assign("bookresult",$bookStudentResult);
+				$this->display('Student:MyBook');
+				return;
 			}else{
 				$this->error("用户身份错误");
 			}

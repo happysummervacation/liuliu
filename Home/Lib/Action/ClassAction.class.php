@@ -78,6 +78,11 @@
 					$classTimeData = json_decode($_POST['data'],true);    //将获取到的json类型的课程数据转成数组
 					$classBasOp = new ClassBasicService();
 					$result = $classBasOp->Opencourse($teacherID,$classTimeData);
+					if($result['status']){
+						$this->success("开课成功",U('Class/getTeacherClassPlan'));
+					}else{
+						$this->error("开课失败",U('Class/getTeacherClassPlan'));
+					}
 				}elseif($opType == "delete"){
 
 				}elseif($opType == "find"){

@@ -282,5 +282,37 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*管理员和课程顾问管理,用来展示被管理人员的信息
+		*/
+		public function showManagedUser(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			$type = $_GET['personType'];
+			if(4 == $identity || "4" == $identity){
+				if("student" == $type){
+
+				}elseif("teacher" == $type){
+					$this->display("Root:CheckTeacher");
+				}elseif("admin" == $type){
+
+				}else{
+					$this->error("");
+				}
+			}elseif(2 == $identity || "2" == $identity){
+				if("student" == $type){
+					
+				}elseif("teacher" == $type){
+
+				}else{
+					$this->error("");
+				}
+			}else{
+				$this->error("你没有该权限查看该信息");
+			}
+		}
+
 	}
  ?>

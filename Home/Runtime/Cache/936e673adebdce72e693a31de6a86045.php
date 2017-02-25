@@ -91,21 +91,7 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                <!-- 中英文切换 -->
-                <!-- <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
-                        </li>
 
-                        <li class="divider"></li>
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -148,7 +134,7 @@
                             <ul class="nav nav-second-level"> -->
                                 <li>
                                     <!-- <a href="BookingCourse.html">预约课程</a> -->
-                                    <a href="<?php echo U('Student/BookingCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
+                                    <a href="<?php echo U('OrderClass/BookCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
                                 </li>
                                 <li>
                                     <!-- <a href="MySchedule.html">我的课表</a> -->
@@ -200,7 +186,7 @@
                         </li>
                         <li>
                             <!-- <a href="MyBook.html"><i class="fa fa-book fa-fw"></i> 我的教材</a> -->
-                            <a href="<?php echo U('Student/MyBook');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
                         </li>
                         <li>
                             <!-- <a href="MyContract.html"><i class="fa fa-legal fa-fw"></i> 我的合同</a> -->
