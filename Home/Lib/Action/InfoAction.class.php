@@ -39,13 +39,17 @@
 			$userOp = new UserBasicOperate();
 
 			$identity = $_SESSION['identity'];
-			if($identity == 0 || $identity == "0"){
+			if($identity == 0 || $identity == "0"){   //学生
 				$result = $userOp->getUserInfo("student",$_SESSION['ID']);
 				$this->assign('data',$result[0]);
 				$this->display("Student:Information");
 			}elseif($identity == 1 || $identity == "1"){
-				$this->display("Teacher:index");
+				$result = $userOp->getUserInfo("teacher",$_SESSION['ID']);
+				$this->assign('data',$result[0]);
+				$this->display("Teacher:Information");
 			}elseif($identity == 2 || $identity == "2"){
+				$result = $userOp->getUserInfo("admin",$_SESSION['ID']);
+				$this->assign('data',$result[0]);
 				$this->display("Admin:Information");
 			}elseif($identity == 4 || $identity == "4"){
 				$result = $userOp->getUserInfo("root",$_SESSION['ID']);
@@ -72,9 +76,13 @@
 					$result = $userObject->updateStudentInfo($_SESSION['ID'],null,$_POST,false);
 				}
 			}elseif($identity == 1 || $identity == '1'){
-
+				if($_FILES['photo']['size'] > 0){   //有图片的上传
+					$result = $userObject->updateTeacherInfo($_SESSION['ID'],null,$_POST,true);
+				}else{   //没有图片的上传
+					$result = $userObject->updateTeacherInfo($_SESSION['ID'],null,$_POST,false);
+				}
 			}elseif($identity == 2 || $identity == '2'){
-
+				$result = $userObject->updateAdminInfo($_SESSION['ID'],null,$_POST,false);
 			}elseif($identity == 4 || $identity == '4'){
 				$result = $userObject->updateRootInfo($_SESSION['ID'],null,$_POST,false);
 			}else{
@@ -251,6 +259,26 @@
 			}else{
 				$this->error("你没有权限进行操作");
 				return;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*联系课程顾问
+		*/
+		public function contractAdmin(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if(1 == $identity || "1" == $identity){
+				//////////////////////////////////////
+
+				/////////////////////////////////////
+				$this->display("Teacher:ContractAdmin");
+			}elseif(0 == $identity || "0" == $identity){
+
+			}else{
+				$this->error("你没有权限查看该页面");
 			}
 		}
 

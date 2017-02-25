@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -103,7 +103,160 @@ user-select: none;
 </head>
 
 <body>
-    <include file="Public:PublicBodyTeacher" />
+     <div id="wrapper">
+
+        <!-- Navigation -->
+        <!-- 标题 -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="topmen">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>66Speak Home Page</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+           <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h3 align="center">Beijing Time&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h3>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <?php echo count($unreadmessage) ?>
+                        <!-- <?php dump($unreadmessage) ?> -->
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
+                                <a href="<?php echo U('Teacher/InformationCenter');?>">
+                                <div>
+                                    <strong><?php echo ($value['account']); ?></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><?php echo (date("Y-m-d H:i:s",$value['create_time'])); ?></em>
+                                    </span>
+                                </div>
+                                <div><?php echo ($value['content']); ?></div>
+                                </a>
+                            </li><?php endif; endforeach; endif; ?>
+                        <li>
+                            <a class="text-center" href="<?php echo U('Teacher/InformationCenter');?>">
+                                <strong>All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> Quit</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                        </li>
+                        <li>
+                          <a href="<?php echo U('Teacher/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
+                        </li>
+                            <li>
+                                <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo U('Teacher/Feedback');?>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
+                            </li>
+                            <li>
+                               <a href="<?php echo U('Teacher/HistoryFeedback');?>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
+                           </li>
+                        <li>
+                            <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Teacher/UploadedVideos');?>"> Video History</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="__PUBLIC__/plug-in/examples/simple/index.html">现在上传</a> -->
+                                    <a href="<?php echo U('Teacher/UploadNow');?>"> Upload Video</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Teacher/UploadIntroductionVideo');?>"> Upload Introduction Video</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i> Teacher Information<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="Information.html">个人信息修改</a> -->
+                                    <a href="<?php echo U('Teacher/Information');?>"> Teacher Information</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="Information.html">个人信息修改</a> -->
+                                    <a href="<?php echo U('Teacher/QualificationsInformation');?>"> Qualification Information</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="ResetPassword.html">密码修改</a> -->
+                                    <a href="<?php echo U('Info/resetPassword');?>"> Password Reset</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Teacher Salary<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="MyMoney.html">我的工资</a> -->
+                                    <a href="<?php echo U('Teacher/MyMoney');?>"> Teacher Salary</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="HowCaculate.html">工资计算</a> -->
+                                    <a href="<?php echo U('Teacher/HowCaculate');?>"> Salary Settlement</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Teacher/MyContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Teacher/TeacherInstruction');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
+                        </li>
+                        <!-- <li>
+                          <span ><?php echo date('Y/m/d H:i:s',$nowtime);?></span>
+                        </li> -->
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
 
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -120,10 +273,8 @@ user-select: none;
                         <div class="panel panel-primary">
                         <div class="panel-heading">
                         <?php
-                            $this_month = (int)$this_month;
-                            $this_year = (int)$this_year;
-                        ?>
-                            <span><{$this_year}> year <{$this_month}> month</span>&nbsp;Teacher's Schedule
+ $this_month = (int)$this_month; $this_year = (int)$this_year; ?>
+                            <span><?php echo ($this_year); ?> year <?php echo ($this_month); ?> month</span>&nbsp;Teacher's Schedule
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -222,7 +373,7 @@ user-select: none;
                             <h4 class="modal-title" id="myModalLabel">Course Information</h4>
                           </div>
                           <div class="modal-body">
-                            <form role="form" class="form-horizontal" action="<{:U('Teacher/UpdateTeacherCLassInfor')}>" method="post">
+                            <form role="form" class="form-horizontal" action="<?php echo U('Teacher/UpdateTeacherCLassInfor');?>" method="post">
                                 <!-- <div class="form-group">
                                     <label class="col-sm-4 control-label">Course Number:</label>
                                     <div class="col-sm-6"> -->
@@ -308,7 +459,7 @@ user-select: none;
                         <div class="modal-content">
                             <div class="modal-header">Schedule of Other Months</div>
                             <div class="modal-body">
-                                <form action="<{:U('Teacher/GetMyMonthPlan')}>" method="post">
+                                <form action="<?php echo U('Teacher/GetMyMonthPlan');?>" method="post">
                                   <div class="form-group">
                                     <label for="recipient-name" class="control-label">Choose Year:</label>
                                     <select class="form-control" name="year" id='nowyear123'>
@@ -374,12 +525,10 @@ user-select: none;
     <script src="__PUBLIC__/js/time.js"></script>
     <script type="text/javascript">
         upDateTime();
-        var teachertype=<{$teacher_type}>;//0表示中教,课程时间一个小时;1表示外交,课程时间半个小时.
+        var teachertype=<?php echo ($teacherType); ?>;//0表示中教,课程时间一个小时;1表示外交,课程时间半个小时.
         // var teachertype=0;
         var classtime=(teachertype)?30:60;//表示课程时间
         var classnumber=(teachertype)?31:15;
-        //
-
 
         (function(callback){
             for (var i = 0; i <= classnumber; i++) {
@@ -468,12 +617,12 @@ user-select: none;
     }
 
     //时间相关的处理
-    var date=new Date(<?php echo date('Y',$nowtime1);?>,<?php echo date('m',$nowtime1);?>,0);
-    var date2=new Date(<?php echo date('Y',$nowtime1);?>,<?php echo date('m',$nowtime1);?>-1,0);
-    var date3=new Date(<?php echo date('Y',$nowtime1);?>,<?php echo date('m',$nowtime1);?>,<?php echo date('d',$nowtime1);?>);
+    var date=new Date(<?php echo date('Y',$nowtimePlan);?>,<?php echo date('m',$nowtimePlan);?>,0);
+    var date2=new Date(<?php echo date('Y',$nowtimePlan);?>,<?php echo date('m',$nowtimePlan);?>-1,0);
+    var date3=new Date(<?php echo date('Y',$nowtimePlan);?>,<?php echo date('m',$nowtimePlan);?>,<?php echo date('d',$nowtimePlan);?>);
 
-    $('#nowyear123').val(<?php echo date('Y',$nowtime1);?>);
-    $('#nowmonth123').val(<?php echo date('m',$nowtime1);?>);
+    $('#nowyear123').val(<?php echo date('Y',$nowtimePlan);?>);
+    $('#nowmonth123').val(<?php echo date('m',$nowtimePlan);?>);
     // var date=new Date(2016,10,0);
     var year=date.getFullYear();//获取年份
     var month=date.getMonth()+1;//本月
@@ -496,7 +645,7 @@ user-select: none;
     // }
     //当前是第几周
     var nowweek_16=(nowdate_16<=(7-firstwekday+1))?1:(parseInt((nowdate_16-(7-firstwekday+1)+6)/7)+1);//第几周
-    console.log('<?php echo date('Y-m-d H:m:s',$nowtime1);?>');
+    console.log('<?php echo date('Y-m-d H:m:s',$nowtimePlan);?>');
     console.log(date3);
     console.log(nowmonth_16+'月',nowdate_16+'号',nowweek_16);
 
@@ -504,7 +653,8 @@ user-select: none;
     // console.log("month="+month);
     // var kecheng=eval([{"time":1475287800000,"state":2,"student":"xioming"},{"time":1476869422000,"state":3,"student":"xioming"}])
     // var kecheng = eval({});
-    var kecheng = eval(<?php echo $deal_result;?>)
+
+    var kecheng = eval(<?php echo $teacherClassResult;?>)
     // var kecheng=Array(
     // {"time":1475287800000,"state":0},
     // {"time":1476869422000,"state":1}
@@ -527,6 +677,9 @@ user-select: none;
 
         }else if(yuzhimonth==((((month+11)%12)==0)?12:((month+11)%12))){
             var dijizhou=1;//第几周
+            if(yuzhiday=(lastmonthdays-firstwekday)){
+                dijizhou=0;
+            }
         }
         var dijitian=(yuzhikecheng.getDay()==0)?7:yuzhikecheng.getDay();
         // console.log("----------");
@@ -642,13 +795,11 @@ user-select: none;
     var minute=0;
     var con=1;
     $('#div_div tbody th').each(function(){
-        $(this).html(classcount+":"+minute);
-        // if(minute=="00"){
-        //     minute="30";
-        // }else{
-        //     classcount++;
-        //     minute="00"
-        // }
+        if(minute=='0'){
+            $(this).html(classcount+":"+minute+'0');
+        }else{
+            $(this).html(classcount+":"+minute);
+        }
         minute=minute+classtime;
         classcount=classcount+parseInt(minute/60);
         minute=minute%60;
@@ -786,7 +937,7 @@ user-select: none;
             // alert(jsonarr);
             $.ajax({
                 type:'POST',
-                url:"<{:U('Teacher/GetClassInfo')}>",
+                url:"<?php echo U('Teacher/GetClassInfo');?>",
                 data:'data='+jsonarr,
                 dataType:'json',
                 success:function(msg){
@@ -854,23 +1005,23 @@ user-select: none;
         var jsonarr=JSON.stringify(arr);
         // console.log(jsonarr);
 
-        post("<{:U('Teacher/PostCourse')}>", {data:jsonarr});
+        post("<?php echo U('Class/ClassManage');?>/type/add", {data:jsonarr});
 
 
         // $.ajax({
         //     type:'POST',
-        //     url:"<{:U('Teacher/PostCourse')}>",
+        //     url:"<?php echo U('Teacher/PostCourse');?>",
         //     data:'data='+jsonarr,
         //     dataType:'json',
         //     // success:function(msg){
         //     //     alert(msg.responseText);
         //     //     // location.reload();//刷新页面
-        //     //       window.location.href="<{:U('Teacher/')}>";
+        //     //       window.location.href="<?php echo U('Teacher/');?>";
         //     //
         //     // },
         //     // error:function(error){
         //     //     alert(error.responseText);
-        //     //       window.location.href="<{:U('Teacher/')}>";
+        //     //       window.location.href="<?php echo U('Teacher/');?>";
         //     // }
         // });
 
@@ -909,7 +1060,7 @@ user-select: none;
         // console.log(jsonarr);
         $.ajax({
             type:'POST',
-            url:"<{:U('Teacher/BatchDeleteTeacherClass')}>",
+            url:"<?php echo U('Teacher/BatchDeleteTeacherClass');?>",
             data:'data='+jsonarr,
             dataType:'json',
             success:function(msg){

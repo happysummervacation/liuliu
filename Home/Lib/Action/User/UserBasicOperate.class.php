@@ -11,7 +11,7 @@
         //参数六:要查找的字段
         public function getUserInfo($tableName = null,$userID = null,$Account = null,$Phone = null,$Email = null,$Field = null){
             $condition = "";
-            $fieldString = "(";
+            $fieldString = "";
             $inquiry = null;
             $result = null;
 
@@ -74,7 +74,7 @@
 
             if(!is_null($Field)){
                 for ($i = 0; $i < count($Field); $i++) {
-                    if($i == count($Filed)-1){
+                    if($i == count($Field)-1){
                         $fieldString = $fieldString.$Field[$i];
                     }else{
                         $fieldString = $fieldString.$Field[$i].",";
@@ -93,6 +93,7 @@
                     $result = $inquiry->select();
                 }
             }
+
             return $result;
         }
 

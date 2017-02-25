@@ -44,9 +44,13 @@
 				$this->assign("bookresult",$bookResult);
 				$this->display("Root:MaterialManage");
 			}elseif($identity == 2 || $identity = "2"){  //admin
-
+				$bookAdminResult = $bookBasicOperate->getBookSInfo();
+				$this->assign("bookresult",$bookAdminResult);
+				$this->display("Admin:Book");
 			}elseif($identity == 1 || $identity == "1"){   //teacher
-
+				$bookResult1 = $bookBasicOperate->getBookSInfo();
+				$this->assign("bookresult",$bookResult1);
+				$this->display("Teacher:TeachingMaterials");
 			}elseif($identity == 0 || $identity == "0"){   //student
 
 			}else{

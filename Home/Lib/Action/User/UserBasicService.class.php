@@ -1,7 +1,8 @@
 <?php
 	class UserBasicService extends Action{
 		private $imageType = array('jpg', 'gif', 'png', 'jpeg');
-
+		private $fileSize = 5242880;
+		private $userImagePath = './UserImage/';
 		/*
 		*俞鹏泽
 		*学生的信息的更新
@@ -20,8 +21,13 @@
 			}
 
 			$filePath = null;
-			if(!is_null($fileData)){
-				$filePath = UploadOneFile("./UserImage/",5242880,$this->imageType);
+			if($fileData){
+				$filePath = UploadOneFile($this->userImagePath,$this->fileSize,$this->imageType);
+				if($filePathp['status']){
+					$message['status'] = false;
+					$message['message'] = "用户要更新的数据失败";
+					return $message;
+				}
 			}
 
 			$data = array();
@@ -30,14 +36,14 @@
 			$data['age'] = $postData['age'];
 			$data['sex'] = $postData['sex'];
 			$data['email'] = $postData['email'];
-			$data['phone'] = $postData['phonenumber'];
+			$data['phone'] = $postData['phone'];
 			$data['QQ'] = $postData['qq'];
 			$data['weixin'] = $postData['weixin'];
 			$data['skype'] = $postData['skype'];
 			$data['country'] = $postData['country'];
 
 			if(!is_null($filePath)){
-				$data['image_path'] = '/liuliu'.explode(".",$filePath[0]['savepath'])[1].$filePath[0]['savename'];
+				$data['image_path'] = '/liuliu'.explode(".",$filePath['message'][0]['savepath'])[1].$filePath['message'][0]['savename'];
 			}
 
 			import("Home.Action.User.UserBasicOperate");
@@ -66,8 +72,13 @@
 			}
 
 			$filePath = null;
-			if(!is_null($fileData)){
-				$filePath = UploadOneFile("./UserImage/",5242880,$this->imageType);
+			if($fileData){
+				$filePath = UploadOneFile("$this->userImagePath",$this->fileSize,$this->imageType);
+				if($filePathp['status']){
+					$message['status'] = false;
+					$message['message'] = "用户要更新的数据失败";
+					return $message;
+				}
 			}
 
 			$data = array();
@@ -76,7 +87,7 @@
 			$data['age'] = $postData['age'];
 			$data['sex'] = $postData['sex'];
 			$data['email'] = $postData['email'];
-			$data['phone'] = $postData['phonenumber'];
+			$data['phone'] = $postData['phone'];
 			$data['QQ'] = $postData['qq'];
 			$data['weixin'] = $postData['weixin'];
 			$data['skype'] = $postData['skype'];
@@ -111,25 +122,53 @@
 				return $message;
 			}
 
-			// $filePath = null;
-			// if(!is_null($fileData)){
-			// 	$filePath = UploadOneFile("./UserImage/",5242880,$this->imageType);
-			// }
-
 			$data = array();
 			$data['chinesename'] = $postData['chinesename'];
 			$data['englishname'] = $postData['englishname'];
 			$data['email'] = $postData['email'];
 			$data['phone'] = $postData['phone'];
 
-			if(!is_null($filePath)){
-				$data['image_path'] = '/liuliu'.explode(".",$filePath[0]['savepath'])[1].$filePath[0]['savename'];
-			}
-
 			import("Home.Action.User.UserBasicOperate");
 			$UserOp = new UserBasicOperate();
 
 			$result = $UserOp->updateUserInfo($RootID,$RootAccount,$data);
+
+			return $result;
+		}
+
+		/*
+		*蒋周杰
+		*更新admin的数据
+		*/
+		public function updateAdminInfo($AdminID = null,$AdminAccount = null,$postData = null){
+			$message = array();
+
+			if(is_null($AdminID) && is_null($AdminAccount)){
+				$message['status'] = false;
+				$message['message'] = "用户的ID与账号都是空的,更新失败";
+				return $message;
+			}
+			if(is_null($postData)){
+				$message['status'] = false;
+				$message['message'] = "用户要更新的数据没有,更新失败";
+				return $message;
+			}
+
+			$data = array();
+			$data['chinesename'] = $postData['chinesename'];
+			$data['englishname'] = $postData['englishname'];
+			$data['age'] = $postData['age'];
+			$data['sex'] = $postData['sex'];
+			$data['email'] = $postData['email'];
+			$data['phone'] = $postData['phone'];
+			$data['QQ'] = $postData['qq'];
+			$data['weixin'] = $postData['weixin'];
+			$data['country'] = $postData['country'];
+
+			import("Home.Action.User.UserBasicOperate");
+			$UserOp = new UserBasicOperate();
+
+			$result = $UserOp->updateUserInfo($AdminID,$AdminAccount,$data);
 
 			return $result;
 		}

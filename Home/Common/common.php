@@ -119,7 +119,7 @@
 			}else{// 上传成功 获取上传文件信息
 				$fileInfo =  $upload->getUploadFileInfo();
 				$message['status'] = true;
-				$message['message'] = $info;
+				$message['message'] = $fileInfo;
 				return $message;
 			}
 		}

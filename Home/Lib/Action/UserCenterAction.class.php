@@ -41,5 +41,12 @@
 				return;
 			}
 		}
+		/*
+		*俞鹏泽
+		*显示Rule页面
+		*/
+		public function showRule(){
+			
+		}
 	}
  ?>

@@ -55,21 +55,6 @@
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                <!-- 中英文切换 -->
-                <!-- <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
-                        </li>
-
-                        <li class="divider"></li>
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -88,34 +73,19 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
-                            <!-- <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="Searching...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div> -->
-                            <!-- /input-group -->
                         </li>
                         <li>
                           <a href="<{:U('Teacher/index')}>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
                         </li>
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-calendar fa-fw"></i> Course Management<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level"> -->
-                                <li>
-                                    <a href="<{:U('Teacher/MyMouthPlan')}>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
-                                </li>
-                                 <li>
-                                    <a href="<{:U('Teacher/Feedback')}>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
-                                </li>
-                                <li>
-                                   <a href="<{:U('Teacher/HistoryFeedback')}>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
-                               </li>
-                            <!-- </ul> -->
-                            <!-- /.nav-second-level -->
-                        <!-- </li> -->
+                            <li>
+                                <a href="<{:U('Class/getTeacherClassPlan')}>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
+                            </li>
+                             <li>
+                                <a href="<{:U('Teacher/Feedback')}>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
+                            </li>
+                            <li>
+                               <a href="<{:U('Teacher/HistoryFeedback')}>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
+                           </li>
                         <li>
                             <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -165,7 +135,7 @@
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="<{:U('Teacher/TeachingMaterials')}>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
+                            <a href="<{:U('Book/showBookInfo')}>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
                         </li>
                         <li>
                             <a href="<{:U('Teacher/MyContract')}>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
@@ -174,7 +144,7 @@
                             <a href="<{:U('Teacher/TeacherInstruction')}>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
                         </li>
                         <li>
-                            <a href="<{:U('Teacher/ContractAdmin')}>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
+                            <a href="<{:U('Info/contractAdmin')}>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
                         </li>
                         <!-- <li>
                           <span ><?php echo date('Y/m/d H:i:s',$nowtime);?></span>

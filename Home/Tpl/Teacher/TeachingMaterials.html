@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teacher Center</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+
+
+    <include file="Public:PublicBodyTeacher" />
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Teaching Materials</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">Teaching Material</div>
+                        <div class="panel-body">
+                        <!-- <?php foreach ($bookresult as $key => $value) {?>
+                            <div class="col-lg-3">
+                                <div class="panel panel-default" style="height: 250px;">
+                                    <div class="panel-body">
+                                        <div class="col-xs-6">
+                                             <img src="../../resource/img/book1.jpg" style="width: 100%;">
+                                            <img src="<{$value['book_image_path']}>" style="width: 100%;height:150px;">
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <p>教材名称:<br><{$value['book_name']}></p>
+                                            <p>教材类型:<br><?php echo (pathinfo($value['download_link'])['extension'])?>文档</p>
+                                            <p>教材页码:<br><{$value['page']}>page</p>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <br>
+                                            <a href="__PUBLIC__/generic/web/viewer.html?file=../../..<{$value['download_link']}>"><button class="btn btn-primary" style="width: 45%;">在线打开</button></a>
+                                            <a href="<?php
+                                $suffix_parts = path_info($value['download_link']); $suffix = $suffix_parts['extension']; $filename = $suffix_parts['filename'];?><{:U('Teacher/DownLoadBook',array('suffix'=>$suffix,'downfilename'=>$value['book_name'],'filename'=>$filename))}>"><button class="btn btn-primary" style="width: 45%;">
+                                            下载</button></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                        <!-- <?php }?>  -->
+                        <!-- Nav tabs -->
+                            <ul class="nav nav-pills">
+                                <li class="active"><a href="#shaoer" data-toggle="tab">Children Category</a>
+                                </li>
+                                <li><a href="#chengren" data-toggle="tab">Adult Category</a>
+                                </li>
+                                <li><a href="#yasi" data-toggle="tab">IELTS Category</a>
+                                </li>
+                                <li><a href="#yiduiduo" data-toggle="tab">Small Classes</a>
+                                </li>
+                            </ul>
+
+                        <!-- Tab panes -->
+                            <div class="tab-content">
+                                <div class="tab-pane fade in active" id="shaoer">
+                                    <foreach name="bookresult" item="vo">
+                                    <div class="col-lg-3" style="text-align:center;">
+                                    <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                        <div class="panel-heading simpleline">Teaching Material's Name:<{$vo.bookname}></div>
+                                        <div class="panel-body">
+                                            <img src="<{$vo.bookimagelink}>" style="width: 80%;height: 200px">
+                                        </div>
+                                        <div class="panel-footer">
+                                            <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<{$vo['download_link']}>"><button class="btn btn-danger" style="width: 45%">Open online</button></a>
+                                            <?php $tem = path_info($vo['download_link']);$bookname = $tem['filename'];?>
+                                            <a href="<{:U('Teacher/DownloadBook',array('name'=>$bookname))}>"><button  class="btn btn-primary " style="width: 45%">Download</button></a>
+                                        </div>
+
+                                    </div>
+                                    </div>
+                                    </foreach>
+                                </div>
+                                <div class="tab-pane fade" id="chengren">
+                                    <foreach name="list1" item="vo">
+                                      <div class="col-lg-3" style="text-align:center;">
+                                      <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                          <div class="panel-heading simpleline">Teaching Material's Name:<{$vo.bookname}></div>
+                                          <div class="panel-body">
+                                              <img src="<{$vo.bookimagelink}>" style="width: 80%;height: 200px">
+                                          </div>
+                                          <div class="panel-footer">
+                                              <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<{$vo['download_link']}>"><button class="btn btn-danger" style="width: 45%">Open online</button></a>
+                                              <?php $tem = path_info($vo['download_link']);$bookname = $tem['filename'];?>
+                                              <a href="<{:U('Teacher/DownloadBook',array('name'=>$bookname))}>"><button  class="btn btn-primary " style="width: 45%">Download</button></a>
+                                          </div>
+
+                                      </div>
+                                      </div>
+                                    </foreach>
+                                </div>
+                                <div class="tab-pane fade" id="yasi">
+                                    <foreach name="list2" item="vo">
+                                      <div class="col-lg-3" style="text-align:center;">
+                                      <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                          <div class="panel-heading simpleline">Teaching Material's Name:<{$vo.bookname}></div>
+                                          <div class="panel-body">
+                                              <img src="<{$vo.bookimagelink}>" style="width: 80%;height: 200px">
+                                          </div>
+                                          <div class="panel-footer">
+                                              <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<{$vo['download_link']}>"><button class="btn btn-danger" style="width: 45%">Open online</button></a>
+                                              <?php $tem = path_info($vo['download_link']);$bookname = $tem['filename'];?>
+                                              <a href="<{:U('Teacher/DownloadBook',array('name'=>$bookname))}>"><button  class="btn btn-primary " style="width: 45%">Download</button></a>
+                                          </div>
+
+                                      </div>
+                                      </div>
+                                    </foreach>
+                                </div>
+                                <div class="tab-pane fade" id="yiduiduo">
+                                    <foreach name="list3" item="vo">
+                                      <div class="col-lg-3" style="text-align:center;">
+                                      <div class="panel panel-default" style="margin-top: 10px;width: 280px;">
+                                          <div class="panel-heading simpleline">Teaching Material's Name:<{$vo.bookname}></div>
+                                          <div class="panel-body">
+                                              <img src="<{$vo.bookimagelink}>" style="width: 80%;height: 200px">
+                                          </div>
+                                          <div class="panel-footer">
+                                              <a href="__PUBLIC__/generic/web/viewer.html?file=../../.<{$vo['download_link']}>"><button class="btn btn-danger" style="width: 45%">Open online</button></a>
+                                              <?php $tem = path_info($vo['download_link']);$bookname = $tem['filename'];?>
+                                              <a href="<{:U('Teacher/DownloadBook',array('name'=>$bookname))}>"><button  class="btn btn-primary " style="width: 45%">Download</button></a>
+                                          </div>
+
+                                      </div>
+                                      </div>
+                                    </foreach>
+                                </div>
+                        </div>
+                        </div>
+                        <!-- <div class="panel-footer" >
+                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-sm">上传教材</button>
+                        </div> -->
+                    </div>
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title" id="exampleModalLabel">Upload Materials</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form enctype="multipart/form-data" action="<{:U('Teacher/UploadBook')}>" method="post">
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">Teaching Material's Name:</label>
+                                    <input type="text" class="form-control" id="recipient-name" name="book_name">
+                                  </div>
+                                  <!-- <div class="form-group form-inline">
+                                    <label for="message-text" class="control-label">教材类型(必选):</label>
+                                    <select class="form-control">
+                                        <option>PDF</option>
+                                        <option>PPT</option>
+                                        <option>WORD</option>
+                                        <option>TXT</option>
+                                    </select>
+                                  </div> -->
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">Material's Current Page:</label>
+                                    <input type="text" name="page" class="form-control" />
+                                  </div>
+                                  <div class="form-group form-inline">
+                                    <label for="recipient-name" class="control-label">Teaching Material's Type:</label>
+                                    <select class="form-control" name="book_type">
+                                        <option>Business English</option>
+                                        <option>Children 's English</option>
+                                        <option>Practical spoken language</option>
+                                        <option>TOEFL Speaking</option>
+                                        <option>Interview English</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="message-text" class="control-label">Upload Materials(Must):</label>
+                                    <!-- <button class="btn btn-default">点击添加文件</button> -->
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple   name="book" value="Click to Add File"/>
+                                    <!-- <input name="book" type="file" class="btn btn-default" value="点击添加文件" /> -->
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="message-text" class="control-label">Upload Cover(Optional):</label>
+                                    <!-- <button class="btn btn-default">点击添加文件</button> -->
+                                    <input type="file" nv-file-select="" uploader="uploader" multiple   name="book_image" value="Click to Add File"/>
+                                    <!-- <input name="book_image" type="file" class="btn btn-default" value="点击添加文件" /> -->
+                                  </div>
+
+                                  <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                  </div>
+
+                                </form>
+                            </div>
+                            <!-- <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="button" class="btn btn-primary">提交</button>
+                            </div> -->
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+
+    <script src="__PUBLIC__/js/time.js"></script>
+
+    <script type="text/javascript">
+        upDateTime();
+    </script>
+
+</body>
+
+</html>
