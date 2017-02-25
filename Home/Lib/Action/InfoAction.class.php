@@ -46,7 +46,7 @@
 			}elseif($identity == 1 || $identity == "1"){
 				$this->display("Teacher:index");
 			}elseif($identity == 2 || $identity == "2"){
-				$this->display("Admin:index");
+				$this->display("Admin:Information");
 			}elseif($identity == 4 || $identity == "4"){
 				$result = $userOp->getUserInfo("root",$_SESSION['ID']);
 				$this->assign('data',$result[0]);
@@ -99,9 +99,9 @@
 			if($identity == 0 || $identity == "0"){
 				$this->display("Student:ResetPassword");
 			}elseif($identity == 1 || $identity == "1"){
-				$this->display("Teacher:index");
+				$this->display("Teacher:ResetPassword");
 			}elseif($identity == 2 || $identity == "2"){
-				$this->display("Admin:index");
+				$this->display("Admin:ResetPassword");
 			}elseif($identity == 4 || $identity == "4"){
 				$this->display("Root:Information");
 			}else{
@@ -135,9 +135,9 @@
 			}
 
 			if($result['status']){
-				$this->success("密码更新成功",U('Info/Information'));
+				$this->success("密码更新成功",U('Info/resetPassword'));
 			}else{
-				$this->error("密码更新失败",U('Info/Information'));
+				$this->error("密码更新失败",U('Info/resetPassword'));
 			}
 		}
 

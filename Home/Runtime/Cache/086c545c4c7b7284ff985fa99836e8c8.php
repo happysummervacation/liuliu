@@ -177,11 +177,11 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <!-- <a href="Information.html">个人信息</a> -->
-                                    <a href="<?php echo U('Admin/Information');?>"> 课程顾问信息</a>
+                                    <a href="<?php echo U('Info/Information');?>"> 课程顾问信息</a>
                                 </li>
                                 <li>
                                     <!-- <a href="ResetPassword.html">修改密码</a> -->
-                                    <a href="<?php echo U('Admin/ResetPassword');?>"> 修改密码</a>
+                                    <a href="<?php echo U('Info/resetPassword');?>">修改密码</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
