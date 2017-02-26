@@ -192,7 +192,7 @@
                         </li>
                         <li>
                             <!-- <a href="ContactAdmin.html"><i class="fa fa-fax fa-fw"></i> 联系课程顾问</a> -->
-                            <a href="<?php echo U('Student/ContactAdmin');?>"><i class="fa fa-fax fa-fw"></i> 联系顾问</a>
+                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-fax fa-fw"></i> 联系顾问</a>
                         </li>
                     </ul>
                 </div>

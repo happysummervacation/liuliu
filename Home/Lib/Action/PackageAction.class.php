@@ -139,12 +139,12 @@
 					$orderService = new OrderPackageBasicService();
 					$result = $orderService->orderPakcageWithStatPay($_SESSION['packageID'],$_SESSION['ID']);
 					if($result['status']){
-
+						$this->success("套餐购买成功",U('Package/packageShow'));
 					}else{
-
+						$this->error("套餐购买失败",U('Package/packageShow'));
 					}
 				}elseif($_POST['pay_method'] == "alipay"){   //支付宝支付
-
+					//这里要做的是获取套餐的新并跳转到相应的alipay页面
 				}else{
 					$this->error("不明订购方式,请重试",U('Package/packageShow'));
 					$_SESSION['packageID'] = null;

@@ -24,6 +24,10 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*用来设置教师的课程价格以及教师的类型
+		*/
 		public function showTeacherMoneySet(){
 			$this->CheckSession();
 
@@ -33,6 +37,17 @@
 			}else{
 				$this->error("你没有权限查看该页面");
 			}
+		}
+
+		/*
+		*俞鹏泽
+		*用于处理root对学生充值的管理操作
+		*/
+		public function studentRecharge(){
+			$this->CheckSession();
+			//////////////////////
+			//代码区
+			/////////////////////
 		}
 	}
  ?>

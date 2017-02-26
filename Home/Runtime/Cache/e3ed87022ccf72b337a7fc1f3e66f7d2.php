@@ -193,7 +193,7 @@
                              <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-exchange fa-fw"></i> 教材库</a>
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/FeedBack');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
+                             <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
                         </li>
                         <li>
                              <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
