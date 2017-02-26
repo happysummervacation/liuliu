@@ -8,6 +8,8 @@
 		//参数二:学生的账户信息
 		//参数三:操作的金额大小
 		//这里使用源生的sql语句来进行处理
+
+		//这个金额小于0还没有测试过         --------------------->>>估计是有问题的
 		public function updateStudentMoney($StudentID = null,$account = null,$money = 0){
 			$message = array();
 			if(0 == $money){

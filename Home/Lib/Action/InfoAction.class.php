@@ -232,7 +232,7 @@
 					}
 				}elseif($type == "update"){        //更新用户信息
 
-				}elseif($type == "resetPassword"){   //重置用户的密码
+				}elseif($type == "resetPassword"){   //重置用户的密码     ------------->还没有完成
 					$data = array();
 					$data['password'] = md5($this->resetNewPassword());
 					$result = $userBasOp->updateUserInfo($userID,null,$data);
@@ -319,7 +319,9 @@
 					$this->assign("teachers",$result);
 					$this->display("Root:CheckTeacher");
 				}elseif("admin" == $type){
-
+					$result = $userBasOp->getUserInfo('admin');
+					$this->assign("admins",$result);
+					$this->display("Root:CheckAdmin");
 				}else{
 					$this->error("没有对应的操作");
 				}

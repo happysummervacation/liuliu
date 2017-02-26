@@ -45,9 +45,26 @@
 		*/
 		public function studentRecharge(){
 			$this->CheckSession();
-			//////////////////////
-			//代码区
-			/////////////////////
+
+			$identity = $_SESSION['identity'];
+			if(4 == $identity || "4" == $identity){
+				$id = $_POST['user_id'];
+				$account = $_POST['account'];
+				$money = $_POST['money'];
+
+				import("Home.Action.Money.MoneyBasicOperate");
+				$moneyOp = new MoneyBasicOperate();
+				$message = array();
+				$message = $moneyOp->updateStudentMoney($id,$account,$money);
+
+				if(false == $message['status']){
+					$this->error($message['message']);
+				}else{
+					$this->success($message['message']);
+				}
+			}else{
+				$this->error("你没有权限查看该页面");
+			}
 		}
 	}
  ?>

@@ -103,7 +103,7 @@
                                                 <a href="<{:U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']))}>" class="resetPasswordID"><button class="btn btn-primary"  style="margin:5px">一键重置密码</button></a>
                                                 <a href="<{:U('Info/UserManage',array('personType'=>'teacher','type'=>'delete','user_id'=>$value['ID']))}>" class="removeAccountID"><button class="btn btn-primary"  style="margin:5px">彻底删除</button></a>
                                                 <button type="button" data-toggle="modal" data-target="#uploadsimplevideo" class="uploadsimplevideo btn btn-primary"  style="margin:5px">上传示例视频</button>
-                                                <a href="<{:U('Info/setTeacherPay')}>"><button type="button" class="uploadsimplevideo btn btn-primary"  style="margin:5px">修改工资设置</button></a>
+                                                <a href="<{:U('Money/showTeacherMoneySet',array('ID'=>$value['ID']))}>"><button type="button" class="uploadsimplevideo btn btn-primary"  style="margin:5px">修改工资设置</button></a>
                                             </td>
                                         </tr>
                                     <?php $i++;}?>

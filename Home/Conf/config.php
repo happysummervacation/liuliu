@@ -19,9 +19,9 @@ return array(
 
     'LOG_RECORD'=>true,    //开启日志记录
     'LOG_LEVEL'=>'EMERG,ALERT,CRIT,ERR,WARN,NOTICE',   //记录的日志的内容等级
-		'LOG_TYPE'=>3,   //记录方式
-		'LOG_EXCEPTION_RECORD'=>true,  //记录异常信息日志
-		'LOG_FILE_SIZE'=>1024*1024,
+	'LOG_TYPE'=>3,   //记录方式
+	'LOG_EXCEPTION_RECORD'=>true,  //记录异常信息日志
+	'LOG_FILE_SIZE'=>1024*1024,
 
     //设置邮箱的配置
     'MAIL_ADDRESS'=>'17855833070@163.com',//'2722007440@qq.com', // 邮箱地址

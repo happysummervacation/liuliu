@@ -62,7 +62,7 @@
 			//创建相应的学生金额
 			$studentMoneyOpResult = true;        //暂时指定为true
 
-			if(true){       //如果成功就进行
+			if(true){       //如果成功就进行     ----->
 				$inquiry->commit();
 				$message['status'] = true;
 				$message['message'] = "购买套餐成功";
@@ -75,8 +75,28 @@
 			}
 		}
 
-		public function orderPakcageWithAlipayPay($packageID = null,$StudentID = null){
+		/*
+		*俞鹏泽
+		*通过alipay支付来实现课程的套餐的订购
+		*/
+		/*过程:
+		*1.获取要订购的套餐的数据
+		*2.跳转到指定alipay的页面,同时将数据一起带过去
+		*/
+		public function orderPakcageWithAlipayPay($packageID = null){
+			$message = array();
 
+			if(is_null($packageID)){
+				$message['status'] = false;
+				$message['message'] = "传入的必要参数有问题";
+				return $message;
+			}
+
+			import("Home.Action.Package.PackageBasicOperate");
+            $packageOp = new PackageBasicOperate();
+			$packageInfo = $packageOp->getPackageInfo($packageID);
+			$this->assign("packageInfo",$packageInfo[0]);    //传过去的二维数组的数据
+			$this->display("Alipay:index");
 		}
 
 		/*

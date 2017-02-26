@@ -16,7 +16,10 @@
 			}
 			return $result;
 		}
-
+		/*
+		*俞鹏泽
+		*获取管自己的课程顾问的信息
+		*/
 		public function getOwnManager($StudentID = null,$Field = null){
 			$inquiry = new Model();
 			$result = null;

@@ -220,7 +220,41 @@
             $result = $inquiry->query($sql);
 
             return $result;
+        }
 
+        /*
+        *俞鹏泽
+        *更新学生的课程的可取消次数的操作
+        */
+        public function updateStudentCancelNum($StudentID = null,$Account = null,$cancelNum = 0){
+            if($cancelNum <= 0){
+                $message['status'] = false;
+                $message['message'] = "要更新的取消课程的次数小于等于0";
+                return $message;
+            }
+
+            $inquiry = new Model();
+            $result = false;
+            if(!is_null($StudentID)){
+                $sql = "update tp_student set student_cancel_number=student_cancel_number+{$cancelNum} where ID={$StudentID}";
+                $result = $inquiry->execute($sql);
+            }elseif(!is_null($Account)){
+                $sql = "update tp_student set student_cancel_number=student_cancel_number+{$cancelNum} where account={$Account}";
+                $result = $inquiry->execute($sql);
+            }else{
+                $message['status'] = false;
+                $message['message'] = "要更新的学生没有指定";
+                return $message;
+            }
+            if($result){
+                $message['status'] = true;
+                $message['message'] = "学生课程的可取消次数跟更新成功";
+                return $message;
+            }else{
+                $message['status'] = false;
+                $message['message'] = "学生课程的可取消次数跟更新失败";
+                return $message;
+            }
         }
     }
 

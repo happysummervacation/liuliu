@@ -1,12 +1,4 @@
-<?php
-/* *
- *功能：支付宝即时到账交易接口调试入口页面
- *版本：3.4
- *日期：2016-03-08
- *说明：
- *以下代码只是为了方便商户测试而提供的样例代码，商户可以根据自己网站的需要，按照技术文档编写,并非一定要使用该代码。
- */
-?>
+<?php if (!defined('THINK_PATH')) exit(); ?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -274,7 +266,7 @@
 		</div>
 	</div>
 	<div class="content">
-		<form action="<{:U('Alipay/alipayapi')}>" class="alipayform" method="post" target="_blank">
+		<form action="<?php echo U('Alipay/alipayapi');?>" class="alipayform" method="post" target="_blank">
 			<div class="element" style="margin-top:60px;">
 				<div class="legend">支付宝即时到账交易接口快速通道 </div>
 			</div>
@@ -287,7 +279,7 @@
 
 			<div class="element">
 				<div class="etitle">商品名称:</div>
-				<div class="einput"><input type="text" name="WIDsubject" value="<{$packageInfo['package_name']}>"></div>
+				<div class="einput"><input type="text" name="WIDsubject" value="<?php echo ($packageInfo['package_name']); ?>"></div>
 				<br>
 				<div class="mark">注意：产品名称(subject)，必填(建议中文，英文，数字，不能含有特殊字符)</div>
 			</div>
@@ -299,7 +291,7 @@
 			</div>
 			<div class="element">
 				<div class="etitle">商品描述:</div>
-				<div class="einput"><input type="text" name="WIDbody" value="<{$packageInfo['package_content']}>"></div>
+				<div class="einput"><input type="text" name="WIDbody" value="<?php echo ($packageInfo['package_content']); ?>"></div>
 				<br>
 				<div class="mark">注意：商品描述(body)，选填(建议中文，英文，数字，不能含有特殊字符)</div>
 			</div>

@@ -21,8 +21,8 @@
     <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/responsive.dataTables.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bower_components/datatables-responsive">
+    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -39,6 +39,7 @@
 </head>
 
 <body>
+
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -275,7 +276,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">查看学员</h1>
+                        <h1 class="page-header">查看顾问</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -283,236 +284,113 @@
                 <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            学员列表
+                            顾问列表
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th style="display:none">学员编号</th>
-                                            <th>学员账号</th>
-                                            <th>中文名</th>
-                                            <th>英文名</th>
-                                            <!-- <th>学员信息</th> -->
-                                            <th>学员课表</th>
-                                            <th>学员套餐</th>
-                                            <th>账户余额</th>
+                                            <th>顾问编号</th>
+                                            <th>顾问姓名</th>
+                                            <!-- <th>顾问信息</th> -->
+                                            <th>工资信息</th>
+                                            <th>分管学生</th>
                                             <th>账号状态</th>
-                                            <th>停课时间</th>
                                             <th>系统操作</th>
                                         </tr>
                                     </thead>
                                     <tbody >
-                                    <?php $i = 1; foreach ($students as $key => $value) {?>
+                                    <?php $i = 1; foreach ($admins as $key => $value) {?>
                                         <tr>
-                                            <td style="display:none" class="studentID"><?php echo ($value['ID']); ?></td>
+                                            <td class="adminID"><?php echo ($value['ID']); ?></td>
                                             <td><?php echo ($value['account']); ?></td>
-                                            <td><?php echo ($value['chinesename']); ?></td>
-                                            <td><?php echo ($value['englishname']); ?></td>
-                                            <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
-                                            <td><a href="<?php echo U('Root/StuPersonalClass',array('user_id'=>$value['ID']));?>">课表查看</a></td>
-                                            <td><a href="<?php echo U('Root/StudentPackageInformation',array('user_id'=>$value['ID']));?>">套餐查看</a></td>
-                                            <td><?php echo ($value['student_sum_money']); ?></td>
+                                            <!-- <td><a href="#" data-toggle="modal" data-target="#modalpersoninfo" class="getpersoninfo" >查看信息</a></td> -->
+                                            <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target="#modalstdinfo" class="getstdlist" >查看学员</a></td>
                                             <td><?php if($value['status'] == 1) {echo "可用";} else {echo "不可用";}?></td>
                                             <td>
-                                              <!-- <a href="#" data-toggle="modal" data-target="#stopclass" id="getstopclass">停课时间</a> -->
-
-                                              <a data-toggle="modal" data-target="#stopclass" class="getstopclass">停课时间</a>
-                                            </td>
-                                            <td>
-                                                <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Info/UserManage', array('personType'=>'student','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'0'));?>">
-                                                         <button class="btn btn-primary" style="margin:5px">禁用账号</button>
+                                                <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Info/UserManage', array('personType'=>'admin','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'0'));?>">
+                                                        <button class="btn btn-primary" style="margin:5px">禁用账号</button>
                                                     </a>
                                                 <?php else: ?>
-                                                    <a href="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'));?>">
+                                                    <a href="<?php echo U('Info/UserManage',array('personType'=>'admin','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'));?>">
                                                          <button class="btn btn-primary" style="margin:5px">启用账号</button>
                                                     </a><?php endif; ?>
-                                                <span>&nbsp;</span>
-                                                <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="chongqian">
-                                                    <button class="btn btn-primary" style="margin:5px">余额充值</button>
-                                                </a>
-                                                <button class="editStudent btn btn-primary" style="margin:5px">修改</button>
+                                                <button type="button" class="editAdmin btn btn-primary" name="button" style="margin:5px">修改</button>
                                                 <a href="<?php echo U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']));?>" class="resetPasswordID"><button class="btn btn-primary" style="margin:5px">一键重置密码</button></a>
-                                                <a href="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary" style="margin:5px">彻底删除</button></a>
+                                                <a href="<?php echo U('Info/UserManage',array('personType'=>'admin','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary" style="margin:5px">彻底删除</button></a>
                                             </td>
                                         </tr>
                                     <?php $i++;}?>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- 模态框1,查看用户信息 -->
-                            <!-- <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        学员信息
-                                        </div>
-                                        <div class="modal-body"  style="overflow: auto;">
-                                            <div class="col-lg-2">
-                                                <img src="" alt="没有头像" style="height: 120px;width:120px;" id="personalimage">
-                                            </div>
-                                            <div class="col-lg-10">
-                                                <table class="table information">
-
-                                                </table>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> -->
-                            <!-- 模态框1 -->
-                             <!-- 模态框2,余额充值 -->
-                            <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                <div class="modal-dialog modal-md">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            余额充值
-                                        </div>
-                                        <div class="modal-body">
-                                            <form role="form" action="<?php echo U('Money/studentRecharge');?>" method="post">
-                                              <div class="form-group">
-                                                <label for="exampleInputEmail1">学员编号</label>
-                                                <input type="text" name="user_id" class="form-control" placeholder="Count" id="chongzhicount" readonly="true">
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="exampleInputEmail1">学员姓名</label>
-                                                <input type="text" name="account" class="form-control" placeholder="Count" id="chongzhicount2" readonly="true">
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="exampleInputEmail1">充值金额</label>
-                                                <input type="number" name="money" class="form-control" placeholder="Money">
-                                              </div>
-                                              <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                    <button type="submit" class="btn btn-primary">提交</button>
-                                              </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 模态框2 -->
-                            <!-- 模态框3,停课信息修改 -->
-                            <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="stopclass">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        停课取消操作
-                                        </div>
-                                        <div class="modal-body"  style="overflow: auto;">
-                                          <form class="" action="<?php echo U('Root/CancelStopClass');?>" method="post">
-                                            <div class="form-group">
-                                              <label for="">停课编号</label>
-                                              <input type="text" name="stopID" value="" class="form-control" id="stopID" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">学生名字</label>
-                                              <input type="text" name="stu_name" value="" class="form-control" id="stu_name" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">开始时间</label>
-                                              <input type="text" name="strattime" value="" class="form-control" id="stu_starttime" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">结束时间</label>
-                                              <input type="text" name="stoptime" value="" class="form-control" id="stu_stoptime" readonly="true">
-                                            </div>
-
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                            <button type="submit" class="btn btn-default">取消停课</button>
-                                        </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- 模态框3 -->
                         </div>
                     </div>
                 </div>
 
-                <div class="row" id="editStudentInfo">
+                <div class="row" id="editAdminInfo">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            修改学生资料
+                            修改顾问资料
                         </div>
                         <div class="panel-body">
-						<form class="form-horizontal" action="<?php echo U('Root/ModifyRegisterInfo');?>/type/student" method="post" role="form">
+                          <form class="form-horizontal" action="<?php echo U('Root/ModifyRegisterInfo');?>/type/admin" method="post" role="form">
                             <div class="form-group">
-								<label for="firstname" class="col-sm-2 control-label">账号</label>
-								<div class="col-sm-10">
-									<input id="account" type="text" readonly="true" name="account" class="form-control" placeholder="账号">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="firstname" class="col-sm-2 control-label">中文名</label>
-								<div class="col-sm-10">
-									<input id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-2 control-label">英文名</label>
-								<div class="col-sm-10">
-									<input id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-2 control-label">邮箱</label>
-								<div class="col-sm-10">
-									<input id="email" type="text" name="email" class="form-control" placeholder="邮箱">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-2 control-label">电话</label>
-								<div class="col-sm-10">
-									<input id="phone" type="text" name="phone" class="form-control" placeholder="电话">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-2 control-label">QQ</label>
-								<div class="col-sm-10">
-									<input id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
-								</div>
-							</div>
-							<div class="form-group">
-								<label for="lastname" class="col-sm-2 control-label">微信</label>
-								<div class="col-sm-10">
-									<input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
-								</div>
-							</div>
-                            <div class="form-group">
-								<label for="lastname" class="col-sm-2 control-label">年龄</label>
-								<div class="col-sm-10">
-									<input id="age" type="text" name="age" class="form-control" placeholder="年龄">
-								</div>
-							</div>
-                            <div class="form-group">
-                              <label for="lastname" class="col-sm-2 control-label">国籍</label>
+                              <label for="firstname" class="col-sm-2 control-label">账号</label>
                               <div class="col-sm-10">
-                                <input id="country" type="text" name="country" class="form-control" placeholder="国籍">
+                                <input id="account" type="text" readonly="true" name="account" class="form-control" placeholder="账号" >
                               </div>
                             </div>
                             <div class="form-group">
-                              <label for="lastname" class="col-sm-2 control-label">性别</label>
-                              <div class="col-sm-10" style="padding-top: 8px;">
-                                <!-- <input id="" type="text" name="Basic" class="form-control" placeholder="性别"> -->
-                                <select class="form-control" id="sex" name="sex">
-                                  <option value="1">男</option>
-                                  <option value="0">女</option>
-                                </select>
+                              <label for="firstname" class="col-sm-2 control-label">中文名</label>
+                              <div class="col-sm-10">
+                                <input id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
                               </div>
                             </div>
-								<div class="form-group">
-									<div class="col-sm-offset-2 col-sm-10">
-										<button type="submit" class="btn btn-default" id="">修改</button>
-									</div>
-								</div>
-							</form>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">英文名</label>
+                              <div class="col-sm-10">
+                                <input id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">邮箱</label>
+                              <div class="col-sm-10">
+                                <input id="email" type="text" name="email" class="form-control" placeholder="邮箱">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">电话</label>
+                              <div class="col-sm-10">
+                                <input id="phone" type="text" name="phone" class="form-control" placeholder="电话">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">QQ</label>
+                              <div class="col-sm-10">
+                                <input id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">微信</label>
+                              <div class="col-sm-10">
+                                <input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">年龄</label>
+                              <div class="col-sm-10">
+                                <input id="age" type="text" name="age" class="form-control" placeholder="年龄">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default" id="">修改</button>
+                              </div>
+                            </div>
+                          </form>
                         </div>
                     </div>
                 </div>
@@ -525,6 +403,117 @@
     </div>
     <!-- /#wrapper -->
 
+    <!-- 模态框,查看用户信息 -->
+    <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalpersoninfo">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                顾问信息
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="col-lg-2">
+                        <img src="" alt="没有头像" style="height: 120px;width:120px;" id="personalimage">
+                        <h3>个人介绍</h3>
+                        <p id="personalproduct"></p>
+                    </div>
+                    <div class="col-lg-10">
+                        <table class="table teacherinformation">
+
+                        </table>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- 模态框 -->
+    <!-- 模态框2,查看用户工资信息 -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
+        <div class="modal-dialog modal-md">
+            <div class="modal-content">
+                <div class="modal-header">
+                工资信息
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <div class="col-lg-12">
+                      <div class="form-group col-lg-5">
+                        <label for="year">年份</label>
+                        <select class="form-control year" name="year">
+                          <option value="2016">2016年</option>
+                          <option value="2017">2017年</option>
+                          <option value="2018">2018年</option>
+                          <option value="2019">2019年</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-lg-5">
+                        <label for="month">月份</label>
+                        <select class="form-control month" name="month">
+                          <option value="1">1月</option>
+                          <option value="2">2月</option>
+                          <option value="3">3月</option>
+                          <option value="4">4月</option>
+                          <option value="5">5月</option>
+                          <option value="6">6月</option>
+                          <option value="7">7月</option>
+                          <option value="8">8月</option>
+                          <option value="9">9月</option>
+                          <option value="10">10月</option>
+                          <option value="11">11月</option>
+                          <option value="12">12月</option>
+                        </select>
+                      </div>
+                      <div class="form-group col-lg-2">
+                        <label for="" style="visibility:hidden">提交篩選</label><br>
+                        <button type="submit" name="button" class="btn btn-primary" id="findmoneybytime">提交</button>
+                      </div>
+                    </div>
+                    <table class="table table-hover" id="adminmoneytable">
+                      <thead>
+                      </thead>
+                      <tbody>
+                      </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框2 -->
+    <!-- 模态框3,查看接入学生 -->
+    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalstdinfo">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                分管学生
+                </div>
+                <div class="modal-body" style="overflow: auto;">
+                    <table class="table" id="stduentLIST">
+                        <thead>
+                            <tr>
+                                <th>学员编号</th>
+                                <th>学员昵称</th>
+                                <th>分管时间</th>
+                                <th>联系方式</th>
+                                <th>账户余额</th>
+                                <th>本月充值</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 模态框 -->
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -551,23 +540,18 @@
                 responsive: true
         });
     });
-
     </script>
 
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
-        $('.chongqian').click(function(){
-             $('#chongzhicount').val($(this).parent().parent().find('td').html());
-             $('#chongzhicount2').val($(this).parent().parent().find('td').next().html());
-        });
 
         $('.getpersoninfo').click(function(){
             var user_id=$(this).parents('tr').find('td').eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "<?php echo U('Root/getstudentinformation');?>",
+                url: "<?php echo U('Root/getadmininformation');?>",
                 data: "user_id="+user_id,
                 success:function(msg){
                     if(msg!='error'){
@@ -581,54 +565,91 @@
                         +"</td><th>QQ</th><td>"+msg['0']['QQ']
                         +"</td><th>电话</th><td>"+msg['0']['phone']
                         +"</td><th>微信</th><td>"+msg['0']['weixin']
-                        +"</td><th>分管时间</th><td>"+msg['0']['accept_time']
-                        +"</td><th>顾问中文名</th><td>"+msg['0']['adminchinesename']
+                        +"</td><th>skype</th><td>"+msg['0']['skype']
                         +"</td></tr>"
                         +"</td><th>邮箱</th><td>"+msg['0']['email']
+                        +"</td><th>PAYPAL</th><td>"+msg['0']['paypal']
+                        +"</td><th>银行卡</th><td>"+msg['0']['bankcard']
                         +"</td></tr>";
-                        $('.information').html(innerhtml);
+                        $('.teacherinformation').html(innerhtml);
                         $('#personalimage').attr('src',msg['0']['image_path']);
-                        // $('#personalproduct').html(msg['0']['introduction']);
+                        $('#personalproduct').html(msg['0']['introduction']);
                     }else{
                         alert('未知错误!');
                     }
                 }
             })
-        });
+        })
 
+        $('.getstdlist').click(function(){
+            var user_id=$(this).parents('tr').find('td').eq(0).html();
+            $('#stduentLIST tbody').html("");
+            $.ajax({
+                type: "POST",
+                url: "<?php echo U('Root/getaccessstudentliet');?>",
+                data: "user_id="+user_id,
+                success:function(msg){
+                   if(msg!='error'){
+                    for(var i=0;i<msg.length;i++){
+                        var time=new Date(parseInt(msg[i]['accept_time'])*1000).toLocaleString();
+                        var  studentlist="<tr><td>"
+                        +msg[i]['ID']+"</td><td>"
+                        +msg[i]['account']+"</td><td>"
+                        +time+"</td><td>"
+                        +msg[i]['phone']+"</td><td>"
+                        +msg[i]['student_sum_money']+"</td><td>"
+                        +msg[i]['monthmoney']+"</td></tr>";
+                        $('#stduentLIST tbody').append(studentlist);
+                    }
+                   }else{
+                        alert('未知错误!');
+                   }
+                }
+            })
+        })
 
-        $(".getstopclass").click(function(){
-          var stu_no=$(this).parent().parent().find('td').html();
+        $(".getmoneyinfo").click(function(){
+          $("#adminmoneytable thead").html("");
+          $("#adminmoneytable tbody").html("");
+          userid=$(this).parent().parent().find('td').html();
+        })
+
+        $("#findmoneybytime").click(function(){
+          var year=$('.year').val();
+          var month=$('.month').val();
           $.ajax({
-            type:'post',
-            url:"<?php echo U('Root/GetStudentStopRecord');?>",
-            data:"student_id="+stu_no,
-            success:function(msg){
-              msg = JSON.parse(msg);
-              $("#stopID").val(msg['stopclass_id'])
-              $("#stu_name").val(msg['chinesename']);
-              $("#stu_starttime").val(msg['stop_start_time']);
-              $("#stu_stoptime").val(msg['stop_end_time']);
+            type:"POST",
+            url:"<?php echo U('Root/GetAdminMoneyWithTime');?>",
+            data:"user_id="+userid+"&year="+year+"&month="+month,
+            success:function(e){
+              var a=eval(e);
+              if(a[0]['money']!=null){
+
+                $("#adminmoneytable thead").html("<tr><td>学生充值金额</td><td>分管学员总数</td><tr>");
+                $("#adminmoneytable tbody").html("<tr><td>"+a[0]['money']+"</td><td>"+a[0]['student_number']+"</td><tr>")
+              }else {
+                $("#adminmoneytable thead").html("");
+                $("#adminmoneytable tbody").html("没有数据");
+              }
             }
           })
         });
     </script>
-
     <script type="text/javascript">
       // $(document).ready(function(){
-        $("#editStudentInfo").hide();
-        $(".editStudent").click(function(){
-          var studentID = $(this).parent().parent().find(".studentID").html();
+        $("#editAdminInfo").hide();
+        $(".editAdmin").click(function(){
+          var adminID = $(this).parent().parent().find(".adminID").html();
           $.ajax({
             type: "POST",
             url: "<?php echo U('Root/AjaxGetRegisterInfo');?>",
             data: {
-              type: "student",
-              ID: studentID,
+              type: "admin",
+              ID: adminID,
             },
             dataType: "json",
             success: function(data){
-              $("#editStudentInfo").slideDown();
+              $("#editAdminInfo").slideDown();
               $("#account").val(data.account);
               $("#chinesename").val(data.chinesename);
               $("#englishname").val(data.englishname);
@@ -637,9 +658,6 @@
               $("#qq").val(data.QQ);
               $("#wechat").val(data.weixin);
               $("#age").val(data.age);
-              $("#country").val(data.country);
-              $("#sex").val(data.sex);
-
             },
             error: function(jqXHR){
               alert(jqXHR.status);
@@ -666,7 +684,6 @@
         }
       })
     </script>
-
 </body>
 
 </html>

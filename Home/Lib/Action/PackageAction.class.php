@@ -127,6 +127,9 @@
 
 			$identity = $_SESSION['identity'];
 
+			import("Home.Action.OrderPackage.OrderPackageBasicService");
+			$orderService = new OrderPackageBasicService();
+
 			if(0 == $identity || "0" == $identity){    //如果是学生就要查看是什么支付方式,还要查看session中的套餐ID是否与产过来的ID相同,无论成功与否,session中的值都设置为null
 				if(($_POST['package_id'] != $_SESSION['packageID']) || is_null($_SESSION['packageID'])){
 					$this->error("要订购的信息出现异常,请重试",U('Package/packageShow'));
@@ -135,8 +138,6 @@
 				}
 
 				if($_POST['pay_method'] == "balance"){    //站内支付
-					import("Home.Action.OrderPackage.OrderPackageBasicService");
-					$orderService = new OrderPackageBasicService();
 					$result = $orderService->orderPakcageWithStatPay($_SESSION['packageID'],$_SESSION['ID']);
 					if($result['status']){
 						$this->success("套餐购买成功",U('Package/packageShow'));
@@ -145,6 +146,7 @@
 					}
 				}elseif($_POST['pay_method'] == "alipay"){   //支付宝支付
 					//这里要做的是获取套餐的新并跳转到相应的alipay页面
+					$orderService->orderPakcageWithAlipayPay($_SESSION['packageID']);
 				}else{
 					$this->error("不明订购方式,请重试",U('Package/packageShow'));
 					$_SESSION['packageID'] = null;

@@ -195,7 +195,7 @@
                             <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Root/CheckAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
                         </li>
                         <li>
                             <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
@@ -330,7 +330,7 @@
                                                 <a href="<?php echo U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']));?>" class="resetPasswordID"><button class="btn btn-primary"  style="margin:5px">一键重置密码</button></a>
                                                 <a href="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary"  style="margin:5px">彻底删除</button></a>
                                                 <button type="button" data-toggle="modal" data-target="#uploadsimplevideo" class="uploadsimplevideo btn btn-primary"  style="margin:5px">上传示例视频</button>
-                                                <a href="<?php echo U('Info/setTeacherPay');?>"><button type="button" class="uploadsimplevideo btn btn-primary"  style="margin:5px">修改工资设置</button></a>
+                                                <a href="<?php echo U('Money/showTeacherMoneySet',array('ID'=>$value['ID']));?>"><button type="button" class="uploadsimplevideo btn btn-primary"  style="margin:5px">修改工资设置</button></a>
                                             </td>
                                         </tr>
                                     <?php $i++;}?>

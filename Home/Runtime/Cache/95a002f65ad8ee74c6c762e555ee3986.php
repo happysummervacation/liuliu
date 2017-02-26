@@ -42,6 +42,16 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <style type="text/css">
+    	th,td{
+    		text-align: center;
+    		width: 50px;
+    	}
+    	table {
+
+    	}
+    </style>
+
 </head>
 
 <body>
@@ -198,7 +208,7 @@
                             <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                            <a href="<?php echo U('Root/CheckAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
                         </li>
                         <li>
                             <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
@@ -277,123 +287,58 @@
         </nav>
 
 
-        <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">系统中心</h1>
-                </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa  fa-umbrella fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                   <div>课程顾问</div>
-                                   <div class="huge"><?php echo ($admin_number[0]['alive']); ?>人|<?php echo ($admin_number[0]['die']); ?>人</div>
-
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckAdmin');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">顾问列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div>学员总数</div>
-                                    <div class="huge"><?php echo ($student_number[0]['alive']); ?>人|<?php echo ($student_number[0]['die']); ?>人</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckStudent');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">学员列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-graduation-cap fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div>教师总数</div>
-                                    <div class="huge"><?php echo ($teacher_number[0]['alive']); ?>人|<?php echo ($teacher_number[0]['die']); ?>人</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckTeacher');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">教师列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-12">
-                  <div class="panel panel-primary">
-                          <div class="panel-heading">
-                              学员停课申请
-                          </div>
-                          <!-- .panel-heading -->
-                          <div class="panel-body">
-                              <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                       <th>申请编号</th>
-                                       <th>学员姓名</th>
-                                       <th>停课时长</th>
-                                       <th>申请时间</th>
-                                       <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  <?php if(is_array($apply_result)): foreach($apply_result as $key=>$vo): ?><tr>
-                                      <td><?php echo ($vo["stopclass_id"]); ?></td>
-                                      <td><?php echo ($vo["chinesename"]); ?></td>
-                                      <td><?php echo ($vo["stop_start_time"]); ?>~<?php echo ($vo["stop_end_time"]); ?></td>
-                                      <td><?php echo ($vo["create_time"]); ?></td>
-                                      <td><a href="<?php echo U('Root/PassApply',array('time'=>$vo['period'],'ID'=>$vo['stopclass_id'],'stu'=>$vo['ID']));?>">通过</a>
-                                        <a href="<?php echo U('Root/DenyApply',array('ID'=>$vo['stopclass_id']));?>">否决</a></td>
-                                    </tr><?php endforeach; endif; ?>
-
-                                </tbody>
-                              </table>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-
-
-
+    <div id="page-wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h1 class="page-header">设置教师工资</h1>
+          </div>
+        </div>
+        <div class="row">
+					<div class="col-lg-6 col-lg-offset-3">
+							<form action="">
+							<div class="panel panel-primary">
+								<div class="panel-heading">
+									设置教师工资类别
+								</div>
+								<table class="table table-striped table-hover">
+									<thead>
+										<tr>
+											<th>课程类别</th>
+											<th>教师类型</th>
+											<th>是否任教</th>
+											<th>单课时价格</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td style="height: 30px;line-height: 30px;">
+												少儿类课程
+											</td>
+											<td>
+												<select class="form-control">
+													<option value="0">普通教师</option>
+													<option value="1">名师</option>
+												</select>
+											</td>
+											<td style="height: 30px;line-height: 30px;">
+												<input type="checkbox" name="">
+											</td>
+											<td>
+												<input type="number" name="" class="form-control">
+											</td>
+										</tr>
+									</tbody>
+								</table>
+								<div class="panel-footer" style="overflow: auto;">
+									<button class="btn btn-primary" style="float: right">
+										提交
+									</button>
+								</div>
+							</div>
+							</form>
+					</div>				        	
+        </div>
+    </div>
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 
