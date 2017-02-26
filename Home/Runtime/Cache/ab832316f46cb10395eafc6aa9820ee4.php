@@ -156,7 +156,7 @@
                             <!-- <a href="#"><i class="fa fa-rocket fa-fw"></i> 学员订单<span class="fa arrow"></span></a> -->
                             <!-- <ul class="nav nav-second-level"> -->
                                 <li >
-                                    <a  href="<?php echo U('Student/MyPackage');?>"><i class="fa fa-legal fa-fw"></i> 已有套餐</a>
+                                    <a  href="<?php echo U('UserCenter/getManageInfo');?>"><i class="fa fa-legal fa-fw"></i> 已有套餐</a>
                                 </li>
 
                                 <li >
@@ -316,11 +316,11 @@
                                                         <?php }else{?>
                                                             <button class="btn btn-default btn-xs">中教</button>
                                                         <?php }?>
-                                                        <?php if($value['level'] == '0'){ ?>
+                                                        <!-- <?php if($value['level'] == '0'){ ?>
                                                             <button class="btn btn-default btn-xs">普教</button>
                                                         <?php }else{ ?>
                                                             <button class="btn btn-default btn-xs">名教</button>
-                                                        <?php } ?>
+                                                        <?php } ?> -->
                                                     </label>
                                                     <!-- <p>中文名</p> -->
                                                     <span style="display: none;"><?php echo ($value['ID']); ?></span>

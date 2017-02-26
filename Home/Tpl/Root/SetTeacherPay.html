@@ -66,7 +66,6 @@
         </div>
         <div class="row">
 					<div class="col-lg-6 col-lg-offset-3">
-							<form action="">
 							<div class="panel panel-primary">
 								<div class="panel-heading">
 									设置教师工资类别
@@ -80,34 +79,16 @@
 											<th>单课时价格</th>
 										</tr>
 									</thead>
-									<tbody>
-										<tr>
-											<td style="height: 30px;line-height: 30px;">
-												少儿类课程
-											</td>
-											<td>
-												<select class="form-control">
-													<option value="0">普通教师</option>
-													<option value="1">名师</option>
-												</select>
-											</td>
-											<td style="height: 30px;line-height: 30px;">
-												<input type="checkbox" name="">
-											</td>
-											<td>
-												<input type="number" name="" class="form-control">
-											</td>
-										</tr>
+									<tbody id="teacherPayInfo">
 									</tbody>
 								</table>
 								<div class="panel-footer" style="overflow: auto;">
-									<button class="btn btn-primary" style="float: right">
+									<button class="btn btn-primary" style="float: right" id="onsubmit">
 										提交
 									</button>
 								</div>
 							</div>
-							</form>
-					</div>				        	
+					</div>
         </div>
     </div>
     <!-- jQuery -->
@@ -147,9 +128,89 @@
 
     <script type="text/javascript">
         upDateTime();
-    </script>
 
-    <!-- //9.06修改05 -->
+        /**
+         * 传过来的数据
+         */
+        var teacherpayinfo=[
+            {classtype:'1|少儿',teachertype:'1|名师',money:'30',infomationid:'1001'},
+            {classtype:'2|成人',teachertype:'0|普通',money:'60',infomationid:'1002'}
+        ];
+
+        /**
+         * 配置表数据
+         */
+        var config=[
+            {typename:'少儿类',id:'1'},
+            {typename:'成人类',id:'2'},
+            {typename:'雅思类',id:'3'}
+        ]
+
+        //教师ID
+        var teacherid='22';
+
+        //表格初始化
+        $("#teacherPayInfo").html(" ");
+        //数组转换成表格
+        var temparrforteacher=[];
+        var comparearr=[];
+        for (var i = 0; i < teacherpayinfo.length; i++) {
+            //填充教师已有信息
+            var classinfo=teacherpayinfo[i]['classtype'].split('|');
+            var teachertype = teacherpayinfo[i]['teachertype'].split('|');
+            var tr_str='<tr><td style="height: 30px;line-height: 30px;" value="'+teacherpayinfo[i]['infomationid']+'_'+classinfo[0]+'"">'
+                    +classinfo[1]+'类课程'+
+                    '</td><td><select class="form-control teachertype"><option value="0">普通教师</option><option value="1">名师</option></select></td><td style="height: 30px;line-height: 30px;"><input type="checkbox" name="" checked="checked"></td><td><input type="number" name="" class="form-control" value="'+teacherpayinfo[i]['money']+'"></td></tr>';
+            $('#teacherPayInfo').append(tr_str);
+            $('.teachertype').eq(i).val(teachertype[0]);
+            //提取类别ID
+            temparrforteacher.push(classinfo[0]);
+            //拼接
+            comparearr.push(teacherpayinfo[i]['infomationid']+'_'+classinfo[0]+'_'+teachertype[0]+'_'+teacherpayinfo[i]['money']+'_1');
+        }
+        console.log(comparearr);
+        //补充其余配置信息
+        if(config.length>teacherpayinfo.length){
+            for (var i = 0; i < config.length; i++) {
+                if(temparrforteacher.indexOf(config[i]['id'])==-1){
+                    var tr_str='<tr><td style="height: 30px;line-height: 30px;" value="'+config[i]['id']+'"">'
+                                +config[i]['typename']+'课程'+
+                                '</td><td><select class="form-control teachertype"><option value="0">普通教师</option><option value="1">名师</option></select></td><td style="height: 30px;line-height: 30px;"><input type="checkbox" name=""></td><td><input type="number" name="" class="form-control"></td></tr>';
+                    $('#teacherPayInfo').append(tr_str);
+                }
+            }
+        }
+
+
+        $('#onsubmit').click(function(){
+            var info=[];
+            $('#teacherPayInfo').find('tr').each(function(){
+                var v3=$(this).find('input[type=checkbox]').is(':checked');
+                var v1=$(this).find('td').eq(0).attr('value');
+                if(v3){
+                    var v2=$(this).find('select').val();
+                    var v4=$(this).find('input[type=number]').val();
+                    info.push(v1+'_'+v2+'_'+v4+'_1');
+                }else if(v1.length>=4){
+                    var v2=$(this).find('select').val();
+                    var v4=$(this).find('input[type=number]').val();
+                    info.push(v1+'_'+v2+'_'+v4+'_0');
+                }
+            });
+            //删除重复数据
+            for (var i = 0; i < comparearr.length; i++) {
+                if(info.indexOf(comparearr[i])!=-1){
+                    info.splice(info.indexOf(comparearr[i]),1);
+                }
+            }
+            // console.info(info);
+            //post提交数据
+            data=JSON.stringify(info);
+            $.post("访问方法",{data:data,teacherid:teacherid},function(result){
+                alert(result);
+            });
+        })
+    </script>
 
 </body>
 

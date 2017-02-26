@@ -24,6 +24,10 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*显示套餐的信息
+		*/
 		public function packageShow(){
 			$this->CheckSession();
 			import("Home.Action.Package.PackageConfigBasicOperate");
@@ -51,6 +55,24 @@
 			}else{
 				$this->error("你没有权限查看该页面内容");
 				return;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*获取学生订购的套餐的信息
+		*/
+		public function studentPackageShow(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			
+			if(2 == $identity || "2" == $identity){
+				/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
+			}elseif(4 == $identity || "4" == $identity){
+
+			}else{
+
 			}
 		}
 

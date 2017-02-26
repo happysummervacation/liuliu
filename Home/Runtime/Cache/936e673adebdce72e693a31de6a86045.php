@@ -158,7 +158,7 @@
                             <!-- <a href="#"><i class="fa fa-rocket fa-fw"></i> 学员订单<span class="fa arrow"></span></a> -->
                             <!-- <ul class="nav nav-second-level"> -->
                                 <li >
-                                    <a  href="<?php echo U('Student/MyPackage');?>"><i class="fa fa-legal fa-fw"></i> 已有套餐</a>
+                                    <a  href="<?php echo U('UserCenter/getManageInfo');?>"><i class="fa fa-legal fa-fw"></i> 已有套餐</a>
                                 </li>
 
                                 <li >

@@ -38,8 +38,14 @@
 			*/
 			/////////////////////////////////
 			$identity = $_SESSION['identity'];
-			if(0 == $identity || "0" == $identity){       //获取教师的必要数据进行展示
 
+			import("Home.Action.User.UserBasicOperate");
+			$userOp = new UserBasicOperate();
+			$result = array();
+			$result = $userOp->getUserInfo('teacher');
+
+			if(0 == $identity || "0" == $identity){       //获取教师的必要数据进行展示
+				$this->assign('teacher_result',$result);
 				$this->display("Student:BookCourse");
 			}elseif(2 == $identity || "2" == $identity){
 

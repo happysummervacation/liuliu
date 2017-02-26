@@ -130,6 +130,7 @@
 			$inquiry = new Model("orderpackage");
 
 			$result = $inquiry->add($Data);
+
 			if($result){
 				$message['status'] = true;
 				$message['message'] = "添加订购套餐数据成功";
@@ -170,5 +171,15 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*获取学生还是有效状态的套餐数据
+		*/
+		//参数一:学生的ID
+		//参数二:学生的账号
+		//参数三:要查询的字段,   null,string,也可以是数组
+		public function getStuActiveOrderPackageInfo($StudentID = null,$Account = null,$Field = null){
+
+		}
 	}
  ?>

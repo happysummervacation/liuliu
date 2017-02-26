@@ -53,7 +53,7 @@
 			}elseif(1==$identity||'1'==$identity){
 				$this->display("Teacher:TeacherInstruction");
 			}elseif(2==$identity||'2'==$identity){
-
+				$this->display("Admin:Notice");
 			}else{
 				$this->error("你没有权限查看该页面");
 			}
@@ -100,5 +100,22 @@
 				$this->error("你没有权限查看该页面");
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*显示套餐管理的各种信息信息,专用于学生角色
+		*/
+		 public function getManageInfo(){
+			$this->CheckSession();
+ 			$identity = $_SESSION['identity'];
+			if(0 == $identity||'0' == $identity){
+				/*
+				这里面获取学生需要的各种信息         ------------------->>>>还没有完成
+				*/
+				$this->display("Student:MyPackage");
+			}else{
+				$this->error("你没有权限查看该页面");
+			}
+		 }
 	}
  ?>

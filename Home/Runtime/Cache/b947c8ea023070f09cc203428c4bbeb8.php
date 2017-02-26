@@ -17,9 +17,6 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
     <!-- DataTables Responsive CSS -->
     <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
 
@@ -196,10 +193,10 @@
                              <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                             <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
                         </li>
                          <li>
-                             <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
+                             <a href="<?php echo U('Admin/Notice');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
                         </li>
                     </ul>
                 </div>
@@ -214,105 +211,161 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">试听反馈</h1>
+                        <h1 class="page-header">顾问考核</h1>
                     </div>
                     <!-- /.col-lg-12 -->
-                </div>
-                <!-- /.row -->
-                <div class="row">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            试听记录
-                        </div>
-                        <div class="panel-body">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>学员账号</th>
-                                            <th>学员姓名</th>
-                                            <th>联系方式</th>
-                                            <th>联系操作</th>
-                                            <!--<th>反馈记录</th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php if(is_array($student_list)): foreach($student_list as $key=>$vo): ?><tr>
-                                            <td><?php echo ($vo["ID"]); ?></td>
-                                            <td><?php echo ($vo["account"]); ?></td>
-                                            <th><?php echo ($vo["chinesename"]); ?></th>
-                                            <th><?php echo ($vo["phone"]); ?></th>
-                                            <th><a href="<?php echo U('UserCenter/accessStudentManage');?>?id=<?php echo ($vo["ID"]); ?>" class="getmoreinfo">点击接入学生</a></th>
-                                            <!--<th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getcolinfo">点击填写反馈记录</a></th>-->
-                                        </tr><?php endforeach; endif; ?>
-                                     <!--     <tr>
-                                            <td>2</td>
-                                            <th>20336566</th>
-                                            <th>2016/1/1 8:00</th>
-                                            <th>少儿英语</th>
-                                            <th><a href="#" class="getmoreinfo">点击领取联系方式</a></th>
-                                            <th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1">点击填写反馈记录</a></th>
-                                        </tr>
-                                       <tr>
-                                            <td>3</td>
-                                            <th>123456789</th>
-                                            <th>2016/1/1 8:00</th>
-                                            <th>少儿英语</th>
-                                            <th>联系成功</th>
-                                            <th><a href="#" onclick="alert(14599639963)">点击领取联系方式</a></th>
-                                            <th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1">点击填写反馈记录</a></th>
-                                        </tr>
-                                        <tr>
-                                            <td>4</td>
-                                            <th>123456789</th>
-                                            <th>2016/1/1 8:00</th>
-                                            <th>少儿英语</th>
-                                            <th>联系失败</th>
-                                            <th><a href="#" onclick="alert(14599639963)">点击领取联系方式</a></th>
-                                            <th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1">点击填写反馈记录</a></th>
-                                        </tr> -->
-                                    </tbody>
-                                </table>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-user fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><?php echo ($acceptStdNum); ?></div>
+                                            <div>本月新学员分管人数</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">数据由来:新学员分管记录</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
                             </div>
-                            <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-                                <div class="modal-dialog modal-lg">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            试听反馈
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-calculator fa-5x"></i>
                                         </div>
-                                        <div class="modal-body">
-                                            <form class="form-horizontal" action="<?php echo U('Admin/AddVideoComment');?>" method="post">
-                                              <div class="form-group">
-                                                <label for="inputEmail3" class="col-sm-3 control-label">学员编号:</label>
-                                                <div class="col-sm-5">
-                                                  <input name="commented_party" class="form-control fromtable1">
-                                                </div>
-                                              </div>
-                                              <div class="form-group">
-                                                <label for="inputEmail3" class="col-sm-3 control-label">试听反馈:</label>
-                                                <div class="col-sm-8">
-                                                  <textarea name="comment" class="form-control"  style="height:200px;"></textarea>
-                                                </div>
-                                              </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                                <input type="submit" class="btn btn-primary"  value="提交"/><!-- </button> -->
-                                            </div>
-                                            </form>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><?php echo ($mystdNum); ?></div>
+                                            <div>本月老学员充值次数</div>
                                         </div>
-
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">数据由来:老学员充值记录</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-4 col-md-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <i class="fa fa-money fa-5x"></i>
+                                        </div>
+                                        <div class="col-xs-9 text-right">
+                                            <div class="huge"><?php echo ($mystdMoney); ?></div>
+                                            <div>本月老学员充值总金额</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="#">
+                                    <div class="panel-footer">
+                                        <span class="pull-left">数据由来:老学员充值记录</span>
+                                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="panel panel-red">
+                                <div class="panel-heading">
+                                    考核规则
+                                </div>
+                                <div class="panel-body">
+                                    <div class="col-lg-12">
+                                        <div class="well">
+                                            <h3>考核依据</h3>
+                                        </div>
+                                        <p>课程顾问考核依据为老学员充值次数,分管新学员人数.</p>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="well">
+                                            <h3>计算公式</h3>
+                                            <p>老学员充值考核分数:</p>
+                                            <p>金额=充值次数*a+充值总金额*b</p>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="well">
+                                            <p>这里的内容后面根据甲方改善</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-green">
+                                <div class="panel-heading">分管新学员记录</div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>学员编号</th>
+                                            <th>学员账号</th>
+                                            <th>联系方式</th>
+                                            <th>分管时间</th>
+
+                                        </tr>
+                                    </thead>
+                                        <?php if(is_array($res)): foreach($res as $key=>$value): ?><tbody>
+                                            <tr>
+                                                <td><?php echo ($value['ID']); ?></td>
+                                                <td><?php echo ($value['account']); ?></td>
+                                                <td><?php echo ($value['phone']); ?></td>
+                                                <td><?php echo (date("Y-m-d H:i:s",$value['accept_time'])); ?></td>
+                                            </tr><?php endforeach; endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">老学员充值记录</div>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>订单编号</th>
+                                            <th>充值账号</th>
+                                            <th>充值金额</th>
+                                            <th>充值时间</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                         <?php if(is_array($mystd)): foreach($mystd as $key=>$value): ?><tr>
+                                                <td><?php echo ($value['student_id']); ?></td>
+                                                <td><?php echo ($value['account']); ?></td>
+                                                <td><?php echo ($value['ope_money']); ?></td>
+                                                <td><?php echo (date("Y-m-d H:i:s",$value['ope_time'])); ?></td>
+                                            </tr><?php endforeach; endif; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
+                <!-- /.row -->
             </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
-
     </div>
     <!-- /#wrapper -->
 
@@ -329,46 +382,16 @@
     <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
+
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
                 responsive: true
         });
     });
-
-    //axaj请求返回用户信息
-    $(".getmoreinfo").click(function(){
-        var SCri=$(this).parent().siblings(':first').next().html();
-        var request = new XMLHttpRequest();
-        var re="";
-        var obj="";
-        request.open("POST",'__URL__/JoinUp');
-        var data = "userID="+SCri;
-        // alert(data);
-        request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-        request.send(data);
-        request.onreadystatechange = function() {
-                if (request.readyState===4) {
-                    if (request.status===200) {
-                        re=request.responseText;
-                        obj=JSON.parse(re);
-                        alert(obj.result);
-                        // $(".emailinfo").html(obj.email);
-                        // $(".telinfo").html(obj.tel);
-                        // $(".QQinfo").html(obj.QQ);
-                        // $(".zoominfo").html(obj.zoom);
-                        // $(".skypeinfo").html(obj.skype);
-                        // $(".areainfo").html(obj.area);
-                    } else {
-                        alert("发生错误：" + request.status);
-                    }
-                }
-        }
-    })
     </script>
 
     <script src="__PUBLIC__/js/time.js"></script>

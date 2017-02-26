@@ -24,6 +24,8 @@
 				$message['message'] = "传入的必要参数有问题";
 				return $message;
 			}
+			import("Home.Action.StudentAccount.StudentAccountOp");
+			import("Home.Action.System.SystemBasicOperate");
 			import("Home.Action.User.UserBasicOperate");
 			import("Home.Action.Package.PackageBasicOperate");
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
@@ -34,12 +36,15 @@
 			$orderPackageOp = new OrderPackageBasicOperate();
 			$contractOp = new ContractBasicOperate();
 			$moneyOp = new MoneyBasicOperate();
+			$systemBasOp = new SystemBasicOperate();
+			$studentAccountOp = new StudentAccountOp();
 
 			$field = array();
 			array_push($field,"student_sum_money");
-
 			$packageInfo = $packageOp->getPackageInfo($packageID);
+
 			$userInfo = $userOp->getUserInfo("register",$StudentID,null,null,null,$field);
+
 			if((int)$packageInfo[0]['package_money'] > $userInfo[0]['student_sum_money']){
 				$message['status'] = false;
 				$message['message'] = "账户余额不足";
@@ -48,21 +53,37 @@
 
 			$inquiry = new Model();
 			$inquiry->startTrans();    //开始事务处理
+
 			//增加一份要填写的套餐信息
 			$orderPackageData = $this->createOrderPackageInfo($packageInfo[0],$StudentID);
 			//将数据进行写入
-			//这里需要将套餐的ID返回回来         ?????
+			//这里需要将套餐的ID返回回来
 			$orderPackageResult = $orderPackageOp->addOrderPakcageInfo($orderPackageData);    //如果返回的数据是新增的订购的套餐的主键
+
 			//创建合同的数据
-			$contractData = $this->createOrderPackageContract($orderPackageResult[''],$StudentID);
+			$contractData = $this->createOrderPackageContract(
+				$orderPackageResult['data'],$StudentID);
 			//添加合同的信息
 			$studentContractResult = $contractOp->addContract($contractData);
 			//扣除学生的相应价格
-			$moneyResult = $moneyOp->updateStudentMoney($StudentID,$packageInfo[0]['package_money']);
+			$packageInfo[0]['package_money'] = -$packageInfo[0]['package_money'];
+			$moneyResult = $moneyOp->updateStudentMoney($StudentID,null,$packageInfo[0]['package_money']);
 			//创建相应的学生金额
 			$studentMoneyOpResult = true;        //暂时指定为true
+/*
+			//创建学生取消课程次数;
+			$countResult = $systemBasOp->getSystemSet();
+			// dump($countResult);
+			// dump($countResult['cancelClassRate']);
+			$canelcClassCount = $packageInfo['0']['class_number']/$countResult['cancelClassRate'];
+*/
+			//记录一份学生金额操作记录
+			$dataOfAccountOpRecord = $this->createStudentAccountOp($packageInfo,$StudentID);
+			$studentAccoutOpResult = $studentAccountOp
+			->addStudentAccountOpRecord($dataOfAccountOpRecord);
 
-			if(true){       //如果成功就进行     ----->
+			if($orderPackageResult['status'] && $studentContractResult['status'] &&
+			$moneyResult['status'] && $studentAccoutOpResult['status'] ){       //如果成功就进行
 				$inquiry->commit();
 				$message['status'] = true;
 				$message['message'] = "购买套餐成功";
@@ -118,7 +139,7 @@
 			$data['classNumber'] = $packageInfo['class_number'];      //6
 			$data['teacherNation'] = $packageInfo['teacher_nation'];  //7
 			$data['teacherType'] = $packageInfo['teacher_type'];      //8
-			$data['time'] = $packageInfo['time'];            //9
+			$data['time'] = $packageInfo['time'];                     //9
 			$data['packageName'] = $packageInfo['package_name'];      //10
 			$data['packageContent'] = $packageInfo['package_content'];//11
 			$data['packageMoney'] = $packageInfo['package_money'];    //12
@@ -138,17 +159,36 @@
 		*俞鹏泽
 		*生成关于订购套餐的合同信息
 		*/
-		private function createOrderPackageContract($orderpackageID = null,$StudentID = null){
+		private function createOrderPackageContract($orderPackageID = null,$StudentID = null){
 			$data = array();
+
 			if(is_null($orderPackageID) || is_null($StudentID)){
 				return $data;
 			}
 
-			$data['orderpackageID'] = $orderpackageID;
+			$data['orderpackageID'] = $orderPackageID;
 			$data['order_party'] =	$StudentID;	 //订购方   即学生
 			$data['isSign'] = 0;         //表示没有签署
 			$data['create_time'] = getTime();
 			$data['last_modify'] = getTime();
+			return $data;
+		}
+
+		/*
+		*俞鹏泽
+		*生成关于学生账户操作记录的信息
+		*/
+		private function createStudentAccountOp($packageInfo = null,$StudentID){
+			$data = array();
+			if(is_null($packageInfo) || is_null($StudentID)){
+				return $data;
+			}
+			$data['student_id'] = $StudentID;
+			$data['ope_money'] = $packageInfo[0]['package_money'];
+			$data['ope_time'] = getTime();
+			$data['ope_type'] = 0;
+			$data['remark'] = "你购买".$packageInfo['0']['packageName'].
+			"套餐花了".-$packageInfo['0']['package_money']."元";
 
 			return $data;
 		}

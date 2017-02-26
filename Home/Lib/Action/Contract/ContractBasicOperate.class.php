@@ -19,7 +19,7 @@
 
 				$inquiry = new Model('studentcontract');
 				$result = $inquiry->add($Data);
-
+				
 				if($result){
 					$message['status'] = true;
 					$message['message'] = '添加成功';

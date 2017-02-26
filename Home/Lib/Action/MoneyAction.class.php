@@ -33,6 +33,12 @@
 
 			$identity = $_SESSION['identity'];
 			if(4 == $identity || "4" == $identity){
+				/*流程:
+				1.获取课程的配置表中的信息(tp_packageconfig中的信息)
+				2.获取教师的一对一课程的价格表中的信息
+				3.将两者的信息进行处理
+				*/
+
 				$this->display("Root:SetTeacherPay");
 			}else{
 				$this->error("你没有权限查看该页面");
@@ -64,6 +70,21 @@
 				}
 			}else{
 				$this->error("你没有权限查看该页面");
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*对教师的工资以及教师可上课程类别的管理
+		*/
+		public function manageTeacherSalary(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if(4 == $identity || "4" == $identity){
+
+			}else{
+				$this->error('你没有权限进行操作');
 			}
 		}
 	}

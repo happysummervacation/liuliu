@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>顾问中心</title>
+    <title>Teacher Center</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -33,11 +33,13 @@
 </head>
 
 <body>
-        <div id="wrapper">
+
+     <div id="wrapper">
 
         <!-- Navigation -->
         <!-- 标题 -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="topmen">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -45,12 +47,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>66Speak Home Page</strong></a>
             </div>
             <!-- /.navbar-header -->
             <!-- 显示北京时间 -->
-            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
-                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+           <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h3 align="center">Beijing Time&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h3>
             </div>
             <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
                 <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
@@ -61,11 +63,12 @@
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <?php echo count($unreadmessage) ?>
+                        <!-- <?php dump($unreadmessage) ?> -->
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
-                                <a href="<?php echo U('Admin/InformationCenter');?>">
+                                <a href="<?php echo U('Teacher/InformationCenter');?>">
                                 <div>
                                     <strong><?php echo ($value['account']); ?></strong>
                                     <span class="pull-right text-muted">
@@ -76,124 +79,108 @@
                                 </a>
                             </li><?php endif; endforeach; endif; ?>
                         <li>
-                            <a class="text-center" href="<?php echo U('Admin/InformationCenter');?>">
-                                <strong>查看所有消息</strong>
+                            <a class="text-center" href="<?php echo U('Teacher/InformationCenter');?>">
+                                <strong>All Messages</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-                <!-- 中英文切换 -->
-                <!-- <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
-                        </li>
-
-                        <li class="divider"></li>
-                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
-                        </li>
-                    </ul>
-                </li> -->
-                <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> Quit</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
                 </li>
                 <!-- /.dropdown -->
             </ul>
+            <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
-                            <!-- <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="搜索...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div> -->
-                            <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="<?php echo U('Admin/index');?>"><i class="fa fa-home fa-fw"></i> 顾问中心</a>
+                          <a href="<?php echo U('Teacher/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
                         </li>
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
+                            <li>
+                                <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo U('Teacher/Feedback');?>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
+                            </li>
+                            <li>
+                               <a href="<?php echo U('Teacher/HistoryFeedback');?>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
+                           </li>
+                        <li>
+                            <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Admin/SearchTeacher');?>">搜索教师账户</a>
+                                    <a href="<?php echo U('Teacher/UploadedVideos');?>"> Video History</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Admin/CheckTeacher');?>">查看教师</a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
-                        </li>
-
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Admin/SearchStudent');?>">搜索学生账号</a>
+                                    <!-- <a href="__PUBLIC__/plug-in/examples/simple/index.html">现在上传</a> -->
+                                    <a href="<?php echo U('Teacher/UploadNow');?>"> Upload Video</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Admin/CheckStudent');?>">分管学员</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Admin/MyStudent');?>">查看学员</a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student/isMy/myStudent"> <i class="fa fa-users fa-fw"></i> 分管学员</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student/isMy/allStudent"> <i class="fa fa-users fa-fw"></i> 查看学员</a>
-                        </li>
-
-
-                        <li>
-                            <a href="#"><i class="fa fa-pencil fa-fw"></i> 课程顾问信息<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <!-- <a href="Information.html">个人信息</a> -->
-                                    <a href="<?php echo U('Info/Information');?>"> 课程顾问信息</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="ResetPassword.html">修改密码</a> -->
-                                    <a href="<?php echo U('Info/resetPassword');?>">修改密码</a>
+                                    <a href="<?php echo U('Teacher/UploadIntroductionVideo');?>"> Upload Introduction Video</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                             <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-exchange fa-fw"></i> 教材库</a>
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i> Teacher Information<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="Information.html">个人信息修改</a> -->
+                                    <a href="<?php echo U('Info/Information');?>"> Teacher Information</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="Information.html">个人信息修改</a> -->
+                                    <a href="<?php echo U('Teacher/QualificationsInformation');?>"> Qualification Information</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="ResetPassword.html">密码修改</a> -->
+                                    <a href="<?php echo U('Info/resetPassword');?>"> Password Reset</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                             <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
+                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Teacher Salary<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="MyMoney.html">我的工资</a> -->
+                                    <a href="<?php echo U('Teacher/MyMoney');?>"> Teacher Salary</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="HowCaculate.html">工资计算</a> -->
+                                    <a href="<?php echo U('Teacher/HowCaculate');?>"> Salary Settlement</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
                         </li>
-                         <li>
-                             <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
+                        <li>
+                            <a href="<?php echo U('Teacher/MyContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
                         </li>
+                        <li>
+                            <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
+                        </li>
+                        <!-- <li>
+                          <span ><?php echo date('Y/m/d H:i:s',$nowtime);?></span>
+                        </li> -->
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -201,12 +188,13 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">顾问信息</h1>
+                        <h1 class="page-header">Teacher's Information</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -214,68 +202,99 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">顾问信息</div>
+                            <div class="panel-heading">Information Modification</div>
                             <div class="panel-body">
                                 <form enctype="multipart/form-data" action="<?php echo U('Info/ChangeUserInformation');?>" method="post">
                                     <div class="col-lg-8">
                                         <div class="col-lg-6">
-                                            <h4>顾问昵称：</h4>
-                                            <input type="text" maxlength="10" class="form-control" name="account" value="<?php echo ($data['account']); ?>" disabled="disabled">
+                                            <h4>Nickname：</h4>
+                                            <input type="text" class="form-control" value="<?php echo ($data['account']); ?>"  disabled="disabled"/>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>中文姓名：</h4>
-                                            <input type="text" maxlength="10"  class="form-control" name="chinesename" value="<?php echo ($data['chinesename']); ?>">
+                                            <h4>Chinese Name：</h4>
+                                            <input type="text" name="chinesename" class="form-control" value="<?php echo ($data['chinesename']); ?>"  />
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>英语姓名：</h4>
-                                            <input type="text" class="form-control" name="englishname" value="<?php echo ($data['englishname']); ?>">
+                                            <h4>English Name：</h4>
+                                            <input type="text" name="englishname" class="form-control" value="<?php echo ($data['englishname']); ?>"  />
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>年龄：</h4>
-                                            <input type="text" class="form-control age" name="age" value="<?php echo ($data['age']); ?>" maxlength="3">
+                                            <h4>Age：</h4>
+                                            <input type="text" name="age" class="form-control" value="<?php echo ($data['age']); ?>"   maxlength="3"/>
                                         </div>
                                         <div class="col-lg-12">
-                                            <h4>性别：</h4>
+                                            <h4>Gender：</h4>
                                             <select class="form-control" name="sex">
                                                 <?php
- if($data['sex'] == 0){ echo '<option selected="selected" value="0">女</option>'; }else{ echo '<option selected="selected" value="1">男</option>'; } ?>
+ if($data['sex'] == 0){ echo '<option selected="selected" value="0">Female</option>'; }else{ echo '<option selected="selected" value="1">Male</option>'; } ?>
+
                                                 <?php
- if($data['sex'] == 0){ echo '<option value="1">男</option>'; }else{ echo '<option value="0">女</option>'; } ?>
+ if($data['sex'] == 1){ echo '<option value="0">Female</option >'; }else{ echo '<option value="1">Male</option >'; } ?>
+
                                             </select>
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>邮箱：</h4>
-                                            <input type="text" class="form-control" name="email" value="<?php echo ($data['email']); ?>">
+                                            <h4>Email：</h4>
+                                            <input type="text" name="email" class="form-control" value="<?php echo ($data['email']); ?>"   />
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>联系号码：</h4>
-                                            <input type="text" class="form-control" name="phone" value="<?php echo ($data['phone']); ?>">
+                                            <h4>Phone Number：</h4>
+                                            <input type="text" name="phone" class="form-control" value="<?php echo ($data['phone']); ?>"  />
                                         </div>
                                         <div class="col-lg-6">
                                             <h4>QQ：</h4>
-                                            <input type="text" class="form-control" name="qq" value="<?php echo ($data['QQ']); ?>">
+                                            <input type="text" name="qq" class="form-control" value="<?php echo ($data['QQ']); ?>"  >
                                         </div>
                                         <div class="col-lg-6">
-                                            <h4>微信：</h4>
-                                            <input type="text" class="form-control" name="weixin" value="<?php echo ($data['weixin']); ?>">
+                                            <h4>Wechat：</h4>
+                                            <input type="text" name="weixin" class="form-control" value="<?php echo ($data['weixin']); ?>"  >
                                         </div>
-                                        <!-- <div class="col-lg-6">
-                                            <h4>skype：</h4>
-                                            <input type="text" class="form-control" name="skype" value="<?php echo ($data['skype']); ?>">
-                                        </div> -->
+                                        <div class="col-lg-6">
+                                            <h4>ZOOM：</h4>
+                                            <input type="text" name="zoom" class="form-control" value="<?php echo ($data['zoom']); ?>"  >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Skype：</h4>
+                                            <input type="text" name="skype" class="form-control" value="<?php echo ($data['skype']); ?>" >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Bank Card：</h4>
+                                            <input type="text" name="bankcard" class="form-control" value="<?php echo ($data['bankcard']); ?>"  >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Paypal：</h4>
+                                            <input type="text" name="paypal" class="form-control" value="<?php echo ($data['paypal']); ?>" >
+                                        </div>
                                         <div class="col-lg-12">
-                                            <h4>地域：</h4>
-                                            <input type="text" class="form-control" name="country" value="<?php echo ($data['country']); ?>">
+                                            <h4>Area：</h4>
+                                            <input class="form-control" name="country" type="text" value="<?php echo ($data['country']); ?>" maxlength="300"/>
                                         </div>
+                                        <div class="col-lg-12">
+                                            <h4>Introduction：</h4>
+                                            <input type="text" name="introduction" class="form-control" value="<?php echo ($data['introduction']); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" style="text-align: center">
+                                        <br>
+                                        <div id="result">
+                                        <img src="<?php echo ($data['image_path']); ?>" style="width:130px;border: 2px solid #CCC;height: 130px;"  alt="No Head Picture!" id="image"/>
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="uploadbutton btn btn-default" style="width:50%;" >
+                                            <input type="file" nv-file-select="" uploader="uploader" multiple   name="photo" value="Upload Head Picture" id="file_input"/>
+                                            Update
+                                        </div>
+                                        <br/>
+                                        no more 2M
+                                        <!-- <input type="file" name="photo" value="上传头像" class="btn btn-default"> -->
                                     </div>
                                     <div class="col-lg-12">
                                         <br>
-
                                     </div>
-
                             </div>
                             <div class="panel-footer" style="overflow: auto">
-                                <button class="btn btn-primary" type="submit" style="float: right;width: 10%;">保存</button>
+                                <button type="submit" class="btn btn-primary" style="float: right;width: 10%;">Save</button>
                             </div>
                             </form>
                         </div>
@@ -311,7 +330,7 @@
 
         $('.age').change(function(){
             if ($(this).val()<0||$(this).val()>150) {
-                alert("请检查您的年龄填写是否正确");
+                alert("Age doesn't meet the requirements!");
                 $(this).val('');
             }
         })
@@ -320,7 +339,7 @@
         var input = document.getElementById("file_input");
 
         if(typeof FileReader==='undefined'){
-            result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+            result.innerHTML = "Sorry，Your browser does not support FileReader";
             input.setAttribute('disabled','disabled');
         }else{
             input.addEventListener('change',readFile,false);
@@ -329,7 +348,7 @@
         function readFile(){
             var file = this.files[0];
             if(!/image\/\w+/.test(file.type)){
-                alert("文件图片类型文件");
+                alert("The file must be a picture");
                 return false;
             }
             var reader = new FileReader();

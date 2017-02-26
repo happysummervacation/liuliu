@@ -92,13 +92,14 @@
 			$data['weixin'] = $postData['weixin'];
 			$data['skype'] = $postData['skype'];
 			$data['country'] = $postData['country'];
-
+			$data['zoom'] = $postData['zoom'];
 			$data['bankcard'] = $postData['bankcard'];
 			$data['paypal'] = $postData['paypal'];
 			$data['introduction'] = $postData['introduction'];
 
 			if(!is_null($filePath)){
-				$data['image_path'] = '/liuliu'.explode(".",$filePath['message'][0]['savepath'])['message'][1].$filePath[0]['savename'];
+				$data['image_path'] = '/liuliu'.
+				explode(".",$filePath['message'][0]['savepath'])[1].$filePath['message'][0]['savename'];
 			}
 
 			import("Home.Action.User.UserBasicOperate");
