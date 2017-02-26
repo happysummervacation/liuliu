@@ -66,13 +66,46 @@
 			$this->CheckSession();
 
 			$identity = $_SESSION['identity'];
-			
+
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$orderpacOp = new OrderPackageBasicOperate();
+
 			if(2 == $identity || "2" == $identity){
 				/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
 			}elseif(4 == $identity || "4" == $identity){
-
+				/*
+				*获取该学生订购的套餐的数据
+				*/
+				$result = $orderpacOp->getStuActiveOrderPackageInfo($_GET['user_id']);
+				$this->assign("orderPackageList",$result);
+				$this->display("Root:StuPackageInfo");
 			}else{
+				$this->error("你没有权限查看数据");
+			}
+		}
+		/*
+		*俞鹏泽
+		*课程顾问以及管理员对学生套餐信息管理
+		*/
+		public function studentPackageManage(){
+			$this->CheckSession();
 
+			$identity = $_SESSION['identity'];
+
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$orderpacOp = new OrderPackageBasicOperate();
+
+			if(2 == $identity || "2" == $identity){
+				/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
+			}elseif(4 == $identity || "4" == $identity){
+				/*
+				*获取该学生订购的套餐的数据
+				*/
+				$result = $orderpacOp->getStuActiveOrderPackageInfo($_GET['user_id']);
+				$this->assign("orderPackageList",$result);
+				$this->display("Root:StuPackageInfo");
+			}else{
+				$this->error("你没有权限进行操作");
 			}
 		}
 

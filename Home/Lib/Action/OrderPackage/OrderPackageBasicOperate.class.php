@@ -60,6 +60,7 @@
 		//参数一:订购的套餐的ID,可以是数组,也可以是单值,也可以是null
 		//参数二:要查询的字段
 		//参数三:是否是删除的套餐  0表示没有删除的,1表示删除的,2.表示全部
+		//参数四:表示是否是有效的
 		public function getOrderPackagesInfo($orderPackageID = null,$field = null,$isdelete = 0){
 			$fieldString = "";
 			$condition = "";
@@ -178,8 +179,37 @@
 		//参数一:学生的ID
 		//参数二:学生的账号
 		//参数三:要查询的字段,   null,string,也可以是数组
-		public function getStuActiveOrderPackageInfo($StudentID = null,$Account = null,$Field = null){
+		public function getStuActiveOrderPackageInfo($StudentID = null,$Field = null){
+			$fieldString = "";
+			if(is_array($Field)){
+				for ($i = 0; $i < count($Field); $i++) {
+					if($i == count($Field)-1){
+						$fieldString = $fieldString.$Field[$i];
+					}else{
+						$fieldString = $fieldString.$Field[$i].",";
+					}
+				}
+			}elseif(is_string($Field)){
+				$fieldString = $Field;
+			}else{
+				$fieldString = null;
+			}
 
+			$inquiry = new Model("orderpackage");
+			if(!is_null($StudentID)){
+				if(!is_null($fieldString)){
+					$result = $inquiry->table('tp_orderpackage,tp_packageconfig')
+					->where("tp_orderpackage.category = tp_packageconfig.packageconID
+					and tp_orderpackage.studentID = {$StudentID} and status=1")->field($fieldString)->select();
+				}else{
+					$result = $inquiry->table('tp_orderpackage,tp_packageconfig')
+					->where("tp_orderpackage.category = tp_packageconfig.packageconID
+					and tp_orderpackage.studentID = {$StudentID} and status=1")->select();
+				}
+				return $result;
+			}else{
+				return null;
+			}
 		}
 	}
  ?>

@@ -106,16 +106,24 @@
 		*显示套餐管理的各种信息信息,专用于学生角色
 		*/
 		 public function getManageInfo(){
-			$this->CheckSession();
- 			$identity = $_SESSION['identity'];
-			if(0 == $identity||'0' == $identity){
-				/*
-				这里面获取学生需要的各种信息         ------------------->>>>还没有完成
-				*/
-				$this->display("Student:MyPackage");
-			}else{
-				$this->error("你没有权限查看该页面");
-			}
+			 $this->CheckSession();
+  			$identity = $_SESSION['identity'];
+ 			if(0 == $identity||'0' == $identity){
+
+ 				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+ 				$ordpOp = new OrderPackageBasicOperate();
+ 				$packageInfo = $ordpOp->getStuActiveOrderPackageInfo($_SESSION['ID'],null);
+ 				$this->assign('package_list',$packageInfo);
+
+ 				import("Home.Action.User.UserBasicOperate");
+ 				$userOp = new UserBasicOperate();
+ 				$field = array('student_sum_money');
+ 				$moneyInfo = $userOp->getUserInfo('student',$_SESSION['ID'],null,null,null,'student_sum_money');
+ 				$this->assign('money',$moneyInfo[0]['student_sum_money']);
+ 				$this->display("Student:MyPackage");
+ 			}else{
+ 				$this->error("你没有权限查看该页面");
+ 			}
 		 }
 	}
  ?>

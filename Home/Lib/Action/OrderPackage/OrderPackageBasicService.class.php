@@ -68,6 +68,8 @@
 			//扣除学生的相应价格
 			$packageInfo[0]['package_money'] = -$packageInfo[0]['package_money'];
 			$moneyResult = $moneyOp->updateStudentMoney($StudentID,null,$packageInfo[0]['package_money']);
+			// dump($moneyResult);
+			// exit;
 			//创建相应的学生金额
 			$studentMoneyOpResult = true;        //暂时指定为true
 /*

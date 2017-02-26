@@ -337,8 +337,13 @@
 	                                    <thead>
 	                                        <tr>
 	                                            <th>订单编号</th>
-	                                            <th style="display:none">套餐编号</th>
-	                                            <th>套餐类型</th>
+	                                            <!-- <th style="display:none">套餐编号</th> -->
+	                                            <th>课程类型</th>
+                                              <th>套餐类别</th>
+                                              <th>课程类别</th>
+                                              <th>学生人数</th>
+                                              <th>教师类型</th>
+                                              <th>教师类别</th>
 	                                            <th>有效期至</th>
 	                                            <th>已用/总数</th>
 	                                            <th>套餐价格(RMB)</th>
@@ -347,12 +352,17 @@
 	                                    </thead>
 	                                    <tbody>
 	                                    	<?php if(is_array($package_list)): foreach($package_list as $key=>$vo): ?><tr>
-                                                <td><?php echo ($vo["orderpackage_id"]); ?></td>
-                                                <td style="display:none"><?php echo ($vo["package_id"]); ?></td>
-                                                <td><?php echo ($vo['package_category']); ?>/<?php echo ($vo["package_type"]); ?></td>
-                                                <td><?php echo ($vo["end_time"]); ?></td>
-                                                <td><?php echo ($vo["have_class"]); ?>/<?php echo $vo['total_class']+$vo['other_class'];?></td>
-                                                <td><?php echo ($vo["package_money"]); ?></td>
+                                                <td><?php echo ($vo["orderpackageID"]); ?></td>
+                                                <!-- <td style="display:none"><?php echo ($vo["package_id"]); ?></td> -->
+                                                <td><?php echo ($vo['packageName']); ?></td>
+                                                <td><?php if($vo['packageType'] == 1){echo "卡类";}else{echo "课时";}?></td>
+                                                <td><?php if($vo['classType'] == 1){echo "小班课";}else{echo "一对一";}?></td>
+                                                <td><?php echo ($vo["studentNumber"]); ?></td>
+                                                <td><?php if($vo['teacherNation'] == 1){echo "外教";}else{echo "中教";}?></td>
+                                                <td><?php if($vo['teacherType'] == 1){echo "名师";}else{echo "普通";}?></td>
+                                                <td><?php echo (date("Y-m-d",$vo["endTime"])); ?></td>
+                                                <td><?php echo ($vo["haveClass"]); ?>/<?php echo $vo['classNumber']+$vo['otherClass'];?></td>
+                                                <td><?php echo ($vo["packageMoney"]); ?></td>
                                                 <td>
                                                   <!--课程一旦用完订购的对应套餐就设为失效-->
                                                   <?php if($vo['status'] == '0'){echo "失效";} else {echo "有效";}?>

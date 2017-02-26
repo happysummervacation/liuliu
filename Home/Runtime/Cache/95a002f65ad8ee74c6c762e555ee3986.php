@@ -361,20 +361,20 @@
         /**
          * 传过来的数据
          */
-        var teacherpayinfo=[
-            {classtype:'1|少儿',teachertype:'1|名师',money:'30',infomationid:'1001'},
-            {classtype:'2|成人',teachertype:'0|普通',money:'60',infomationid:'1002'}
-        ];
-
+        // var teacherpayinfo=[
+        //     {classtype:'1|少儿',teachertype:'1|名师',money:'30',infomationid:'1001'},
+        //     {classtype:'2|成人',teachertype:'0|普通',money:'60',infomationid:'1002'}
+        // ];
+        var teacherpayinfo = <?php echo ($teacherpayinfo); ?>;
         /**
          * 配置表数据
          */
-        var config=[
-            {typename:'少儿类',id:'1'},
-            {typename:'成人类',id:'2'},
-            {typename:'雅思类',id:'3'}
-        ]
-
+        // var config=[
+        //     {typename:'少儿类',id:'1'},
+        //     {typename:'成人类',id:'2'},
+        //     {typename:'雅思类',id:'3'}
+        // ]
+        var config = <?php echo ($config); ?>;
         //教师ID
         var teacherid='22';
 
@@ -400,10 +400,10 @@
         console.log(comparearr);
         //补充其余配置信息
         if(config.length>teacherpayinfo.length){
-            for (var i = 0; i < config.length; i++) {
-                if(temparrforteacher.indexOf(config[i]['id'])==-1){
-                    var tr_str='<tr><td style="height: 30px;line-height: 30px;" value="'+config[i]['id']+'"">'
-                                +config[i]['typename']+'课程'+
+            for (var i = 0; i < config.length; i++){
+                if(temparrforteacher.indexOf(config[i]['packageconID'])==-1){
+                    var tr_str='<tr><td style="height: 30px;line-height: 30px;" value="'+config[i]['packageconID']+'"">'
+                                +config[i]['packageName']+'课程'+
                                 '</td><td><select class="form-control teachertype"><option value="0">普通教师</option><option value="1">名师</option></select></td><td style="height: 30px;line-height: 30px;"><input type="checkbox" name=""></td><td><input type="number" name="" class="form-control"></td></tr>';
                     $('#teacherPayInfo').append(tr_str);
                 }

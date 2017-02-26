@@ -72,7 +72,8 @@
                 $inquiry = new Model();
             }
 
-            if(!is_null($Field)){
+            $fieldString = "";
+            if(is_array($Field)){
                 for ($i = 0; $i < count($Field); $i++) {
                     if($i == count($Field)-1){
                         $fieldString = $fieldString.$Field[$i];
@@ -80,20 +81,25 @@
                         $fieldString = $fieldString.$Field[$i].",";
                     }
                 }
-
-                if(!empty($condition)){
-                    $result = $inquiry->where($condition)->field($fieldString)->select();
-                }else{
-                    $result = $inquiry->field($fieldString)->select();
-                }
+            }elseif(is_string($Field)){
+                $fieldString = $Field;
             }else{
-                if(!empty($condition)){
-                    $result = $inquiry->where($condition)->select();
-                }else{
-                    $result = $inquiry->select();
-                }
+                $fieldString = null;
             }
 
+            if(!is_null($fieldString)){
+               if(!empty($condition)){
+                   $result = $inquiry->where($condition)->field($fieldString)->select();
+               }else{
+                   $result = $inquiry->field($fieldString)->select();
+               }
+           }else{
+              if(!empty($condition)){
+                   $result = $inquiry->where($condition)->select();
+               }else{
+                   $result = $inquiry->field($fieldString)->select();
+               }
+           }
             return $result;
         }
 

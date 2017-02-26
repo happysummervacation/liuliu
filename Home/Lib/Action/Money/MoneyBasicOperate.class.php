@@ -49,5 +49,53 @@
               	return $message;
 	        }
 		}
+
+		/*陈泽奇
+		*第一个参数传入老师的id
+		*return查到老师一对一课程表未过期的数据;
+		*/
+		public function getTeOneClassSalary($teacherID = null)
+		{
+			$message = array();
+			if($teacherID == null){
+				return null;
+			}else{
+				$inquiry = new Model('teoneclasssalary');
+				$result = $inquiry
+				->join("inner join tp_packageconfig on tp_teoneclasssalary.scategory=tp_packageconfig.packageconID")
+				->where("teacherID=$teacherID and isLastest=0")
+				->select();
+				if($result){
+					return $result;
+				}else{
+					return null;
+				}
+			}
+		}
+
+		/*陈泽奇
+		*
+		**/
+		public function addTeOneClassSalary($data = null){
+			$message = array();
+
+			if(is_null($data)){
+				$message['status'] = false;
+				$message['message'] = '缺少所需的数据';
+				return $message;
+			}else{
+				$inquiry = new Model('teoneclasssalary');
+				$result = $inquiry->add($data);
+				if($result){
+					$message['status'] = true;
+					$message['message'] = '添加老师一对一价格表成功';
+					return $message;
+				}else{
+					$message['status'] = false;
+					$message['message'] = '添加老师一对一价格表失败';
+					return $message;
+				}
+			}
+		}
 	}
  ?>
