@@ -21,8 +21,8 @@
     <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
+    <link href="__PUBLIC__/bower_components/datatables-responsive/css/responsive.dataTables.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bower_components/datatables-responsive">
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -36,13 +36,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- jQuery -->
-    <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
-
 </head>
 
 <body>
-
     <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
@@ -279,7 +275,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">查看教师</h1>
+                        <h1 class="page-header">查看学员</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -287,265 +283,240 @@
                 <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            教师列表
+                            学员列表
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th style="display:none">教师编号</th>
-                                            <th>教师账号</th>
+                                            <th style="display:none">学员编号</th>
+                                            <th>学员账号</th>
                                             <th>中文名</th>
                                             <th>英文名</th>
-                                            <th>教师课表</th>
-                                            <th>工资信息</th>
-                                            <th>查看合同</th>
+                                            <!-- <th>学员信息</th> -->
+                                            <th>学员课表</th>
+                                            <th>学员套餐</th>
+                                            <th>账户余额</th>
                                             <th>账号状态</th>
+                                            <th>停课时间</th>
                                             <th>系统操作</th>
                                         </tr>
                                     </thead>
                                     <tbody >
-                                    <?php $i = 1; foreach ($teachers as $key => $value) {?>
+                                    <?php $i = 1; foreach ($students as $key => $value) {?>
                                         <tr>
-                                            <td style="display:none" class="teacherID"><?php echo ($value['ID']); ?></td>
+                                            <td style="display:none" class="studentID"><?php echo ($value['ID']); ?></td>
                                             <td><?php echo ($value['account']); ?></td>
                                             <td><?php echo ($value['chinesename']); ?></td>
                                             <td><?php echo ($value['englishname']); ?></td>
-                                            <td><a href="<?php echo U('Root/PersonalClass',array('user_id'=>$value['ID']));?>">查看课表</a></td>
-                                            <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
-
-                                            <td><a href="<?php echo U('Root/TeacherContract',array('user_id'=>$value['ID']));?>">教师合同</a></td>
-
+                                            <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
+                                            <td><a href="<?php echo U('Root/StuPersonalClass',array('user_id'=>$value['ID']));?>">课表查看</a></td>
+                                            <td><a href="<?php echo U('Root/StudentPackageInformation',array('user_id'=>$value['ID']));?>">套餐查看</a></td>
+                                            <td><?php echo ($value['student_sum_money']); ?></td>
                                             <td><?php if($value['status'] == 1) {echo "可用";} else {echo "不可用";}?></td>
                                             <td>
-                                                <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'0'));?>">
-                                                        <button class="btn btn-primary" style="margin:5px">禁用账号</button>
+                                              <!-- <a href="#" data-toggle="modal" data-target="#stopclass" id="getstopclass">停课时间</a> -->
+
+                                              <a data-toggle="modal" data-target="#stopclass" class="getstopclass">停课时间</a>
+                                            </td>
+                                            <td>
+                                                <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Info/UserManage', array('personType'=>'student','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'0'));?>">
+                                                         <button class="btn btn-primary" style="margin:5px">禁用账号</button>
                                                     </a>
                                                 <?php else: ?>
-                                                    <a href="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'));?>">
-                                                        <button class="btn btn-primary" style="margin:5px">启用账号</button>
+                                                    <a href="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'));?>">
+                                                         <button class="btn btn-primary" style="margin:5px">启用账号</button>
                                                     </a><?php endif; ?>
-                                                <button type="button" class="editTeacher btn btn-primary" name="button"  style="margin:5px">教师信息修改</button>
-                                                <a href="<?php echo U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']));?>" class="resetPasswordID"><button class="btn btn-primary"  style="margin:5px">一键重置密码</button></a>
-                                                <a href="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary"  style="margin:5px">彻底删除</button></a>
-                                                <button type="button" data-toggle="modal" data-target="#uploadsimplevideo" class="uploadsimplevideo btn btn-primary"  style="margin:5px">上传示例视频</button>
-                                                <a href="<?php echo U('Info/setTeacherPay');?>"><button type="button" class="uploadsimplevideo btn btn-primary"  style="margin:5px">修改工资设置</button></a>
+                                                <span>&nbsp;</span>
+                                                <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="chongqian">
+                                                    <button class="btn btn-primary" style="margin:5px">余额充值</button>
+                                                </a>
+                                                <button class="editStudent btn btn-primary" style="margin:5px">修改</button>
+                                                <a href="<?php echo U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']));?>" class="resetPasswordID"><button class="btn btn-primary" style="margin:5px">一键重置密码</button></a>
+                                                <a href="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary" style="margin:5px">彻底删除</button></a>
                                             </td>
                                         </tr>
                                     <?php $i++;}?>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- 模态框2,查看用户工资信息 -->
-                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
-                                <div class="modal-dialog modal-md">
+                            <!-- 模态框1,查看用户信息 -->
+                            <!-- <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        工资信息
+                                        学员信息
                                         </div>
-                                        <div class="modal-body" style="overflow: auto;">
-                                            <div class="col-lg-12">
-                                              <div class="form-group col-lg-5">
-                                                <label for="year">年份</label>
-                                                <select class="form-control year" name="year">
-                                                  <option value="2017">2017年</option>
-                                                  <option value="2018">2018年</option>
-                                                  <option value="2019">2019年</option>
-                                                  <option value="2020">2020年</option>
-                                                  <option value="2021">2021年</option>
-                                                  <option value="2022">2022年</option>
-                                                  <option value="2023">2023年</option>
-                                                  <option value="2024">2024年</option>
-                                                  <option value="2025">2025年</option>
-                                                </select>
-                                              </div>
-                                              <div class="form-group col-lg-5">
-                                                <label for="month">月份</label>
-                                                <select class="form-control month" name="month">
-                                                  <option value="1">1月</option>
-                                                  <option value="2">2月</option>
-                                                  <option value="3">3月</option>
-                                                  <option value="4">4月</option>
-                                                  <option value="5">5月</option>
-                                                  <option value="6">6月</option>
-                                                  <option value="7">7月</option>
-                                                  <option value="8">8月</option>
-                                                  <option value="9">9月</option>
-                                                  <option value="10">10月</option>
-                                                  <option value="11">11月</option>
-                                                  <option value="12">12月</option>
-                                                </select>
-                                              </div>
-                                              <div class="form-group col-lg-2">
-                                                <label for="" style="visibility:hidden">提交筛选</label><br>
-                                                <button type="submit" name="button" class="btn btn-primary" id="findmoneybytime">提交</button>
-                                              </div>
+                                        <div class="modal-body"  style="overflow: auto;">
+                                            <div class="col-lg-2">
+                                                <img src="" alt="没有头像" style="height: 120px;width:120px;" id="personalimage">
                                             </div>
-                                            <table class="table table-hover" id="adminmoneytable">
-                                              <thead>
-                                              </thead>
-                                              <tbody>
-                                              </tbody>
-                                            </table>
+                                            <div class="col-lg-10">
+                                                <table class="table information">
+
+                                                </table>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> -->
+                            <!-- 模态框1 -->
+                             <!-- 模态框2,余额充值 -->
+                            <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-md">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            余额充值
+                                        </div>
+                                        <div class="modal-body">
+                                            <form role="form" action="<?php echo U('Root/StudentRecharge');?>" method="post">
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">学员编号</label>
+                                                <input type="text" name="user_id" class="form-control" placeholder="Count" id="chongzhicount" readonly="true">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">学员姓名</label>
+                                                <input type="text" name="account" class="form-control" placeholder="Count" id="chongzhicount2" readonly="true">
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="exampleInputEmail1">充值金额</label>
+                                                <input type="number" name="money" class="form-control" placeholder="Money">
+                                              </div>
+                                              <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                    <button type="submit" class="btn btn-primary">提交</button>
+                                              </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <!-- 模态框2 -->
-                            <!-- 模态框3 -->
-                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="uploadsimplevideo">
-                                <div class="modal-dialog modal-md">
+                            <!-- 模态框3,停课信息修改 -->
+                            <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="stopclass">
+                                <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                        上传教师示例视频
+                                        停课取消操作
                                         </div>
-                                        <div class="modal-body">
-                                            <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo U('Root/UploadTeacherSimple');?>" id="uploadsimplevideoID" method="post">
-                                              <div class="form-group">
-                                                <label class="label-form col-sm-6 col-sm-offset-2">视频文件(限定大小80M,支持mp4,wmv)</label>
-                                                <div class="col-sm-6 col-sm-offset-2">
-                                                   <input id="lefile" type="file" style="display: none;"/>
-                                                    <div class="input-append">
-                                                        <input id="photoCover" class="input-large form-control" type="text" style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;" placeholder="视频文件(限定大小80M,支持mp4,wmv)" />
-                                                    </div>
-                                                    <script type="text/javascript">
-                                                        $('input[id=lefile]').change(function () {
-                                                            $('#photoCover').val($(this).val());
-                                                        });
-                                                    </script>
-                                                </div>
-                                                <div class="col-sm-3">
-                                                    <button type="button" class="btn btn-primary" onclick="$('input[id=lefile]').click();">选择文件</button>
-                                                </div>
-                                              </div>
+                                        <div class="modal-body"  style="overflow: auto;">
+                                          <form class="" action="<?php echo U('Root/CancelStopClass');?>" method="post">
+                                            <div class="form-group">
+                                              <label for="">停课编号</label>
+                                              <input type="text" name="stopID" value="" class="form-control" id="stopID" readonly="true">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="">学生名字</label>
+                                              <input type="text" name="stu_name" value="" class="form-control" id="stu_name" readonly="true">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="">开始时间</label>
+                                              <input type="text" name="strattime" value="" class="form-control" id="stu_starttime" readonly="true">
+                                            </div>
+                                            <div class="form-group">
+                                              <label for="">结束时间</label>
+                                              <input type="text" name="stoptime" value="" class="form-control" id="stu_stoptime" readonly="true">
+                                            </div>
+
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                            <button type="submit" class="btn btn-danger">上传</button>
+                                            <button type="submit" class="btn btn-default">取消停课</button>
                                         </div>
-                                         </form>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
+                            <!-- 模态框3 -->
                         </div>
                     </div>
                 </div>
 
-
-                    <div class="row" id="editTeacherInfo">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                修改教师资料
+                <div class="row" id="editStudentInfo">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            修改学生资料
+                        </div>
+                        <div class="panel-body">
+						<form class="form-horizontal" action="<?php echo U('Root/ModifyRegisterInfo');?>/type/student" method="post" role="form">
+                            <div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">账号</label>
+								<div class="col-sm-10">
+									<input id="account" type="text" readonly="true" name="account" class="form-control" placeholder="账号">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="firstname" class="col-sm-2 control-label">中文名</label>
+								<div class="col-sm-10">
+									<input id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">英文名</label>
+								<div class="col-sm-10">
+									<input id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">邮箱</label>
+								<div class="col-sm-10">
+									<input id="email" type="text" name="email" class="form-control" placeholder="邮箱">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">电话</label>
+								<div class="col-sm-10">
+									<input id="phone" type="text" name="phone" class="form-control" placeholder="电话">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">QQ</label>
+								<div class="col-sm-10">
+									<input id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">微信</label>
+								<div class="col-sm-10">
+									<input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
+								</div>
+							</div>
+                            <div class="form-group">
+								<label for="lastname" class="col-sm-2 control-label">年龄</label>
+								<div class="col-sm-10">
+									<input id="age" type="text" name="age" class="form-control" placeholder="年龄">
+								</div>
+							</div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">国籍</label>
+                              <div class="col-sm-10">
+                                <input id="country" type="text" name="country" class="form-control" placeholder="国籍">
+                              </div>
                             </div>
-                            <div class="panel-body">
-										<form class="form-horizontal" action="<?php echo U('Root/ModifyRegisterInfo');?>/type/teacher" method="post" role="form">
-                                            <div class="form-group">
-												<label for="firstname" class="col-sm-2 control-label">账号</label>
-												<div class="col-sm-10">
-													<input id="account" type="text" name="account" readonly="true" class="form-control" placeholder="账号">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="firstname" class="col-sm-2 control-label">中文名</label>
-												<div class="col-sm-10">
-													<input id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="lastname" class="col-sm-2 control-label">英文名</label>
-												<div class="col-sm-10">
-													<input id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="lastname" class="col-sm-2 control-label">邮箱</label>
-												<div class="col-sm-10">
-													<input id="email" type="text" name="email" class="form-control" placeholder="邮箱">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="lastname" class="col-sm-2 control-label">电话</label>
-												<div class="col-sm-10">
-													<input id="phone" type="text" name="phone" class="form-control" placeholder="电话">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="lastname" class="col-sm-2 control-label">QQ</label>
-												<div class="col-sm-10">
-													<input id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
-												</div>
-											</div>
-											<div class="form-group">
-												<label for="lastname" class="col-sm-2 control-label">微信</label>
-												<div class="col-sm-10">
-													<input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
-												</div>
-											</div>
-                                            <div class="form-group">
-												<label for="lastname" class="col-sm-2 control-label">年龄</label>
-												<div class="col-sm-10">
-													<input id="age" type="text" name="age" class="form-control" placeholder="年龄">
-												</div>
-											</div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">国籍</label>
-                                                  <div class="col-sm-10">
-                                                    <input id="country" type="text" name="country" class="form-control" placeholder="国籍">
-                                                  </div>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">skype</label>
-                                                  <div class="col-sm-10">
-                                                    <input id="skype" type="text" name="skype" class="form-control" placeholder="skype">
-                                                  </div>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">zoom</label>
-                                                  <div class="col-sm-10">
-                                                    <input id="zoom" type="text" name="zoom" class="form-control" placeholder="zoom">
-                                                  </div>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">paypal</label>
-                                                  <div class="col-sm-10">
-                                                    <input id="paypal" type="text" name="paypal" class="form-control" placeholder="paypal">
-                                                  </div>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">bankcard</label>
-                                                  <div class="col-sm-10">
-                                                    <input id="bankcard" type="text" name="bankcard" class="form-control" placeholder="bankcard">
-                                                  </div>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">性别</label>
-                                                  <div class="col-sm-10" style="padding-top: 8px;">
-                                                    <!-- <input id="" type="text" name="Basic" class="form-control" placeholder="性别"> -->
-                                                    <select class="form-control" id="sex" name="sex">
-                                                      <option value="1">男</option>
-                                                      <option value="0">女</option>
-                                                    </select>
-                                                  </div>
-                                                </div>
-                                                <div class="form-group">
-                                                  <label for="lastname" class="col-sm-2 control-label">对教师介绍</label>
-                                                  <div class="col-sm-10" style="padding-top: 8px;">
-                                                    <textarea id="teachercomment" type="text" name="teachercomment" class="form-control"></textarea>
-                                                  </div>
-                                                </div>
-												<div class="form-group">
-													<div class="col-sm-offset-2 col-sm-10">
-														<button type="submit" class="btn btn-default" id="">修改</button>
-													</div>
-												</div>
-											</form>
-                                        </div>
-                                        </div>
-                                    </div>
+                            <div class="form-group">
+                              <label for="lastname" class="col-sm-2 control-label">性别</label>
+                              <div class="col-sm-10" style="padding-top: 8px;">
+                                <!-- <input id="" type="text" name="Basic" class="form-control" placeholder="性别"> -->
+                                <select class="form-control" id="sex" name="sex">
+                                  <option value="1">男</option>
+                                  <option value="0">女</option>
+                                </select>
+                              </div>
+                            </div>
+								<div class="form-group">
+									<div class="col-sm-offset-2 col-sm-10">
+										<button type="submit" class="btn btn-default" id="">修改</button>
+									</div>
+								</div>
+							</form>
+                        </div>
+                    </div>
+                </div>
+
             </div>
             <!-- /.container-fluid -->
         </div>
@@ -585,18 +556,18 @@
 
     <script src="__PUBLIC__/js/time.js"></script>
 
-
-
     <script type="text/javascript">
         upDateTime();
-    </script>
+        $('.chongqian').click(function(){
+             $('#chongzhicount').val($(this).parent().parent().find('td').html());
+             $('#chongzhicount2').val($(this).parent().parent().find('td').next().html());
+        });
 
-    <script type="text/javascript">
         $('.getpersoninfo').click(function(){
             var user_id=$(this).parents('tr').find('td').eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "<?php echo U('Root/getteacherinformation');?>",
+                url: "<?php echo U('Root/getstudentinformation');?>",
                 data: "user_id="+user_id,
                 success:function(msg){
                     if(msg!='error'){
@@ -607,102 +578,57 @@
                         +"</td><th>性别</th><td>"+((msg['0']['sex']==0)?"女":"男")
                         +"</td><th>年龄</th><td>"+msg['0']['age']
                         +"</td></tr>"
-                        +"<tr><th>ZOOM</th><td>"+msg['0']['zoom']
                         +"</td><th>QQ</th><td>"+msg['0']['QQ']
                         +"</td><th>电话</th><td>"+msg['0']['phone']
                         +"</td><th>微信</th><td>"+msg['0']['weixin']
-                        +"</td><th>skype</th><td>"+msg['0']['skype']
+                        +"</td><th>分管时间</th><td>"+msg['0']['accept_time']
+                        +"</td><th>顾问中文名</th><td>"+msg['0']['adminchinesename']
                         +"</td></tr>"
-                        +"<tr><th>类型</th><td>"+((msg['0']['teacher_type']==0)?"中教":"外教")
-                        +"</td><th>级别</th><td>"+((msg['0']['level']==0)?"普通":"名师")
                         +"</td><th>邮箱</th><td>"+msg['0']['email']
-                        +"</td><th>PAYPAL</th><td>"+msg['0']['paypal']
-                        +"</td><th>银行卡</th><td>"+msg['0']['bankcard']
                         +"</td></tr>";
-                        $('.teacherinformation').html(innerhtml);
+                        $('.information').html(innerhtml);
                         $('#personalimage').attr('src',msg['0']['image_path']);
-                        $('#personalproduct').html(msg['0']['introduction']);
+                        // $('#personalproduct').html(msg['0']['introduction']);
                     }else{
                         alert('未知错误!');
                     }
                 }
             })
-        })
+        });
 
-        $(".getmoneyinfo").click(function(){
-          $("#adminmoneytable tbody").html("");
-          userid=$(this).parent().parent().find('td').html();
-        })
 
-        $("#findmoneybytime").click(function(){
-          var year=$('.year').val();
-          var month=$('.month').val();
+        $(".getstopclass").click(function(){
+          var stu_no=$(this).parent().parent().find('td').html();
           $.ajax({
-            type:"POST",
-            url:"<?php echo U('Root/GetTeacherMoneyWithTime');?>",
-            data:"user_id="+userid+"&year="+year+"&month="+month,
-            success:function(e){
-              var a=eval(e);
-              // console.log(a);
-                var content=
-                "<tr><td colspan='2'>本月课程状况</td></tr>"+
-                "<tr><td>雅思课程(已上/教师缺席/退课)</td><td>"
-                +a[0][0]['IELTS_classed_number']+"/"
-                +a[0][0]['IELTS_teacher_absent']+"/"
-                +a[0][0]['IELTS_teacher_withdraw']+" "
-                +"</td> <td>"+a[3]['ieltsclass']+" yuan/class</td> </tr>"+
-                "<tr><td>成人课程(已上/教师缺席/退课)</td><td>"
-                +a[0][0]['adult_classed_number']+"/"
-                +a[0][0]['adult_teacher_absent']+"/"
-                +a[0][0]['adult_teacher_withdraw']+" "
-                +"</td> <td>"+a[3]['adultclass']+" yuan/class</td> </tr>"+
-                "<tr><td>小班课程(已上/教师缺席/退课)</td><td>"
-                +a[0][0]['many_classed_number']+"/"
-                +a[0][0]['many_teacher_absent']+"/"
-                +a[0][0]['many_teacher_withdraw']+" "
-                +"</td> <td>"+a[3]['groupclass']+" yuan/class</td> </tr>"+
-                "<tr><td>少儿课程(已上/教师缺席/退课)</td><td>"
-                +a[0][0]['young_classed_number']+"/"
-                +a[0][0]['young_teacher_absent']+"/"
-                +a[0][0]['young_teacher_withdraw']+" "
-                +"</td> <td>"+a[3]['childclass']+" yuan/class</td> </tr>"+
-
-                "<tr><td colspan='2'>本月评论状况</td></tr>"+
-                "<tr><td>日评(实际完成/需要完成)</td><td>"
-                +a[1][0]['day_comment']+"/"
-                +a[1][0]['day_comment_sum']+" "
-                +"</td> <td>"+a[3]['day_comment_bonus']+"%</td></tr>"+
-                "<tr><td>月评(实际完成/需要完成)</td><td>"
-                +a[1][0]['month_comment']+"/"
-                +a[1][0]['month_comment_sum']+" "
-                +"</td> <td>"+a[3]['month_comment_bonus']+"%</td></tr>"+
-                "<tr><td>周评(实际完成/需要完成)</td><td>"
-                +a[1][0]['week_comment']+"/"
-                +a[1][0]['week_comment_sum']+" "
-                +"</td> <td>"+a[3]['week_comment_bonus']+"%</td></tr>"+
-                "<tr><td>总额</td><td>"
-                +"</td><td>"+a[2]+"</td></tr>";
-                $("#adminmoneytable tbody").html(content);
+            type:'post',
+            url:"<?php echo U('Root/GetStudentStopRecord');?>",
+            data:"student_id="+stu_no,
+            success:function(msg){
+              msg = JSON.parse(msg);
+              $("#stopID").val(msg['stopclass_id'])
+              $("#stu_name").val(msg['chinesename']);
+              $("#stu_starttime").val(msg['stop_start_time']);
+              $("#stu_stoptime").val(msg['stop_end_time']);
             }
           })
         });
     </script>
+
     <script type="text/javascript">
       // $(document).ready(function(){
-        $("#editTeacherInfo").hide();
-        $(".editTeacher").click(function(){
-          var teacherID = "";
-          var teacherID = $(this).parent().parent().find(".teacherID").html();
+        $("#editStudentInfo").hide();
+        $(".editStudent").click(function(){
+          var studentID = $(this).parent().parent().find(".studentID").html();
           $.ajax({
             type: "POST",
             url: "<?php echo U('Root/AjaxGetRegisterInfo');?>",
             data: {
-              type: "teacher",
-              ID: teacherID,
+              type: "student",
+              ID: studentID,
             },
             dataType: "json",
             success: function(data){
-              $("#editTeacherInfo").slideDown();
+              $("#editStudentInfo").slideDown();
               $("#account").val(data.account);
               $("#chinesename").val(data.chinesename);
               $("#englishname").val(data.englishname);
@@ -713,11 +639,7 @@
               $("#age").val(data.age);
               $("#country").val(data.country);
               $("#sex").val(data.sex);
-              $("#skype").val(data.skype);
-              $("#paypal").val(data.paypal);
-              $("#bankcard").val(data.bankcard);
-              $("#zoom").val(data.zoom);
-              $("#teachercomment").val(data.teachercomment);
+
             },
             error: function(jqXHR){
               alert(jqXHR.status);
@@ -727,19 +649,8 @@
       // });
     </script>
 
-    <script type="text/javascript">
-      $(".uploadsimplevideo").click(function(){
-        var teacherID = "";
-        teacherID = $(this).parent().parent().find(".teacherID").html();
-        var action = "";
-        action = $("#uploadsimplevideoID").attr("action");
-        $("#uploadsimplevideoID").attr("action",action+"/ID/"+teacherID);
-        action = $("#uploadsimplevideoID").attr("action");
-      })
-    </script>
-
     <script>
-      $('.resetPasswordID').click(function(e){
+        $('.resetPasswordID').click(function(e){
         if(confirm('是否确认一键重置密码?')){
           return true;
         }else{
@@ -754,11 +665,8 @@
           return false;
         }
       })
-
-
-
-
     </script>
+
 </body>
 
 </html>

@@ -1,5 +1,5 @@
 <?php
-	class OrderClass extends Action{
+	class OrderClassAction extends Action{
 		private $systemSet = null;
 		public function __construct(){
             //获取系统设置
@@ -33,8 +33,11 @@
 			$this->CheckSession();
 
 			$identity = $_SESSION['identity'];
-			if(0 == $identity || "0" == $identity){
+			if(0 == $identity || "0" == $identity){       //获取教师的必要数据进行展示
+				//////////////////////////////////
 
+				/////////////////////////////////
+				$this->display("Student:BookCourse");
 			}elseif(2 == $identity || "2" == $identity){
 
 			}elseif(4 == $identity || "4" == $identity){

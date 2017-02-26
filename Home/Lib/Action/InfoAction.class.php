@@ -189,6 +189,7 @@
 
 			$type = $_GET['type'];
 			$person = $_GET['person'];
+			$personType = $_GET['personType'];
 
 			$identity = $_SESSION['identity'];
 
@@ -220,12 +221,14 @@
 					}
 					return;
 				}elseif($type == "delete"){        //删除用户
-					$userID = $_GET[''];
-					$result = $userBasOp->$userBasOp($userID);
+					$userID = $_GET['user_id'];
+					$result = $userBasOp->deleteUser($userID);
 					if($result['status']){
-						$this->success("用户已经删除",U(''));
+						$this->success("用户已经删除",U('Info/showManagedUser',
+							array('personType'=>$personType)));
 					}else{
-						$this->error('用户删除失败',U(''));
+						$this->error('用户删除失败',U('Info/showManagedUser',
+							array('personType'=>$personType)));
 					}
 				}elseif($type == "update"){        //更新用户信息
 
@@ -234,22 +237,28 @@
 					$data['password'] = md5($this->resetNewPassword());
 					$result = $userBasOp->updateUserInfo($userID,null,$data);
 					if($result['status']){
-						$this->success("密码已经重置,新的密码为{$this->resetNewPassword}",U(''));
+						$this->success("密码已经重置,新的密码为{$this->resetNewPassword}",U('Info/showManagedUser',
+							array('personType'=>$personType)));
 						return;
 					}else{
-						$this->error("密码重置失败,请重试",U(''));
+						$this->error("密码重置失败,请重试",U('Info/showManagedUser',
+							array('personType'=>$personType)));
 						return;
 					}
 				}elseif($type == "resetStatus"){     //修改用户的状态
 					$data = array();
-					$status = $_GET[''];
+					$status = $_GET['status'];
 					$data['status'] = $status;
+					$userID = $_GET['user_id'];
 					$result = $userBasOp->updateUserInfo($userID,null,$data);
+
 					if($result['status']){
-						$this->success("用户状态更改成功",U(''));
+						$this->success("用户状态更改成功",U('Info/showManagedUser',
+							array('personType'=>$personType)));
 						return;
 					}else{
-						$this->error("用户状态更改失败",U(''));
+						$this->error("用户状态更改失败",U('Info/showManagedUser',
+							array('personType'=>$personType)));
 						return;
 					}
 				}else{
@@ -271,12 +280,17 @@
 
 			$identity = $_SESSION['identity'];
 			if(1 == $identity || "1" == $identity){
-				//////////////////////////////////////
-
-				/////////////////////////////////////
+				import("Home.Action.User.UserBasicOperate");
+				$userOp=new UserBasicOperate();
+				$result=$userOp->getUserInfo("admin");
+				$this->assign('admin_result',$result);
 				$this->display("Teacher:ContractAdmin");
 			}elseif(0 == $identity || "0" == $identity){
-
+				import("Home.Action.User.UserFeatrueOperate");
+				$userFO=new UserFeatrueOperate();
+				$result=$userFO->getOwnManager($_SESSION['ID']);
+				$this->assign('admininfo',$result[0]);
+				$this->display("Student:ContractAdmin");
 			}else{
 				$this->error("你没有权限查看该页面");
 			}
@@ -288,26 +302,46 @@
 		*/
 		public function showManagedUser(){
 			$this->CheckSession();
+			import("Home.Action.User.UserBasicOperate");
+			$userBasOp = new UserBasicOperate();
 
 			$identity = $_SESSION['identity'];
 			$type = $_GET['personType'];
+			$isMystudent = $_GET['isMy'];
+
 			if(4 == $identity || "4" == $identity){
 				if("student" == $type){
-
+					$result = $userBasOp->getUserInfo('student');
+					$this->assign("students",$result);
+					$this->display("Root:CheckStudent");
 				}elseif("teacher" == $type){
+					$result = $userBasOp->getUserInfo('teacher');
+					$this->assign("teachers",$result);
 					$this->display("Root:CheckTeacher");
 				}elseif("admin" == $type){
 
 				}else{
-					$this->error("");
+					$this->error("没有对应的操作");
 				}
 			}elseif(2 == $identity || "2" == $identity){
 				if("student" == $type){
-					
+					if("allStudent" == $isMystudent){
+						$result = $userBasOp->getUserInfo('student');
+						$this->assign("student_list",$result);
+						$this->display("Admin:MyStudent");
+					}elseif("myStudent" == $isMystudent){
+						$result = $userBasOp->getUserInfo('student');
+						$this->assign("students",$result);
+						$this->display("Admin:CheckStudent");
+					}else{
+						$this->error("没有对应的操作");
+					}
 				}elseif("teacher" == $type){
-
+					$result = $userBasOp->getUserInfo('teacher');
+					$this->assign("teacher_list",$result);
+					$this->display("Admin:CheckTeacher");
 				}else{
-					$this->error("");
+					$this->error("没有对应的操作");
 				}
 			}else{
 				$this->error("你没有该权限查看该信息");

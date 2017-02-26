@@ -17,13 +17,16 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
+    <!-- Timeline CSS -->
+    <link href="__PUBLIC__/dist/css/timeline.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/NewPackage.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -31,17 +34,11 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-    <style media="screen">
-    table {width:600px;table-layout:fixed;}
-    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis;}
-    </style>
-
 </head>
 
 <body>
 
-    <div id="wrapper">
+	<div id="wrapper">
         <!-- Navigation -->
 
         <!-- 标题 -->
@@ -210,139 +207,64 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">购买套餐</h1>
+                        <h1 class="page-header">联系顾问</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-12">
-                       <div class="panel panel-yellow">
-                           <div class="panel-heading">套餐列表</div>
-                           <div class="panel-body">
-                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="<?php echo U('Package/packageManage');?>/type/select" method="post">
-                                   <div class="form-group col-md-2">
-                                       <select name="packageconID" class="form-control">
-                                          <option value="null">全部课程内容</option>
-                                          <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value='<?php echo ($vo['packageconID']); ?>'><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-2">
-                                       <select name="class_type" class="form-control">
-                                           <option value="null">全部课程类别</option>
-                                           <option value='0'>一对一课程</option>
-                                           <option value='1'>小班课程</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group  col-md-2">
-                                       <select name="teacher_type" class="form-control">
-                                           <option value="null">全部教师级别</option>
-                                           <option value='0'>普通教师</option>
-                                           <option value='1'>名师</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-2">
-                                       <select name="teacher_nation" class="form-control">
-                                           <option value="null">全部教师国籍</option>
-                                           <option value='0'>中教</option>
-                                           <option value='1'>外教</option>
-                                       </select>
-                                   </div>
-                                    <div class="form-group col-md-2">
-                                       <select name="package_type" class="form-control">
-                                           <option value="null">全部套餐类型</option>>
-                                           <option value='0'>课时套餐</option>
-                                           <option value='1'>卡类套餐</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-1">
-                                       <button class="btn btn-default">
-                                           确认筛选选择
-                                       </button>
-                                   </div>
-                               </form>
-
-                               <div class="row" style="margin-top: 20px;">
-                               <?php if(is_array($packageList)): foreach($packageList as $key=>$voList): ?><div class="col-md-3">
-
-                                       <div class="panel panel-default">
-
-                                           <div class="panel-heading" style="overflow: hidden;text-overflow :ellipsis;text-align: center;">
-                                               <?php echo ($voList['package_name']); ?>
-                                           </div>
-
-                                           <div class="panel-body">
-
-                                               <table class="table" style="font-size: 14px;">
-                                                   <tr>
-                                                       <td>套餐类别</td>
-                                                       <td><?php echo ($voList['packageName']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>课程类型</td>
-                                                       <td><?php if($voList['class_type'] == 0): ?>一对一
-                                                       <?php else: ?>小班<?php endif; ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐类型</td>
-                                                       <td>
-                                                       <?php if($voList['package_type'] == 0): ?>课时类<?php else: ?>卡类<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                    <tr>
-                                                       <td>学生人数</td>
-                                                       <td>
-                                                       <?php echo ($voList['student_number']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>课时数</td>
-                                                       <td>
-                                                         <?php echo ($voList['class_number']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>教师国籍</td>
-                                                       <td>
-                                                       <?php if($voList['teacher_nation'] == 0): ?>中教<?php else: ?>外教<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>教师类型</td>
-                                                       <td>
-                                                       <?php if($voList['teacher_type'] == 0): ?>普教
-                                                       <?php else: ?>名师<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>有效天数</td>
-                                                       <td><?php echo ($voList['time']); ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐价格</td>
-                                                       <td><?php echo ($voList['package_money']); ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐内容</td>
-                                                       <td><?php echo ($voList['package_content']); ?></td>
-                                                   </tr>
-
-                                               </table>
-
-                                           </div>
-                                           <div class="panel-footer" style="text-align: center;">
-                                               <a href="<?php echo U('Package/orderPackage',array('ID'=>$voList['package_id'],'check'=>md5($voList['package_id'])));?>">
-                                                   <button class="btn btn-warning">购买套餐</button></a>
-                                           </div>
-
-                                       </div>
-
-                                    </div><?php endforeach; endif; ?>
-                               </div>
-
-                           </div>
-                       </div>
+                    <div class="col-lg-offset-4 col-lg-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                课程顾问
+                            </div>
+                            <div class="panel-body">
+                                <table class="table" style="text-align: center;">
+                                    <thead>
+                                        <!-- <tr>
+                                            <td colspan="2">
+                                                <img src="<?php if(is_null($manage_result[0]['image_path'])) {echo '#';} else {echo $manage_result[0]['image_path']; } ?>">
+                                            </td>
+                                        </tr> -->
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>顾问姓名:</td>
+                                            <td><?php echo ($admininfo['chinesename']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系方式:</td>
+                                            <td><?php echo ($admininfo['phone']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>QQ:</td>
+											
+							     			                    <td><?php echo ($admininfo['QQ']); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+											                      <td><?php echo ($admininfo['email']); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WeChat:</td>
+											                      <td><?php echo ($admininfo['weixin']); ?> </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td>是否在线:</td>
+                                            <td>否(暂未实现)</td>
+                                        </tr> -->
+                                        <!-- <tr>
+                                            <td colspan="2">
+                                                <br>
+                                                <button class="btn btn-primary" style="width: 80%;">
+                                                    发送消息(暂未实现)
+                                                </button>
+                                            </td>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,6 +274,7 @@
 
     </div>
     <!-- /#wrapper -->
+
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -360,6 +283,11 @@
 
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+<!--     <script src="../../bower_components/raphael/raphael-min.js"></script>
+    <script src="../../bower_components/morrisjs/morris.min.js"></script>
+    <script src="../../js/morris-data.js"></script> -->
 
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>

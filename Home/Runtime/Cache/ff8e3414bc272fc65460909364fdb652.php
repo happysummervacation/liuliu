@@ -131,7 +131,7 @@
                             <ul class="nav nav-second-level"> -->
                                 <li>
                                     <!-- <a href="BookingCourse.html">预约课程</a> -->
-                                    <a href="<?php echo U('OrderClass/BookCourse');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
+                                    <a href="<?php echo U('OrderClass/showOrderClassInfo');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
                                 </li>
                                 <li>
                                     <!-- <a href="MySchedule.html">我的课表</a> -->

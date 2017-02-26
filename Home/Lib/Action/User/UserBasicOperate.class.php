@@ -144,7 +144,15 @@
 
             $inquiry = new Model('register');
 
-            $result = $inquiry->where("ID={$userID} or account={$Account}")->delete($Data);
+            if(!is_null($userID)){
+                $result = $inquiry->where("ID={$userID}")->delete();
+            }elseif(!is_null($Account)){
+                $result = $inquiry->where("account={$Account}")->delete();
+            }else{
+                $message['status'] = false;
+                $message['message'] = "用户的数据删除失败";
+                return $message;
+            }
 
             if($result){
                 $message['status'] = true;

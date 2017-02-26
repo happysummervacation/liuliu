@@ -17,6 +17,9 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
+    <!-- DataTables CSS -->
+    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
     <!-- DataTables Responsive CSS -->
     <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
 
@@ -211,218 +214,105 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">顾问中心</h1>
+                        <h1 class="page-header">试听反馈</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-gift fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo ($studentCount); ?></div>
-                                        <div>可申请送课的学生</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">申请送课</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            试听记录
                         </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-asterisk fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo ($studentOvertimeCount); ?></div>
-                                        <div>三天后套餐冻结的学生</div>
+                        <div class="panel-body">
+                            <div class="dataTable_wrapper">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>学员账号</th>
+                                            <th>学员姓名</th>
+                                            <th>联系方式</th>
+                                            <th>联系操作</th>
+                                            <!--<th>反馈记录</th>-->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php if(is_array($student_list)): foreach($student_list as $key=>$vo): ?><tr>
+                                            <td><?php echo ($vo["ID"]); ?></td>
+                                            <td><?php echo ($vo["account"]); ?></td>
+                                            <th><?php echo ($vo["chinesename"]); ?></th>
+                                            <th><?php echo ($vo["phone"]); ?></th>
+                                            <th><a href="<?php echo U('UserCenter/accessStudentManage');?>?id=<?php echo ($vo["ID"]); ?>" class="getmoreinfo">点击接入学生</a></th>
+                                            <!--<th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getcolinfo">点击填写反馈记录</a></th>-->
+                                        </tr><?php endforeach; endif; ?>
+                                     <!--     <tr>
+                                            <td>2</td>
+                                            <th>20336566</th>
+                                            <th>2016/1/1 8:00</th>
+                                            <th>少儿英语</th>
+                                            <th><a href="#" class="getmoreinfo">点击领取联系方式</a></th>
+                                            <th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1">点击填写反馈记录</a></th>
+                                        </tr>
+                                       <tr>
+                                            <td>3</td>
+                                            <th>123456789</th>
+                                            <th>2016/1/1 8:00</th>
+                                            <th>少儿英语</th>
+                                            <th>联系成功</th>
+                                            <th><a href="#" onclick="alert(14599639963)">点击领取联系方式</a></th>
+                                            <th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1">点击填写反馈记录</a></th>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <th>123456789</th>
+                                            <th>2016/1/1 8:00</th>
+                                            <th>少儿英语</th>
+                                            <th>联系失败</th>
+                                            <th><a href="#" onclick="alert(14599639963)">点击领取联系方式</a></th>
+                                            <th><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1">点击填写反馈记录</a></th>
+                                        </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            试听反馈
+                                        </div>
+                                        <div class="modal-body">
+                                            <form class="form-horizontal" action="<?php echo U('Admin/AddVideoComment');?>" method="post">
+                                              <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-3 control-label">学员编号:</label>
+                                                <div class="col-sm-5">
+                                                  <input name="commented_party" class="form-control fromtable1">
+                                                </div>
+                                              </div>
+                                              <div class="form-group">
+                                                <label for="inputEmail3" class="col-sm-3 control-label">试听反馈:</label>
+                                                <div class="col-sm-8">
+                                                  <textarea name="comment" class="form-control"  style="height:200px;"></textarea>
+                                                </div>
+                                              </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                                <input type="submit" class="btn btn-primary"  value="提交"/><!-- </button> -->
+                                            </div>
+                                            </form>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">提醒续课,报课</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo ($sum_two_week_list); ?></div>
-                                        <div>两周后套餐冻结的学生</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">提醒续课,报课</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-university fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge"><?php echo ($studentClassCount); ?></div>
-                                        <div>今天上课的学生</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <a href="#">
-                                <div class="panel-footer">
-                                    <span class="pull-left">短信提醒</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-
-                    <div class="col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">三天内课程即结束的学生</div>
-                            <div style="overflow: auto;height: 200px;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>用户名字</th>
-                                            <!-- <th>课程到期时间</th> -->
-                                            <th>提醒续课</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if(is_array($overtimeStudent_list)): foreach($overtimeStudent_list as $key=>$vo): ?><tr>
-                                            <td><?php echo ($vo["ID"]); ?></td>
-                                            <td><?php echo ($vo["chinesename"]); ?></td>
-                                            <td><a href="#">发送提醒</a></td>
-                                        </tr><?php endforeach; endif; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">两周内课程即结束的学生</div>
-                            <div style="overflow: auto;height: 200px;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>用户名字</th>
-                                            <!-- <th>课程到期时间</th> -->
-                                            <th>提醒续课</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if(is_array($two_week_list)): foreach($two_week_list as $key=>$vo): ?><tr>
-                                            <td><?php echo ($vo["ID"]); ?></td>
-                                            <td><?php echo ($vo["chinesename"]); ?></td>
-                                            <td><a href="#">发送提醒</a></td>
-                                        </tr><?php endforeach; endif; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="col-md-12">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">今天上课的学生</div>
-                            <div style="overflow: auto;height: 200px;">
-                                <table class="table">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>用户名字</th>
-                                            <th>上课时间</th>
-                                            <th>提醒续课</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if(is_array($classStudent_list)): foreach($classStudent_list as $key=>$vo): ?><tr>
-                                            <td><?php echo ($vo["ID"]); ?></td>
-                                            <td><?php echo ($vo["chinesename"]); ?></td>
-                                            <td><?php echo ($vo["create_time"]); ?></td>
-                                            <td><a href="#">发送提醒</a></td>
-                                        </tr><?php endforeach; endif; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="row"> -->
-                      <div class="col-lg-12">
-                          <div class="panel panel-primary">
-                                  <div class="panel-heading">
-                                      学员停课申请
-                                  </div>
-                                  <!-- .panel-heading -->
-                                  <div class="panel-body">
-                                      <table class="table table-hover table-striped">
-                                        <thead>
-                                            <tr>
-                                               <th>申请编号</th>
-                                               <th>申请学员</th>
-                                               <th>申请时间段</th>
-                                               <th>申请时间</th>
-                                               <th>操作</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                          <?php if(is_array($apply_result)): foreach($apply_result as $key=>$vo): ?><tr>
-                                              <td><?php echo ($vo["stopclass_id"]); ?></td>
-                                              <td><?php echo ($vo["chinesename"]); ?></td>
-                                              <td><?php echo ($vo["stop_start_time"]); ?>~<?php echo ($vo["stop_end_time"]); ?></td>
-                                              <td><?php echo ($vo["create_time"]); ?></td>
-                                              <td><a href="<?php echo U('Admin/PassApply',array('time'=>$vo['period'],'ID'=>$vo['stopclass_id'],'stu'=>$vo['ID']));?>">通过</a>
-                                                <a href="<?php echo U('Admin/DenyApply',array('ID'=>$vo['stopclass_id']));?>">否决</a></td>
-                                            </tr><?php endforeach; endif; ?>
-
-                                        </tbody>
-                                      </table>
-                                      </div>
-                                  </div>
-                                </div>
-                              </div>
-                </div>
-
             </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
+
     </div>
     <!-- /#wrapper -->
 
@@ -439,33 +329,52 @@
     <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
     <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
 
-
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
+    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
         $('#dataTables-example').DataTable({
                 responsive: true
         });
     });
+
+    //axaj请求返回用户信息
+    $(".getmoreinfo").click(function(){
+        var SCri=$(this).parent().siblings(':first').next().html();
+        var request = new XMLHttpRequest();
+        var re="";
+        var obj="";
+        request.open("POST",'__URL__/JoinUp');
+        var data = "userID="+SCri;
+        // alert(data);
+        request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+        request.send(data);
+        request.onreadystatechange = function() {
+                if (request.readyState===4) {
+                    if (request.status===200) {
+                        re=request.responseText;
+                        obj=JSON.parse(re);
+                        alert(obj.result);
+                        // $(".emailinfo").html(obj.email);
+                        // $(".telinfo").html(obj.tel);
+                        // $(".QQinfo").html(obj.QQ);
+                        // $(".zoominfo").html(obj.zoom);
+                        // $(".skypeinfo").html(obj.skype);
+                        // $(".areainfo").html(obj.area);
+                    } else {
+                        alert("发生错误：" + request.status);
+                    }
+                }
+        }
+    })
     </script>
 
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
-    </script>
-    <script type="text/javascript">
-        $('.getcolinfo').click(function(){
-            student_id = $(this).parent().parent().find('td').html();
-            student_name = $(this).parent().parent().find('td').eq(1).html();
-            $('.getStudentID').val("");
-            $('.getStudentName').val("");
-            $('.getStudentID').val(student_id);
-            $('.getStudentName').val(student_name);
-            // alert(student_name);
-        });
     </script>
 
 </body>

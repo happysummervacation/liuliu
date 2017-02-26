@@ -9,28 +9,16 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>系统中心</title>
+    <title>管理员中心</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-    <!-- 9.06 修改04 -->
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-    <!-- //9.06 修改04 -->
-    <!-- Timeline CSS -->
-    <link href="__PUBLIC__/dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
-
-    <!-- Morris Charts CSS -->
-    <!-- <link href="__PUBLIC__/bower_components/morrisjs/morris.css" rel="stylesheet"> -->
 
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -45,8 +33,7 @@
 </head>
 
 <body>
-
-    <div id="wrapper">
+        <div id="wrapper">
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
@@ -276,123 +263,68 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">系统中心</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">管理员信息</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa  fa-umbrella fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                   <div>课程顾问</div>
-                                   <div class="huge"><?php echo ($admin_number[0]['alive']); ?>人|<?php echo ($admin_number[0]['die']); ?>人</div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">管理员信息</div>
+                            <div class="panel-body">
+                                <form enctype="multipart/form-data" action="<?php echo U('Info/ChangeUserInformation');?>" method="post">
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6">
+                                            <h4>昵称：</h4>
+                                            <input type="text" class="form-control" name="account" value="<?php echo ($data['account']); ?>" readonly="true">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>中文姓名：</h4>
+                                            <input type="text"  class="form-control" name="chinesename" value="<?php echo ($data['chinesename']); ?>" maxlength="15">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>英语姓名：</h4>
+                                            <input type="text" class="form-control" name="englishname" value="<?php echo ($data['englishname']); ?>" maxlength="15">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>邮箱：</h4>
+                                            <input type="text" class="form-control" name="email" value="<?php echo ($data['email']); ?>" maxlength="15">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>联系号码：</h4>
+                                            <input type="text" class="form-control" name="phone" value="<?php echo ($data['phone']); ?>" maxlength="15">
+                                        </div>
+                                        <!-- <div class="col-lg-6">
+                                            <h4>QQ：</h4>
+                                            <input type="text" class="form-control" name="qq" value="<?php echo ($data['QQ']); ?>" maxlength="15">
+                                        </div> -->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <br>
 
-                                </div>
+                                    </div>
+
                             </div>
+                            <div class="panel-footer" style="overflow: auto">
+                                <button class="btn btn-primary" type="submit" style="float: right;width: 10%;">保存</button>
+                            </div>
+                            </form>
                         </div>
-                        <a href="<?php echo U('Root/CheckAdmin');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">顾问列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div>学员总数</div>
-                                    <div class="huge"><?php echo ($student_number[0]['alive']); ?>人|<?php echo ($student_number[0]['die']); ?>人</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckStudent');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">学员列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-graduation-cap fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div>教师总数</div>
-                                    <div class="huge"><?php echo ($teacher_number[0]['alive']); ?>人|<?php echo ($teacher_number[0]['die']); ?>人</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckTeacher');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">教师列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
                     </div>
                 </div>
             </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
 
-            <div class="row">
-              <div class="col-lg-12">
-                  <div class="panel panel-primary">
-                          <div class="panel-heading">
-                              学员停课申请
-                          </div>
-                          <!-- .panel-heading -->
-                          <div class="panel-body">
-                              <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                       <th>申请编号</th>
-                                       <th>学员姓名</th>
-                                       <th>停课时长</th>
-                                       <th>申请时间</th>
-                                       <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  <?php if(is_array($apply_result)): foreach($apply_result as $key=>$vo): ?><tr>
-                                      <td><?php echo ($vo["stopclass_id"]); ?></td>
-                                      <td><?php echo ($vo["chinesename"]); ?></td>
-                                      <td><?php echo ($vo["stop_start_time"]); ?>~<?php echo ($vo["stop_end_time"]); ?></td>
-                                      <td><?php echo ($vo["create_time"]); ?></td>
-                                      <td><a href="<?php echo U('Root/PassApply',array('time'=>$vo['period'],'ID'=>$vo['stopclass_id'],'stu'=>$vo['ID']));?>">通过</a>
-                                        <a href="<?php echo U('Root/DenyApply',array('ID'=>$vo['stopclass_id']));?>">否决</a></td>
-                                    </tr><?php endforeach; endif; ?>
-
-                                </tbody>
-                              </table>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-
-
+    </div>
+    <!-- /#wrapper -->
 
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
@@ -403,38 +335,47 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <!-- <script src="__PUBLIC__/bower_components/raphael/raphael-min.js"></script>
-    <script src="__PUBLIC__/bower_components/morrisjs/morris.min.js"></script>
-    <script src="__PUBLIC__/js/morris-data.js"></script> -->
-
-    <!-- 9.06修改05 -->
-    <!-- DataTables JavaScript -->
-    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example1').DataTable({
-                responsive: true
-        });
-        $('#dataTables-example2').DataTable({
-                responsive: true
-        });
-    });
-    </script>
+    <script type="text/javascript" src="__PUBLIC__/js/Countries.js"></script>
+
 
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
+
+        $('.age').change(function(){
+            if ($(this).val()<0||$(this).val()>150) {
+                alert("请检查您的年龄填写是否正确");
+                $(this).val('');
+            }
+        })
+
+        var result = document.getElementById("result");
+        var input = document.getElementById("file_input");
+
+        if(typeof FileReader==='undefined'){
+            result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+            input.setAttribute('disabled','disabled');
+        }else{
+            input.addEventListener('change',readFile,false);
+        }
+
+        function readFile(){
+            var file = this.files[0];
+            if(!/image\/\w+/.test(file.type)){
+                alert("文件图片类型文件");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e){
+                $('#result img').attr('src',this.result);
+            }
+        }
     </script>
-
-    <!-- //9.06修改05 -->
-
 </body>
 
 </html>

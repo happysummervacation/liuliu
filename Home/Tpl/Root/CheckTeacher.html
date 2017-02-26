@@ -91,17 +91,17 @@
                                             <td><?php if($value['status'] == 1) {echo "可用";} else {echo "不可用";}?></td>
                                             <td>
                                                 <eq name="value['status']" value="1">
-                                                    <a href="<{:U('Root/changeteacherinformation',array('user_id'=>$value['ID'],'status'=>'0'))}>">
+                                                    <a href="<{:U('Info/UserManage',array('personType'=>'teacher','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'0'))}>">
                                                         <button class="btn btn-primary" style="margin:5px">禁用账号</button>
                                                     </a>
                                                 <else/>
-                                                    <a href="<{:U('Root/changeteacherinformation',array('user_id'=>$value['ID'],'status'=>'1'))}>">
+                                                    <a href="<{:U('Info/UserManage',array('personType'=>'teacher','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'))}>">
                                                         <button class="btn btn-primary" style="margin:5px">启用账号</button>
                                                     </a>
                                                 </eq>
                                                 <button type="button" class="editTeacher btn btn-primary" name="button"  style="margin:5px">教师信息修改</button>
                                                 <a href="<{:U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']))}>" class="resetPasswordID"><button class="btn btn-primary"  style="margin:5px">一键重置密码</button></a>
-                                                <a href="<{:U('Info/DeleteUser',array('user_id'=>$value['ID']))}>" class="removeAccountID"><button class="btn btn-primary"  style="margin:5px">彻底删除</button></a>
+                                                <a href="<{:U('Info/UserManage',array('personType'=>'teacher','type'=>'delete','user_id'=>$value['ID']))}>" class="removeAccountID"><button class="btn btn-primary"  style="margin:5px">彻底删除</button></a>
                                                 <button type="button" data-toggle="modal" data-target="#uploadsimplevideo" class="uploadsimplevideo btn btn-primary"  style="margin:5px">上传示例视频</button>
                                                 <a href="<{:U('Info/setTeacherPay')}>"><button type="button" class="uploadsimplevideo btn btn-primary"  style="margin:5px">修改工资设置</button></a>
                                             </td>

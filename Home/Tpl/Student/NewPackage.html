@@ -173,7 +173,8 @@
 
                                            </div>
                                            <div class="panel-footer" style="text-align: center;">
-                                               <a href="<{:U('student/buypackage',array('ID'=>$voList['package_id'])>"><button class="btn btn-warning">购买套餐</button></a>
+                                               <a href="<{:U('Package/orderPackage',array('ID'=>$voList['package_id'],'check'=>md5($voList['package_id'])))}>">
+                                                   <button class="btn btn-warning">购买套餐</button></a>
                                            </div>
 
                                        </div>

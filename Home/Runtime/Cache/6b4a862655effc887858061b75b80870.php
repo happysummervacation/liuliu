@@ -173,7 +173,7 @@
                             <a href="<?php echo U('Teacher/MyContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Teacher/TeacherInstruction');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
+                            <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
                         </li>
                         <li>
                             <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
@@ -215,24 +215,6 @@
                                         </tr>
                                     </thead>
                                      <tbody>
-                                        <!-- <tr>
-                                            <td>小李</td>
-                                            <td>56891256</td>
-                                            <td>是</td>
-                                            <td><a href="#">点击发送消息</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>小李</td>
-                                            <td>56891256</td>
-                                            <td>是</td>
-                                            <td><a href="#">点击发送消息</a></td>
-                                        </tr>
-                                        <tr>
-                                            <td>小李</td>
-                                            <td>56891256</td>
-                                            <td>是</td>
-                                            <td><a href="#">点击发送消息</a></td>
-                                        </tr> -->
                                     <?php foreach ($admin_result as $key => $admin) {?>
                                         <tr>
                                             <td><?php echo ($admin['chinesename']); ?></td>
@@ -240,7 +222,6 @@
                                             <td><?php echo ($admin['phone']); ?></td>
                                             <td><?php echo ($admin['email']); ?></td>
                                             <td><?php echo ($admin['QQ']); ?></td>
-                                            <!-- <td><a href="#">点击发送消息</a></td> -->
                                         </tr>
                                      <?php }?>
 

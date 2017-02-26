@@ -46,7 +46,59 @@
 		*显示Rule页面
 		*/
 		public function showRule(){
+			$this->CheckSession();
+			$identity=$_SESSION['identity'];
+			if(0==$identity||'0'==$identity){
 
+			}elseif(1==$identity||'1'==$identity){
+				$this->display("Teacher:TeacherInstruction");
+			}elseif(2==$identity||'2'==$identity){
+
+			}else{
+				$this->error("你没有权限查看该页面");
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*显示接入学生页面,只对课程顾问开放
+		*/
+		public function accessStudent(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+
+			if(2 == $identity||'2' == $identity){
+				$result=null;
+				import("Home.Action.User.UserFeatrueOperate");
+				$userFOp=new UserFeatrueOperate();
+				$result=$userFOp->getStudentInfoWithoutStudentManage();
+				$this->assign('student_list',$result);
+				$this->display("Admin:FeedBack");
+			}else{
+				$this->error("你没有权限查看该页面");
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*接入学生的操作
+		*/
+		public function accessStudentManage(){
+			$this->CheckSession();
+			$identity = $_SESSION['identity'];
+			if(2 == $identity||'2' == $identity){
+				import("Home.Action.User.UserBasicOperate");
+				$userOp=new UserBasicOperate();
+				$id=$_GET['id'];
+				$data=array();
+				$data['student_manage_id']=$_SESSION['ID'];
+				$result = $userOp->updateUserInfo($id,null,$data);
+				$this->success("接入成功！",U('UserCenter/accessStudent'));
+
+			}else{
+				$this->error("你没有权限查看该页面");
+			}
 		}
 	}
  ?>

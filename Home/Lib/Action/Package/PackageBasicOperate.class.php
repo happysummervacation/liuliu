@@ -19,7 +19,7 @@
 					}
 				}
 			}elseif(is_numeric($packageID) || is_string($packageID)){
-				$condition = "package_id=".$package_id;
+				$condition = "package_id=".$packageID;
 			}else{
 				$condition = null;
 			}

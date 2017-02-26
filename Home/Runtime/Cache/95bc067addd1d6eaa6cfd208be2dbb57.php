@@ -16,24 +16,15 @@
 
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
-    <!-- 9.06 修改04 -->
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-    <!-- //9.06 修改04 -->
-    <!-- Timeline CSS -->
-    <link href="__PUBLIC__/dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
-    <!-- Morris Charts CSS -->
-    <!-- <link href="__PUBLIC__/bower_components/morrisjs/morris.css" rel="stylesheet"> -->
-
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+     <!-- 表单验证 -->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/js/yanzheng/tip-yellowsimple/tip-yellowsimple.css" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -171,7 +162,7 @@
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                            <a href="<?php echo U('Root/CheckStudent');?>"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
                         </li>
 
                         <!-- <li>
@@ -277,125 +268,97 @@
         </nav>
 
 
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">系统中心</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">创建最高管理员</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">管理员创建</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" action="<?php echo U('Info/UserManage');?>/type/add/person/root" method="post">
+                                  <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">账号:</label>
+                                    <div class="col-sm-8">
+                                      <input name="account" type="text" class="form-control" placeholder="用户名" valType="required" msg="<font color=red>*</font>用户名不能为空">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">姓名:</label>
+                                    <div class="col-sm-8">
+                                      <input name="name" type="text" class="form-control" placeholder="中文名" valType="required" msg="<font color=red>*</font>姓名不能为空">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputEmail3" class="col-sm-4 control-label">性别:</label>
+                                    <div class="col-sm-8">
+                                      <!-- <input type="text" class="form-control" placeholder="Gender"> -->
+                                      <select class="form-control" name="sex">
+                                          <option value="1">男</option>
+                                          <option value="0">女</option>
+                                      </select>
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">手机:</label>
+                                    <div class="col-sm-8">
+                                      <input name="phone" type="text" class="form-control" placeholder="手机号" valType="MOBILE" msg="<font color=red>*</font>手机格式不正确">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">邮箱:</label>
+                                    <div class="col-sm-8">
+                                      <input name="email" type="text" class="form-control" placeholder="邮箱" valType="MAIL" msg="<font color=red>*</font>电子邮箱格式不正确">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">QQ:</label>
+                                    <div class="col-sm-8">
+                                      <input name="qq" type="text" class="form-control" placeholder="QQ" >
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">密码:</label>
+                                    <div class="col-sm-8">
+                                      <input name="password" type="password" class="form-control" placeholder="密码" valType="required" msg="<font color=red>*</font>密码不能为空">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label for="inputPassword3" class="col-sm-4 control-label">确认密码:</label>
+                                    <div class="col-sm-8">
+                                      <input name="check_password" type="password" class="form-control" placeholder="验证密码" valType="required" msg="<font color=red>*</font>确认密码不能为空">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <div class="col-sm-offset-4 col-sm-4">
+                                      <button type="submit" class="btn btn-primary" style="width: 100%;">创建</button>
+                                    </div>
+                                  </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa  fa-umbrella fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                   <div>课程顾问</div>
-                                   <div class="huge"><?php echo ($admin_number[0]['alive']); ?>人|<?php echo ($admin_number[0]['die']); ?>人</div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
 
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckAdmin');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">顾问列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-green">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-users fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div>学员总数</div>
-                                    <div class="huge"><?php echo ($student_number[0]['alive']); ?>人|<?php echo ($student_number[0]['die']); ?>人</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckStudent');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">学员列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="panel panel-yellow">
-                        <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-xs-3">
-                                    <i class="fa fa-graduation-cap fa-5x"></i>
-                                </div>
-                                <div class="col-xs-9 text-right">
-                                    <div>教师总数</div>
-                                    <div class="huge"><?php echo ($teacher_number[0]['alive']); ?>人|<?php echo ($teacher_number[0]['die']); ?>人</div>
-                                </div>
-                            </div>
-                        </div>
-                        <a href="<?php echo U('Root/CheckTeacher');?>">
-                            <div class="panel-footer">
-                                <span class="pull-left">教师列表</span>
-                                <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                <div class="clearfix"></div>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-              <div class="col-lg-12">
-                  <div class="panel panel-primary">
-                          <div class="panel-heading">
-                              学员停课申请
-                          </div>
-                          <!-- .panel-heading -->
-                          <div class="panel-body">
-                              <table class="table table-hover table-striped">
-                                <thead>
-                                    <tr>
-                                       <th>申请编号</th>
-                                       <th>学员姓名</th>
-                                       <th>停课时长</th>
-                                       <th>申请时间</th>
-                                       <th>操作</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                  <?php if(is_array($apply_result)): foreach($apply_result as $key=>$vo): ?><tr>
-                                      <td><?php echo ($vo["stopclass_id"]); ?></td>
-                                      <td><?php echo ($vo["chinesename"]); ?></td>
-                                      <td><?php echo ($vo["stop_start_time"]); ?>~<?php echo ($vo["stop_end_time"]); ?></td>
-                                      <td><?php echo ($vo["create_time"]); ?></td>
-                                      <td><a href="<?php echo U('Root/PassApply',array('time'=>$vo['period'],'ID'=>$vo['stopclass_id'],'stu'=>$vo['ID']));?>">通过</a>
-                                        <a href="<?php echo U('Root/DenyApply',array('ID'=>$vo['stopclass_id']));?>">否决</a></td>
-                                    </tr><?php endforeach; endif; ?>
-
-                                </tbody>
-                              </table>
-                              </div>
-                          </div>
-                        </div>
-                      </div>
-
-
-
-
+    </div>
+    <!-- /#wrapper -->
 
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src="__PUBLIC__/js/jquery/jquery-migrate-1.1.1.js"></script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -403,37 +366,21 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- Morris Charts JavaScript -->
-    <!-- <script src="__PUBLIC__/bower_components/raphael/raphael-min.js"></script>
-    <script src="__PUBLIC__/bower_components/morrisjs/morris.min.js"></script>
-    <script src="__PUBLIC__/js/morris-data.js"></script> -->
-
-    <!-- 9.06修改05 -->
-    <!-- DataTables JavaScript -->
-    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example1').DataTable({
-                responsive: true
-        });
-        $('#dataTables-example2').DataTable({
-                responsive: true
-        });
-    });
-    </script>
-
     <script src="__PUBLIC__/js/time.js"></script>
 
+    <!-- 表单验证 -->
+    <script type="text/javascript" src="__PUBLIC__/js/yanzheng/jquery.poshytip.js"></script>
+    <script type='text/javascript' src='__PUBLIC__/js/yanzheng/jq.validate.js'></script>
     <script type="text/javascript">
+        $(function(e) {
+            var vali=new Validators();
+            $("#btn").bind("click", vali.subByJs);
+        });
         upDateTime();
     </script>
-
-    <!-- //9.06修改05 -->
 
 </body>
 
