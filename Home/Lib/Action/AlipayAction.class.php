@@ -1,5 +1,16 @@
 <?php
 class AlipayAction extends Action{
+	private $systemSet = null;
+	public function __construct(){
+		//在初始化的时候就蒋系统的参数设置到私有变量的systemSet中
+		$field = array();
+		array_push($field, "studentcancelrate");
+		import("Home.Action.System.SystemBasicOperate");
+		$systemOp = new SystemBasicOperate();
+		$result = $systemOp->getSystemSet();
+		$this->systemSet = $result;
+	}
+
 	public function _empty($name){
 		echo "路径错误";
 	}
@@ -146,44 +157,82 @@ class AlipayAction extends Action{
 				/*过程:
 				1.启动事务处理
 				2.根据session中的ID获取套餐的数据
-				3.添加一份订购套餐数据到数据
-				4.更新学生的可取消次数
-				5.获取学生的信息进行日志记录
+				3.添加一份订购套餐数据到数据  //
+				4.更新学生的可取消次数       //
+				5.获取学生的信息进行日志记录  //
 				6.返回最终的消息给用户
 				*/
 				$Mysql = new Model();
 				$Mysql->startTrans();
+				//根据session中套餐的ID来获取套餐的数据
+				import("Home.Action.Package.PackageBasicOperate");
+				import("Home.Action.OrderPackage.OrderPackageBasicService");
+				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+				import("Home.Action.User.UserBasicOperate");
+				$packageOp = new PackageBasicOperate();
+				$packageServiceOp = new OrderPackageBasicService();
+				$orderPackageOp = new OrderPackageBasicOperate();
+				$userOp = new UserBasicOperate();
 
-				//添加套餐的数据
-				import("Home.Action.Package.PackageOperate");
-				$AddResult = PackageOperate::AddOrderPackage($_SESSION['ID'],$_SESSION['packageInfo']['package_id']);
+				$packageInfo = $packageOp->getPackageInfo($_SESSION['packageID']);
+				$orderPackageData = $packageServiceOp->createOrderPackageInfo($packageInfo[0],$_SESSION["ID"]);
+				$orderPackageResult = $orderPackageOp->addOrderPakcageInfo($orderPackageData);
 
-				//添加取消课程次数
-				import("Home.Action.Global.GlobalVariable");
-				$addCount = (int)($packageInformation["class_number"] / GlobalVariable::$CancelClassRate);
-
-				import("Home.Action.Info.InfoOperate");
-				$resultAddCancelCount = InfoOperate::AddCancelCount($_SESSION['ID'],$addCount);
-
-				//改进
-				/*这里需要进行优化，不管成功还是失败都需要进行记录*/
-				//获取用户信息
-				$field = array();
-				array_push($field,"account","chinesename","englishname");
-				$registerInfo = InfoOperate::GetInfoWithID($_SESSION['ID'],null,$field);
-				import("Home.Action.Record.Record");
-
-				if($AddResult){
-					$Mysql->commit();
-					$txt = "账号为{$registerInfo['account']},中文名为{$registerInfo['chinesename']},英文名为{$registerInfo['englishname']}的用户购买了编号ID为{$_SESSION['packageInfo']['package_id']},类别为{$_SESSION['packageInfo']['c_category']}|{$_SESSION['packageInfo']['c_package_type']},价格为{$_SESSION['packageInfo']['package_money']}元的套餐，用户已经支付成功，同时套餐也添加成功";
-					Record::AlipayLog($txt);
-					$this->success("添加套餐成功",U("Student/NewPackage"));
-				}else{
-					$txt = "账号为{$registerInfo['account']},中文名为{$registerInfo['chinesename']},英文名为{$registerInfo['englishname']}的用户购买了编号ID为{$_SESSION['packageInfo']['package_id']},类别为{$_SESSION['packageInfo']['c_category']}|{$_SESSION['packageInfo']['c_package_type']},价格为{$_SESSION['packageInfo']['package_money']}元的套餐,用户已经支付成功,套餐也添加失败";
-					Record::AlipayLog($txt);
-					$Mysql->rollback();
-					$this->error("添加套餐失败,请联系管理员进行确认",U("Student/NewPackage"));
+				$cancelNumResult = true;     //可取消的课程次数默认为true
+				//判断是否是课时类套餐,如果是就进行可取消次数修改
+				if((int)$packageInfo[0]['package_type'] == 0){
+					$cancelNumResult = $userOp->updateStudentCancelNum
+					($_SESSION['ID'],null,(int)$packageInfo[0]['class_number']/(int)$this->systemSet['cancelClassRate']);
 				}
+
+				//添加日志记录
+				//对日志写入操作不保证
+				$userData = $userOp->getUserInfo('register',$_SESSION['ID'])[0];
+				if($orderPackageResult['status']){
+					$Mysql->commit();
+					$txt = "账号为{$userData['account']}的用户,
+					在".date("Y-m-d H:i:s",getTime())."购买套餐编号是{$packageInfo['packageID']},
+					套餐名是{$packageInfo['package_name']}的套餐,最终的购买结果是成功的";
+					AlipayLog($txt);
+					// $this->success("套餐购买成功",U('Package/packageShow'));
+				}else{
+					$Mysql->rollback();
+					$txt = "账号为{$userData['account']}的用户,
+					在".date("Y-m-d H:i:s",getTime())."购买套餐编号是{$packageInfo['packageID']},
+					套餐名是{$packageInfo['package_name']}的套餐,最终的购买结果是失败的";
+					// $this->error("套餐购买失败",U('Package/packageShow'));
+				}
+
+				// //添加套餐的数据
+				// import("Home.Action.Package.PackageOperate");
+				// $AddResult = PackageOperate::AddOrderPackage($_SESSION['ID'],$_SESSION['packageInfo']['package_id']);
+				//
+				// //添加取消课程次数
+				// import("Home.Action.Global.GlobalVariable");
+				// $addCount = (int)($packageInformation["class_number"] / GlobalVariable::$CancelClassRate);
+				//
+				// import("Home.Action.Info.InfoOperate");
+				// $resultAddCancelCount = InfoOperate::AddCancelCount($_SESSION['ID'],$addCount);
+				//
+				// //改进
+				// /*这里需要进行优化，不管成功还是失败都需要进行记录*/
+				// //获取用户信息
+				// $field = array();
+				// array_push($field,"account","chinesename","englishname");
+				// $registerInfo = InfoOperate::GetInfoWithID($_SESSION['ID'],null,$field);
+				// import("Home.Action.Record.Record");
+
+				// if($AddResult){
+				// 	$Mysql->commit();
+				// 	$txt = "账号为{$registerInfo['account']},中文名为{$registerInfo['chinesename']},英文名为{$registerInfo['englishname']}的用户购买了编号ID为{$_SESSION['packageInfo']['package_id']},类别为{$_SESSION['packageInfo']['c_category']}|{$_SESSION['packageInfo']['c_package_type']},价格为{$_SESSION['packageInfo']['package_money']}元的套餐，用户已经支付成功，同时套餐也添加成功";
+				// 	Record::AlipayLog($txt);
+				// 	$this->success("添加套餐成功",U("Student/NewPackage"));
+				// }else{
+				// 	$txt = "账号为{$registerInfo['account']},中文名为{$registerInfo['chinesename']},英文名为{$registerInfo['englishname']}的用户购买了编号ID为{$_SESSION['packageInfo']['package_id']},类别为{$_SESSION['packageInfo']['c_category']}|{$_SESSION['packageInfo']['c_package_type']},价格为{$_SESSION['packageInfo']['package_money']}元的套餐,用户已经支付成功,套餐也添加失败";
+				// 	Record::AlipayLog($txt);
+				// 	$Mysql->rollback();
+				// 	$this->error("添加套餐失败,请联系管理员进行确认",U("Student/NewPackage"));
+				// }
 			}
 			else {
 			  echo "trade_status=".$_GET['trade_status'];

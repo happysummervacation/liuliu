@@ -31,12 +31,15 @@
 		*/
 		public function showOrderClassInfo(){
 			$this->CheckSession();
-
+			//////////////////////////////////
+			/*流程:
+			1.获取所有老师的信息(tp_teacher,tp_)
+			2.显示到页面上
+			*/
+			/////////////////////////////////
 			$identity = $_SESSION['identity'];
 			if(0 == $identity || "0" == $identity){       //获取教师的必要数据进行展示
-				//////////////////////////////////
 
-				/////////////////////////////////
 				$this->display("Student:BookCourse");
 			}elseif(2 == $identity || "2" == $identity){
 

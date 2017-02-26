@@ -103,7 +103,7 @@
 		*俞鹏泽
 		*根据套餐的信息生成订购套餐的数据
 		*/
-		private function createOrderPackageInfo($packageInfo = null,$studentID = null){
+		public function createOrderPackageInfo($packageInfo = null,$studentID = null){
 			$data = array();
 			if(is_null($packageInfo) || is_null($studentID)){
 				return $data;
@@ -118,7 +118,7 @@
 			$data['classNumber'] = $packageInfo['class_number'];      //6
 			$data['teacherNation'] = $packageInfo['teacher_nation'];  //7
 			$data['teacherType'] = $packageInfo['teacher_type'];      //8
-			$data['time'] = $packageInfo['package_month'];            //9
+			$data['time'] = $packageInfo['time'];            //9
 			$data['packageName'] = $packageInfo['package_name'];      //10
 			$data['packageContent'] = $packageInfo['package_content'];//11
 			$data['packageMoney'] = $packageInfo['package_money'];    //12

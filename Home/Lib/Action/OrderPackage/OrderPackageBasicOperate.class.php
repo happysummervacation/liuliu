@@ -133,6 +133,7 @@
 			if($result){
 				$message['status'] = true;
 				$message['message'] = "添加订购套餐数据成功";
+				$message['data'] = $result;    //表示的是新增的主键
 				return $message;
 			}else{
 				$message['status'] = false;

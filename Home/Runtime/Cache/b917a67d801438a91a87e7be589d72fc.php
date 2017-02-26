@@ -242,7 +242,7 @@ user-select: none;
                             <a href="<?php echo U('Teacher/MyContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Teacher/TeacherInstruction');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
+                            <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
                         </li>
                         <li>
                             <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
