@@ -175,7 +175,7 @@
 
 		/*
 		*俞鹏泽
-		*关于学生套餐的订购的操作
+		*关于学生套餐的订购的操作  (用来处理套餐的订购)
 		*/
 		public function pakcageOrderDeal(){
 			$this->CheckSession();

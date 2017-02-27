@@ -117,6 +117,50 @@
 
 		/*
 		*俞鹏泽
+		*根据一定的条件查询学生的订购的套餐的数据
+		*/
+		public function getOrderPackageInfoWithCondition($condition = null,$field = null){
+			$fieldString = "";
+
+			$inquiry = new Model('orderpackage');
+
+			if(is_array($field)){
+				for ($i = 0; $i < count($field); $i++) {
+					if($i == count($field)-1){
+						$fieldString = $fieldString.$field[$i];
+					}else{
+						$fieldString = $fieldString.$field[$i].",";
+					}
+				}
+			}elseif(is_string($field)){
+				$fieldString = $field;
+			}else{
+				$fieldString = null;
+			}
+
+			if(is_null($fieldString)){
+				if(is_null($condition)){
+					$result = $inquiry->join("inner join tp_packageconfig on tp_packageconfig.packageconID=
+					tp_orderpackage.category")->field($fieldString)->select();
+				}else{
+					$result = $inquiry->join("inner join tp_packageconfig on tp_packageconfig.packageconID=
+					tp_orderpackage.category")->where($condition)->field($fieldString)->select();
+				}
+			}else{
+				if(is_null($condition)){
+					$result = $inquiry->join("inner join tp_packageconfig on tp_packageconfig.packageconID=
+					tp_orderpackage.category")->select();
+				}else{
+					$result = $inquiry->join("inner join tp_packageconfig on tp_packageconfig.packageconID=
+					tp_orderpackage.category")->where($condition)->select();
+				}
+			}
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
 		*添加套餐的数据
 		*/
 		public function addOrderPakcageInfo($Data = null){

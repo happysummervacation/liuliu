@@ -430,7 +430,7 @@
                                     <div class="col-sm-4">
                                         <label class="label-form">可用套餐</label>
                                         <select class="form-control" name="month" id="packageid">
-                                            
+
                                         </select>
                                     </div>
                                 </div>
@@ -706,7 +706,7 @@
             // alert(teacher_id);
             $.ajax({
                 type:'post',
-                url: "<?php echo U('Student/getteacherclasslist');?>",
+                url: "<?php echo U('Class/ajaxGetTeacherClassInfo');?>",
                 data: "teacher_id="+teacher_id,
                 success:function(classes){
                  if(classes=='error'||classes==''||classes==null)
@@ -715,7 +715,6 @@
                      $("#yeararr").html("");
                      $("#montharr").html("");
                      $("#weekarr").html("");
-
                      $("#teachertable tbody").html("");
                     $("#jiaoshikebiao1 tbody").html("<tr><td colspan='6' style='text-align:center'>该教师没有可选课程</td></tr>");
                  }
@@ -909,7 +908,7 @@
 
             $.ajax({
               type:'post',
-                url: "<?php echo U('Student/getteacherpackagelist');?>",
+                url: "<?php echo U('OrderPackage/ajaxGetStuOrderPackageInfo');?>",
                 data: "teacher_id="+teacher_id,
                 success:function(packages){
                     if(packages!=""){
@@ -921,7 +920,7 @@
                     }else{
                         console.log('套餐数据为空');
                     }
-                }  
+                }
             })
         })
 

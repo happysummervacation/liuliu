@@ -194,5 +194,28 @@
 
 			return $data;
 		}
+
+		/*
+		*俞鹏泽
+		*获取某个学生订购的一对一套餐(课时类套餐还要获取还可以订购多少节课,如果是卡类套餐就不需要)
+		*/
+		/*流程:
+		1.获取指定学生的订购的一对一的套餐
+		2.进行数据判断是否是卡类套餐,如果不是就要获取学生使用该套餐订购课时数据,最后计算剩余可选课次数
+		*/
+		public function getStudentOneToOneOrderPackageInfo($StudentID = null){
+			if(is_null($StudentID)){
+				return null;
+			}
+            //获取学生的一对一类型套餐
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$orderPackageOp = new OrderPackageBasicOperate();
+			$sql = "tp_orderpackage.isdelete=0 and tp_orderpackage.status=1
+			and tp_orderpackage.classType=0 and studentID={$StudentID}";
+			$orderPackageResult = $orderPackageOp->getOrderPackageInfoWithCondition($sql,
+			"orderpackageID,studentNumber,haveClass,otherClass,packageName");
+			dump($orderPackageResult);
+			exit;
+		}
 	}
  ?>

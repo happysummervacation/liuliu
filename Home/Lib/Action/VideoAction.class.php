@@ -26,13 +26,7 @@
 
 		public function showVideoInfo(){
 			$this->CheckSession();
-			$idenit
-			if(){
-				type =
-
-			}elseif(){
-
-			}
+			
 		}
 	}
 
