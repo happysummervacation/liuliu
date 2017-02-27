@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Teacher Center</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <include file="Public:PublicBodyTeacher" />
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">Upload Video</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4" style="margin-top: 80px;">
+                        <div class="panel panel-red">
+                            <div class="panel-heading">Upload Video</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<{:U('Teacher/Upload')}>" method="post">
+                                      <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-4 control-label">Video Name:</label>
+                                        <div class="col-sm-7">
+                                          <input name="video_name" type="text" class="form-control" id="inputEmail3" placeholder="Name">
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-4 control-label">Video Type:</label>
+                                        <div class="col-sm-7">
+                                          <select class="form-control" name="video_type">
+                                              <option value="0">Class Video</option>
+                                              <!-- <option value="1">Introduction Video</option> -->
+                                              <option value="2">Audition Video</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-4 control-label">Video site:</label>
+                                        <div class="col-sm-7">
+                                            <!-- <input type="file" nv-file-select="" uploader="uploader" multiple   name="video" value="Upload Video" id="uploadinput"/> -->
+                                            <input type="text" nv-file-select="" placeholder="put video site" name="video" class="form-control" />
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <br>
+                                        <div class="col-sm-offset-2 col-sm-8">
+                                          <button type="submit" class="btn btn-danger" style="width: 100%;">Upload</button>
+                                        </div>
+                                      </div>
+                                    </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- Metis Menu Plugin JavaScript -->
+    <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+
+    <script src="__PUBLIC__/js/time.js"></script>
+
+    <script type="text/javascript">
+        upDateTime();
+    </script>
+<script>
+  // $(function(){
+  //   if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
+  //     $('.uploadbutton').click(function(){
+  //       alert('aaa');
+  //       $('#uploadinput').click(function(e){
+  //         window.event? window.event.cancelBubble = true : e.stopPropagation();
+  //       });
+
+  //     })
+  //   }
+  // })
+</script>
+</body>
+
+</html>

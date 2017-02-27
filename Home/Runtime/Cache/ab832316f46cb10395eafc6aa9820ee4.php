@@ -282,11 +282,11 @@
                                                         <?php }else{?>
                                                             <button class="btn btn-default btn-xs">中教</button>
                                                         <?php }?>
-                                                        <?php if($t_value['level'] == "0"){ ?>
+                                                       <!--  <?php if($t_value['level'] == "0"){ ?>
                                                             <button class="btn btn-default btn-xs">普教</button>
                                                         <?php }else{ ?>
                                                             <button class="btn btn-default btn-xs">名教</button>
-                                                       <?php } ?>
+                                                       <?php } ?> -->
                                                     </label>
                                                     <!-- <p>中文名</p> -->
                                                     <span style="display: none;"><?php echo ($t_value['ID']); ?></span>
@@ -316,7 +316,7 @@
                                                         <?php }else{?>
                                                             <button class="btn btn-default btn-xs">中教</button>
                                                         <?php }?>
-                                                        <!-- <?php if($value['level'] == '0'){ ?>
+                                                       <!--  <?php if($value['level'] == '0'){ ?>
                                                             <button class="btn btn-default btn-xs">普教</button>
                                                         <?php }else{ ?>
                                                             <button class="btn btn-default btn-xs">名教</button>
@@ -425,6 +425,12 @@
                                         <label class="label-form">第几周</label>
                                         <select class="form-control" name="month" id="weekarr">
 
+                                        </select>
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <label class="label-form">可用套餐</label>
+                                        <select class="form-control" name="month" id="packageid">
+                                            
                                         </select>
                                     </div>
                                 </div>
@@ -700,7 +706,7 @@
             // alert(teacher_id);
             $.ajax({
                 type:'post',
-                url: "<?php echo U('Class/ajaxGetTeacherClassInfo');?>",
+                url: "<?php echo U('Student/getteacherclasslist');?>",
                 data: "teacher_id="+teacher_id,
                 success:function(classes){
                  if(classes=='error'||classes==''||classes==null)
@@ -896,14 +902,26 @@
 
                         tableinit(tyear,tmonth,tweek,arr,tarr);
                     });
-
-
-
                  }
-
                     $('#teacherclass').modal();
-
                 }
+            })
+
+            $.ajax({
+              type:'post',
+                url: "<?php echo U('Student/getteacherpackagelist');?>",
+                data: "teacher_id="+teacher_id,
+                success:function(packages){
+                    if(packages!=""){
+                        $("#packageid").html(" ");
+                        var packageinfo=JSON.parse(packages);
+                        for (var i = 0; i < packageinfo.length; i++) {
+                            $("#packageid").append("<option value='"+packageinfo[i]['packageid']+"_"+packageinfo[i]['packagenumber']+"' style='overflow:hidden'>"+packageinfo[i]['packagename']+"</option>");
+                        }
+                    }else{
+                        console.log('套餐数据为空');
+                    }
+                }  
             })
         })
 
