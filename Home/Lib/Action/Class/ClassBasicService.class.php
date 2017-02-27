@@ -68,5 +68,30 @@
 				return $result;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*查询教师的还没有过期的课程数据
+		*/
+		//这里暂时只是参看教师还没有过期,也没有过期的空余课程时间
+		public function getTeacherFreeClassTime($teacherID = null){
+			if(is_null($teacherID)){
+				return null;
+			}
+			$nowTime = getTime();
+			$sql = "";
+			$sql = $sql."{$nowTime}<classStartTime and isSelected=0 and isdelete=0";
+			import("Home.Action.Class.ClassBasicOperate");
+			$classOp = new ClassBasicOperate();
+
+			$field = 'classID,FROM_UNIXTIME(classStartTime,"%Y-%m-%d %H:%i:%S") as "start_time",
+			case when classType=0 then "正常课程"
+			when classType=1 then "试听课"
+			when classType=2 then "一对多" end "class_type"';
+
+			$classInfoResult = $classOp->getoneTeacherClassInfo($teacherID,$field,$sql);
+
+			return $classInfoResult;
+		}
 	}
  ?>

@@ -376,7 +376,7 @@
         // ]
         var config = <?php echo ($config); ?>;
         //教师ID
-        var teacherid='22';
+        var teacherid='<?php echo ($teacherID); ?>';
 
         //表格初始化
         $("#teacherPayInfo").html(" ");
@@ -432,10 +432,9 @@
                     info.splice(info.indexOf(comparearr[i]),1);
                 }
             }
-            // console.info(info);
             //post提交数据
             data=JSON.stringify(info);
-            $.post("访问方法",{data:data,teacherid:teacherid},function(result){
+            $.post("<?php echo U('Money/manageTeacherSalary');?>",{data:data,teacherid:teacherid},function(result){
                 alert(result);
             });
         })

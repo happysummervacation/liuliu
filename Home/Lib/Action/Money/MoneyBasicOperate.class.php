@@ -63,7 +63,7 @@
 				$inquiry = new Model('teoneclasssalary');
 				$result = $inquiry
 				->join("inner join tp_packageconfig on tp_teoneclasssalary.scategory=tp_packageconfig.packageconID")
-				->where("teacherID=$teacherID and isLastest=0")
+				->where("teacherID=$teacherID and isLastest=1")
 				->select();
 				if($result){
 					return $result;
@@ -95,6 +95,32 @@
 					$message['message'] = '添加老师一对一价格表失败';
 					return $message;
 				}
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*更新教师的课程以及相应的价格数据
+		*/
+		public function updateOneClassSalary($oneClassSalaryID = null,$data = null){
+			$message = array();
+			if(is_null($data) || is_null($oneClassSalaryID)){
+				$message['status'] = false;
+				$message['message'] = "要更新的数据为空";
+				return $message;
+			}
+
+			$inquiry = new Model("teoneclasssalary");
+			$result = $inquiry->where("teOneClassSalaryID={$oneClassSalaryID}")->save($data);
+
+			if($result || $result == 0){
+				$message['status'] = true;
+				$message['message'] = "更新教师工资数据成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "更新教师工资数据失败";
+				return $message;
 			}
 		}
 	}

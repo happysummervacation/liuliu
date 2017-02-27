@@ -314,3 +314,15 @@
 	            return false;
 	        }
 		}
+
+		/*
+		*俞鹏泽
+		*判断是否是ajax请求
+		*/
+		function judgeAjaxRequest(){
+			if ((isset($_SERVER['HTTP_X_REQUESTED_WITH'])) && (strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == "xmlhttprequest")){//ajax提交
+				return true;
+			}else{
+				return false;
+			}
+		}

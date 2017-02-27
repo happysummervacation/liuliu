@@ -26,7 +26,8 @@
 
 		/*
 		*俞鹏泽
-		*用来设置教师的课程价格以及教师的类型
+		*用来root设置教师的课程价格以及教师的类型
+		*这里查看教师的工资只是显示教师一对一课程的工资以及教师类别
 		*/
 		public function showTeacherMoneySet(){
 			$this->CheckSession();
@@ -46,13 +47,14 @@
 				//2.获取教师的一对一课程的价格表中的信息
 				//传入老师id
 				$moneyOneClassResult = $moneyBasOp->getTeOneClassSalary($_GET['ID']);
-
 				//3.将两者的信息进行处理
-				$finallyOneClassResult = $this->dealOneClassInfo($moneyOneClassResult);
-				
-				$this->assign("config",json_encode($packageConOpResult));
+				import("Home.Action.Money.MoneyFeatrueService");
 
+				$finallyOneClassResult = MoneyFeatrueService::dealOneClassInfo($moneyOneClassResult);
+
+				$this->assign("config",json_encode($packageConOpResult));
 				//这个渲染到页面后 ，在页面上要做循环？
+				$this->assign("teacherID",$_GET['ID']);
 				$this->assign("teacherpayinfo",json_encode($finallyOneClassResult));
 				$this->display("Root:SetTeacherPay");
 			}else{
@@ -60,36 +62,35 @@
 			}
 		}
 
-		/*陈泽奇
-		*处理老师一对一价格表的信息;
-		*返回一个友好的array数组;
+		/*
+		*俞鹏泽
+		*对教师的工资以及教师可上课程类别进行增加,删除,修改
 		*/
+		public function manageTeacherSalary(){
+			$this->CheckSession();
 
-		////////////////////////需要做修改////////////////////////////////
-		public function dealOneClassInfo($data = null)
-		{
-			$message = array();
-			if(is_null($data)){
-				return $message;
-			}else{
-	// dump($data);
-				$result = array();
-				for($i=0;$i<count($data);$i++){
-					$result[$i]['classtype'] = $data[$i]['packageconID']."|".$data['0']['packageName'];
-					if($data[$i]['teacherType'] == 0){
-						$result[$i]['teachertype'] = $data[$i]['teacherType']."|普教";
-					}elseif($data[$i]['teacherType'] == 1)
-					{
-						$result[$i]['teachertype'] = $data[$i]['teacherType']."|名师";
-					}
-//
-					$result[$i]['money'] = $data[$i]['price'];
-					$result[$i]['infomationid'] = $data[$i]['teOneClassSalaryID'];
-// dump($result);
+			import("Home.Action.Money.MoneyFeatrueService");
+			import("Home.Action.Money.MoneyBasicService");
+			$monSerOp = new MoneyBasicService();
+
+			$identity = $_SESSION['identity'];
+			if(4 == $identity || "4" == $identity){
+				/*流程;
+				1.获取前台发过来的修改信息
+				2.将获取到的信息转成数组,并将其分成2类
+				3.数据数组长度等于5的是就的数据,数据数组长度等于4的是新增的数据
+				*/
+				$teacherID = $_POST['teacherid'];
+				$salaryData = $_POST['data'];
+				$dealData = MoneyFeatrueService::dealTeacherSalaryInfo($salaryData);
+				$result = $monSerOp->dealTeacherSalarySetSer($teacherID,$dealData);
+				if($result['status']){
+					echo "修改成功";
+				}else{
+					echo "修改失败";
 				}
-				return $result;
-
-
+			}else{
+				$this->error('你没有权限进行操作');
 			}
 		}
 
@@ -118,21 +119,6 @@
 				}
 			}else{
 				$this->error("你没有权限查看该页面");
-			}
-		}
-
-		/*
-		*俞鹏泽
-		*对教师的工资以及教师可上课程类别的管理
-		*/
-		public function manageTeacherSalary(){
-			$this->CheckSession();
-
-			$identity = $_SESSION['identity'];
-			if(4 == $identity || "4" == $identity){
-
-			}else{
-				$this->error('你没有权限进行操作');
 			}
 		}
 	}

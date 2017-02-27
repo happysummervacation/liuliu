@@ -6,8 +6,41 @@
 		*/
 		//参数一:教师的ID,只能是单值
 		//参数二:要查询的字段
-		public function getoneTeacherClassInfo($TeacherID = null,$field = null){
+		//参数三:表示是额外的查询条件   只能是字符串的形式
+		public function getoneTeacherClassInfo($TeacherID = null,$field = null,$cond = null){
+			if(is_null($TeacherID)){
+				return null;
+			}
+			$condition = "";
+			$fieldString = "";
 
+			if(is_null($cond)){
+				$condition = "teacherID={$TeacherID}";
+			}else{
+				$condition = "teacherID={$TeacherID} and ".$cond;
+			}
+			$inquiry = new Model("class");
+
+			if(is_array($field)){
+				for ($i = 0; $i < count($field); $i++) {
+					if($i == count($field)-1){
+						$fieldString = $fieldString."{$field[$i]}";
+					}else{
+						$fieldString = $fieldString."{$field[$i]},";
+					}
+				}
+				$result = $inquiry->where($condition)->field($fieldString)->select();
+				return $result;
+			}elseif(is_string($field)){
+				$fieldString = $field;
+				$result = $inquiry->where($condition)->field($fieldString)->select();
+				// dump($inquiry);
+				// exit;
+				return $result;
+			}else{
+				$result = $inquiry->where($condition)->select();
+				return $result;
+			}
 		}
 
 		/*

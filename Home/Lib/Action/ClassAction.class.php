@@ -94,5 +94,42 @@
 				$this->error("你没有权限进行管理");
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*通过ajax访问教师课程开放时间
+		*/
+		//要返回的数据:1.教师空余课程时间以及    教师信息??
+		//           2.学生的订购的套餐的信息(课时类+剩余可以订购数量  卡类+提醒(每天一节课))
+		//           3.
+		public function ajaxGetTeacherClassInfo(){
+			$judResult = judgeAjaxRequest();
+			if(!$judResult){
+				echo "非指定数据请求";
+				return;
+			}
+			$teacherID = null;
+			import("Home.Action.Class.ClassBasicService");
+			$classOp = new ClassBasicService();
+
+			$identity = $_SESSION['identity'];
+			if(0 == $identity || "0" == $identity){
+				$teacherID = $_POST['teacher_id'];
+				$result = $classOp->getTeacherFreeClassTime($teacherID);
+				if(is_null($result)){
+					echo json_encode(array());
+				}else{
+					echo json_encode($result);
+				}
+			}elseif(1 == $identity || "1" == $identity){
+
+			}elseif(2 == $identity || "2" == $identity){
+
+			}elseif(4 == $identity || "4" == $identity){
+
+			}else{
+				echo "用户权限不够";
+			}
+		}
 	}
  ?>
