@@ -139,7 +139,7 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <!-- <a href="Information.html">个人信息修改</a> -->
-                                    <a href="<?php echo U('Teacher/Information');?>"> Teacher Information</a>
+                                    <a href="<?php echo U('Info/Information');?>"> Teacher Information</a>
                                 </li>
                                 <li>
                                     <!-- <a href="Information.html">个人信息修改</a> -->

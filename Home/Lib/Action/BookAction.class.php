@@ -94,5 +94,62 @@
 				$this->error("你没有权限操作");
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*根据订购的套餐的ID来获取对应类型的教材数据
+		*/
+		public function AjaxGetBookInfoWithOrderClassID(){
+			$ajaxResult = judgeAjaxRequest();
+			if(!$ajaxResult){
+				echo "非指定的访问方式";
+				return;
+			}
+
+			$identity = $_SESSION['identity'];
+			if("2" != $identity && 2 != $identity && 4!=$identity && "4"!=$identity){
+				$this->error("你没有权限进行查看");
+				return;
+			}else{
+				//根据返回的订购套餐的ID获取学生订购的套餐的数据
+				$orderPackageID = $_POST['ID'];
+				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+				$orderPackageOp = new OrderPackageBasicOperate();
+				$orderPackageResult = $orderPackageOp->getOrderPackagesInfo($orderPackageID,"category");
+
+				import("Home.Action.Book.BookBasicOperate");
+				$bookOp = new BookBasicOperate();
+				$sql = "book_type={$orderPackageResult[0]['category']} ";
+				$bookResult = $bookOp->getBookInfoWithCondition($sql);
+
+				echo json_encode($bookResult);
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*为学生指定教材一对一课程的教材
+		*/
+		public function selectBookForStudent(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if("2" != $identity && 2 != $identity && 4!=$identity && "4"!=$identity){
+				$this->error("你没有权限进行查看");
+				return;
+			}else{
+				//先查询指定的套餐的数据
+				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+				$orderPackageOp = new OrderPackageBasicOperate();
+				$orderPacCate = $orderPackageOp->getOneOrderPackageInfo($_POST['packageId'],"category");
+				$data['material'] = "{$_POST['BookID']}:{$_POST['bookname']}:{$orderPacCate[0]['category']}";
+				$result = $orderPackageOp->updateOrderPackageInfo($_POST['packageId'],$data);
+				if($result['status']){
+					$this->success("教材指定成功");
+				}else{
+					$this->error("教材指定失败");
+				}
+			}
+		}
 	}
  ?>

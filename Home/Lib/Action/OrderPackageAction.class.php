@@ -38,7 +38,8 @@
 			$identity = $_SESSION['identity'];
 			if(0 == $identity || "0" == $identity){
 				$studentID = $_SESSION['ID'];
-				$orderPackageOp->getStudentOneToOneOrderPackageInfo($studentID);
+				$result = $orderPackageOp->getStudentOneToOneOrderPackageInfo($studentID);
+				echo json_encode($result);   //将获取到的数据以json的数据进行返回
 			}elseif(2 == $identity || "2" == $identity){
 
 			}elseif(4 == $identity || "4" == $identity){

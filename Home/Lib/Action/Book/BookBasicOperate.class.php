@@ -80,7 +80,7 @@
 					if($i == count($Field)-1){
 						$fieldString = $fieldString.$Field[$i].")";
 					}else{
-						$fieldString = $fieldString.$Field[$i]." or ";
+						$fieldString = $fieldString.$Field[$i].",";
 					}
 				}
 			}
@@ -109,6 +109,46 @@
 			}
 			return $result;
 		}
+
+		/*
+		*俞鹏泽
+		*根据一定条件获取教材的数据
+		*/
+		//参数一:要查询的额外的查询条件
+		//参数二:要查询的字段信息
+		public function getBookInfoWithCondition($sql = null,$Field = null){
+			$fieldString = "";
+			if(is_array($Field)){
+				for ($i=0; $i < count($Field); $i++) {
+					if($i == count($Field)-1){
+						$fieldString = $fieldString.$Field[$i].")";
+					}else{
+						$fieldString = $fieldString.$Field[$i].",";
+					}
+				}
+			}elseif(is_string($Field)){
+				$fieldString = $Field;
+			}else{
+				$fieldString = null;
+			}
+
+			$inquiry = new Model("book");
+			if(is_null($fieldString)){
+				if(is_null($sql)){
+					$result = $inquiry->where("isdelete=0")->select();
+				}else{
+					$result = $inquiry->where("{$sql} and isdelete=0")->select();
+				}
+			}else{
+				if(is_null($sql)){
+					$result = $inquiry->where("isdelete=0")->field($fieldString)->select();
+				}else{
+					$result = $inquiry->where("{$sql} and isdelete=0")->field($fieldString)->select();
+				}
+			}
+			return $result;
+		}
+
 		/*
 		*俞鹏泽
 		*更新套餐的数据
@@ -150,8 +190,7 @@
 		*添加教材
 		*参数：$Data是一个数组，在这个函数中直接完成添加即可；
 		*/
-		public function addBook($Data = null)
-		{
+		public function addBook($Data = null){
 			$inquiry = new Model('book');
 			if($Data == null){
 				$message['status'] = false;

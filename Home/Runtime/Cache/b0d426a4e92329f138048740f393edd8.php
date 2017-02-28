@@ -326,7 +326,11 @@
                                                     <a href="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'));?>">
                                                         <button class="btn btn-primary" style="margin:5px">启用账号</button>
                                                     </a><?php endif; ?>
-                                                <button type="button" class="editTeacher btn btn-primary" name="button"  style="margin:5px">教师信息修改</button>
+
+                                                <!-- <a href="<?php echo U('Info/UserManage',array('type'=>'check','personType'=>'teacher','type'=>'checkUpdate','user_id'=>$value['ID']));?>"> -->
+                                                    <button type="button" class="editTeacher btn btn-primary" name="button"  style="margin:5px">教师信息修改</button>
+                                                <!-- </a> -->
+
                                                 <a href="<?php echo U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']));?>" class="resetPasswordID"><button class="btn btn-primary"  style="margin:5px">一键重置密码</button></a>
                                                 <a href="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary"  style="margin:5px">彻底删除</button></a>
                                                 <button type="button" data-toggle="modal" data-target="#uploadsimplevideo" class="uploadsimplevideo btn btn-primary"  style="margin:5px">上传示例视频</button>
@@ -404,7 +408,7 @@
                                         上传教师示例视频
                                         </div>
                                         <div class="modal-body">
-                                            <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo U('Root/UploadTeacherSimple');?>" id="uploadsimplevideoID" method="post">
+                                            <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo U('Video/uploadIntroductionVideo');?>" id="uploadsimplevideoID" method="post">
                                               <div class="form-group">
                                                 <label class="label-form col-sm-6 col-sm-offset-2">视频文件(限定大小80M,支持mp4,wmv)</label>
                                                 <div class="col-sm-6 col-sm-offset-2">
@@ -442,83 +446,83 @@
                                 修改教师资料
                             </div>
                             <div class="panel-body">
-										<form class="form-horizontal" action="<?php echo U('Root/ModifyRegisterInfo');?>/type/teacher" method="post" role="form">
+										<form class="form-horizontal" action="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'update','user_id'=>$teacherInfoResult['0']['ID']));?>" method="post" role="form">
                                             <div class="form-group">
 												<label for="firstname" class="col-sm-2 control-label">账号</label>
 												<div class="col-sm-10">
-													<input id="account" type="text" name="account" readonly="true" class="form-control" placeholder="账号">
+													<input value="<?php echo ($teacherInfoResult['0']['account']); ?>" id="account" type="text" name="account" readonly="true" class="form-control" placeholder="账号">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="firstname" class="col-sm-2 control-label">中文名</label>
 												<div class="col-sm-10">
-													<input id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
+													<input value="<?php echo ($teacherInfoResult['0']['chinesename']); ?>" id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">英文名</label>
 												<div class="col-sm-10">
-													<input id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
+													<input value="<?php echo ($teacherInfoResult[0]['englishname']); ?>" id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">邮箱</label>
 												<div class="col-sm-10">
-													<input id="email" type="text" name="email" class="form-control" placeholder="邮箱">
+													<input value="<?php echo ($teacherInfoResult['0']['email']); ?>" id="email" type="text" name="email" class="form-control" placeholder="邮箱">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">电话</label>
 												<div class="col-sm-10">
-													<input id="phone" type="text" name="phone" class="form-control" placeholder="电话">
+													<input value="<?php echo ($teacherInfoResult['0']['phone']); ?>" id="phone" type="text" name="phone" class="form-control" placeholder="电话">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">QQ</label>
 												<div class="col-sm-10">
-													<input id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
+													<input value="<?php echo ($teacherInfoResult['0']['QQ']); ?>" id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
 												</div>
 											</div>
 											<div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">微信</label>
 												<div class="col-sm-10">
-													<input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
+													<input value="<?php echo ($teacherInfoResult['0']['weixin']); ?>" id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
 												</div>
 											</div>
                                             <div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">年龄</label>
 												<div class="col-sm-10">
-													<input id="age" type="text" name="age" class="form-control" placeholder="年龄">
+													<input value="<?php echo ($teacherInfoResult['0']['age']); ?>" id="age" type="text" name="age" class="form-control" placeholder="年龄">
 												</div>
 											</div>
                                                 <div class="form-group">
                                                   <label for="lastname" class="col-sm-2 control-label">国籍</label>
                                                   <div class="col-sm-10">
-                                                    <input id="country" type="text" name="country" class="form-control" placeholder="国籍">
+                                                    <input value="<?php echo ($teacherInfoResult['0']['country']); ?>" id="country" type="text" name="country" class="form-control" placeholder="国籍">
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="lastname" class="col-sm-2 control-label">skype</label>
                                                   <div class="col-sm-10">
-                                                    <input id="skype" type="text" name="skype" class="form-control" placeholder="skype">
+                                                    <input value="<?php echo ($teacherInfoResult['0']['skype']); ?>" id="skype" type="text" name="skype" class="form-control" placeholder="skype">
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="lastname" class="col-sm-2 control-label">zoom</label>
                                                   <div class="col-sm-10">
-                                                    <input id="zoom" type="text" name="zoom" class="form-control" placeholder="zoom">
+                                                    <input value="<?php echo ($teacherInfoResult['0']['zoom']); ?>" id="zoom" type="text" name="zoom" class="form-control" placeholder="zoom">
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="lastname" class="col-sm-2 control-label">paypal</label>
                                                   <div class="col-sm-10">
-                                                    <input id="paypal" type="text" name="paypal" class="form-control" placeholder="paypal">
+                                                    <input value="<?php echo ($teacherInfoResult['0']['paypal']); ?>" id="paypal" type="text" name="paypal" class="form-control" placeholder="paypal">
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="lastname" class="col-sm-2 control-label">bankcard</label>
                                                   <div class="col-sm-10">
-                                                    <input id="bankcard" type="text" name="bankcard" class="form-control" placeholder="bankcard">
+                                                    <input value="<?php echo ($teacherInfoResult['0']['bankcard']); ?>" id="bankcard" type="text" name="bankcard" class="form-control" placeholder="bankcard">
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
@@ -526,20 +530,25 @@
                                                   <div class="col-sm-10" style="padding-top: 8px;">
                                                     <!-- <input id="" type="text" name="Basic" class="form-control" placeholder="性别"> -->
                                                     <select class="form-control" id="sex" name="sex">
-                                                      <option value="1">男</option>
-                                                      <option value="0">女</option>
+                                                        <?php if($teacherInfoResult['0']['sex'] == 0): ?><option value="1" checked>男</option>
+                                                        <?php else: ?><option value="0" checked>女</option><?php endif; ?>
+
+
                                                     </select>
                                                   </div>
                                                 </div>
                                                 <div class="form-group">
                                                   <label for="lastname" class="col-sm-2 control-label">对教师介绍</label>
                                                   <div class="col-sm-10" style="padding-top: 8px;">
-                                                    <textarea id="teachercomment" type="text" name="teachercomment" class="form-control"></textarea>
+                                                    <textarea value="<?php echo ($teacherInfoResult['0']['teachercomment']); ?>" id="teachercomment" type="text" name="teachercomment" class="form-control"></textarea>
                                                   </div>
                                                 </div>
 												<div class="form-group">
 													<div class="col-sm-offset-2 col-sm-10">
-														<button type="submit" class="btn btn-default" id="">修改</button>
+
+                                                       <button type="submit" class="btn btn-default" id="">修改</button>
+
+
 													</div>
 												</div>
 											</form>
@@ -689,13 +698,13 @@
     </script>
     <script type="text/javascript">
       // $(document).ready(function(){
-        $("#editTeacherInfo").hide();
+        $("#editTeacherInfo").slideUp();
         $(".editTeacher").click(function(){
           var teacherID = "";
           var teacherID = $(this).parent().parent().find(".teacherID").html();
           $.ajax({
             type: "POST",
-            url: "<?php echo U('Root/AjaxGetRegisterInfo');?>",
+            url: "<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'checkUpdate'));?>",
             data: {
               type: "teacher",
               ID: teacherID,

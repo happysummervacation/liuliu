@@ -17,16 +17,11 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="__PUBLIC__/css/flipclock.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,6 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
 <body>
@@ -198,148 +194,45 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Teacher Center</h1>
+                        <h1 class="page-header">Upload Video</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-user fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge simpleline"><?php echo ($teacher_info_result['englishname']); ?></div>
-                                        <div>Teacher</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="Information.html"> -->
-                            <a href="<?php echo U('Teacher/Information');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Personal Information</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge  simpleline"><!-- <?php echo ($class_info_result); ?> --></div>
-                                        <!-- <div>My schedule</div> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="MyMouthPlan.html"> -->
-                            <a href="<?php echo U('Teacher/MyMouthPlan');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left"> manage my schedule</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-database fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge  simpleline"><?php echo ($classed_info_result); ?></div>
-                                        <div>Achieved class</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="Feedback.html"> -->
-                            <a href="<?php echo U('Teacher/Feedback');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Course Feedback</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-md-4 col-md-offset-4" style="margin-top: 80px;">
                         <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-youtube-play fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge  simpleline"><?php echo ($video_result); ?></div>
-                                        <div>Number of Videos</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="UploadNow.html"> -->
-                            <a href="<?php echo U('Teacher/UploadNow');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Upload Video</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">Student Evaluation</div>
-                            <!-- <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>评价课程上课时间</th>
-                                        <th>评价课程编号</th>
-                                        <th>评价时间</th>
-                                        <th>评分</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php if(is_array($to_teacher_comment_result)): foreach($to_teacher_comment_result as $key=>$vo): ?><tr>
-                                            <td><?php echo (date('Y-m-d H:i',$vo['start_time'])); ?></td>
-                                            <td><?php echo ($vo['class_id']); ?></td>
-                                            <td><?php echo (date('Y-m-d H:i',$vo['create_time'])); ?></td>
-                                            <td><?php echo ($vo['comment_level']); ?></td>
-                                        </tr><?php endforeach; endif; ?>
-                                </tbody>
-                            </table> -->
-                            <div class="panel-body overfw">
-                                <div class="dataTable_wrapper">
-                                    <table class="table table-striped  table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>Course Time</th>
-                                                <th>Course Number</th>
-                                                <th>Comment Period</th>
-                                                <th>Course Score</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if(is_array($to_teacher_comment_result)): foreach($to_teacher_comment_result as $key=>$vo): ?><tr>
-                                                    <td><?php echo (date('Y-m-d H:i',$vo['start_time'])); ?></td>
-                                                    <td><?php echo ($vo['class_id']); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$vo['create_time'])); ?></td>
-                                                    <td><?php echo ($vo['comment_level']); ?></td>
-                                                </tr><?php endforeach; endif; ?>
-                                        </tbody>
-                                    </table>
-                                </div>
+                            <div class="panel-heading">Upload Video</div>
+                            <div class="panel-body">
+                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo U('Video/uploadIntroductionVideo');?>" method="post">
+                                      <!-- <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-4 control-label">Video Name:</label>
+                                        <div class="col-sm-7">
+                                          <input name="video_name" type="text" class="form-control" id="inputEmail3" placeholder="Name">
+                                        </div>
+                                      </div> -->
+                                      <div class="form-group">
+                                        <label for="inputEmail3" class="col-sm-4 control-label">Video Type:</label>
+                                        <div class="col-sm-7">
+                                          <select class="form-control" name="video_type">
+                                              <option value="1">Introduction Video</option>
+                                          </select>
+                                        </div>
+                                      </div>
+                                      <div class="form-group">
+                                        <label for="inputPassword3" class="col-sm-4 control-label">Video File(no more 100M):</label>
+                                        <div class="col-sm-7">
+                                            <input type="file" nv-file-select="" multiple   name="video" value="Upload Video" id="uploadinput"/>
+                                        </div>
+                                        
+                                      </div>
+                                      <div class="form-group">
+                                        <br>
+                                        <div class="col-sm-offset-2 col-sm-8">
+                                          <button type="submit" class="btn btn-danger" style="width: 100%;">Upload</button>
+                                        </div>
+                                      </div>
+                                    </form>
                             </div>
                         </div>
                     </div>
@@ -361,32 +254,27 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-     <!-- DataTables JavaScript -->
-    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <script src="__PUBLIC__/js/flipclock.js"></script>
-    <!--引入计时器的代码-->
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true,
-                autoWidth:true,
-                ordering:false,
-                searching:true
-        });
-
-    });
-    </script>
-    <script type="text/javascript">
         upDateTime();
     </script>
+<script>
+  // $(function(){
+  //   if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
+  //     $('.uploadbutton').click(function(){
+  //       alert('aaa');
+  //       $('#uploadinput').click(function(e){
+  //         window.event? window.event.cancelBubble = true : e.stopPropagation();
+  //       });
+
+  //     })
+  //   }
+  // })
+</script>
 </body>
 
 </html>

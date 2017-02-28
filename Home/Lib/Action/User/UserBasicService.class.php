@@ -89,13 +89,18 @@
 			$data['email'] = $postData['email'];
 			$data['phone'] = $postData['phone'];
 			$data['QQ'] = $postData['qq'];
-			$data['weixin'] = $postData['weixin'];
+			$data['weixin'] = $postData['wechat'];
 			$data['skype'] = $postData['skype'];
 			$data['country'] = $postData['country'];
 			$data['zoom'] = $postData['zoom'];
 			$data['bankcard'] = $postData['bankcard'];
 			$data['paypal'] = $postData['paypal'];
-			$data['introduction'] = $postData['introduction'];
+			if(!empty($postData['introduction'])){
+				$data['introduction'] = $postData['introduction'];
+			}
+			if(!empty($postData['teachercomment'])){
+				$data['teachercomment'] = $postData['teachercomment'];
+			}
 
 			if(!is_null($filePath)){
 				$data['image_path'] = '/liuliu'.

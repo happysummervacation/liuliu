@@ -209,13 +209,21 @@
 			}
             //获取学生的一对一类型套餐
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			import("Home.Action.OrderPackage.OrderPackageFeatureService");
 			$orderPackageOp = new OrderPackageBasicOperate();
+
 			$sql = "tp_orderpackage.isdelete=0 and tp_orderpackage.status=1
 			and tp_orderpackage.classType=0 and studentID={$StudentID}";
+
 			$orderPackageResult = $orderPackageOp->getOrderPackageInfoWithCondition($sql,
 			"orderpackageID,studentNumber,haveClass,otherClass,packageName");
-			dump($orderPackageResult);
-			exit;
+			//获取使用上面订购的套餐订购的还没有上的学生的课程数据
+			//这里暂时使用null表示还没有任何的课程被订购
+			$orderClassResult = null;
+
+			$result = OrderPackageFeatureService::dealOrderPackageAndOrderClass($orderPackageResult,$orderClassResult);
+
+			return $result;
 		}
 	}
  ?>

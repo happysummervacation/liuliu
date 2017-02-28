@@ -26,8 +26,82 @@
 
 		public function showVideoInfo(){
 			$this->CheckSession();
-			
+			$identity = $_SESSION['identity'];
+
+
+			if(1 == $identity){
+				$type = $_GET['type'];
+				if('history' == $type){
+					import("Home.Action.Video.VideoBasicOperate");
+					$videoOp = new VideoBasicOperate();
+					$id =$_SESSION['ID'];
+					$result = $videoOp->getVideoInfo("uploader = $id",null);
+					$this->assign('video_result',$result);
+					$this->display("Teacher:UploadedVideos");
+				}elseif('updateVideo' == $type){
+					$this->display("Teacher:UploadNow");
+				}elseif('updateIntroduction' == $type){
+					$this->display("Teacher:UploadIntroductionVideo");
+				}
+			}elseif(4 == $identify){
+
+			}else{
+				$this->error('你无权访问该界面！');
+			}
 		}
+		/*
+		*蒋周杰
+		*上传教学视频信息
+		*/
+		public function uploadVideo(){
+			$this->CheckSession();
+			$identity = $_SESSION['identity'];
+			if(1 == $identity){
+				import("Home.Action.Video.VideoBasicOperate");
+				$videoOp = new VideoBasicOperate();
+				$result = $videoOp->addVideoInfo($_SESSION['ID'],$_POST);
+				if($result['status']){
+					$this->success($result['message']);
+				}else{
+					$this->error($result['message']);
+				}
+			}else{
+				$this->error('你无权访问该界面！');
+			}
+		}
+
+		/*
+		*蒋周杰
+		*上传介绍视频
+		*/
+		public function uploadIntroductionVideo(){
+			$this->CheckSession();
+
+			if(is_null($_FILES)){
+				$this->error('未添加视频!');
+			}
+			$identity = $_SESSION['identity'];
+			import("Home.Action.Video.VideoBasicService");
+			$videoOp = new VideoBasicService();
+			if(1 == $identity || "1" == $identity){
+				$result = $videoOp->addIntroductionVideo($_SESSION['ID'],1);
+				if($result['status']){
+					$this->success($result['message']);
+				}else{
+					$this->error($result['message']);
+				}
+			}elseif(4 == $identity || "4" == $identity){
+				$result = $videoOp->addIntroductionVideo($_GET['ID'],0);
+				if($result['status']){
+					$this->success($result['message']);
+				}else{
+					$this->error($result['message']);
+				}
+			}else{
+				$this->error('你无权访问该界面！');
+			}
+		}
+
 	}
 
  ?>

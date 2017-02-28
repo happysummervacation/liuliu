@@ -56,5 +56,34 @@
 				return;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*获取学生的订购的还没有上的课程
+		*/
+		public function getStudentOrderClassTimeTable(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if(0 == $identity || "0" == $identity){
+				$type = $_GET['type'];
+				if("one" == $type){
+					//获取一对一的课程
+					$this->display("Student:MySchedule");
+				}elseif("group" == $type){
+					//获取小班课的课程
+					$this->display("Student:GroupClassSchedule");
+				}else{
+					$this->error("没有指定操作");
+				}
+			}elseif(2 == $identity || "2" == $identity){
+
+			}elseif(4 == $identity || "4" == $identity){
+
+			}else{
+				$this->error("你没有权限查看学生的课表");
+				return;
+			}
+		}
 	}
  ?>

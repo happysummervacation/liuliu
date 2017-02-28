@@ -105,14 +105,23 @@
                                                 <!-- <td><{$value['stop_number']}></td> -->
                                                 <td><?php if($value['status'] == "0") {echo "无效";} else {echo "有效";}?></td>
                                                 <td>
-                                                  <php>$tem = "";$tem = explode(";",$value['material'])[1];
+                                                  <php>$tem = "";$tem = explode(":",$value['material'])[1];
                                                   </php>
-                                                  <{$tem}>(这部分课程需要重新建一个页面进行管理)
+                                                  <php>if($value['classType'] == "1" || $value['classType'] == 1){</php>
+                                                      这是小班课,请在班级中进行指定教材
+                                                  <php>}else{</php>
+                                                      <{$tem}>
+                                                  <php>}</php>
                                                 </td>
                                                 <td>
                                                   <a href="<{:U('Root/ChangeStudentPackageStatus',array('orderpackage_id'=>$value['orderpackage_id']))}>" class="cancelOrderPackageID">套餐无效</a>
                                                   <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage" >停课</a>
-                                                  <button  class="bookMgr">教材管理</button>
+                                                  <php>if($value['classType'] == "1" || $value['classType'] == 1){</php>
+
+                                                  <php>}else{</php>
+                                                      <button  class="bookMgr">教材管理</button>
+                                                  <php>}</php>
+
                                                 </td>
                                             </tr>
                                         <php>}
@@ -217,7 +226,7 @@
                 </div>
 
                   <div class="modal-body"  style="overflow: auto;">
-                   <form class="form-horizontal" action="<{:U('Root/SelectBookForStudent')}>" method="post" role="form" style>
+                   <form class="form-horizontal" action="<{:U('Book/selectBookForStudent')}>" method="post" role="form" style>
                      <div class="form-group" style="margin: 10px;">
                        <label for="name">选择列表</label>
                          <select class="form-control" name="BookID" id="classList">
@@ -490,7 +499,7 @@
         $("#packageID").val(nowPackage);
         $.ajax({
           type: "POST",
-          url: "<{:U('Root/AjaxGetBookInfoWithOrderClassID')}>",
+          url: "<{:U('Book/AjaxGetBookInfoWithOrderClassID')}>",
           data: {
             ID: packageID,
           },

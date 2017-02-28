@@ -134,7 +134,7 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="<?php echo U('Admin/index');?>"><i class="fa fa-home fa-fw"></i> 顾问中心</a>
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 顾问中心</a>
                         </li>
                         <!-- <li>
                             <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>

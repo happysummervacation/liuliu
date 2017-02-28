@@ -124,14 +124,14 @@
                             <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Teacher/UploadedVideos');?>"> Video History</a>
+                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=history"> Video History</a>
                                 </li>
                                 <li>
                                     <!-- <a href="__PUBLIC__/plug-in/examples/simple/index.html">现在上传</a> -->
-                                    <a href="<?php echo U('Teacher/UploadNow');?>"> Upload Video</a>
+                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=updateVideo"> Upload Video</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Teacher/UploadIntroductionVideo');?>"> Upload Introduction Video</a>
+                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=updateIntroduction"> Upload Introduction Video</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
@@ -141,7 +141,7 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <!-- <a href="Information.html">个人信息修改</a> -->
-                                    <a href="<?php echo U('Teacher/Information');?>"> Teacher Information</a>
+                                    <a href="<?php echo U('Info/Information');?>"> Teacher Information</a>
                                 </li>
                                 <li>
                                     <!-- <a href="Information.html">个人信息修改</a> -->

@@ -329,13 +329,22 @@
                                                 <!-- <td><?php echo ($value['stop_number']); ?></td> -->
                                                 <td><?php if($value['status'] == "0") {echo "无效";} else {echo "有效";}?></td>
                                                 <td>
-                                                  <?php $tem = "";$tem = explode(";",$value['material'])[1]; ?>
-                                                  <?php echo ($tem); ?>(这部分课程需要重新建一个页面进行管理)
+                                                  <?php $tem = "";$tem = explode(":",$value['material'])[1]; ?>
+                                                  <?php if($value['classType'] == "1" || $value['classType'] == 1){ ?>
+                                                      这是小班课,请在班级中进行指定教材
+                                                  <?php }else{ ?>
+                                                      <?php echo ($tem); ?>
+                                                  <?php } ?>
                                                 </td>
                                                 <td>
                                                   <a href="<?php echo U('Root/ChangeStudentPackageStatus',array('orderpackage_id'=>$value['orderpackage_id']));?>" class="cancelOrderPackageID">套餐无效</a>
                                                   <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage" >停课</a>
-                                                  <button  class="bookMgr">教材管理</button>
+                                                  <?php if($value['classType'] == "1" || $value['classType'] == 1){ ?>
+
+                                                  <?php }else{ ?>
+                                                      <button  class="bookMgr">教材管理</button>
+                                                  <?php } ?>
+
                                                 </td>
                                             </tr>
                                         <?php } } ?>
@@ -439,7 +448,7 @@
                 </div>
 
                   <div class="modal-body"  style="overflow: auto;">
-                   <form class="form-horizontal" action="<?php echo U('Root/SelectBookForStudent');?>" method="post" role="form" style>
+                   <form class="form-horizontal" action="<?php echo U('Book/selectBookForStudent');?>" method="post" role="form" style>
                      <div class="form-group" style="margin: 10px;">
                        <label for="name">选择列表</label>
                          <select class="form-control" name="BookID" id="classList">
@@ -712,7 +721,7 @@
         $("#packageID").val(nowPackage);
         $.ajax({
           type: "POST",
-          url: "<?php echo U('Root/AjaxGetBookInfoWithOrderClassID');?>",
+          url: "<?php echo U('Book/AjaxGetBookInfoWithOrderClassID');?>",
           data: {
             ID: packageID,
           },
