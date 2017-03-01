@@ -85,5 +85,24 @@
 				return;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*订购一对一课程(包括课程顾问,学生,root)
+		*/
+		public function StudentOrderClassWithClassID(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if("0" == $identity || 0 == $identity){
+
+			}elseif("2" == $identity || 2 == $identity){
+
+			}elseif("4" == $identity || 4 == $identity){
+
+			}else{
+				$this->error("你没有权限进行操作");
+			}
+		}
 	}
  ?>

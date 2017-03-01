@@ -1,6 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-
+在订课中,需要获取的数据有课程的ID,订购的套餐的ID号
 <head>
 
     <meta charset="utf-8">
@@ -969,7 +969,7 @@
                 }else{
                     $.ajax({
                         type:'post',
-                        url: "<?php echo U('Student/StudentOrderClassWithClassIDAndBookID');?>",
+                        url: "<?php echo U('OrderClass/StudentOrderClassWithClassIDAndBookID');?>",
                         data:'id_data='+updata_id+'&book_data='+updata_book,
                         success:function(classes){
                             if(classes!='error'){
