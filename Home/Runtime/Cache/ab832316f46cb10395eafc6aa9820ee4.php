@@ -1,6 +1,7 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-在订课中,需要获取的数据有课程的ID,订购的套餐的ID号
+1.在订课中,需要获取的数据有课程的ID,订购的套餐的ID号
+2.显示的课程不能是上课前两小时之内的课程
 <head>
 
     <meta charset="utf-8">
@@ -858,7 +859,6 @@
                         for (var i = 0; i < montharr.length; i++) {
                             $("#montharr").append("<option>"+montharr[i]+"</option>");
                         }
-
                         var tyear=$("#yeararr").val();
                         var tmonth=$("#montharr").val();
                         var tweek=$("#weekarr").val();
@@ -892,8 +892,6 @@
                         tableinit(tyear,tmonth,tweek,arr,tarr);
                     });
 
-
-
                  }
                     $('#teacherclass').modal();
 
@@ -905,13 +903,13 @@
                 url: "<?php echo U('OrderPackage/ajaxGetStuOrderPackageInfo');?>",
                 data: "teacher_id="+teacher_id,
                 success:function(packages){
-                    if(packages!=""){
+                    if(packages!="[]"){
                         $("#packageid").html(" ");
                         var packageinfo=JSON.parse(packages);
                         for (var i = 0; i < packageinfo.length; i++) {
                             // $("#packageid").append("<option value='"+packageinfo[i]['packageid']+"_"+packageinfo[i]['packagenumber']+"' style='overflow:hidden'>"+packageinfo[i]['packagename']+"</option>");
                             $("#packageid").append("<option value='"+packageinfo[i]['orderpackageID']+"_"+
-                            packageinfo[i]['packageNum']+"' style='overflow:hidden'>"+packageinfo[i]['packageName']+
+                            packageinfo[i]['packageNum']+"' style='overflow:hidden'>"+packageinfo[i]['packageName']+"(课程剩余:"+packageinfo[i]['packageNum']+")"+
                             "</option>");
                             var tt=[];
                             tt['package_id']=packageinfo[i]['orderpackageID'];
@@ -921,7 +919,7 @@
                         };
                         $("#makesure").html('确认选择');
                     }else{
-                        console.log('套餐数据为空');
+                        alert("没有指定类型的套餐");
                     };
                 }
             });
@@ -940,14 +938,28 @@
             //提交预约课程的记录
             $('#submitorderclasslist').click(function(){
                 var CLASS_ID=new Array();
-                var BOOK_ID=new Array();
+                // var BOOK_ID=new Array();
                 var length=$('#jiaoshikebiao3 tbody tr').length;
+                if(length<1){
+                    alert('课程数量为零!请选择课程!');
+                    return;
+                };
                 for (var i = 0; i < PACKAGEINFO.length; i++) {
                     PACKAGEINFO[i]['getnum']=0;
                 }
                 for(var j=0;j<length;j++){
-                    CLASS_ID[j]=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').html();
-                    BOOK_ID[j]=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').eq(5).html();
+                    var classinfo={};
+                    classinfo['class_id']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').html();
+                    classinfo['package_id']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').eq(3).html();
+                    if(classinfo['package_id']==null){
+                        alert('套餐数据为空!');
+                        return;
+                    }
+                    if(classinfo['class_id']==null){
+                        alert('课程数据错误!');
+                        return;
+                    }
+                    CLASS_ID.push(classinfo);
                 };
                 var flag=true;
                 $("#jiaoshikebiao3 tbody tr").each(function(){
@@ -962,22 +974,23 @@
                     }
                 });
                 var updata_id = JSON.stringify(CLASS_ID);
-                var updata_book = JSON.stringify(BOOK_ID);
-                console.log(PACKAGEINFO);
+                // var updata_book = JSON.stringify(BOOK_ID);
+                console.log(updata_id);
                 if(flag==false){
-                    alert('提交課程超過可選的課程數量!請檢查套餐課程數量是否足夠!')
+                    alert('提交課程超過可選的課程數量!請檢查套餐課程數量是否足夠!');
+                    return;
                 }else{
                     $.ajax({
                         type:'post',
-                        url: "<?php echo U('OrderClass/StudentOrderClassWithClassIDAndBookID');?>",
-                        data:'id_data='+updata_id+'&book_data='+updata_book,
+                        url: "<?php echo U('OrderClass/studentOneOrderClass');?>",
+                        data:'id_data='+updata_id,
                         success:function(classes){
                             if(classes!='error'){
                                 alert(classes);
-                                // location.reload();//刷新页面
+                                location.reload();//刷新页面
                             }else{
                                 alert(classes);
-                                // location.reload();//刷新页面
+                                location.reload();//刷新页面
                             }
                         }
                     });

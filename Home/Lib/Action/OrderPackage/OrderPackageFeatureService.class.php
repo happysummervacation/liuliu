@@ -20,7 +20,7 @@
 
 					$tem['orderpackageID'] = $value['orderpackageID'];
 					$tem['packageNum'] = ((int)$value['classNumber']
-					+(int)$value['otherClass']-(int)$value['haveClass']);
+					+(int)$value['otherClass']);
 					if((int)$value['packageType'] == 0){
 						$temString = "课时类";
 					}else{
@@ -38,7 +38,27 @@
 			}else{
 				//表示订购的套餐数据以及订购的课程数据都不为null
 				//这种情况还没有进行处理
-				return null;
+				for ($i = 0; $i < count($orderPacResult); $i++) {
+					$tem = array();
+					$temString = "";
+
+					$tem['orderpackageID'] = $orderPacResult[$i]['orderpackageID'];
+					$tem['packageNum'] = ((int)$orderPacResult[$i]['classNumber']
+					+(int)$orderPacResult[$i]['otherClass'] - (int)$orderClaResult[$i]['haveClass']);
+					if((int)$orderPacResult[$i]['packageType'] == 0){
+						$temString = "课时类";
+					}else{
+						$temString = "卡类";
+					}
+					if((int)$orderPacResult[$i]['classType'] == 0){
+						$temString = $temString."一对一";
+					}else{
+						$temString = $temString."小班课";
+					}
+					$tem['packageName'] = $temString.$orderPacResult[$i]['packageName'];
+					array_push($resultArray,$tem);
+				}
+				return $resultArray;
 			}
 		}
 	}

@@ -210,17 +210,26 @@
             //获取学生的一对一类型套餐
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 			import("Home.Action.OrderPackage.OrderPackageFeatureService");
+			import("Home.Action.OrderClass.OrderClassBasicOperate");
 			$orderPackageOp = new OrderPackageBasicOperate();
+			$orderClassOp = new OrderClassBasicOperate();
 
 			$sql = "tp_orderpackage.isdelete=0 and tp_orderpackage.status=1
 			and tp_orderpackage.classType=0 and studentID={$StudentID}";
 
 			$orderPackageResult = $orderPackageOp->getOrderPackageInfoWithCondition($sql,
-			"orderpackageID,studentNumber,haveClass,otherClass,packageName");
-			//获取使用上面订购的套餐订购的还没有上的学生的课程数据
-			//这里暂时使用null表示还没有任何的课程被订购
-			$orderClassResult = null;
-
+			"orderpackageID,classNumber,packageType,classType,otherClass,tp_packageconfig.packageName");
+			//获取使用上面订购的套餐订购的还没有上的以及已经上的的学生的课程数
+			$orderClassResult = array();
+			foreach ($orderPackageResult as $key => $value) {
+				//由于数据是一个个迭代下去的,所以套餐和套餐对应的课程剩余数据是相同
+				$tem = array();
+				$temresult = 0;
+				$temresult = $orderClassOp->countStudentOneOrderClassNum($StudentID,$value['orderpackageID']);
+				$tem['orderpackageID'] = $value['orderpackageID'];
+				$tem['haveClass'] = $temresult;
+				array_push($orderClassResult,$tem);
+			}
 			$result = OrderPackageFeatureService::dealOrderPackageAndOrderClass($orderPackageResult,$orderClassResult);
 
 			return $result;

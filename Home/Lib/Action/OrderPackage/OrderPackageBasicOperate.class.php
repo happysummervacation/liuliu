@@ -138,7 +138,7 @@
 				$fieldString = null;
 			}
 
-			if(is_null($fieldString)){
+			if(!is_null($fieldString)){
 				if(is_null($condition)){
 					$result = $inquiry->join("inner join tp_packageconfig on tp_packageconfig.packageconID=
 					tp_orderpackage.category")->field($fieldString)->select();

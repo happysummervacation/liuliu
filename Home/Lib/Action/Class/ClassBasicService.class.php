@@ -3,8 +3,15 @@
 		private $reClassTime = 1800;  //外教一节课的时间差
 		private $chClassTime = 3600;  //中教一节课的时间差
 
+		private $systemSet = null;   //系统的设置
+
 		public function __construct(){
-            //获取教师类型
+			//获取系统设置
+            $field = array();
+            import("Home.Action.System.SystemBasicOperate");
+			$sysOp = new SystemBasicOperate();
+            $result = $sysOp->getSystemSet();
+			$this->systemSet = $result;
         }
 		/*
 		*俞鹏泽
@@ -74,13 +81,16 @@
 		*查询教师的还没有过期的课程数据
 		*/
 		//这里暂时只是参看教师还没有过期,也没有过期的空余课程时间
+		//在指定选课时间之内的课程不能再被订课了   计算方式是:当先时间+指定时间段 < 课程时间
 		public function getTeacherFreeClassTime($teacherID = null){
 			if(is_null($teacherID)){
 				return null;
 			}
 			$nowTime = getTime();
+			$selectTime = (int)$nowTime+(int)$this->systemSet['appointCourseDeadline'];
+
 			$sql = "";
-			$sql = $sql."{$nowTime}<classStartTime and isSelected=0 and isdelete=0";
+			$sql = $sql."{$selectTime}<classStartTime and isSelected=0 and isdelete=0";
 			import("Home.Action.Class.ClassBasicOperate");
 			$classOp = new ClassBasicOperate();
 

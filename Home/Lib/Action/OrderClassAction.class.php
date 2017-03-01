@@ -90,18 +90,32 @@
 		*俞鹏泽
 		*订购一对一课程(包括课程顾问,学生,root)
 		*/
-		public function StudentOrderClassWithClassID(){
+		public function studentOneOrderClass(){
 			$this->CheckSession();
 
 			$identity = $_SESSION['identity'];
 			if("0" == $identity || 0 == $identity){
-
+				//进行学生订课数据的处理
+				// exit;
+				$data = $_POST['id_data'];
+				$studentID = $_SESSION['ID'];
+				import("Home.Action.OrderClass.OrderClassBasicService");
+				$orderclassOp = new OrderClassBasicService();
+				$result = $orderclassOp->OrderOneToOneClass($studentID,$data);
+				if($result['status']){
+					echo "课程订购成功";
+					return;
+				}else{
+					echo "课程订购失败";
+					return;
+				}
 			}elseif("2" == $identity || 2 == $identity){
 
 			}elseif("4" == $identity || 4 == $identity){
 
 			}else{
 				$this->error("你没有权限进行操作");
+				return;
 			}
 		}
 	}

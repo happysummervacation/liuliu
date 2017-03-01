@@ -45,12 +45,63 @@
 
 		/*
 		*俞鹏泽
+		*根据课程ID来获取数据
+		*/
+		//参数一:要查询的课程ID号
+		//参数二:要查询的字段
+		public function getClassInfo($classID = null,$field = null){
+			if(is_null($classID)){
+				return null;
+			}
+			$fieldString = "";
+			$inquiry = new Model("class");
+
+			if(is_array($field)){
+				for ($i = 0; $i < count($field); $i++) {
+					if($i == count($field)-1){
+						$fieldString = $fieldString."{$field[$i]}";
+					}else{
+						$fieldString = $fieldString."{$field[$i]},";
+					}
+				}
+				$result = $inquiry->where("classID='{$classID}' and isdelete=0")->field($fieldString)->select();
+				return $result;
+			}elseif(is_string($field)){
+				$fieldString = $field;
+				$result = $inquiry->where("classID='{$classID}' and isdelete=0")->field($fieldString)->select();
+				return $result;
+			}else{
+				$result = $inquiry->where("classID='{$classID}' and isdelete=0")->select();
+				return $result;
+			}
+		}
+
+		/*
+		*俞鹏泽
 		*更新课程的数据
 		*/
 		//参数一:要更新的课程的ID
 		//参数二:要更新的数据
 		public function updateClassInfo($classID = null,$Data = null){
+			$message = array();
+			if(is_null($classID) || is_null($Data)){
+				$message['status'] = false;
+				$message['message'] = "必要的课程数据没有传入";
+				return $message;
+			}
 
+			$inquiry = new Model("class");
+			$result = $inquiry->where("classID='{$classID}' and isdelete=0")->save($Data);
+
+			if($result){
+				$message['status'] = true;
+				$message['message'] = "课程数据修改成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "课程数据修改失败";
+				return $message;
+			}
 		}
 
 		/*
