@@ -45,6 +45,12 @@
 			$result = $userOp->getUserInfo('teacher');
 
 			if(0 == $identity || "0" == $identity){       //获取教师的必要数据进行展示
+				/*要判断条件:
+				1.学生是否有一对一的套餐
+				2.学生是否停过课
+				3.学生的一对一套餐是否已经指定了教材
+				*/
+				import("Home.Action.");
 				$this->assign('teacher_result',$result);
 				$this->display("Student:BookCourse");
 			}elseif(2 == $identity || "2" == $identity){

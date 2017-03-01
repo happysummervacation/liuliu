@@ -56,7 +56,7 @@
 
 		/*
 		*俞鹏泽
-		*学生的信息的更新
+		*教师的信息的更新
 		*/
 		public function updateTeacherInfo($TeacherID = null,$TeacherAccount = null,$postData = null,$fileData = null){
 			$message = array();

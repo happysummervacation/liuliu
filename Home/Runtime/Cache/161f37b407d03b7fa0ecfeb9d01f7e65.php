@@ -336,7 +336,7 @@
                             修改顾问资料
                         </div>
                         <div class="panel-body">
-                          <form class="form-horizontal" action="<?php echo U('Root/ModifyRegisterInfo');?>/type/admin" method="post" role="form">
+                          <form class="form-horizontal" action="<?php echo U('Info/UserManage',array('personType'=>'admin','type'=>'update'));?>" method="post" role="form">
                             <div class="form-group">
                               <label for="firstname" class="col-sm-2 control-label">账号</label>
                               <div class="col-sm-10">
@@ -376,7 +376,7 @@
                             <div class="form-group">
                               <label for="lastname" class="col-sm-2 control-label">微信</label>
                               <div class="col-sm-10">
-                                <input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
+                                <input id="wechat" type="text" name="weixin" class="form-control" placeholder="微信">
                               </div>
                             </div>
                             <div class="form-group">
@@ -642,7 +642,7 @@
           var adminID = $(this).parent().parent().find(".adminID").html();
           $.ajax({
             type: "POST",
-            url: "<?php echo U('Root/AjaxGetRegisterInfo');?>",
+            url: "<?php echo U('Info/UserManage',array('personType'=>'admin','type'=>'checkUpdate'));?>",
             data: {
               type: "admin",
               ID: adminID,

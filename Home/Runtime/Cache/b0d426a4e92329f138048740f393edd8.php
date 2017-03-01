@@ -531,9 +531,10 @@
                                                     <!-- <input id="" type="text" name="Basic" class="form-control" placeholder="性别"> -->
                                                     <select class="form-control" id="sex" name="sex">
                                                         <?php if($teacherInfoResult['0']['sex'] == 0): ?><option value="1" checked>男</option>
-                                                        <?php else: ?><option value="0" checked>女</option><?php endif; ?>
-
-
+                                                        <option value="0" >女</option>
+                                                        <?php else: ?>
+                                                        <option value="0" checked>女</option>
+                                                        <option value="1" >男</option><?php endif; ?>
                                                     </select>
                                                   </div>
                                                 </div>

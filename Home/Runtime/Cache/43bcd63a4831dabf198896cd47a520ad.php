@@ -162,7 +162,7 @@
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Root/CheckStudent');?>"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
                         </li>
 
                         <!-- <li>
@@ -189,7 +189,7 @@
                             <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Root/CheckAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
                         </li>
                         <li>
                             <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>

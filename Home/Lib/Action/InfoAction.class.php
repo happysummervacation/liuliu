@@ -230,8 +230,28 @@
 						$this->error('用户删除失败',U('Info/showManagedUser',
 							array('personType'=>$personType)));
 					}
+				}elseif($type == 'checkUpdate'){
+					import("Home.Action.User.UserBasicOperate");
+					$userOp = new UserBasicOperate();
+					$result = $userOp->getUserInfo($_POST['type'],$_POST['ID']);
+					echo json_encode($result[0]);
+					return;
 				}elseif($type == "update"){        //更新用户信息
+					import("Home.Action.User.UserBasicService");
+					$userOp = new UserBasicService();
 
+					if($_GET['personType'] == 'teacher'){
+						$result = $userOp->updateTeacherInfo(null,$_POST['account'],$_POST);
+					}elseif($_GET['personType'] == 'student'){
+						$result = $userOp->updateStudentInfo(null,$_POST['account'],$_POST);
+					}elseif($_GET['personType'] == 'admin'){
+						$result = $userOp->updateAdminInfo(null,$_POST['account'],$_POST);
+					}
+					if($result['status']){
+						$this->success($result['message']);
+					}else{
+						$this->error($result['message']);
+					}
 				}elseif($type == "resetPassword"){   //重置用户的密码     ------------->还没有完成
 					$data = array();
 					$data['password'] = md5($this->resetNewPassword());

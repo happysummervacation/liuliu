@@ -127,7 +127,7 @@
             if(!is_null($userID)){
                 $result = $inquiry->where("ID={$userID}")->save($Data);
             }else{
-                $result = $inquiry->where("account={$Account}")->save($Data);
+                $result = $inquiry->where("account='{$Account}'")->save($Data);
             }
 
             if($result || $result == 0){
