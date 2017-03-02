@@ -1,5 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
+1.这里面学生消耗的课时数需要进行统计得出
 <head>
 
     <meta charset="utf-8">
@@ -337,7 +338,8 @@
                                                   <?php } ?>
                                                 </td>
                                                 <td>
-                                                  <a href="<?php echo U('Root/ChangeStudentPackageStatus',array('orderpackage_id'=>$value['orderpackage_id']));?>" class="cancelOrderPackageID">套餐无效</a>
+                                                  <a href="<?php echo U('OrderPackage/OrderPackageManage', array('orderpackageID'=>$value['orderpackageID'],'type'=>'loseff'));?>" class="cancelOrderPackageID">套餐无效</a>
+                                                  <a href="<?php echo U('OrderPackage/OrderPackageManage', array('orderpackageID'=>$value['orderpackageID'],'type'=>'effect'));?>" class="effectOrderPackageID">套餐有效</a>
                                                   <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage" >停课</a>
                                                   <?php if($value['classType'] == "1" || $value['classType'] == 1){ ?>
 
@@ -375,7 +377,7 @@
                 套餐有效期
                 </div>
                 <div class="modal-body"  style="overflow: auto;">
-                    <form class="form" method="post" action="<?php echo U('Root/changepackagrdelaytime');?>">
+                    <form class="form" method="post" action="<?php echo U('OrderPackage/OrderPackageManage',array('type'=>'delay'));?>">
                         <div class="form-group col-lg-4">
                             <label>记录编号:</label>
                             <input type="text" name="orderpackage" class="form-control orderpackage_id" readonly="true">
@@ -406,7 +408,7 @@
                 赠送课时
                 </div>
                 <div class="modal-body"  style="overflow: auto;">
-                    <form class="form" method="post" action="<?php echo U('Root/SendClasstime');?>">
+                    <form class="form" method="post" action="<?php echo U('SendClass/sendClassNum',array('user_id'=>$studentID));?>">
                         <div class="form-group col-lg-3">
                             <label>记录编号</label>
                             <input type="text" name="orderpackage_id" class="form-control orderpackage_id" readonly="true">
@@ -776,6 +778,15 @@
               return true;
             }else{
               return false;
+            }
+        })
+    </script>
+    <script>
+        $(".effectOrderPackageID").click(function(){
+            if(confirm('是否真的设置学生的套餐有效,一旦设置有效,学生将可再次使用套餐?')){
+                return true;
+            }else{
+                return false;
             }
         })
     </script>

@@ -24,6 +24,10 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*通过ajax的方式获取学生的订购的套餐的信息
+		*/
 		public function ajaxGetStuOrderPackageInfo(){
 			$judgeResult = judgeAjaxRequest();
 			if(!$judgeResult){
@@ -51,6 +55,67 @@
 
 			}else{
 				echo "你没有权限进行访问";
+				return;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*对学生订购的套餐进行管理
+		*/
+		public function OrderPackageManage(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			$type = $_GET['type'];
+
+			import("Home.Action.OrderPackage.OrderPackageBasicService");
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$orderPackageOp = new OrderPackageBasicService();
+			$orderPackagopOp = new OrderPackageBasicOperate();
+
+			if(2 == $identity || "2" == $identity){
+				//这里根据不同的操作类型进行不同的操作
+				// if("delay" == $type){
+				// 	$orderPacResult = $orderPackageOp->dealyOrderPackage($_POST['orderpackage'],$_POST['stoptime']);
+				// }
+			}elseif(4 == $identity || "4" == $identity){
+				//这里根据不同的操作类型进行不同的操作
+				if("delay" == $type){   //这里是套餐的延期
+					$orderPacResult = $orderPackageOp->dealyOrderPackage($_POST['orderpackage'],$_POST['stoptime']);
+					if($orderPacResult['status']){
+						$this->success($orderPacResult['message']);
+					}else{
+						$this->error($orderPacResult['message']);
+					}
+					return;
+				}elseif("loseff" == $type){  //这里表示的是套餐的失效
+					$orderPackageID = (int)$_GET['orderpackageID'];
+					$data['status'] = 0;
+					$result = $orderPackagopOp->updateOrderPackageInfo($orderPackageID,$data);
+
+					if($result){
+						$this->success("套餐失效成功");
+					}else{
+						$this->error("套餐失效失败,请重试");
+					}
+					return;
+				}elseif("effect" == $type){    //这里表示套餐生效
+					$orderPackageID = (int)$_GET['orderpackageID'];
+					$data['status'] = 1;
+					$result = $orderPackagopOp->updateOrderPackageInfo($orderPackageID,$data);
+					if($result){
+						$this->success("套餐有效成功");
+					}else{
+						$this->error("套餐有效失败,请重试");
+					}
+					return;
+				}else{
+					$this->error("没有该类型的操作");
+					return;
+				}
+			}else{
+				$this->error("你没有权限进行操作");
 				return;
 			}
 		}

@@ -101,5 +101,55 @@
 			$message['message'] = "订购的课程成功";
 			return $message;
 		}
+
+		/*
+		*俞鹏泽
+		*该服务为学生订课前的学生条件的过滤
+		*/
+		public function studentOrderClassFilterService($studentID = null){
+			$message = array();
+			if(is_null($studentID)){
+				$message['status'] = false;
+				$message['message'] = "查询出错";
+				return $message;
+			}
+
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$orderPackageOp = new OrderPackageBasicOperate();
+			/*要判断条件:
+			1.学生是否有一对一的套餐
+			2.学生是否停过课
+			3.学生的一对一套餐是否已经指定了教材
+			*/
+			$studentID = $_SESSION['ID'];
+			//1.判断是否有一对一的套餐
+			$orderpackagesql = "select count(*) as oneOrderPackage from tp_orderpackage where
+			 isdelete=0 and status=1 and classType=0 and studentID={$studentID}";
+			$orderpackageResult = $orderPackageOp->OrderPackageQuery($orderpackagesql);
+			if((int)$orderpackageResult[0]['oneOrderPackage'] <= 0){
+				$message['status'] = false;
+				$message['message'] = "你没有订购一对一套餐,不能进行订课";
+				return $message;
+			}
+
+			//2.判断学生是否停过课
+
+
+			//3.判断学生一对一套餐是否已经选择了教材
+			$materialsql = "select count(*) as materialResult from tp_orderpackage where
+			 isdelete=0 and classType=0 and status=1 and material!=''
+			 and studentID={$studentID}";
+			$materialResult = $orderPackageOp->OrderPackageQuery($materialsql);
+			if((int)$materialResult[0]['materialResult'] > 0){
+				$message['status'] = false;
+				$message['message'] = "你订购的一对一套餐还没有指定教材,请联系管理员指定教材";
+				return $message;
+			}
+
+			//跳出前面的操作,表明学生可以进行选课操作
+			$message['status'] = true;
+			$message['message'] = "可以进行选课操作";
+			return $message;
+		}
 	}
  ?>

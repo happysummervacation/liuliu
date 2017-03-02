@@ -255,5 +255,36 @@
 				return null;
 			}
 		}
+		/*
+		*俞鹏泽
+		*进行数据查询,使用sql语句
+		*/
+		//参数一:要进行操作的sql语句
+		public function OrderPackageQuery($sql = null){
+			if(is_null($sql)){
+				return null;
+			}
+
+			$inquiry = new Model();
+			$result = $inquiry->query($sql);
+			return $result;
+		}
+		/*
+		*俞鹏泽
+		*使用sql语句进行数据库的写操作
+		*/
+		public function OrderPackageExecute($sql = null){
+			$message = array();
+			if(is_null($sql)){
+				$message['status'] = false;
+				$message['message'] = "要执行的操作为空";
+				return $message;
+			}
+
+			$inquiry = new Model();
+			$result = $inquiry->execute($sql);
+
+			return $result;
+		}
 	}
  ?>

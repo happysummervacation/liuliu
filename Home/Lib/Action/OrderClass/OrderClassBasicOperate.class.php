@@ -30,6 +30,47 @@
 
 		/*
 		*俞鹏泽
+		*判断指定学生的一对一套餐的各种统计
+		*/
+		//参数三:统计的条件是什么
+		//参数四:查询的条件是什么
+		public function countStudentOneOrderClassWithCon($studentID = null
+		,$orderPackageID = null,$countCondition = null,$selectCondition = null){
+			if(is_null($studentID) || is_null($orderPackageID)){
+				return -1;
+			}
+
+			$inquiry = new Model('oneorderclass');
+			if(is_null($countCondition)){
+				if(is_null($selectCondition)){
+					$result = $inquiry->join("inner join tp_orderpackage on
+					 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
+					  and tp_orderpackage.orderpackageID={$orderPackageID}")->count();
+				}else{
+					$result = $inquiry->join("inner join tp_orderpackage on
+					 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
+					  and tp_orderpackage.orderpackageID={$orderPackageID}")
+					  ->where("{$selectCondition}")->count();
+				}
+			}else{
+				if(is_null($selectCondition)){
+					$result = $inquiry->join("inner join tp_orderpackage on
+					 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
+					  and tp_orderpackage.orderpackageID={$orderPackageID}")->count("{$countCondition}");
+				}else{
+					$result = $inquiry->join("inner join tp_orderpackage on
+					 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
+					  and tp_orderpackage.orderpackageID={$orderPackageID}")
+					  ->where("{$selectCondition}")
+					  ->count("{$countCondition}");
+				}
+			}
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
 		*将订课数据写入到数据库中
 		*/
 		public function addOneOrderClassData($Data = null){

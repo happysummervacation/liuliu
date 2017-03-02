@@ -68,7 +68,9 @@
 			$identity = $_SESSION['identity'];
 
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			import("Home.Action.OrderPackage.OrderPackageFeatureService");
 			$orderpacOp = new OrderPackageBasicOperate();
+			$orderPacFeaSerOp = new OrderPackageFeatureService();
 
 			if(2 == $identity || "2" == $identity){
 				/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
@@ -76,8 +78,13 @@
 				/*
 				*获取该学生订购的套餐的数据
 				*/
-				$result = $orderpacOp->getStuActiveOrderPackageInfo($_GET['user_id']);
+				$studentID = $_GET['user_id'];
+				$sql = "studentID={$_GET['user_id']} and isdelete=0";
+				$result = $orderpacOp->getOrderPackageInfoWithCondition($sql); //获取学生的套餐数据
+				$result = $orderPacFeaSerOp->dealOrderPackageOrderClassData($studentID,$result);
+
 				$this->assign("orderPackageList",$result);
+				$this->assign("studentID",$studentID);
 				$this->display("Root:StuPackageInfo");
 			}else{
 				$this->error("你没有权限查看数据");

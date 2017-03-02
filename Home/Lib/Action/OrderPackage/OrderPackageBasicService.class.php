@@ -230,9 +230,56 @@
 				$tem['haveClass'] = $temresult;
 				array_push($orderClassResult,$tem);
 			}
+
 			$result = OrderPackageFeatureService::dealOrderPackageAndOrderClass($orderPackageResult,$orderClassResult);
 
 			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*对指定的套餐进行延期操作
+		*/
+		public function dealyOrderPackage($orderPackageID = null,$dateData = null){
+			$message = array();
+			if(is_null($orderPackageID) || is_null($dateData)){
+				$message['status'] = false;
+				$message['message'] = "要进行的处理的数据为空";
+				return $message;
+			}
+
+			//先获取原来订购的该套餐的信息
+			import("Home.Action.GlobalValue.GlobalValue");
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$orderPackageOp = new OrderPackageBasicOperate();
+
+			$orderPackageResult = $orderPackageOp->getOneOrderPackageInfo($orderPackageID,"endTime");
+
+			if((int)GlobalValue::initOrderPackageTime < (int)strtotime($dateData)){
+				$message['status'] = false;
+				$message['message'] = "该套餐还没有进行合同的签订,不能进行套餐延期";
+				return $message;
+			}
+
+			$data['delayTime'] = "delayTime+".((float)strtotime($dateData) -   //表示延期的天数
+			(int)$orderPackageResult[0]['endTime'])/(24*3600);
+			$data['endTime'] = (int)strtotime($dateData);
+
+			$sql = "update tp_orderpackage set delayTime=delayTime+".((int)strtotime($dateData) -   //表示延期的天数
+			(int)$orderPackageResult[0]['endTime']).", endTime=".(int)strtotime($dateData)." where
+			 orderpackageID={$orderPackageID}";
+
+			 $inquiry = new Model("orderpackage");
+			 $updateResult = $inquiry->execute($sql);
+			 if($updateResult || $updateResult==0){
+				 $message['status'] = true;
+ 				$message['message'] = "延期成功";
+ 				return $message;
+			 }else{
+				 $message['status'] = false;
+ 				$message['message'] = "延期失败";
+ 				return $message;
+			 }
 		}
 	}
  ?>

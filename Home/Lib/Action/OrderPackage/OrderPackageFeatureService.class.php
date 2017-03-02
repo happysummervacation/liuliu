@@ -4,7 +4,8 @@
 		*俞鹏泽
 		*处理学生的预定的还没有上过的课程以及对应的订购的套餐的数据
 		*/
-		public static function dealOrderPackageAndOrderClass($orderPacResult = null,$orderClaResult = null){
+		public static function dealOrderPackageAndOrderClass($orderPacResult = null,
+		$orderClaResult = null){
 			if(is_null($orderPacResult)){
 				return null;
 			}
@@ -32,6 +33,7 @@
 						$temString = $temString."小班课";
 					}
 					$tem['packageName'] = $temString.$value['packageName'];
+					$tem['packageType'] = $value['packageType'];
 					array_push($resultArray,$tem);
 				}
 				return $resultArray;
@@ -56,10 +58,41 @@
 						$temString = $temString."小班课";
 					}
 					$tem['packageName'] = $temString.$orderPacResult[$i]['packageName'];
+					$tem['packageType'] = $orderPacResult[$i]['packageType'];   //0表示课时类  1表示卡类
 					array_push($resultArray,$tem);
 				}
 				return $resultArray;
 			}
+		}
+
+		/*
+		*俞鹏泽
+		*根据学生的订购的套餐的数据,获取学生的订购的已经上过的课程的数量数据并进行处理
+		*/
+		//这里暂时只有一对一的课程数量统计
+		public function dealOrderPackageOrderClassData($studentID = null,$OrderPackages = null){
+			if(is_null($OrderPackages) || is_null($studentID)){
+				return null;
+			}
+
+			import("Home.Action.OrderClass.OrderClassBasicOperate");
+			$orderClassFeaOp = new OrderClassBasicOperate();
+
+			$onesql = "classType=0";
+			$oneCountSql = "tp_oneorderclass.classStatus=1 or null";
+
+			for ($i = 0; $i < count($OrderPackages); $i++) {
+				if((int)$OrderPackages[$i]['classType'] == 0){ //一对一的套餐
+					$oneTemResult = 0;
+					$oneTemResult = $orderClassFeaOp->countStudentOneOrderClassWithCon($studentID,
+					$OrderPackages[$i]['orderpackageID'],$oneCountSql,$onsql);
+					$OrderPackages[$i]['haveClass'] = $oneTemResult;
+				}else{       //表示是小班的套餐     //小班的数量统计还没有
+
+				}
+			}
+
+			return $OrderPackages;
 		}
 	}
  ?>
