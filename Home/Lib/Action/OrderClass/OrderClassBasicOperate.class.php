@@ -65,7 +65,6 @@
 					  ->count("{$countCondition}");
 				}
 			}
-
 			return $result;
 		}
 

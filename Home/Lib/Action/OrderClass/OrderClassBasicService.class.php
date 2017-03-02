@@ -151,5 +151,36 @@
 			$message['message'] = "可以进行选课操作";
 			return $message;
 		}
+
+		/*
+		*蒋周杰
+		*获取学生的一对一
+		*/
+		public function getClass($studentID = null,$type = null){
+			$result = array();
+			$inquiry = new Model();
+			$time = time();
+			if(!is_null($studentID)){
+				if(0 == $type){
+					//一对一
+					$result = $inquiry
+					->table('tp_class,tp_oneorderclass,tp_orderpackage,tp_teacher')
+					->where("tp_oneorderclass.studentID = {$studentID} and
+					tp_oneorderclass.classID = tp_class.classID and
+					tp_oneorderclass.orderpackageID = tp_orderpackage.orderpackageID
+					 and tp_class.teacherID = tp_teacher.ID and
+					 tp_oneorderclass.isdelete = 0  and tp_oneorderclass.classStatus = 0
+					 and tp_class.classEndTime > {$time}")->order("classEndTime asc")->select();
+					//  dump($result);
+					//  dump($this->systemSet);
+					//  exit;
+
+				}elseif(1 == $type){
+					//小班课
+					//$result = $inquiry->table()->where()->select();
+				}
+			}
+			return $result;
+		}
 	}
  ?>

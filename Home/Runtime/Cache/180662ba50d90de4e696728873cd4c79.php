@@ -1,7 +1,6 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-1.这里的模板渲染还有问题,主要是少儿,雅思等课程的渲染
-2.创建时间的渲染有问题
+这里的模板渲染还有问题,主要是少儿,雅思等课程的渲染
 <head>
 
     <meta charset="utf-8">
@@ -41,7 +40,236 @@
 
 <body>
 
-    <include file="Public:PublicBodyRoot" />
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+           <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <?php echo count($unreadmessage) ?>
+                      <i class="fa fa-envelope fa-fw"></i>
+                      <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
+                                <a href="<?php echo U('Root/InformationCenter');?>">
+                                <div>
+                                    <strong><?php echo ($value['account']); ?></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><?php echo (date("Y-m-d H:i:s",$value['create_time'])); ?></em>
+                                    </span>
+                                </div>
+                                <div><?php echo ($value['content']); ?></div>
+                                </a>
+                            </li><?php endif; endforeach; endif; ?>
+                        <li>
+                        <!-- 9.06修改01 -->
+                            <a class="text-center" href="<?php echo U('Root/InformationCenter');?>">
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <!-- //9.06修改01 -->
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- 用户 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <!-- <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchTeacher');?>">搜索教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckTeacher');?>">查看教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateTeacher');?>">创建教师</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchTeacher');?>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchStudent');?>">搜索学生</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckStudent');?>">查看学生</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchAdmin');?>">搜索顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckAdmin');?>">查看顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateAdmin');?>">创建顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/DownloadLogfile');?>">
+                                    操作历史
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/DownloadLogfile');?>"> <i class="fa fa-umbrella fa-fw"></i>
+                            操作历史
+                            </a>
+                        </li>
+
+                        <!-- <li>
+                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                              <li>
+                                  <a href="<?php echo U('Root/Information');?>">查看管理员</a>
+                              </li>
+                              <li>
+                                  <a href="<?php echo U('Root/CreateRoot');?>">创建管理员</a>
+                              </li>
+                          </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Info/Information');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
+                                </li>
+                                <li>
+                                     <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/salaryMgr');?>">
+                                        工资管理
+                                    </a>
+                                    <!-- <a href="">
+                                        工资管理
+                                    </a> -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
+                                </li>
+                                 <li>
+                                     <a href="<?php echo U('Root/VideoManage');?>"> 视频管理</a>
+                                </li>
+                            </ul>
+                                    <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                             <a href="<?php echo U('Root/Message');?>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
 
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -80,46 +308,40 @@
                                     </thead>
                                     <tbody >
                                         <!--  chenzeqi  -->
-                                        <foreach name="packageList" item="packageList">
-                                        <tr>
-                                            <td><{$packageList['package_id']}></td>
-                                            <td><{$packageList['package_name']}></td>
-                                            <td><{$packageList['package_money']}></td>
-                                            <td value="<{$packageList['category']}>">
-                                            <!-- <if condition="$packageList['category'] eq 0">少儿
-                                            <elseif condition="$packageList['category'] eq 1"/>成人
-                                            <elseif condition="$packageList['category'] eq 2"/>雅思
-                                            </if> -->
-                                            <{$packageList['packageName']}>
+                                        <?php if(is_array($packageList)): foreach($packageList as $key=>$packageList): ?><tr>
+                                            <td><?php echo ($packageList['package_id']); ?></td>
+                                            <td><?php echo ($packageList['package_name']); ?></td>
+                                            <td><?php echo ($packageList['package_money']); ?></td>
+                                            <td value="<?php echo ($packageList['category']); ?>">
+                                            <!-- <?php if($packageList['category'] == 0): ?>少儿
+                                            <?php elseif($packageList['category'] == 1): ?>成人
+                                            <?php elseif($packageList['category'] == 2): ?>雅思<?php endif; ?> -->
+                                            <?php echo ($packageList['packageName']); ?>
                                             </td>
-                                            <td value="<{$packageList['teacher_type']}>">
-                                            <if condition="$packageList['teacher_type'] eq 0">普教
-                                            <else />名师</if></td>
-                                            <td value="<{$packageList['teacher_nation']}>">
-                                            <if condition="$packageList['teacher_nation'] eq 0">中教
-                                            <else />外教
-                                            </if></td>
-                                            <td value="<{$packageList['package_type']}>">
-                                            <if condition="$packageList['package_type'] eq 0">课时类套餐
-                                                <else />卡类套餐
-                                            </if></td>
-                                            <td value="<{$packageList['class_type']}>">
-                                            <if condition="$packageList['class_type'] eq 0">一对一
-                                            <else />小班
-                                            </if></td>
-                                            <td><{$packageList['student_number']}></td>
-                                            <td><{$packageList['class_number']}></td>
-                                            <td><{:date('Y-m-d',$packageList['create_time'])}></td>
-                                            <td><{$packageList['time']}></td>
+                                            <td value="<?php echo ($packageList['teacher_type']); ?>">
+                                            <?php if($packageList['teacher_type'] == 0): ?>普教
+                                            <?php else: ?>名师<?php endif; ?></td>
+                                            <td value="<?php echo ($packageList['teacher_nation']); ?>">
+                                            <?php if($packageList['teacher_nation'] == 0): ?>中教
+                                            <?php else: ?>外教<?php endif; ?></td>
+                                            <td value="<?php echo ($packageList['package_type']); ?>">
+                                            <?php if($packageList['package_type'] == 0): ?>课时类套餐
+                                                <?php else: ?>卡类套餐<?php endif; ?></td>
+                                            <td value="<?php echo ($packageList['class_type']); ?>">
+                                            <?php if($packageList['class_type'] == 0): ?>一对一
+                                            <?php else: ?>小班<?php endif; ?></td>
+                                            <td><?php echo ($packageList['student_number']); ?></td>
+                                            <td><?php echo ($packageList['class_number']); ?></td>
+                                            <td><?php echo date('Y-m-d',$packageList['create_time']);?></td>
+                                            <td><?php echo ($packageList['time']); ?></td>
                                             <td>
                                                 <button class="btn btn-default modifypackage" data-toggle="modal" data-target="#packagemodify">修改</button>
                                                 <button class="btn btn-danger" onclick="deletePackage()">删除</button>
-                                                <span style="display: none" name='description'><{$packageList['package_content']}></span>
+                                                <span style="display: none" name='description'><?php echo ($packageList['package_content']); ?></span>
                                             </td>
 
                                             <!-- 示例 -->
-                                        </tr>
-                                        </foreach>
+                                        </tr><?php endforeach; endif; ?>
                                         <!--  chenzeqi  -->
                                     </tbody>
                                 </table>
@@ -143,7 +365,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="changsubmit()" action="<{:U('Package/packageManage')}>/type/update" method="post">
+                            <form class="form-horizontal" onsubmit="changsubmit()" action="<?php echo U('Package/packageManage');?>/type/update" method="post">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -163,9 +385,7 @@
                                         <!-- <option value="1">成人类</option>
                                         <option value="0">少儿</option>
                                         <option value="2">雅思类</option> -->
-                                        <foreach name="packageConfig" item="vo">
-                                            <option value="<{$vo['packageconID']}>"><{$vo['packageName']}></option>
-                                        </foreach>
+                                        <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value="<?php echo ($vo['packageconID']); ?>"><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
                                     </select>
                                   </div>
                                 </div>
@@ -273,9 +493,7 @@
                                         <!-- <option value="1">成人类</option>
                                         <option value="0">少儿</option>
                                         <option value="2">雅思类</option> -->
-                                        <foreach name="packageConfig" item="vo">
-                                            <option value="<{$vo['packageconID']}>"><{$vo['packageName']}></option>
-                                        </foreach>
+                                        <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value="<?php echo ($vo['packageconID']); ?>"><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
                                     </select>
                                   </div>
                                 </div>
@@ -428,7 +646,7 @@
         function deletePackage(){
             var packageId=$('.modifypackage').parents('tr').children().eq(0).html();
             if(confirm('确认删除套餐?')){
-                window.location.href="<{:U('Package/packageManage')}>/type/delete/packageID/"+packageId;
+                window.location.href="<?php echo U('Package/packageManage');?>/type/delete/packageID/"+packageId;
             }
         }
 

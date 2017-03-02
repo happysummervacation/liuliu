@@ -182,7 +182,7 @@
                             修改学生资料
                         </div>
                         <div class="panel-body">
-                        <form class="form-horizontal" action="<{:U('Info/ModifyRegisterInfo')}>/type/student" method="post" role="form">
+                        <form class="form-horizontal" action="<{:U('Info/UserManage',array('personType'=>'student','type'=>'update'))}>" method="post" role="form">
                             <div class="form-group">
                                 <label for="firstname" class="col-sm-2 control-label">账号</label>
                                 <div class="col-sm-10">
@@ -222,7 +222,7 @@
                             <div class="form-group">
                                 <label for="lastname" class="col-sm-2 control-label">微信</label>
                                 <div class="col-sm-10">
-                                    <input id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
+                                    <input id="weixin" type="text" name="weixin" class="form-control" placeholder="微信">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -361,7 +361,7 @@
           var studentID = $(this).parent().parent().children(":first").html();
           $.ajax({
             type: "POST",
-            url: "<{:U('Info/AjaxGetRegisterInfo')}>",
+            url: "<{:U('Info/UserManage',array('personType'=>'student','type'=>'checkUpdate'))}>",
             data: {
               type: "student",
               ID: studentID,
@@ -375,7 +375,7 @@
               $("#email").val(data.email);
               $("#phone").val(data.phone);
               $("#qq").val(data.QQ);
-              $("#wechat").val(data.weixin);
+              $("#weixin").val(data.weixin);
               $("#age").val(data.age);
               $("#country").val(data.country);
               $("#sex").val(data.sex);

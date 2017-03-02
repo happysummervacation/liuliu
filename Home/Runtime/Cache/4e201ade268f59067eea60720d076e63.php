@@ -306,7 +306,7 @@
                                 修改教师资料
                             </div>
                             <div class="panel-body">
-                                <form class="form-horizontal" action="<?php echo U('Info/ModifyRegisterInfo');?>/type/teacher" method="post" role="form">
+                                <form class="form-horizontal" action="<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'update','user_id'=>$teacherInfoResult['0']['ID']));?>" method="post" role="form">
                                     <div class="form-group">
                                         <label for="firstname" class="col-sm-2 control-label">账号</label>
                                         <div class="col-sm-10">
@@ -482,7 +482,7 @@
           var teacherID = $(this).parent().parent().children(":first").html();
           $.ajax({
             type: "POST",
-            url: "<?php echo U('Info/AjaxGetRegisterInfo');?>",
+            url: "<?php echo U('Info/UserManage',array('personType'=>'teacher','type'=>'checkUpdate'));?>",
             data: {
               type: "teacher",
               ID: teacherID,

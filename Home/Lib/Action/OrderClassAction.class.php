@@ -74,13 +74,20 @@
 			$this->CheckSession();
 
 			$identity = $_SESSION['identity'];
+			import("Home.Action.OrderClass.OrderClassBasicService");
+			$ocBS = new OrderClassBasicService();
+
 			if(0 == $identity || "0" == $identity){
 				$type = $_GET['type'];
 				if("one" == $type){
 					//获取一对一的课程
+					$result = $ocBS->getClass($_SESSION['ID'],0);
+					$this->assign("classdata",$result);
 					$this->display("Student:MySchedule");
 				}elseif("group" == $type){
 					//获取小班课的课程
+					$result = $ocBS->getClass($_SESSION['ID'],1);
+					$this->assign("classdata",$result);
 					$this->display("Student:GroupClassSchedule");
 				}else{
 					$this->error("没有指定操作");

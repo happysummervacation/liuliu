@@ -285,6 +285,30 @@
 					$this->error("没有对应的操作");
 				}
 				return;
+			}elseif($identity == 2 || $identity == "2"){
+				if($type == 'checkUpdate'){
+					import("Home.Action.User.UserBasicOperate");
+					$userOp = new UserBasicOperate();
+					$result = $userOp->getUserInfo($_POST['type'],$_POST['ID']);
+					echo json_encode($result[0]);
+					return;
+				}elseif($type == "update"){        //更新用户信息
+					import("Home.Action.User.UserBasicService");
+					$userOp = new UserBasicService();
+
+					if($_GET['personType'] == 'teacher'){
+						$result = $userOp->updateTeacherInfo(null,$_POST['account'],$_POST);
+					}elseif($_GET['personType'] == 'student'){
+						$result = $userOp->updateStudentInfo(null,$_POST['account'],$_POST);
+					}elseif($_GET['personType'] == 'admin'){
+						$result = $userOp->updateAdminInfo(null,$_POST['account'],$_POST);
+					}
+					if($result['status']){
+						$this->success($result['message']);
+					}else{
+						$this->error($result['message']);
+					}
+				}
 			}else{
 				$this->error("你没有权限进行操作");
 				return;
