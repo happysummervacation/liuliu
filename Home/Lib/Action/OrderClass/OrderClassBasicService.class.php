@@ -137,8 +137,9 @@
 
 			//3.判断学生一对一套餐是否已经选择了教材
 			$materialsql = "select count(*) as materialResult from tp_orderpackage where
-			 isdelete=0 and classType=0 and status=1 and material!=''
+			 isdelete=0 and classType=0 and status=1 and material=''
 			 and studentID={$studentID}";
+
 			$materialResult = $orderPackageOp->OrderPackageQuery($materialsql);
 			if((int)$materialResult[0]['materialResult'] > 0){
 				$message['status'] = false;
@@ -159,7 +160,7 @@
 		public function getClass($studentID = null,$type = null){
 			$result = array();
 			$inquiry = new Model();
-			$time = time();
+			$time = getTime();
 			if(!is_null($studentID)){
 				if(0 == $type){
 					//一对一
@@ -181,6 +182,46 @@
 				}
 			}
 			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*获取学生一对一课程与小班课课程
+		*/
+		public function manageGetStudentOrderClass($studentID = null){
+			if(is_null($studentID)){
+				return null;
+			}
+
+			$inquiry = new Model("oneorderclass");
+			//获一对一的订购课程
+			$result = $inquiry->join("inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+			tp_oneorderclass.orderpackageID
+			inner join tp_class on tp_class.classID=tp_oneorderclass.classID
+			inner join tp_packageconfig on tp_orderpackage.category=tp_packageconfig.packageconID
+			")
+			->field("tp_oneorderclass.classStatus,tp_orderpackage.material,classStartTime,classEndTime,
+			notelink,tp_packageconfig.packageName,tp_orderpackage.classType,
+			teacherNation,teacherType,tp_oneorderclass.oneorderclassID,tp_class.classID,
+			tp_oneorderclass.studentID,tp_oneorderclass.orderpackageID")
+			->select();
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*学生订购的课程进行退课
+		*/
+		public function studentOrderClassCancel($studentID = null){
+			$message = array();
+			if(is_null($studentID)){
+				$message['status'] = false;
+				$message['message'] = "没有指定要修改的学生";
+				return $message;
+			}
+
+
 		}
 	}
  ?>

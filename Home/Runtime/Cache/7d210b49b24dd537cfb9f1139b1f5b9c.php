@@ -311,7 +311,7 @@
                                             <td><?php echo ($value['chinesename']); ?></td>
                                             <td><?php echo ($value['englishname']); ?></td>
                                             <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
-                                            <td><a href="<?php echo U('Root/StuPersonalClass',array('user_id'=>$value['ID']));?>">课表查看</a></td>
+                                            <td><a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable', array('user_id'=>$value['ID']));?>">课表查看</a></td>
                                             <td><a href="<?php echo U('Package/studentPackageShow',array('user_id'=>$value['ID']));?>">套餐查看</a></td>
                                             <td><?php echo ($value['student_sum_money']); ?></td>
                                             <td><?php if($value['status'] == 1) {echo "可用";} else {echo "不可用";}?></td>

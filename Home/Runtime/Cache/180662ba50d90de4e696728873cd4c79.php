@@ -1,6 +1,7 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-这里的模板渲染还有问题,主要是少儿,雅思等课程的渲染
+1.这里的模板渲染还有问题,主要是少儿,雅思等课程的渲染
+2.创建时间的渲染有问题
 <head>
 
     <meta charset="utf-8">

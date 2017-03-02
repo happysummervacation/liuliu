@@ -93,5 +93,30 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*修改订购的课程状态
+		*/
+		public function updateOneOrderClassInfo($oneOrderClassID = null,$Data = null){
+			$message = array();
+			if(is_null($oneOrderClassID) || is_null($Data)){
+				$message['status'] = false;
+				$message['message'] = "要修改必要数据为空";
+				return $message;
+			}
+
+			$inquiry = new Model("oneorderclass");
+			$result = $inquiry->where("oneorderclassID={$oneOrderClassID}")->save($Data);
+			if($result || $result == 0){
+				$message['status'] = true;
+				$message['message'] = "修改订购一对一课程数据成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "修改订购一对一课程数据失败";
+				return $message;
+			}
+		}
+
 	}
  ?>

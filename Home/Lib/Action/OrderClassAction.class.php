@@ -68,7 +68,7 @@
 
 		/*
 		*俞鹏泽
-		*获取学生的订购的还没有上的课程
+		*获取学生的订购的课程
 		*/
 		public function getStudentOrderClassTimeTable(){
 			$this->CheckSession();
@@ -77,6 +77,10 @@
 			import("Home.Action.OrderClass.OrderClassBasicService");
 			$ocBS = new OrderClassBasicService();
 
+			/*
+			*如果是学生,查看自己的一对一课程或者小班课的课程
+			*如果是课程顾问或者管理员,查询学生的所有订购数据
+			*/
 			if(0 == $identity || "0" == $identity){
 				$type = $_GET['type'];
 				if("one" == $type){
@@ -93,9 +97,18 @@
 					$this->error("没有指定操作");
 				}
 			}elseif(2 == $identity || "2" == $identity){
+				//获取学生订购的一对一课程数据
 
+				//获取学生订购的小班课程数据
 			}elseif(4 == $identity || "4" == $identity){
+				//获取学生订购的一对一课程数据
+				$studentID = $_GET['user_id'];
 
+				$result = $ocBS->manageGetStudentOrderClass($studentID);
+
+				$this->assign("classdata",$result);
+				//获取学生订购的小班课程数据
+				$this->display("Root:StuPersonalClass");
 			}else{
 				$this->error("你没有权限查看学生的课表");
 				return;
@@ -132,6 +145,45 @@
 			}else{
 				$this->error("你没有权限进行操作");
 				return;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		对学生订课数据进行管理
+		*/
+		public function studentOrderClassManage(){
+			$this->CheckSession();
+
+			import("Home.Action.OrderClass.OrderClassBasicOperate");
+			$identity = $_SESSION['identity'];
+
+			$orderClassOp = new OrderClassBasicOperate();
+			$type = $_GET['type'];
+
+			if("2" == $identity || 2 == $identity){
+
+			}elseif("4" == $identity || 4 == $identity){
+				if("cgestatus" == $type){  //修改课程状态
+					$orderClassID = $_POST['orderclassID'];
+					$classtype = $_GET['classtype'];
+					$data['classStatus'] = (int)$_POST['classStatus'];
+					if("one" == $classtype){   //修改一对一课程的课程状态
+						$result = $orderClassOp->updateOneOrderClassInfo($orderClassID,$data);
+						if($result['status']){
+							$this->success("修改订购一对一课程成功");
+						}else{
+							$this->error("修改订购一对一课程失败");
+						}
+					}else{
+						//修改小班课程的课程状态  //暂时不完成
+					}
+					return;
+				}elseif("stuorderclasscancel"){   //root帮学生退课
+
+				}
+			}else{
+				$this->error("你没有权限进行管理操作");
 			}
 		}
 	}
