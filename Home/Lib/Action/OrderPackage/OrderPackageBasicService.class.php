@@ -203,7 +203,7 @@
 		1.获取指定学生的订购的一对一的套餐
 		2.进行数据判断是否是卡类套餐,如果不是就要获取学生使用该套餐订购课时数据,最后计算剩余可选课次数
 		*/
-		public function getStudentOneToOneOrderPackageInfo($StudentID = null){
+		public function getStudentOneToOneOrderPackageInfo($StudentID = null,$teacherID = null){
 			if(is_null($StudentID)){
 				return null;
 			}
@@ -222,7 +222,23 @@
 			// dump($orderPackageResult);
 			// exit;
 
-			//根据教师的工资表中的数据信息来获取
+			//根据教师的工资表中的课程数据信息来获取对应的学生的套餐
+			//教师的级别,课程必须是一对一的课
+			//教师的工资数据必须是最新的
+			//这里只获取与教师可以上的课程相同的套餐的数据
+			//下面的查询语句基本可以使用了(基本测试通过,具体测试还没有测试)------>比较重要
+			$sql = "select
+			 tp_orderpackage.orderpackageID,tp_orderpackage.classNumber,
+			 tp_orderpackage.packageType,tp_orderpackage.classType,tp_orderpackage.otherClass,
+			 tp_packageconfig.packageName
+			 from tp_orderpackage
+			 inner join tp_teoneclasssalary on tp_teoneclasssalary.teacherID={$teacherID}
+			 and tp_teoneclasssalary.teacherType=tp_orderpackage.teacherType and classType=0
+			 and tp_teoneclasssalary.scategory=tp_orderpackage.category and
+			 tp_teoneclasssalary.isLastest=1
+			 inner join tp_packageconfig on tp_packageconfig.packageconID=tp_orderpackage.category";
+			 $inquiry = new Model();
+			 $orderPackageResult = $inquiry->query($sql);
 
 			//获取使用上面订购的套餐订购的还没有上的以及已经上的的学生的课程数
 			$orderClassResult = array();

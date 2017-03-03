@@ -42,7 +42,8 @@
 			$identity = $_SESSION['identity'];
 			if(0 == $identity || "0" == $identity){
 				$studentID = $_SESSION['ID'];
-				$result = $orderPackageOp->getStudentOneToOneOrderPackageInfo($studentID);
+				$teacherID = $_POST['teacher_id'];
+				$result = $orderPackageOp->getStudentOneToOneOrderPackageInfo($studentID,$teacherID);
 				if($result){
 					echo json_encode($result);   //将获取到的数据以json的数据进行返回
 				}else{
