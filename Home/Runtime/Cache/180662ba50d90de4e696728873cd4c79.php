@@ -474,7 +474,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="changsubmit()">
+                            <form class="form-horizontal" onsubmit="changsubmit()" action="<?php echo U('Package/packageManage',array('type'=>'add'));?>" method="post">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">

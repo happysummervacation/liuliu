@@ -83,6 +83,10 @@
 				$result = $orderpacOp->getOrderPackageInfoWithCondition($sql); //获取学生的套餐数据
 				$result = $orderPacFeaSerOp->dealOrderPackageOrderClassData($studentID,$result);
 
+				/*  */
+
+				/*   */
+
 				$this->assign("orderPackageList",$result);
 				$this->assign("studentID",$studentID);
 				$this->display("Root:StuPackageInfo");
@@ -132,6 +136,7 @@
 			$type = $_GET['type'];
 
 			$identity = $_SESSION['identity'];
+
 			if($identity == 4 || $identity == "4"){
 				if($type == "add" || $type == "0"){
 					$result = $packageOp->addPackageInfo($_POST);

@@ -89,7 +89,7 @@
 			$data['email'] = $postData['email'];
 			$data['phone'] = $postData['phone'];
 			$data['QQ'] = $postData['qq'];
-			$data['weixin'] = $postData['wechat'];
+			$data['weixin'] = $postData['weixin'];
 			$data['skype'] = $postData['skype'];
 			$data['country'] = $postData['country'];
 			$data['zoom'] = $postData['zoom'];

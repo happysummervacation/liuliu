@@ -47,14 +47,20 @@
 			$result = array();
 			$result = $userOp->getUserInfo('teacher');
 
+			/*获取教师的流程
+			*1.先对学生是否具有选课权限进行过滤(1.是否有一对一套餐,2.是否停过课,3.一对一套餐的教材是否已经指定)
+			*2.根据学生订购的套餐类型来获取可以上课的教师
+			*/
 			if(0 == $identity || "0" == $identity){       //获取教师的必要数据进行展示
 				$studentID = $_SESSION['ID'];
 				$filterResult = $orderclassOp->studentOrderClassFilterService($studentID);
+				$teacherResult = $orderclassOp->getTeacherWithStudentOrderPac($studentID);
 				if(!$filterResult['status']){
 					$this->error($filterResult['message']);
 					return;
 				}
-				$this->assign('teacher_result',$result);
+				// $this->assign('teacher_result',$result);
+				$this->assign("teacher_result",$teacherResult);
 				$this->display("Student:BookCourse");
 			}elseif(2 == $identity || "2" == $identity){
 
@@ -85,7 +91,14 @@
 				$type = $_GET['type'];
 				if("one" == $type){
 					//获取一对一的课程
+					// $result = $ocBS->getClass($_SESSION['ID'],0);
+					// $this->assign("classdata",$result);
+					// $this->display("Student:MySchedule");
+
 					$result = $ocBS->getClass($_SESSION['ID'],0);
+					$time = $this->systemSet;
+					$time['nowtime'] = getTime();
+					$this->assign("time",$time);
 					$this->assign("classdata",$result);
 					$this->display("Student:MySchedule");
 				}elseif("group" == $type){

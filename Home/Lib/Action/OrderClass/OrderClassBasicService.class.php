@@ -154,13 +154,70 @@
 		}
 
 		/*
+		*俞鹏泽
+		*根据学生的订购的套餐类型来获取可以给该学生上课的教师
+		*/
+		public function getTeacherWithStudentOrderPac($studentID = null){
+			if(is_null($studentID)){
+				return null;
+			}
+			$inquiry = new Model();
+			//要查看教师的一对一工资表中的数据是最新的
+			//教师一对一工资表中的课程类型为一对一,课程内容是相同的
+			//教师的ID与教师的一对一工资表是相同的
+			//教师表中的教师是否是中教与订购教材表中的教师是否是中教需要相同
+			$sql = "select distinct ID,englishname,teacher_type,image_path from tp_orderpackage
+			 inner join tp_teoneclasssalary on tp_teoneclasssalary.isLastest=1
+			 and tp_teoneclasssalary.teacherType=tp_orderpackage.teacherType and
+			 tp_orderpackage.category=tp_teoneclasssalary.scategory and tp_orderpackage.studentID={$studentID}
+			 and classType=0
+			 inner join tp_teacher on tp_teacher.teacher_type=tp_orderpackage.teacherNation
+			 and tp_teacher.ID=tp_teoneclasssalary.teacherID
+			 ";
+			 $result = $inquiry->query($sql);
+
+			 return $result;
+		}
+
+		/*
+		*蒋周杰
+		*获取学生的一对一
+		*/
+		// public function getClass($studentID = null,$type = null){
+		// 	$result = array();
+		// 	$inquiry = new Model();
+		// 	$time = getTime();
+		// 	if(!is_null($studentID)){
+		// 		if(0 == $type){
+		// 			//一对一
+		// 			$result = $inquiry
+		// 			->table('tp_class,tp_oneorderclass,tp_orderpackage,tp_teacher')
+		// 			->where("tp_oneorderclass.studentID = {$studentID} and
+		// 			tp_oneorderclass.classID = tp_class.classID and
+		// 			tp_oneorderclass.orderpackageID = tp_orderpackage.orderpackageID
+		// 			 and tp_class.teacherID = tp_teacher.ID and
+		// 			 tp_oneorderclass.isdelete = 0  and tp_oneorderclass.classStatus = 0
+		// 			 and tp_class.classEndTime > {$time}")->order("classEndTime asc")->select();
+		// 			//  dump($result);
+		// 			//  dump($this->systemSet);
+		// 			//  exit;
+		//
+		// 		}elseif(1 == $type){
+		// 			//小班课
+		// 			//$result = $inquiry->table()->where()->select();
+		// 		}
+		// 	}
+		// 	return $result;
+		// }
+
+		/*
 		*蒋周杰
 		*获取学生的一对一
 		*/
 		public function getClass($studentID = null,$type = null){
 			$result = array();
 			$inquiry = new Model();
-			$time = getTime();
+			$time = time();
 			if(!is_null($studentID)){
 				if(0 == $type){
 					//一对一
@@ -172,10 +229,6 @@
 					 and tp_class.teacherID = tp_teacher.ID and
 					 tp_oneorderclass.isdelete = 0  and tp_oneorderclass.classStatus = 0
 					 and tp_class.classEndTime > {$time}")->order("classEndTime asc")->select();
-					//  dump($result);
-					//  dump($this->systemSet);
-					//  exit;
-
 				}elseif(1 == $type){
 					//小班课
 					//$result = $inquiry->table()->where()->select();

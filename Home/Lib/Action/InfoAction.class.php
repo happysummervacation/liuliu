@@ -394,5 +394,27 @@
 			}
 		}
 
+		/*
+		*蒋周杰
+		*ajax获取教师信息
+		*/
+		public function AjaxGetRegisterInfo(){
+			$this->CheckSession();
+			$ajaxResult = judgeAjaxRequest();
+			if(!$ajaxResult){
+				echo "非指定访问方式";
+				return;
+			}
+
+			$identity = $_SESSION['identity'];
+			import('Home.Action.User.UserBasicOperate');
+			$userOp = new UserBasicOperate();
+			$teacherID = $_POST['ID'];
+			if(0 == $identity){
+				$result = $userOp->getUserInfo('teacher',$teacherID);
+				echo json_encode($result[0]);
+			}
+
+		}
 	}
  ?>

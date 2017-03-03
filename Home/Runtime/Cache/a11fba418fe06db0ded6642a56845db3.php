@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -42,7 +42,170 @@
 
 <body>
 
-	<include file="Public:PublicBody" />
+	<div id="wrapper">
+        <!-- Navigation -->
+
+        <!-- 标题 -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+                <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                    <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+                </div>
+                <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                    <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+                </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <?php echo count($unreadmessage) ?>
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
+                                <a href="<?php echo U('Student/InformationCenter');?>">
+                                <div>
+                                    <strong><?php echo ($value['account']); ?></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><?php echo (date("Y-m-d H:i:s",$value['create_time'])); ?></em>
+                                    </span>
+                                </div>
+                                <div><?php echo ($value['content']); ?></div>
+                                </a>
+                            </li><?php endif; endforeach; endif; ?>
+                        <li>
+                            <a class="text-center" href="<?php echo U('Student/InformationCenter');?>">
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户信息</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 账号设置</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <!-- <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <!-- <a href="index.html"><i class="fa fa-home fa-fw"></i> 用户中心</a> -->
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 学员中心</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-calendar fa-fw"></i> 课程管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level"> -->
+                                <li>
+                                    <!-- <a href="BookingCourse.html">预约课程</a> -->
+                                    <a href="<?php echo U('OrderClass/showOrderClassInfo');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="MySchedule.html">我的课表</a> -->
+                                    <a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable');?>/type/one"><i class="fa fa-book fa-fw"></i> 一对一课表</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="MySchedule.html">我的课表</a> -->
+                                    <a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable');?>/type/group"><i class="fa fa-book fa-fw"></i> 小班课课表</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="CourseeValuation.html">课程评价</a> -->
+                                    <a href="<?php echo U('Student/CourseeValuation');?>"><i class="fa fa-book fa-fw"></i> 评价教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Student/TeacherValuation');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
+                                </li>
+                            <!-- </ul> -->
+                            <!-- /.nav-second-level -->
+                        <!-- </li> -->
+                        <!-- <li> -->
+                            <!-- <a href="#"><i class="fa fa-rocket fa-fw"></i> 学员订单<span class="fa arrow"></span></a> -->
+                            <!-- <ul class="nav nav-second-level"> -->
+                                <li >
+                                    <a  href="<?php echo U('UserCenter/getManageInfo');?>"><i class="fa fa-legal fa-fw"></i> 已有套餐</a>
+                                </li>
+
+                                <li >
+                                    <a href="<?php echo U('Package/packageShow');?>"><i class="fa fa-legal fa-fw"></i> 购买套餐</a>
+                                </li>
+                                <li >
+                                    <a href="<?php echo U('Student/DelayPackage');?>"><i class="fa fa-legal fa-fw"></i> 套餐延期</a>
+                                </li>
+                            <!-- </ul> -->
+                            <!-- /.nav-second-level -->
+                        <!-- </li> -->
+                        <li>
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i> 学员信息<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="Information.html">个人信息</a> -->
+                                    <a href="<?php echo U('Info/Information');?>"> 学员信息</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="ResetPassword.html">修改密码</a> -->
+                                    <a href="<?php echo U('Info/resetPassword');?>"> 修改密码</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <!-- <a href="MyBook.html"><i class="fa fa-book fa-fw"></i> 我的教材</a> -->
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
+                        </li>
+                        <li>
+                            <!-- <a href="MyContract.html"><i class="fa fa-legal fa-fw"></i> 我的合同</a> -->
+                            <a href="<?php echo U('Student/MyContract');?>"><i class="fa fa-legal fa-fw"></i> 学员合同</a>
+                        </li>
+                        <li>
+                            <!-- <a href="ContactAdmin.html"><i class="fa fa-fax fa-fw"></i> 联系课程顾问</a> -->
+                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-fax fa-fw"></i> 联系顾问</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
 
         <div id="page-wrapper">
             <div class="row">
@@ -82,23 +245,23 @@
 
                                     	<?php foreach ($classdata as $key => $value) { ?>
                                             <tr >
-                                                <td><{$value['oneorderclassID']}> </td>
-                                                <td><if condition="$value['classType'] eq 0">一对一<else/>小班课</if></td>
-                                                <?php  $value['material']=explode(":",$value['material'])[1];   ?>
-                                                <td><{$value['material']}></td>
-                                                <td><{$value['classStartTime']|date='Y-m-d H:i',###}> </td>
-                                                <!-- <td><a href="#"><{$value['manage_name']}> </a></td> -->
-                                                <!-- <td><{$value['class_start_time']|date='Y-m-d H:i:s',###}> </td> -->
+                                                <td><?php echo ($value['oneorderclassID']); ?> </td>
+                                                <td><?php if($value['classType'] == 0): ?>一对一<?php else: ?>小班课<?php endif; ?></td>
+                                                <?php  $value['material']=explode(":",$value['material'])[1]; ?>
+                                                <td><?php echo ($value['material']); ?></td>
+                                                <td><?php echo (date('Y-m-d H:i',$value['classStartTime'])); ?> </td>
+                                                <!-- <td><a href="#"><?php echo ($value['manage_name']); ?> </a></td> -->
+                                                <!-- <td><?php echo (date('Y-m-d H:i:s',$value['class_start_time'])); ?> </td> -->
                                                 <td><?php echo ($value['classEndTime']-$value['classStartTime'])/60-5;?>分钟</td>
-                                                <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getTeacherInfo" ><{$value['englishname']}> </a></td>
-                                                <td style="display:none"><{$value['ID']}></td>
+                                                <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getTeacherInfo" ><?php echo ($value['englishname']); ?> </a></td>
+                                                <td style="display:none"><?php echo ($value['ID']); ?></td>
                                                <!--  <td><a href="<?php if(is_null($value['note_link'])) { echo '#';} else {echo $value['note_link'];}?>">查看</a></td> -->
-                                                <!-- <td><a href="<{$value['zoom']}>"><button class="btn btn-primary">GO!</button></a></td> -->
+                                                <!-- <td><a href="<?php echo ($value['zoom']); ?>"><button class="btn btn-primary">GO!</button></a></td> -->
 
                                                 <!--这里面要加一个上课按钮的生效判断-->
                                                 <! --这里表示只有上课前五分钟上课按钮生效-->
                                                 <?php
-                                                    $check = md5($value['oneorderclassID']); $class_type = md5($value['classType']); ?>
+ $check = md5($value['oneorderclassID']); $class_type = md5($value['classType']); ?>
                                                     <!-- 这里的class_type是class中的 -->
                                                 <?php if($time['nowtime']>=$value['classStartTime']-$time['buttonEffectTime']&&$time['nowtime']<=$value['classStartTime']+$time['buttonLostTime']){?>
                                                 <td><a href="www.baidu.com">
@@ -113,7 +276,7 @@
 
                                                 <!--取消选课还没有做-->
                                                 <?php if($time[nowtime]<=$value['classStartTime']-$time['cancelCourseDeadline']){?>
-                                                <td><a href="<?php $check = md5($value['orderclass_id']);?><{:U('Student/CancelClass',array('orderclass_id'=>$value['orderclass_id'],'check'=>$check))}>"><button class="btn btn-danger">取消</button></a></td>
+                                                <td><a href="<?php $check = md5($value['orderclass_id']); echo U('Student/CancelClass',array('orderclass_id'=>$value['orderclass_id'],'check'=>$check));?>"><button class="btn btn-danger">取消</button></a></td>
                                                 <?php }else{?>
                                                   <td>无法取消</td>
                                                 <?php }?>
@@ -229,7 +392,7 @@
             var TeacherID = $(this).parent().parent().children().eq(6).html();
             $.ajax({
                 type:"POST",
-                url:"<{:U('Info/AjaxGetRegisterInfo')}>",
+                url:"<?php echo U('Info/AjaxGetRegisterInfo');?>",
                 data:{
                     type:'teacher',
                     ID:TeacherID,

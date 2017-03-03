@@ -207,6 +207,7 @@
             data=JSON.stringify(info);
             $.post("<{:U('Money/manageTeacherSalary')}>",{data:data,teacherid:teacherid},function(result){
                 alert(result);
+                location.reload();
             });
         })
     </script>

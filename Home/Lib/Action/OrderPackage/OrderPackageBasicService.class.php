@@ -214,11 +214,16 @@
 			$orderPackageOp = new OrderPackageBasicOperate();
 			$orderClassOp = new OrderClassBasicOperate();
 
-			$sql = "tp_orderpackage.isdelete=0 and tp_orderpackage.status=1
-			and tp_orderpackage.classType=0 and studentID={$StudentID}";
+			// $sql = "tp_orderpackage.isdelete=0 and tp_orderpackage.status=1
+			// and tp_orderpackage.classType=0 and studentID={$StudentID}";
+			//
+			// $orderPackageResult = $orderPackageOp->getOrderPackageInfoWithCondition($sql,
+			// "orderpackageID,classNumber,packageType,classType,otherClass,tp_packageconfig.packageName");
+			// dump($orderPackageResult);
+			// exit;
 
-			$orderPackageResult = $orderPackageOp->getOrderPackageInfoWithCondition($sql,
-			"orderpackageID,classNumber,packageType,classType,otherClass,tp_packageconfig.packageName");
+			//根据教师的工资表中的数据信息来获取
+
 			//获取使用上面订购的套餐订购的还没有上的以及已经上的的学生的课程数
 			$orderClassResult = array();
 			foreach ($orderPackageResult as $key => $value) {
