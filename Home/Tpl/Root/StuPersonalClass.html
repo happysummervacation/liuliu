@@ -56,7 +56,7 @@
                <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            课程列表
+                            一对一课表
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
@@ -146,11 +146,19 @@
                                                     </switch>
                                                 </td>
                                                 <td>
-                                                  <a href="#" class="changestatus" >更改状态</a>&nbsp;&nbsp;
-                                                  <a href="<{:U('Root/deletestudentpersonalclass',array('orderclass_id'=>$value['orderclass_id'],'class_id'=>$value['class_id']))}>" class="deleteStudentClassID">删除</a>
-                                                  <php>$check = md5($value['orderclass_id'])</php>
-                                                  <a href="<{:U('Root/CancelStudentOrderClass',array('ID'=>$value['orderclass_id'],'token'=>$check))}>" class="cancelStudentClass">学生取消课程</a>
-                                                  <a href="#" class="cancelTeacherClass">教师退课</a>
+                                                      <a href="#" class="changestatus" >更改状态</a>&nbsp;&nbsp;
+                                                      <!-- <a href="<{:U('Root/deletestudentpersonalclass',
+                                                      array('orderclass_id'=>$value['orderclass_id'],'class_id'=>$value['class_id']))}>"
+                                                      class="deleteStudentClassID">删除</a> -->
+
+                                                      <php>$check = md5($value['oneorderclassID'])</php>
+                                                      <a href="<{:U('OrderClass/studentOrderClassManage',
+                                                      array('ID'=>$value['oneorderclassID'],'token'=>$check,'type'=>'stuorderclasscancel'))}>"
+                                                      class="cancelStudentClass">学生退课</a>
+
+                                                      <a href="<{:U('OrderClass/studentOrderClassManage',
+                                                      array('ID'=>$value['oneorderclassID'],'token'=>$check,'type'=>'teaorderclasscancel'))}>"
+                                                      class="cancelTeacherClass">教师退课</a>
                                                 </td>
                                         </foreach>
                                     </tbody>
@@ -168,6 +176,114 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row">
+                     <div class="panel panel-default">
+                         <div class="panel-heading">
+                             小班课表(暂时没有完成)
+                         </div>
+                         <div class="panel-body">
+                             <div class="dataTable_wrapper">
+                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                     <thead>
+                                         <tr>
+                                             <th style="display:none">订课编号</th>
+                                             <th style="display:none">课程编号</th>
+                                             <th>课程类型</th>
+                                             <th>教材名</th>
+                                             <th style="display:none">学员编号</th>
+                                             <th style="display:none">套餐编号</th>
+                                             <th>课程时间</th>
+                                             <!-- <th>订课时间</th> -->
+                                             <th>课堂笔记</th>
+                                             <th>课程状态</th>
+                                             <th>操作</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody >
+                                         <foreach name="classdata" item="value">
+                                             <tr>
+                                                 <td style="display:none"><{$value['oneorderclassID']}></td>
+                                                 <td style="display:none"><{$value['classID']}></td>
+                                                 <td>
+                                                     <!-- <switch name="value['class_type']" >
+                                                         <case value="0">少儿</case>
+                                                         <case value="1">成人</case>
+                                                         <case value="3">多人</case>
+                                                         <case value="4">小班</case>
+                                                         <default />无
+                                                     </switch> -->
+                                                     <{$value['packageName']}>/
+                                                     <switch name="value['classType']">
+                                                         <case value="0">一对一</case>
+                                                         <case value="1">小班</case>
+                                                     </switch>/
+                                                     <switch name="value['teacherNation']">
+                                                         <case value="0">中教</case>
+                                                         <case value="1">外教</case>
+                                                     </switch>/
+                                                     <switch name="value['teacherType']">
+                                                         <case value="0">普教</case>
+                                                         <case value="1">名教</case>
+                                                     </switch>
+                                                 </td>
+                                                 <php>$bookname=explode(":",$value['material'])[1]</php>
+                                                 <td><{$bookname}></td>
+                                                 <td style="display:none"><{$value['studentID']}></td>
+                                                 <td style="display:none"><{$value['orderpackageID']}></td>
+                                                 <td>
+                                                     <{$value['classStartTime']|date="Y-m-d H:i",###}>
+                                                     ~
+                                                     <{$value['classEndTime']|date="Y-m-d H:i",###}>
+                                                 </td>
+                                                 <td>
+                                                     <php>if(is_null($value['note_link'])||$value['note_link']==""){</php>
+                                                        空
+                                                      <php>}else{</php>
+                                                     <a href="<{:U('Root/DownLoad',array('ID'=>$value['orderclassID']))}>">下载</a>
+                                                     <php>}</php>
+                                                 </td>
+                                                 <td>
+                                                     <!-- <switch name="value['class_status']" >
+                                                         <case value="0">尚未上课</case>
+                                                         <case value="1">正常完成</case>
+                                                         <case value="2">学员缺课</case>
+                                                         <case value="3">老师缺课</case>
+                                                         <case value="4">学员退课</case>
+                                                         <case value="5">老师退课</case>
+                                                         <case value="6">老师迟到</case>
+                                                         <case value="7">学员迟到</case>
+                                                         <case value="8">其他状况</case>
+                                                         <case value="9">意外终止，重新安排</case>
+                                                         <default />未知
+                                                     </switch> -->
+                                                     <switch name="value['classStatus']" >
+                                                         <case value="0">尚未上课</case>
+                                                         <case value="1">正常完成</case>
+                                                         <case value="2">学员退课</case>
+                                                         <case value="3">老师早退</case>
+                                                         <case value="4">教师迟到</case>
+                                                         <case value="5">教师缺课</case>
+                                                         <case value="6">教师退课</case>
+                                                         <case value="7">意外情况</case>
+                                                         <default />未知
+                                                     </switch>
+                                                 </td>
+                                                 <td>
+                                                   <a href="#" class="changestatus" >更改状态</a>&nbsp;&nbsp;
+                                                   <a href="<{:U('Root/deletestudentpersonalclass',array('orderclass_id'=>$value['orderclass_id'],'class_id'=>$value['class_id']))}>" class="deleteStudentClassID">删除</a>
+                                                   <php>$check = md5($value['orderclass_id'])</php>
+                                                   <a href="<{:U('Root/CancelStudentOrderClass',array('ID'=>$value['orderclass_id'],'token'=>$check))}>" class="cancelStudentClass">学生取消课程</a>
+                                                   <a href="#" class="cancelTeacherClass">教师退课</a>
+                                                 </td>
+                                         </foreach>
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
             </div>
             <!-- /.container-fluid -->
         </div>

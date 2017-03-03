@@ -285,7 +285,7 @@
                <div class="row">
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            课程列表
+                            一对一课表
                         </div>
                         <div class="panel-body">
                             <div class="dataTable_wrapper">
@@ -362,11 +362,16 @@
                                                         <?php default: ?>未知<?php endswitch;?>
                                                 </td>
                                                 <td>
-                                                  <a href="#" class="changestatus" >更改状态</a>&nbsp;&nbsp;
-                                                  <a href="<?php echo U('Root/deletestudentpersonalclass',array('orderclass_id'=>$value['orderclass_id'],'class_id'=>$value['class_id']));?>" class="deleteStudentClassID">删除</a>
-                                                  <?php $check = md5($value['orderclass_id']) ?>
-                                                  <a href="<?php echo U('Root/CancelStudentOrderClass',array('ID'=>$value['orderclass_id'],'token'=>$check));?>" class="cancelStudentClass">学生取消课程</a>
-                                                  <a href="#" class="cancelTeacherClass">教师退课</a>
+                                                      <a href="#" class="changestatus" >更改状态</a>&nbsp;&nbsp;
+                                                      <!-- <a href="<?php echo U('Root/deletestudentpersonalclass', array('orderclass_id'=>$value['orderclass_id'],'class_id'=>$value['class_id']));?>"
+                                                      class="deleteStudentClassID">删除</a> -->
+
+                                                      <?php $check = md5($value['oneorderclassID']) ?>
+                                                      <a href="<?php echo U('OrderClass/studentOrderClassManage', array('ID'=>$value['oneorderclassID'],'token'=>$check,'type'=>'stuorderclasscancel'));?>"
+                                                      class="cancelStudentClass">学生退课</a>
+
+                                                      <a href="<?php echo U('OrderClass/studentOrderClassManage', array('ID'=>$value['oneorderclassID'],'token'=>$check,'type'=>'teaorderclasscancel'));?>"
+                                                      class="cancelTeacherClass">教师退课</a>
                                                 </td><?php endforeach; endif; ?>
                                     </tbody>
                                 </table>
@@ -383,6 +388,100 @@
                         </div>
                     </div>
                 </div>
+
+
+                <div class="row">
+                     <div class="panel panel-default">
+                         <div class="panel-heading">
+                             小班课表(暂时没有完成)
+                         </div>
+                         <div class="panel-body">
+                             <div class="dataTable_wrapper">
+                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example2">
+                                     <thead>
+                                         <tr>
+                                             <th style="display:none">订课编号</th>
+                                             <th style="display:none">课程编号</th>
+                                             <th>课程类型</th>
+                                             <th>教材名</th>
+                                             <th style="display:none">学员编号</th>
+                                             <th style="display:none">套餐编号</th>
+                                             <th>课程时间</th>
+                                             <!-- <th>订课时间</th> -->
+                                             <th>课堂笔记</th>
+                                             <th>课程状态</th>
+                                             <th>操作</th>
+                                         </tr>
+                                     </thead>
+                                     <tbody >
+                                         <?php if(is_array($classdata)): foreach($classdata as $key=>$value): ?><tr>
+                                                 <td style="display:none"><?php echo ($value['oneorderclassID']); ?></td>
+                                                 <td style="display:none"><?php echo ($value['classID']); ?></td>
+                                                 <td>
+                                                     <!-- <?php switch($value['class_type']): case "0": ?>少儿<?php break;?>
+                                                         <?php case "1": ?>成人<?php break;?>
+                                                         <?php case "3": ?>多人<?php break;?>
+                                                         <?php case "4": ?>小班<?php break;?>
+                                                         <?php default: ?>无<?php endswitch;?> -->
+                                                     <?php echo ($value['packageName']); ?>/
+                                                     <?php switch($value['classType']): case "0": ?>一对一<?php break;?>
+                                                         <?php case "1": ?>小班<?php break; endswitch;?>/
+                                                     <?php switch($value['teacherNation']): case "0": ?>中教<?php break;?>
+                                                         <?php case "1": ?>外教<?php break; endswitch;?>/
+                                                     <?php switch($value['teacherType']): case "0": ?>普教<?php break;?>
+                                                         <?php case "1": ?>名教<?php break; endswitch;?>
+                                                 </td>
+                                                 <?php $bookname=explode(":",$value['material'])[1] ?>
+                                                 <td><?php echo ($bookname); ?></td>
+                                                 <td style="display:none"><?php echo ($value['studentID']); ?></td>
+                                                 <td style="display:none"><?php echo ($value['orderpackageID']); ?></td>
+                                                 <td>
+                                                     <?php echo (date("Y-m-d H:i",$value['classStartTime'])); ?>
+                                                     ~
+                                                     <?php echo (date("Y-m-d H:i",$value['classEndTime'])); ?>
+                                                 </td>
+                                                 <td>
+                                                     <?php if(is_null($value['note_link'])||$value['note_link']==""){ ?>
+                                                        空
+                                                      <?php }else{ ?>
+                                                     <a href="<?php echo U('Root/DownLoad',array('ID'=>$value['orderclassID']));?>">下载</a>
+                                                     <?php } ?>
+                                                 </td>
+                                                 <td>
+                                                     <!-- <?php switch($value['class_status']): case "0": ?>尚未上课<?php break;?>
+                                                         <?php case "1": ?>正常完成<?php break;?>
+                                                         <?php case "2": ?>学员缺课<?php break;?>
+                                                         <?php case "3": ?>老师缺课<?php break;?>
+                                                         <?php case "4": ?>学员退课<?php break;?>
+                                                         <?php case "5": ?>老师退课<?php break;?>
+                                                         <?php case "6": ?>老师迟到<?php break;?>
+                                                         <?php case "7": ?>学员迟到<?php break;?>
+                                                         <?php case "8": ?>其他状况<?php break;?>
+                                                         <?php case "9": ?>意外终止，重新安排<?php break;?>
+                                                         <?php default: ?>未知<?php endswitch;?> -->
+                                                     <?php switch($value['classStatus']): case "0": ?>尚未上课<?php break;?>
+                                                         <?php case "1": ?>正常完成<?php break;?>
+                                                         <?php case "2": ?>学员退课<?php break;?>
+                                                         <?php case "3": ?>老师早退<?php break;?>
+                                                         <?php case "4": ?>教师迟到<?php break;?>
+                                                         <?php case "5": ?>教师缺课<?php break;?>
+                                                         <?php case "6": ?>教师退课<?php break;?>
+                                                         <?php case "7": ?>意外情况<?php break;?>
+                                                         <?php default: ?>未知<?php endswitch;?>
+                                                 </td>
+                                                 <td>
+                                                   <a href="#" class="changestatus" >更改状态</a>&nbsp;&nbsp;
+                                                   <a href="<?php echo U('Root/deletestudentpersonalclass',array('orderclass_id'=>$value['orderclass_id'],'class_id'=>$value['class_id']));?>" class="deleteStudentClassID">删除</a>
+                                                   <?php $check = md5($value['orderclass_id']) ?>
+                                                   <a href="<?php echo U('Root/CancelStudentOrderClass',array('ID'=>$value['orderclass_id'],'token'=>$check));?>" class="cancelStudentClass">学生取消课程</a>
+                                                   <a href="#" class="cancelTeacherClass">教师退课</a>
+                                                 </td><?php endforeach; endif; ?>
+                                     </tbody>
+                                 </table>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
             </div>
             <!-- /.container-fluid -->
         </div>

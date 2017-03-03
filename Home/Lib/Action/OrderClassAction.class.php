@@ -106,6 +106,7 @@
 
 				$result = $ocBS->manageGetStudentOrderClass($studentID);
 
+				$this->assign('studentID',$studentID);
 				$this->assign("classdata",$result);
 				//获取学生订购的小班课程数据
 				$this->display("Root:StuPersonalClass");
@@ -179,8 +180,42 @@
 						//修改小班课程的课程状态  //暂时不完成
 					}
 					return;
-				}elseif("stuorderclasscancel"){   //root帮学生退课
-
+				}elseif("stuorderclasscancel" == $type){   //root帮学生退课
+					$oneOrderClassID = $_GET['ID'];
+					$token = $_GET['token'];
+					$studentID = $_GET['student'];
+					if(md5($oneOrderClassID) != $token){
+						$this->error("操作失败,请重试");
+						return;
+					}
+					import("Home.Action.OrderClass.OrderClassBasicService");
+					$orderClassSerOp = new OrderClassBasicService();
+					$result = $orderClassSerOp->studentOrderClassCancel($oneOrderClassID);
+					if($result['status']){
+						$this->success("学生退课成功");
+					}else{
+						$this->error("学生退课失败,请重试");
+					}
+					return;
+				}elseif("teaorderclasscancel" == $type){
+					$oneOrderClassID = $_GET['ID'];
+					$token = $_GET['token'];
+					$studentID = $_GET['student'];
+					if(md5($oneOrderClassID) != $token){
+						$this->error("操作失败,请重试");
+						return;
+					}
+					import("Home.Action.OrderClass.OrderClassBasicService");
+					$orderClassSerOp = new OrderClassBasicService();
+					$result = $orderClassSerOp->teacherOrderClassCancel($oneOrderClassID);
+					if($result['status']){
+						$this->success("教师退课成功");
+					}else{
+						$this->error("教师退课失败,请重试");
+					}
+				}else{
+					$this->error("没有对应的操作");
+					return;
 				}
 			}else{
 				$this->error("你没有权限进行管理操作");

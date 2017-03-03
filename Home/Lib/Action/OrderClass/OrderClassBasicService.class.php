@@ -211,17 +211,60 @@
 
 		/*
 		*俞鹏泽
-		*学生订购的课程进行退课
+		*学生订购的课程进行退课(仅针对一对一课程)
 		*/
-		public function studentOrderClassCancel($studentID = null){
+		//先对课程数据进行状态修改
+		//在对指定时间段进行状态修改
+		public function studentOrderClassCancel($orderClassID = null){
 			$message = array();
-			if(is_null($studentID)){
+			if(is_null($orderClassID)){
 				$message['status'] = false;
-				$message['message'] = "没有指定要修改的学生";
+				$message['message'] = "没有指定要修改的数据";
 				return $message;
 			}
+			$sql = "update tp_oneorderclass,tp_class set `isSelected`=0,`classStatus`=2
+			 where tp_oneorderclass.classID=tp_class.classID and classStatus=0 and
+			  oneorderClassID={$orderClassID}";
 
+			 $inquiry = new Model();
+			 $result = $inquiry->execute($sql);
 
+			 if($result){
+				 $message['status'] = true;
+				 $message['message'] = "学生退课成功";
+				 return $message;
+			 }else{
+				 $message['status'] = false;
+				 $message['message'] = "学生退课失败";
+				 return $message;
+			 }
+		}
+
+		/*
+		*俞鹏泽
+		*对于学生选择的一对一课程,教师进行退课(仅针对一对一课程)
+		*/
+		public function teacherOrderClassCancel($orderClassID = null){
+			$message = array();
+			if(is_null($orderClassID)){
+				$message['status'] = false;
+				$message['message'] = "没有指定要修改的数据";
+				return $message;
+			}
+			import("Home.Action.OrderClass.OrderClassBasicOperate");
+			$ordClassOp = new OrderClassBasicOperate();
+			$data['classStatus'] = 6;
+			$result = $ordClassOp->updateOneOrderClassInfo($orderClassID,$data);
+
+			 if($result){
+				 $message['status'] = true;
+				 $message['message'] = "教师退课成功";
+				 return $message;
+			 }else{
+				 $message['status'] = false;
+				 $message['message'] = "教师退课失败";
+				 return $message;
+			 }
 		}
 	}
  ?>
