@@ -180,8 +180,108 @@
 			$orderClassOp = new OrderClassBasicOperate();
 			$type = $_GET['type'];
 
-			if("2" == $identity || 2 == $identity){
-
+			if("0" == $identity || 0 == $identity){
+				$studentID = $_SESSION['ID'];
+				$classType = $_GET['classType'];
+				$orderclassID = $_GET['orderclassID'];
+				$classID = $_GET['classID'];
+				if("classcancel" == $type){
+					//获取学生科退课的次数
+					import("Home.Action.User.UserBasicOperate");
+					$userOp = new UserBasicOperate();
+					$cannum = $userOp->getUserInfo('student',$studentID,null,null,null,array('student_cancel_number'));
+					if($cannum[0]['student_cancel_number']>0){
+						//开启事务
+						$inquiry = new Model();
+						$inquiry->startTrans();
+						if("one" == $classType){
+						//退课操作(仅针对一对一退课)
+							import("Home.Action.OrderClass.OrderClassBasicService");
+							$orderClassSerOp = new OrderClassBasicService();
+							$result = $orderClassSerOp->studentOrderClassCancel($orderclassID);
+						}else{
+							//小班课退课操作(未完成)
+						}
+						//退课结果处理
+						if($result['status']){
+							//退课成功减退课次数和回退课程
+							$cannum['student_cancel_number'] = $cannum[0]['student_cancel_number'] -1;
+							$updateresult = $userOp->updateUserInfo($studentID,null,$cannum);
+							import("Home.Action.Class.ClassBasicOperate");
+							$classOp = new ClassBasicOperate();
+							$classresult = $classOp->updateClassInfo($classID,array('isSelected'=>0));
+							if($updateresult['status']&&$classresult['status']){
+								//提交事务
+								$inquiry->commit();
+								$this->success("学生退课成功");
+							}
+							else{
+								$inquiry->rollback();
+								$this->error("学生退课失败,请重试");
+							}
+						}else{
+							$inquiry->rollback();
+							$this->error("学生退课失败,请重试");
+						}
+					}else{
+						$this->error("您的退课次数不足，无法退课");
+					}
+				}
+				return;
+			}elseif("2" == $identity || 2 == $identity){
+				if("cgestatus" == $type){  //修改课程状态
+						$orderClassID = $_POST['orderclassID'];
+						$classtype = $_GET['classtype'];
+						$data['classStatus'] = (int)$_POST['classStatus'];
+					if("one" == $classtype){   //修改一对一课程的课程状态
+						$result = $orderClassOp->updateOneOrderClassInfo($orderClassID,$data);
+						if($result['status']){
+							$this->success("修改订购一对一课程成功");
+						}else{
+							$this->error("修改订购一对一课程失败");
+						}
+					}else{
+						//修改小班课程的课程状态  //暂时不完成
+					}
+					return;
+				}elseif("stuorderclasscancel" == $type){   //root帮学生退课
+					$oneOrderClassID = $_GET['ID'];
+					$token = $_GET['token'];
+					$studentID = $_GET['student'];
+					if(md5($oneOrderClassID) != $token){
+						$this->error("操作失败,请重试");
+						return;
+					}
+					import("Home.Action.OrderClass.OrderClassBasicService");
+					$orderClassSerOp = new OrderClassBasicService();
+					$result = $orderClassSerOp->studentOrderClassCancel($oneOrderClassID);
+					if($result['status']){
+						$this->success("学生退课成功");
+					}else{
+						$this->error("学生退课失败,请重试");
+					}
+					return;
+				}elseif("teaorderclasscancel" == $type){
+					$oneOrderClassID = $_GET['ID'];
+					$token = $_GET['token'];
+					$studentID = $_GET['student'];
+					if(md5($oneOrderClassID) != $token){
+						$this->error("操作失败,请重试");
+						return;
+					}
+					import("Home.Action.OrderClass.OrderClassBasicService");
+					$orderClassSerOp = new OrderClassBasicService();
+					$result = $orderClassSerOp->teacherOrderClassCancel($oneOrderClassID);
+					if($result['status']){
+						$this->success("教师退课成功");
+					}else{
+						$this->error("教师退课失败,请重试");
+					}
+					return;
+				}else{
+					$this->error("没有对应的操作");
+					return;
+				}
 			}elseif("4" == $identity || 4 == $identity){
 				if("cgestatus" == $type){  //修改课程状态
 					$orderClassID = $_POST['orderclassID'];

@@ -103,5 +103,43 @@
 
 			return $classInfoResult;
 		}
+
+		/*
+		*俞鹏泽
+		*获取指定教师的课程以及课程状态(暂时完成一对一的课程)
+		*/
+		public function getTeacherClassStatus($teacherID = null,$startTime = null,$endTime = null){
+			if(is_null($teacherID)){
+				return "{}";
+			}
+
+			$inquiry = new Model();
+			//先获取指定教师开放的的所有课程时间
+			// import("Home.Action.Class.ClassBasicOperate");
+			// $claBasOp = new ClassBasicOperate();
+			// $openClassResult = $claBasOp->getoneTeacherClassInfo($teacherID,null,"isdelete=0");
+			$sql = "select * from tp_class where teacherID={$teacherID} and isdelete=0 and
+			classStartTime>={$startTime} and classEndTime<={$endTime}";
+			$openClassResult = $inquiry->query($sql);
+			//获取指定教师的订购一对一课程数据
+
+			$sql = "select * from tp_oneorderclass
+			inner join tp_class on tp_class.classID=
+			tp_oneorderclass.classID and tp_oneorderclass.isdelete=0 and
+			tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime}
+			inner join tp_student on tp_student.ID=tp_oneorderclass.studentID";
+			$orderClassResult = $inquiry->query($sql);
+
+			//获取当前时间
+			$nowTime = getTime();
+			import("Home.Action.Class.ClassBasicFilter");
+			$dealResult = ClassBasicFilter::getClassStatusWithCondition($openClassResult,$orderClassResult);
+
+			if(is_null($dealResult)){
+				return "{}";
+			}else{
+				return $dealResult;
+			}
+		}
 	}
  ?>

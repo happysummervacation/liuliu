@@ -32,13 +32,23 @@
 			$this->CheckSession();
 
 			import("Home.Action.User.UserBasicOperate");
+			import("Home.Action.Class.ClassBasicService");
+			import("Home.Action.GlobalValue.GlobalValue");
 			$teacherID = null;
+
+			$year = (int)$_POST['year'];
+			$month = (int)$_POST['month'];
 			//提供公用的数据
-			$this->assign('this_month',date('m',getTime()));
-            $this->assign('this_year',date('Y',getTime()));
-			$this->assign("nowtimePlan",getTime());
+			if(empty($year) || empty($month)){
+				$year = date('Y',getTime());
+				$month = date('m',getTime());
+			}
+			$this->assign('this_month',$month);
+            $this->assign('this_year',$year);
+			$this->assign("nowtimePlan",strtotime("{$year}-{$month}"));
 
 			$userBasOp = new UserBasicOperate();
+			$claBasOp = new ClassBasicService();
 			$field = array();
 			array_push($field,"teacher_type");
 
@@ -46,8 +56,15 @@
 			if(1 == $identity || "1" == $identity){
 				$teacherID = $_SESSION['ID'];
 				$teacherResult = $userBasOp->getUserInfo("register",$teacherID,null,null,null,$field);
+				$beforeTime = GlobalValue::beforeTime;
+				$afterTime = GlobalValue::afterTime;
 
-				$this->assign("teacherClassResult","{}");
+				$searchStartTime = strtotime("{$year}-{$month} -{$beforeTime} days");
+				$searchEndTime = strtotime("{$year}-{$month} +1 month +{$afterTime} days");
+
+				$classStatusResult = $claBasOp->getTeacherClassStatus($teacherID,$searchStartTime,$searchEndTime);
+
+				$this->assign("teacherClassResult",json_encode($classStatusResult));
 				$this->assign("teacherType",$teacherResult[0]);
 				$this->display("Teacher:MyMonthPlan");
 			}elseif(2 == $identity || "2" == $identity){

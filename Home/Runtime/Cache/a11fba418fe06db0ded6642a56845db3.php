@@ -152,7 +152,7 @@
                                     <a href="<?php echo U('Comment/studentComment');?>"><i class="fa fa-book fa-fw"></i> 评价教师</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Student/TeacherValuation');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
+                                    <a href="<?php echo U('Comment/showCommentFromTeacher');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
                                 </li>
                             <!-- </ul> -->
                             <!-- /.nav-second-level -->

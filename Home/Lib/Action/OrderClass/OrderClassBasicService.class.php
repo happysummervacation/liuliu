@@ -258,7 +258,7 @@
 			inner join tp_packageconfig on tp_orderpackage.category=tp_packageconfig.packageconID
 			")
 			->field("tp_oneorderclass.classStatus,tp_orderpackage.material,classStartTime,classEndTime,
-			notelink,tp_packageconfig.packageName,tp_orderpackage.classType,
+			note,tp_packageconfig.packageName,tp_orderpackage.classType,
 			teacherNation,teacherType,tp_oneorderclass.oneorderclassID,tp_class.classID,
 			tp_oneorderclass.studentID,tp_oneorderclass.orderpackageID")
 			->select();

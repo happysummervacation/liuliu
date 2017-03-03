@@ -34,8 +34,6 @@
 			}elseif(is_string($field)){
 				$fieldString = $field;
 				$result = $inquiry->where($condition)->field($fieldString)->select();
-				// dump($inquiry);
-				// exit;
 				return $result;
 			}else{
 				$result = $inquiry->where($condition)->select();
@@ -93,7 +91,7 @@
 			$inquiry = new Model("class");
 			$result = $inquiry->where("classID='{$classID}' and isdelete=0")->save($Data);
 
-			if($result){
+			if($result || 0 == $result){
 				$message['status'] = true;
 				$message['message'] = "课程数据修改成功";
 				return $message;

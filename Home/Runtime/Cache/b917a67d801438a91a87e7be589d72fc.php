@@ -1,6 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-
+暂时完成一对一的课程的展示(小班课的课程展示暂时还没有完成)
 <head>
 
     <meta charset="utf-8">
@@ -460,7 +460,7 @@ user-select: none;
                         <div class="modal-content">
                             <div class="modal-header">Schedule of Other Months</div>
                             <div class="modal-body">
-                                <form action="<?php echo U('Teacher/GetMyMonthPlan');?>" method="post">
+                                <form action="<?php echo U('Class/getTeacherClassPlan');?>" method="post">
                                   <div class="form-group">
                                     <label for="recipient-name" class="control-label">Choose Year:</label>
                                     <select class="form-control" name="year" id='nowyear123'>
@@ -692,7 +692,6 @@ user-select: none;
             var dijihang=(yuzhikecheng.getMinutes()<30)?((yuzhikecheng.getHours()-8)*2+1):((yuzhikecheng.getHours()-8)*2+2);
         }
 
-        // alert();
         var color="#FFF";
         var content="";
         var textColor="#FFF";
