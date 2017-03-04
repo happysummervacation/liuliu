@@ -65,12 +65,12 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th style="display:none">订课编号</th>
+                                            <th >订课编号</th>
                                             <th style="display:none">课程编号</th>
                                             <th>上课时间</th>
                                             <th>任课教师</th>
                                             <th style="display: none">教师ID</th>
-                                            <th>课程笔记</th>
+                                            <!-- <th>课程笔记</th> -->
                                             <!-- <th>评分分数</th> -->
                                             <th>我的评论</th>
                                         </tr>
@@ -79,16 +79,14 @@
                                     <?php $i = 1; foreach ($data as $key => $value) {?>
                                         <tr>
                                             <td><{$i}></td>
-                                            <td style="display:none"><{$value['orderclass_id']}></td>
-                                            <td style="display:none"><{$value['class_id']}></td>
-                                            <td><{$value['start_time']}></td>
-                                            <td><{$value['englishname']}></td>
+                                            <td ><{$value['oneorderclassID']}></td>
+                                            <td><{$value['classStartTime']|date="Y-m-d H:i",###}></td>
+                                            <td value="<{$value['ID']}>"><{$value['englishname']}></td>
                                             <td style="display: none"><{$value['ID']}></td>
-                                            <?php $check = md5($value['orderclass_id']); if(empty($value['note_link']) || is_null($value['note_link'])) {?><td>未上传</td><?php } else {?>
-                                            <td><a href="<{:U('Student/DownLoadNote',array('note_id'=>$value['orderclass_id'],'check'=>$check))}>">查看</a></td><?php }?>
-                                            <!-- <td>无</td> -->
-                                            <td>
-                                            <?php if(is_null($value['student_comment'])){?>
+                                            <?php $check = md5($value['oneorderclassID']); if(empty($value['notelink']) || is_null($value['notelink'])) {?><td>未上传</td><?php } else {?>
+                                            <!-- <td><a href="<{:U('Student/DownLoadNote',array('note_id'=>$value['oneorderclassID'],'check'=>$check))}>">查看</a></td><?php }?>
+                                            <td> -->
+                                            <?php if(is_null($value['studentcomment'])){?>
                                             <button class="btn btn-default getcolinfo"  data-toggle="modal" data-target=".bs-example-modal-sm">开始评分</button>
                                             <?php }else{?>
                                             <button>已上传</button>
@@ -109,23 +107,22 @@
                         <div class="modal-content">
                            <div class="modal-header">课程评论</div>
                            <div class="modal-body">
-                               <form class="form-horizontal" action="<{:U('Student/SetStudentClassComment')}>" method="post">
-                                   <div class="form-group" style="display: none">
-                                       <label  class="col-sm-4 control-label">订课编号:</label>
-                                       <div class="col-sm-8">
-                                            <input type="text" class="fromtablesecond form-control" name="orderclass_number" readonly="true">
-                                        </div>
-                                   </div>
+
+
+                               <form class="form-horizontal" action="<{:U('Comment/SetStudentClassComment')}>" method="post">
+
                                    <div class="form-group" style="display: none">
                                        <label class="col-sm-4 control-label">课程编号:</label>
                                        <div class="col-sm-8">
-                                            <input type="text" class="fromtable2 form-control" name="class_id" readonly="true">
+                                            <input type="text" class=" form-control" name="oneorderclassID" readonly="true" id="oneorderclassID">
                                         </div>
                                    </div>
                                    <div class="form-group">
                                         <label  class="col-sm-4 control-label">课程评分:</label>
                                         <div class="col-sm-8">
-                                            <select class="form-control" name="class_comment_level">
+                                            <input type="text" name="teacherID" id="teacherid" style="display: none;">
+                                            <!-- <input type="text" name="oneorderclassID" id="oneorderclassID" style="display: none;"> -->
+                                            <select class="form-control" name="commentlevel">
                                                <option>A(老师非常棒 excellent)</option>
                                                <option>B(老师挺好 good)</option>
                                                <option>C(老师还行 qualified)</option>
@@ -179,6 +176,13 @@
                 ordering:false,
                 searching:false
         });
+    });
+    $('.getcolinfo').click(function(){
+        var teacherID = $(this).parents('tr').find('td').eq('3').attr('value');
+        var classID = $(this).parents('tr').find('td').eq('1').html();
+        // alert(classID);
+        $('#teacherid').val(teacherID);
+        $('#oneorderclassID').val(classID);
     });
     </script>
 

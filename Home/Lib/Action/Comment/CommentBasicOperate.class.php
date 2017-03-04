@@ -43,5 +43,27 @@
 				 return $result;
 			}
 		}
+
+		/*
+		*蒋周杰
+		*获取学生还没有评论过的一对一课程
+		*参数一：学生的ID
+		*/
+		public function getNeedCommentClass($studentID = null){
+			if(is_null($studentID)){
+				return null;
+			}
+			$inquiry = new Model();
+			$result = $inquiry->table("tp_oneorderclass,tp_class,tp_teacher")
+			->where("tp_oneorderclass.studentID = {$studentID} and
+			tp_oneorderclass.classID = tp_class.classID and
+			tp_class.teacherID = tp_teacher.ID and (tp_oneorderclass.classStatus = 1
+			or tp_oneorderclass.classStatus = 3 or tp_oneorderclass.classStatus = 4)
+			and tp_oneorderclass.studentComment is null")
+			->select();
+
+			return $result;
+		}
+
 	}
  ?>

@@ -46,7 +46,21 @@
 					$this->assign("auditionComData",$result[3]);
 					$this->display("Teacher:Feedback");
 				}elseif("history" == $type){   //表示历史的评论数据
-					dump("history");
+					$year = $_POST['year'];
+					$month = $_POST['month'];
+					$monthStartTime = 0;
+					$monthEndTime = 0;
+
+					$monthStartTime = strtotime("2017-2");
+					$monthEndTime = strtotime("2017-2 +1 month");
+					if(empty($year) || empty($month)){
+						$monthStartTime = strtotime(date('Y-m',getTime()));
+						$monthEndTime = strtotime(date('Y-m',getTime())." +1 month");
+					}else{
+						$monthStartTime = strtotime("2017-2");
+						$monthEndTime = strtotime("2017-2 +1 month");
+					}
+
 					$this->display("Teacher:HistoryFeedback");
 				}else{
 					$this->error("没有该种类型的操作");
@@ -60,7 +74,7 @@
 
 		/*
 		*俞鹏泽
-		*教师评论日评,周评,月评,试听课评论
+		*教师评论一对一课程日评,周评,月评,试听课评论
 		*/
 		public function TeacherComment(){
 			$this->CheckSession();
@@ -131,7 +145,71 @@
 				return;
 			}else{
 				$this->error("你没有权限进行操作");
+				return;
 			}
+		}
+
+		/*
+		*俞鹏泽
+		*获取指定月份的日评,周评,月评,试听课的评论数据
+		*/
+		// public function getOneTeacherCommentInfo(){
+		// 	$this->CheckSession();
+		//
+		// 	$identity = $_SESSION['identity'];
+		// 	if(0 == $identity || "0" == $identity){
+		//
+		// 	}elseif(1 == $identity || "1" == $identity){
+		// 		$year = $_POST['year'];
+		// 		$month = $_POST['month'];
+		// 		dump($year);
+		// 		dump($month);
+		// 		exit;
+		// 	}else{
+		// 		$this->error("你没有权限进行操作");
+		// 		return;
+		// 	}
+		// }
+
+		/*
+		*蒋周杰
+		*显示评价教师界面
+		*/
+
+		public function studentComment(){
+			$this->CheckSession();
+			import("Home.Action.Comment.CommentBasicOperate");
+			$comOp =new CommentBasicOperate();
+			$identity = $_SESSION['identity'];
+			if(0 == $identity || '0' == $identity){
+				$studentID = $_SESSION['ID'];
+				$result = $comOp->getNeedCommentClass($studentID);
+			}
+			$this->assign('data',$result);
+			$this->display("Student:CourseeValuation");
+		}
+
+		/*
+		*蒋周杰
+		*提交学生对教师的评价
+		*/
+		public function SetStudentClassComment(){
+			$this->CheckSession();
+			import("Home.Action.Comment.CommentBasicService");
+			$comOp = new CommentBasicService();
+			$identity = $_SESSION['identity'];
+			if(0 == $identity || '0' == $identity){
+				$data['studentID'] = $_SESSION['ID'];
+				$data['commentlevel'] = $_POST['commentlevel'];
+				$data['teacherID'] = $_POST['teacherID'];
+				$result = $comOp->setStudentCommeet($data,$_POST['oneorderclassID']);
+			}
+			if($result['status']){
+				$this->success($result['message']);
+			}else{
+				$this->error($result['message']);
+			}
+
 		}
 	}
 

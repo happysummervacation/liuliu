@@ -202,7 +202,7 @@
                 <!-- /.row -->
                 <div class="row">
                   <div class="col-lg-12">
-                    <form class="form" action="<?php echo U('Teacher/SearchHistoryFeedback');?>" method="post">
+                    <form class="form" action="<?php echo U('Comment/TeacherCommentManage',array('type'=>'history'));?>" method="post">
                       <div class="col-lg-5 form-group">
                         <label for="">Year</label>
                         <select class="form-control" name="year">

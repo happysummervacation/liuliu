@@ -165,5 +165,54 @@
 				return $message;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*查询指定时间内教师评论的一对一日评,周评,月评,以及试听课评论
+		*/
+		public function getOneTeacherFeededComment($teacherID = null,$startTime = null,$endTime = null){
+
+		}
+
+		/*
+		*蒋周杰
+		*上传学生对老师的评论
+		*参数一:评价信息
+		*/
+		public function setStudentCommeet($data = null,$oneorderclassID = null){
+			$message = array();
+			if(is_null($data)||is_null($oneorderclassID)){
+				$message['status'] = false;
+				$message['message'] = "评价信息不全";
+				return $message;
+			}
+
+			//添加评论数据的所需信息
+			$data['isdelete'] = 0;
+			$data['createtime'] = getTime();
+			$data['commentcontent'] = "";
+
+			$inquiry = new Model();
+			//开启一个事物
+			$inquiry->startTrans();
+			//提交评论数据
+			$addresult = $inquiry->table('tp_onestudentcom')->add($data);
+			//更新class中的studentComment
+			$updatedata['studentComment'] = $addresult;
+			$updateresult = $inquiry->table('tp_oneorderclass')->where("tp_oneorderclass.oneorderclassID = {$oneorderclassID}")->save($updatedata);
+			if($addresult!=false&&$updateresult){
+				//提交事务
+				$inquiry->commit();
+			 	$message['status'] = true;
+			 	$message['message'] = "评价成功！";
+			}else{
+				//事务回滚
+				$inquiry ->rollback();
+				$message['status'] = false;
+			 	$message['message'] = "评价失败！";
+			}
+
+			return $message;
+		}
 	}
  ?>
