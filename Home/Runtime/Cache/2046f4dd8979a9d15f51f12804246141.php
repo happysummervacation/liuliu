@@ -1,6 +1,7 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 1.这里面学生消耗的课时数需要进行统计得出
+2.这里的停课操作取消
 <head>
 
     <meta charset="utf-8">

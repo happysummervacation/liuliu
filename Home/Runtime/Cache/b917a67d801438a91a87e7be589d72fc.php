@@ -1005,7 +1005,7 @@ user-select: none;
         var jsonarr=JSON.stringify(arr);
         // console.log(jsonarr);
 
-        post("<?php echo U('Class/ClassManage');?>/type/add", {data:jsonarr});
+        post("<?php echo U('Class/ClassManage');?>/type/add", {data:jsonarr,year:<?php echo ($this_year); ?>,month:<?php echo ($this_month); ?>});
 
 
         // $.ajax({
@@ -1056,7 +1056,7 @@ user-select: none;
         });
         var jsonarr=JSON.stringify(arr);
 
-        post("<?php echo U('Class/ClassManage');?>/type/delete", {data:jsonarr});
+        post("<?php echo U('Class/ClassManage');?>/type/delete", {data:jsonarr,year:<?php echo ($this_year); ?>,month:<?php echo ($this_month); ?>});
         // $.ajax({
         //     type:'POST',
         //     url:"<?php echo U('Teacher/BatchDeleteTeacherClass');?>",

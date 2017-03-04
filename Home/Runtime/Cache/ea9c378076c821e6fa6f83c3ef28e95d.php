@@ -195,48 +195,109 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Upload Video</h1>
+                        <h1 class="page-header">Teacher's Information</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-md-4 col-md-offset-4" style="margin-top: 80px;">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">Upload Video</div>
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">Information Modification</div>
                             <div class="panel-body">
-                                <form class="form-horizontal" enctype="multipart/form-data" action="<?php echo U('Video/uploadVideo');?>" method="post">
-                                      <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-4 control-label">Video Name:</label>
-                                        <div class="col-sm-7">
-                                          <input name="video_name" type="text" class="form-control" id="inputEmail3" placeholder="Name">
+                                <form enctype="multipart/form-data" action="<?php echo U('Info/ChangeUserInformation');?>" method="post">
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6">
+                                            <h4>Nickname：</h4>
+                                            <input type="text" class="form-control" value="<?php echo ($data['account']); ?>"  disabled="disabled"/>
                                         </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-4 control-label">Video Type:</label>
-                                        <div class="col-sm-7">
-                                          <select class="form-control" name="video_type">
-                                              <option value="0">Class Video</option>
-                                              <!-- <option value="1">Introduction Video</option> -->
-                                              <option value="2">Audition Video</option>
-                                          </select>
+                                        <div class="col-lg-6">
+                                            <h4>Chinese Name：</h4>
+                                            <input type="text" name="chinesename" class="form-control" value="<?php echo ($data['chinesename']); ?>"  />
                                         </div>
-                                      </div>
-                                      <div class="form-group">
-                                        <label for="inputPassword3" class="col-sm-4 control-label">Video site:</label>
-                                        <div class="col-sm-7">
-                                            <!-- <input type="file" nv-file-select="" uploader="uploader" multiple   name="video" value="Upload Video" id="uploadinput"/> -->
-                                            <input type="text" nv-file-select="" placeholder="put video site" name="download_link" class="form-control" />
+                                        <div class="col-lg-6">
+                                            <h4>English Name：</h4>
+                                            <input type="text" name="englishname" class="form-control" value="<?php echo ($data['englishname']); ?>"  />
                                         </div>
-                                      </div>
-                                      <div class="form-group">
+                                        <div class="col-lg-6">
+                                            <h4>Age：</h4>
+                                            <input type="text" name="age" class="form-control" value="<?php echo ($data['age']); ?>"   maxlength="3"/>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h4>Gender：</h4>
+                                            <select class="form-control" name="sex">
+                                                <?php
+ if($data['sex'] == 0){ echo '<option selected="selected" value="0">Female</option>'; }else{ echo '<option selected="selected" value="1">Male</option>'; } ?>
+
+                                                <?php
+ if($data['sex'] == 1){ echo '<option value="0">Female</option >'; }else{ echo '<option value="1">Male</option >'; } ?>
+
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Email：</h4>
+                                            <input type="text" name="email" class="form-control" value="<?php echo ($data['email']); ?>"   />
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Phone Number：</h4>
+                                            <input type="text" name="phone" class="form-control" value="<?php echo ($data['phone']); ?>"  />
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>QQ：</h4>
+                                            <input type="text" name="qq" class="form-control" value="<?php echo ($data['QQ']); ?>"  >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Wechat：</h4>
+                                            <input type="text" name="weixin" class="form-control" value="<?php echo ($data['weixin']); ?>"  >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>ZOOM：</h4>
+                                            <input type="text" name="zoom" class="form-control" value="<?php echo ($data['zoom']); ?>"  >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Skype：</h4>
+                                            <input type="text" name="skype" class="form-control" value="<?php echo ($data['skype']); ?>" >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Bank Card：</h4>
+                                            <input type="text" name="bankcard" class="form-control" value="<?php echo ($data['bankcard']); ?>"  >
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>Paypal：</h4>
+                                            <input type="text" name="paypal" class="form-control" value="<?php echo ($data['paypal']); ?>" >
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h4>Area：</h4>
+                                            <input class="form-control" name="country" type="text" value="<?php echo ($data['country']); ?>" maxlength="300"/>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h4>Introduction：</h4>
+                                            <input type="text" name="introduction" class="form-control" value="<?php echo ($data['introduction']); ?>" />
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" style="text-align: center">
                                         <br>
-                                        <div class="col-sm-offset-2 col-sm-8">
-                                          <button type="submit" class="btn btn-danger" style="width: 100%;">Upload</button>
+                                        <div id="result">
+                                        <img src="<?php echo ($data['image_path']); ?>" style="width:130px;border: 2px solid #CCC;height: 130px;"  alt="No Head Picture!" id="image"/>
                                         </div>
-                                      </div>
-                                    </form>
+                                        <br>
+                                        <br>
+                                        <div class="uploadbutton btn btn-default" style="width:50%;" >
+                                            <input type="file" nv-file-select="" uploader="uploader" multiple   name="photo" value="Upload Head Picture" id="file_input"/>
+                                            Update
+                                        </div>
+                                        <br/>
+                                        no more 2M
+                                        <!-- <input type="file" name="photo" value="上传头像" class="btn btn-default"> -->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <br>
+                                    </div>
                             </div>
+                            <div class="panel-footer" style="overflow: auto">
+                                <button type="submit" class="btn btn-primary" style="float: right;width: 10%;">Save</button>
+                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
@@ -260,24 +321,44 @@
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
+    <script type="text/javascript" src="__PUBLIC__/js/Countries.js"></script>
+
+
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
-    </script>
-<script>
-  // $(function(){
-  //   if(isFirefox=navigator.userAgent.indexOf("Firefox")>0){
-  //     $('.uploadbutton').click(function(){
-  //       alert('aaa');
-  //       $('#uploadinput').click(function(e){
-  //         window.event? window.event.cancelBubble = true : e.stopPropagation();
-  //       });
 
-  //     })
-  //   }
-  // })
-</script>
+        $('.age').change(function(){
+            if ($(this).val()<0||$(this).val()>150) {
+                alert("Age doesn't meet the requirements!");
+                $(this).val('');
+            }
+        })
+
+        var result = document.getElementById("result");
+        var input = document.getElementById("file_input");
+
+        if(typeof FileReader==='undefined'){
+            result.innerHTML = "Sorry，Your browser does not support FileReader";
+            input.setAttribute('disabled','disabled');
+        }else{
+            input.addEventListener('change',readFile,false);
+        }
+
+        function readFile(){
+            var file = this.files[0];
+            if(!/image\/\w+/.test(file.type)){
+                alert("The file must be a picture");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e){
+                $('#result img').attr('src',this.result);
+            }
+        }
+    </script>
 </body>
 
 </html>

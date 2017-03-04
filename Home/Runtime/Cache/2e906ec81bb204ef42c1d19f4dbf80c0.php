@@ -158,11 +158,11 @@
                             <ul class="nav nav-second-level">
                                 <li>
                                     <!-- <a href="MyMoney.html">我的工资</a> -->
-                                    <a href="<?php echo U('Teacher/MyMoney');?>"> Teacher Salary</a>
+                                    <a href="<?php echo U('Money/teacherSalaryManage',array('type'=>'mymoney'));?>"> Teacher Salary</a>
                                 </li>
                                 <li>
                                     <!-- <a href="HowCaculate.html">工资计算</a> -->
-                                    <a href="<?php echo U('Teacher/HowCaculate');?>"> Salary Settlement</a>
+                                    <a href="<?php echo U('Money/teacherSalaryManage',array('type'=>'howcacu'));?>"> Salary Settlement</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->

@@ -278,7 +278,7 @@
 
                                                 <!--取消选课还没有做-->
                                                 <?php if($time[nowtime]<=$value['classStartTime']-$time['cancelCourseDeadline']){?>
-                                                <td><a href="<?php $check = md5($value['orderclass_id']); echo U('Student/CancelClass',array('orderclass_id'=>$value['orderclass_id'],'check'=>$check));?>"><button class="btn btn-danger">取消</button></a></td>
+                                                <td><a href="<?php echo U('OrderClass/studentOrderClassManage',array('orderclassID'=>$value['oneorderclassID'],'type'=>'classcancel','classType'=>'one','classID'=>$value['classID']));?>"><button class="btn btn-danger">取消</button></a></td>
                                                 <?php }else{?>
                                                   <td>无法取消</td>
                                                 <?php }?>

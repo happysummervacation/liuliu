@@ -246,9 +246,9 @@
                                             <td><?php echo (date("Y-m-d H:i",$value['classStartTime'])); ?></td>
                                             <td value="<?php echo ($value['ID']); ?>"><?php echo ($value['englishname']); ?></td>
                                             <td style="display: none"><?php echo ($value['ID']); ?></td>
-                                            <?php $check = md5($value['oneorderclassID']); if(empty($value['notelink']) || is_null($value['notelink'])) {?><td>未上传</td><?php } else {?>
-                                            <!-- <td><a href="<?php echo U('Student/DownLoadNote',array('note_id'=>$value['oneorderclassID'],'check'=>$check));?>">查看</a></td><?php }?>
-                                            <td> -->
+                                            <!-- <?php $check = md5($value['oneorderclassID']); if(empty($value['notelink']) || is_null($value['note'])) {?><td>未上传</td><?php } else {?>
+                                            <td><a href="<?php echo U('Student/DownLoadNote',array('note_id'=>$value['oneorderclassID'],'check'=>$check));?>">查看</a></td><?php }?> -->
+                                            <td>
                                             <?php if(is_null($value['studentcomment'])){?>
                                             <button class="btn btn-default getcolinfo"  data-toggle="modal" data-target=".bs-example-modal-sm">开始评分</button>
                                             <?php }else{?>

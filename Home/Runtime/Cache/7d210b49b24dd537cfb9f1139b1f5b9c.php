@@ -1,6 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-
+这里加一个停课操作(是否要加停课操作??)
 <head>
 
     <meta charset="utf-8">

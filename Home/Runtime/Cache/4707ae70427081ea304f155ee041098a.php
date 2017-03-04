@@ -17,11 +17,8 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+    <!-- Timeline CSS -->
+    <link href="__PUBLIC__/dist/css/timeline.css" rel="stylesheet">
 
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
@@ -29,7 +26,6 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link href="__PUBLIC__/css/Myschedule.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -206,122 +202,73 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">我的课表</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">联系顾问</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            我的课表
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body overfw">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped  table-hover" id="dataTables-example">
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-lg-offset-4 col-lg-3">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                课程顾问
+                            </div>
+                            <div class="panel-body">
+                                <table class="table" style="text-align: center;">
                                     <thead>
-                                        <tr>
-                                            <th>订课编号</th>
-                                            <!-- <th>课程名称</th> -->
-                                            <!-- <th>学习顾问</th> -->
-                                            <th>课程类型</th>
-                                            <th>教材名</th>
-                                            <th>上课时间</th>
-                                            <th>时长(min)</th>
-                                            <th>教师英文名</th>
-                                            <th style="display: none">教师ID</th>
-                                            <!-- <th>课堂笔记</th> -->
-                                            <th>上课链接</th>
-                                            <th>取消选课</th>
-                                        </tr>
+                                        <!-- <tr>
+                                            <td colspan="2">
+                                                <img src="<?php if(is_null($manage_result[0]['image_path'])) {echo '#';} else {echo $manage_result[0]['image_path']; } ?>">
+                                            </td>
+                                        </tr> -->
                                     </thead>
                                     <tbody>
-
-                                    	<?php foreach ($data as $key => $value) { ?>
-                                            <tr >
-                                                <td><?php echo ($value['orderclass_id']); ?> </td>
-                                                <td><?php echo ($value['class_type']); ?></td>
-                                                <td><?php echo ($value['bookname']); ?></td>
-                                                <td><?php echo (date('Y-m-d H:i',$value['start_time'])); ?> </td>
-                                                <!-- <td><a href="#"><?php echo ($value['manage_name']); ?> </a></td> -->
-                                                <!-- <td><?php echo (date('Y-m-d H:i:s',$value['class_start_time'])); ?> </td> -->
-                                                <td><?php echo ($value['end_time']-$value['start_time'])/60-5;?>分钟</td>
-                                                <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getTeacherInfo" ><?php echo ($value['englishname']); ?></a> </td>
-                                                <td style="display: none"><?php echo ($value['teacher_id']); ?></td>
-                                               <!--  <td><a href="<?php if(is_null($value['note_link'])) { echo '#';} else {echo $value['note_link'];}?>">查看</a></td> -->
-                                                <!-- <td><a href="<?php echo ($value['zoom']); ?>"><button class="btn btn-primary">GO!</button></a></td> -->
-
-                                                <!--这里面要加一个上课按钮的生效判断-->
-                                                <! --这里表示只有上课前五分钟上课按钮生效-->
-                                                <?php
- $check = md5($value['orderclass_id']); $class_type = md5($value['_class_type']); ?>
-                                                    <!-- 这里的class_type是class中的 -->
-                                                <?php if((int)$value['start_time']-(int)$button_effect_time<=$nowtime){?>
-                                                <td><a href="<?php echo U('Student/JudgeFirstClass',array('class_id'=>$value['orderclass_id'],'check'=>$check, 'class_type'=>$value['_class_type'],'class_check'=>$class_type,'teacher'=>$value['teacher_id'],'time'=>$value['start_time'],'endtime'=>$value['end_time']));?>">
-                                                  <input type="button" value="GO" class="btn btn-primary">
-                                                  <!-- onclick='window.open("<?php echo $value['zoom'];?>")' -->
-                                                </a>
-                                                </td>
-                                                <?php }else{?>
-                                                  <td>还没有到上课时间</td>
-                                                <?php }?>
-                                                <!-- <td><a href="#"><input type="button" value="GO" class="btn btn-primary" onclick='window.open("<?php echo $value['zoom'];?>")'></a></td> -->
-
-                                                <!--取消选课还没有做-->
-                                                <td><a href="<?php $check = md5($value['orderclass_id']); echo U('Student/CancelClass',array('orderclass_id'=>$value['orderclass_id'],'check'=>$check));?>"><button class="btn btn-danger">取消</button></a></td>
-                                                <!-- 点击取消弹出一个确认框，有确认和取消的那种 -->
-                                            </tr>
-                                        <?php } ?>
+                                        <tr>
+                                            <td>顾问姓名:</td>
+                                            <td><?php echo ($admininfo['chinesename']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>联系方式:</td>
+                                            <td><?php echo ($admininfo['phone']); ?></td>
+                                        </tr>
+                                        <tr>
+                                            <td>QQ:</td>
+											
+							     			                    <td><?php echo ($admininfo['QQ']); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Email:</td>
+											                      <td><?php echo ($admininfo['email']); ?> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>WeChat:</td>
+											                      <td><?php echo ($admininfo['weixin']); ?> </td>
+                                        </tr>
+                                        <!-- <tr>
+                                            <td>是否在线:</td>
+                                            <td>否(暂未实现)</td>
+                                        </tr> -->
+                                        <!-- <tr>
+                                            <td colspan="2">
+                                                <br>
+                                                <button class="btn btn-primary" style="width: 80%;">
+                                                    发送消息(暂未实现)
+                                                </button>
+                                            </td>
+                                        </tr> -->
                                     </tbody>
                                 </table>
                             </div>
-
-                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
-                                <div class="modal-dialog modal-md">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        教师信息
-                                        </div>
-                                        <div class="modal-body"  style="overflow: auto;">
-                                            <div class="form-group">
-                                              <label for="">教师QQ</label>
-                                              <input type="text" name="stopID" value="" class="form-control" id="QQ" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">教师skype</label>
-                                              <input type="text" name="stu_name" value="" class="form-control" id="Skype" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">教师微信</label>
-                                              <input type="text" name="strattime" value="" class="form-control" id="Wechat" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">教师zoom</label>
-                                              <input type="text" name="stoptime" value="" class="form-control" id="Zoom" readonly="true">
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- /.table-responsive -->
                         </div>
-                        <!-- /.panel-body -->
                     </div>
-                    <!-- /.panel -->
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
+            <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
@@ -337,102 +284,19 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
+    <!-- Morris Charts JavaScript -->
+<!--     <script src="../../bower_components/raphael/raphael-min.js"></script>
+    <script src="../../bower_components/morrisjs/morris.min.js"></script>
+    <script src="../../js/morris-data.js"></script> -->
 
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
-
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true,
-                autoWidth:true,
-                ordering:false,
-                searching:true,
-                'language':{
-                'emptyTable':'没有数据',
-                'loadingRecords':'加载中...',
-                'processing':'查询中...',
-                'search':'检索:',
-                'lengthMenu':'每页 _MENU_ 条',
-                'zeroRecords':'没有数据',
-                'paginate':{
-                    'first':'第一页',
-                    'last':'最后一页',
-                    'next':'下一页',
-                    'previous':'上一页'
-                },
-                'info':'第 _PAGE_ 页 / 总 _PAGES_ 页',
-                'infoEmpty': '没有数据',
-                'infoFiltered':'过滤总件数 _MAX_ 条'
-            },
-        });
-
-    });
-
-    </script>
 
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
     </script>
-
-    <script type="text/javascript">
-        $(".getTeacherInfo").click(function(){
-            var TeacherID = $(this).parent().parent().children().eq(6).html();
-            $.ajax({
-                type:"POST",
-                url:"<?php echo U('Info/AjaxGetRegisterInfo');?>",
-                data:{
-                    type:'teacher',
-                    ID:TeacherID,
-                },
-                dataType:"json",
-                success:function(msg){
-                    $("#QQ").val("");
-                    $("#Skype").val("");
-                    $("#Wechat").val("");
-                    $("#Zoom").val("");
-
-                    $("#QQ").val(msg.QQ);
-                    $("#Skype").val(msg.skype);
-                    $("#Wechat").val(msg.weixin);
-                    $("#Zoom").val(msg.zoom);
-                },
-                error:function(msg){
-                    alert("获取数据失败");
-                },
-            })
-        });
-    </script>
-
-    <!-- <script type="text/javascript">
-        $('#dataTables-example').DataTable({
-            responsive:true,
-            'language':{
-                'emptyTable':'没有数据',
-                'loadingRecords':'加载中...',
-                'processing':'查询中...',
-                'search':'检索:',
-                'lengthMenu':'每页 _MENU_ 条',
-                'zeroRecords':'没有数据',
-                'paginate':{
-                    'first':'第一页',
-                    'last':'最后一页',
-                    'next':'下一页',
-                    'previous':'上一页'
-                },
-                'info':'第 _PAGE_ 页 / 总 _PAGES_ 页',
-                'infoEmpty': '没有数据',
-                'infoFiltered':'过滤总件数 _MAX_ 条'
-            },
-        });
-    </script> -->
 
 </body>
 

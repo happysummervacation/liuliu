@@ -115,7 +115,9 @@
 			}
 
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			import("Home.Action.StopClass.StopClassBasicService");
 			$orderPackageOp = new OrderPackageBasicOperate();
+			$stopClassOp = new StopClassBasicService();
 			/*要判断条件:
 			1.学生是否有一对一的套餐
 			2.学生是否停过课
@@ -133,7 +135,7 @@
 			}
 
 			//2.判断学生是否停过课
-
+			$stopClassOp->
 
 			//3.判断学生一对一套餐是否已经选择了教材
 			$materialsql = "select count(*) as materialResult from tp_orderpackage where
