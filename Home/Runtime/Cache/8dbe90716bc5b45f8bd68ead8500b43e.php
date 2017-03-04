@@ -237,14 +237,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i = 1; foreach ($day_data as $key => $value) {?>
+                                        <?php $i = 1; foreach ($dayComData as $key => $value) {?>
                                             <tr>
                                                 <td><?php echo ($i); ?></td>
                                                 <td style="display:none"><?php echo ($value['oneorderclassID']); ?></td>
                                                 <td style="display:none"><?php echo ($value['classID']); ?></td>
                                                 <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                 <td><?php echo ($value['englishname']); ?></td>
-                                                <td><?php echo (date("Y-m-d H:i:s",$value['start_time'])); ?></td>
+                                                <td><?php echo (date("Y-m-d H:i:s",$value['classStartTime'])); ?></td>
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="getcolinfo">Click To Upload</a></td>
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo AddRemark">Click To Add</a></td>
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">Click To Evaluation</a></td>
@@ -275,16 +275,18 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i = 1; foreach ($week_data as $key => $value) { ?>
+                                            <?php $i = 1; foreach ($weekComData as $key => $value) { ?>
                                                 <tr>
                                                     <td><?php echo ($i); ?></td>
-                                                    <td style="display:none"><?php echo ($value['comment_id']); ?></td>
-                                                    <td style="display:none"><?php echo ($value['ID']); ?></td>
+                                                    <td style="display:none"><?php echo ($value['oneteachercomID']); ?></td>
+                                                    <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                     <td><?php echo ($value['englishname']); ?></td>
-                                                    <td><?php echo (date("Y-m-d",$value['comment_start_time'])); ?>~<?php echo (date("Y-m-d",$value['comment_end_time'])); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$value['comment_deadline'])); ?></td>
+                                                    <td><?php echo (date("Y-m-d",$value['comStartTime'])); ?>~<?php echo (date("Y-m-d",$value['comment_end_time'])); ?></td>
+                                                    <td><?php echo (date('Y-m-d H:i',$value['comDeadline'])); ?></td>
                                                     <td>
-                                                    <?php if($value['comment_type']=='11')echo '<a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click Evaluation</a>'; else {echo 'Has been commented';} ?>
+                                                        <!-- <?php dump($value['comStatus']) ?> -->
+                                                    <!-- <?php if($value['comment_type']=='11')echo '<a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click Evaluation</a>'; else {echo 'Has been commented';} ?> -->
+                                                    <a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click Evaluation</a>
                                                     <!-- <a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">点击评价</a> -->
                                                     </td>
                                                 </tr>
@@ -313,16 +315,17 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i = 1; foreach ($month_data as $key => $value) { ?>
+                                            <?php $i = 1; foreach ($monthComData as $key => $value) { ?>
                                                 <tr>
                                                     <td><?php echo ($i); ?></td>
-                                                    <td style="display:none"><?php echo ($value['comment_id']); ?></td>
-                                                    <td style="display:none"><?php echo ($value['ID']); ?></td>
+                                                    <td style="display:none"><?php echo ($value['oneteachercomID']); ?></td>
+                                                    <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                     <td><?php echo ($value['englishname']); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$value['comment_start_time'])); ?>~<?php echo (date('Y-m-d H:i',$value['comment_end_time'])); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$value['comment_deadline'])); ?></td>
+                                                    <td><?php echo (date('Y-m-d H:i',$value['comStartTime'])); ?>~<?php echo (date('Y-m-d H:i',$value['comment_end_time'])); ?></td>
+                                                    <td><?php echo (date('Y-m-d H:i',$value['comDeadline'])); ?></td>
                                                     <td>
-                                                    <?php if($value['comment_type'] == '7') echo '<a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click to Write Comment</a>'; else {echo 'Writed';} ?>
+                                                    <!-- <?php if($value['comment_type'] == '7') echo '<a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click to Write Comment</a>'; else {echo 'Writed';} ?> -->
+                                                    <a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click to Write Comment</a>
                                                     </td>
                                                 </tr>
                                             <?php $i++;}?>
@@ -344,7 +347,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <?php $i = 1; foreach ($triallesson_data as $key => $value) { ?>
+                                            <?php $i = 1; foreach ($auditionComData as $key => $value) { ?>
                                                 <tr>
                                                     <td><?php echo ($i); ?></td>
                                                     <td><?php echo ($value['comment_id']); ?></td>

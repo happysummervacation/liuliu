@@ -129,7 +129,12 @@
                     <p>第五条 乙方成为付费学员后，乙方享有提交课程计划安排以及课后完成对老师授课评估的权限。</p>
                   </li>
                   <li>
-                    <p>第六条 本合同终止时间以乙方课时结束为准，课程有效期为 <?php echo ($contract_data['time']); ?> 天,免费延期10天，超出规定期限后每30天加收100元管理费直至课程上完为止，自 <?php echo (date('Y-m-d',$contract_data['startTime'])); ?> 上第一节课开始算起。</p>
+                    <p>第六条 本合同终止时间以乙方课时结束为准，课程有效期为 <?php echo ($contract_data['time']); ?> 天,免费延期10天，超出规定期限后每30天加收100元管理费直至课程上完为止，自 
+                    <?php if($onlyreadflag) {?>
+                     <?php echo (date('Y-m-d',$contract_data['signTime'])); ?>
+                    <?php }else{ ?>
+                    <?php echo (date('Y-m-d',$contract_data['startTime'])); ?>
+                    <?php }?> 上第一节课开始算起。</p>
                   </li>
                   <li>
                     <p>第七条 违约责任
@@ -157,7 +162,15 @@
                     <p>签 章:___________________<span style="float: right;"></p>
                   </li>
                   <li>
-                    <p>日 期：<?php echo (date("Y-m-d",$contract_data['nowTime'])); ?><span style="float: right;">日 期：<?php echo (date("Y-m-d",$contract_data['nowTime'])); ?></p>
+                    <p>日 期： <?php if($onlyreadflag) {?>
+                     <?php echo (date('Y-m-d',$contract_data['signTime'])); ?>
+                    <?php }else{ ?>
+                    <?php echo (date('Y-m-d',$contract_data['nowTime'])); ?>
+                    <?php }?><span style="float: right;">日 期： <?php if($onlyreadflag) {?>
+                     <?php echo (date('Y-m-d',$contract_data['signTime'])); ?>
+                    <?php }else{ ?>
+                    <?php echo (date('Y-m-d',$contract_data['nowTime'])); ?>
+                    <?php }?></p>
                   </li>
                 </ul>
               </div>

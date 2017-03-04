@@ -25,14 +25,19 @@
 			if("week" == $commentType){
 				$deadline = (int)getTime()-(int)$this->systemSet['weekDeadline'];
 
-				$result = $inquiry->where("teacherID={$teacherID} and comDeadline>{$deadline} and
+				$result = $inquiry
+				->join("inner join tp_student on tp_student.ID=tp_oneteachercom.studentID")
+				->where("teacherID={$teacherID} and comDeadline>{$deadline} and
 				 substring_index(comStatus,':',1)='1' and substring_index(comStatus,':',-1)='0'
 				 and substring_index(substring_index(comStatus,':',2),':',-1)='3'")->select();
+
 				 return $result;
 			}elseif("month" == $commentType){
 				$deadline = (int)getTime()-(int)$this->systemSet['monthDeadline'];
 
-				$result = $inquiry->where("teacherID={$teacherID} and comDeadline>{$deadline} and
+				$result = $inquiry
+				->join("inner join tp_student on tp_student.ID=tp_oneteachercom.studentID")
+				->where("teacherID={$teacherID} and comDeadline>{$deadline} and
 				 substring_index(comStatus,':',1)='2' and substring_index(comStatus,':',-1)='0'
 				 and substring_index(substring_index(comStatus,':',2),':',-1)='3'")->select();
 				 return $result;

@@ -28,11 +28,12 @@
 			$dayCommentResult = $inquiry
 			->join("inner join tp_class on tp_class.classID=tp_oneorderclass.classID and
 			classEndTime>({$deadline}) and teacherID={$teacherID}
-			inner join tp_teacher on tp_class.teacherID=tp_teacher.ID")
+			inner join tp_teacher on tp_class.teacherID=tp_teacher.ID
+			inner join tp_student on tp_oneorderclass.studentID=tp_student.ID")
 			->where("(classStatus=1 or classStatus=3 or classStatus=4) and tp_oneorderclass.
 			teacherComment is null")
 			->select();
-// dump($inquiry);
+
 			import("Home.Action.Comment.CommentBasicOperate");
 			$comBasOp = new CommentBasicOperate();
 			$weekCommentresult = $comBasOp->getNotFeedComment($teacherID,"week");
@@ -42,8 +43,7 @@
 			$returnData = array();
 			array_push($returnData,$dayCommentResult,$weekCommentresult,$monthCommentResult,
 			$auditionCommentResult);
-// dump($returnData);
-// exit;
+dump($returnData);
 			return $returnData;
 		}
 	}

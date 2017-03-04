@@ -55,6 +55,7 @@
 
                             <div class="panel-body">
                               <foreach name="contractresult" item="vo">
+                              <?php if($vo[isSign] == 1){?>
                                     <div class="col-lg-4" style="text-align: center;">
                                         <div class="well" style="max-width: 280px;min-width: 250px;width:90%;display: inline-block;">
                                             <table class="table" style="max-width:100%;">
@@ -85,7 +86,7 @@
                                                 <tr>
                                                     <td colspan="2" style="text-align: center;">
                                                         <br>
-                                                        <a href="<{:U('Contract/getContractInfo',array('ordercontractID'=>$vo['ordercontractID'],'isSign'=>$vo['isSign']))}>"><button class="btn btn-default">合同详情</button></a>
+                                                        <a href="<{:U('Contract/getContractInfo',array('isSign'=>$vo['isSign'],'orderpackageID'=>$vo['orderpackageID']))}>"><button class="btn btn-default">合同详情</button></a>
                                                     </td>
                                                 </tr>
 
@@ -94,6 +95,7 @@
                                             </table>
                                         </div>
                                     </div>
+                                    <?php }?>
                                     </foreach>
                             </div>
                         </div>

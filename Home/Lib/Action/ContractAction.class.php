@@ -87,9 +87,11 @@
 			$this->CheckSession();
 			import("Home.Action.User.UserBasicOperate");
 			import("Home.Action.OrderPackage.OrderPackageBasicService");
+			import("Home.Action.Contract.ContractBasicOperate");
+			$conBo = new ContractBasicOperate();
 			$identity = $_SESSION['identity'];
 			$studentID = $_SESSION['ID'];
-			$contractID = $_GET['ordercontractID'];
+			$orderpackageID = $_GET['orderpackageID'];
 			$userOp = new UserBasicOperate();
 			$packageOp = new OrderPackageBasicService();
 			if("0" == $identity || 0 == $identity){
@@ -98,6 +100,8 @@
 
 				//获取套餐的信息
 				$packageInfo = $packageOp->getOrderPackageInfo($orderpackageID);
+				//获得合同信息
+				$contractInfo = $conBo->getStudentContractWithCondition($orderpackageID,$studentID);
 				$result = array();
 				$result['chinesename'] = $studentInfo[0]['chinesename'];
 				$result['sex'] = $studentInfo[0]['sex'];
@@ -110,7 +114,8 @@
 				$result['time'] = $packageInfo[0]['time'];
 				$result['startTime'] = $packageInfo[0]['startTime'];
 				$result['nowTime'] = getTime();
-				$result['ordercontractID'] = $contractID;
+				$result['signTime'] = $contractInfo[0]['signTime'];
+				$result['ordercontractID'] = $contractInfo[0]['ordercontractID'];
 			}
 			//判断是否只读
 			if($_GET['isSign']){
