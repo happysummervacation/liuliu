@@ -29,6 +29,8 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/tool/flatpickr.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -110,12 +112,44 @@
                                                 <button class="editStudent btn btn-primary" style="margin:5px">修改</button>
                                                 <a href="<{:U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']))}>" class="resetPasswordID"><button class="btn btn-primary" style="margin:5px">一键重置密码</button></a>
                                                 <a href="<{:U('Info/UserManage',array('personType'=>'student','type'=>'delete','user_id'=>$value['ID']))}>" class="removeAccountID"><button class="btn btn-primary" style="margin:5px">彻底删除</button></a>
+                                                <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage"><button type="button" name="button" class="btn btn-primary" style="margin:5px">停课</button></a>
                                             </td>
                                         </tr>
                                     <?php $i++;}?>
                                     </tbody>
                                 </table>
                             </div>
+                            <!-- 模态框5,套餐停课处理 -->
+                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
+                                <div class="modal-dialog modal-md">
+                                  <div class="modal-content">
+                                      <div class="modal-header">
+                                      停课申请
+                                      </div>
+                                      <div class="modal-body"  style="overflow: auto;">
+                                          <form class="form" method="post" action="<{:U('Root/DealStudentStopClass')}>">
+                                              <div class="form-group col-lg-4" >
+                                                  <label>学生ID:</label>
+                                                  <input type="text" name="orderpackage" class="form-control orderpackage_id" readonly="true">
+                                              </div>
+                                              <div class="form-group col-lg-4">
+                                                  <label>起始时间</label>
+                                                  <input type="text" name="start_time" class="form-control flatpickr starttime" >
+                                              </div>
+                                              <div class="form-group col-lg-4">
+                                                  <label>截止时间</label>
+                                                  <input type="text" name="end_time" class="form-control flatpickr stoptime">
+                                              </div>
+                                      </div>
+                                      <div class="modal-footer">
+                                          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                          <button type="submit" class="btn btn-primary">提交</button>
+                                      </div>
+                                      </form>
+                                  </div>
+                                </div>
+                            </div>
+                            <!-- 模态框5 -->
                             <!-- 模态框1,查看用户信息 -->
                             <!-- <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                 <div class="modal-dialog modal-lg">
@@ -316,6 +350,8 @@
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
+        <script type="text/javascript" src="__PUBLIC__/tool/flatpickr.min.js"></script>
+
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
@@ -439,6 +475,29 @@
         }else{
           return false;
         }
+      })
+
+      $('.delaymouth').click(function(){
+          var starttime=$(this).parent().find('span').first().html();
+          flatpickr(".flatpickr",{
+              minDate:starttime
+          });
+          var stoptime=$(this).parent().find('span').last().html();
+          var orderpackage_id=$(this).parent().find('td').first().html();
+          $('#delay .orderpackage_id').val(orderpackage_id);
+          $('#delay .starttime').val(starttime);
+          $('#delay .stoptime').val(stoptime);
+          $('#delay').modal();
+      });
+
+      $('.stoppackage').click(function(){
+          flatpickr(".flatpickr",{
+              minDate:new Date()
+          });
+          var orderpackage_id=$(this).parent().parent().find('td').first().html();
+          $('#modalmoneyinfo .orderpackage_id').val(orderpackage_id);
+          // $('#delay .starttime').val(starttime);
+          // $('#delay .stoptime').val(stoptime);
       })
     </script>
 
