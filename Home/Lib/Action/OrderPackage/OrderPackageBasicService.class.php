@@ -237,7 +237,7 @@
 			 inner join tp_teoneclasssalary on tp_teoneclasssalary.teacherID={$teacherID}
 			 and tp_teoneclasssalary.teacherType=tp_orderpackage.teacherType and classType=0
 			 and tp_teoneclasssalary.scategory=tp_orderpackage.category and
-			 tp_teoneclasssalary.isLastest=1
+			 tp_teoneclasssalary.isLastest=1 and tp_orderpackage.status=1
 			 inner join tp_packageconfig on tp_packageconfig.packageconID=tp_orderpackage.category";
 			 $inquiry = new Model();
 			 $orderPackageResult = $inquiry->query($sql);

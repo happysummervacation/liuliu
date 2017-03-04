@@ -123,7 +123,6 @@
 			2.学生是否停过课
 			3.学生的一对一套餐是否已经指定了教材
 			*/
-			$studentID = $_SESSION['ID'];
 			//1.判断是否有一对一的套餐
 			$orderpackagesql = "select count(*) as oneOrderPackage from tp_orderpackage where
 			 isdelete=0 and status=1 and classType=0 and studentID={$studentID}";
@@ -135,7 +134,12 @@
 			}
 
 			//2.判断学生是否停过课
-			$stopClassOp->
+			$stopClassResult = $stopClassOp->checkAndUpdateStopClassTime($studentID);
+			if(!$stopClassResult['status'] || $stopClassResult['isStop']){  //如果操作失败,或者处于停课期限之内就进行提醒
+				$message['status'] = false;
+				$message['message'] = "你还处于停课期限之内,不能进行订课";
+				return $message;
+			}
 
 			//3.判断学生一对一套餐是否已经选择了教材
 			$materialsql = "select count(*) as materialResult from tp_orderpackage where

@@ -51,9 +51,23 @@
 				}
 
 			}elseif(2 == $identity || "2" == $identity){
-
+				$studentID = $_GET['user_id'];
+				$teacherID = $_POST['teacher_id'];
+				$result = $orderPackageOp->getStudentOneToOneOrderPackageInfo($studentID,$teacherID);
+				if($result){
+					echo json_encode($result);   //将获取到的数据以json的数据进行返回
+				}else{
+					echo json_encode(array());   //表示没有获取到数据时使用空数组返回
+				}
 			}elseif(4 == $identity || "4" == $identity){
-
+				$studentID = $_GET['user_id'];
+				$teacherID = $_POST['teacher_id'];
+				$result = $orderPackageOp->getStudentOneToOneOrderPackageInfo($studentID,$teacherID);
+				if($result){
+					echo json_encode($result);   //将获取到的数据以json的数据进行返回
+				}else{
+					echo json_encode(array());   //表示没有获取到数据时使用空数组返回
+				}
 			}else{
 				echo "你没有权限进行访问";
 				return;

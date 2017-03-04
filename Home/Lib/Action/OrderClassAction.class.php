@@ -63,9 +63,30 @@
 				$this->assign("teacher_result",$teacherResult);
 				$this->display("Student:BookCourse");
 			}elseif(2 == $identity || "2" == $identity){
+				$studentID = $_GET['user_id'];
 
+				$filterResult = $orderclassOp->studentOrderClassFilterService($studentID);
+				$teacherResult = $orderclassOp->getTeacherWithStudentOrderPac($studentID);
+				if(!$filterResult['status']){
+					$this->error($filterResult['message']);
+					return;
+				}
+				$this->assign("studentID",$studentID);
+				$this->assign("teacher_result",$teacherResult);
+				$this->display("Admin:BookCourse");
 			}elseif(4 == $identity || "4" == $identity){
+				$studentID = $_GET['user_id'];
 
+				$filterResult = $orderclassOp->studentOrderClassFilterService($studentID);
+				$teacherResult = $orderclassOp->getTeacherWithStudentOrderPac($studentID);
+				if(!$filterResult['status']){
+					$this->error($filterResult['message']);
+					return;
+				}
+				// $this->assign('teacher_result',$result);
+				$this->assign("studentID",$studentID);
+				$this->assign("teacher_result",$teacherResult);
+				$this->display("Root:BookCourse");
 			}else{
 				$this->error("你没有权限查看该页面的内容");
 				return;
@@ -158,9 +179,31 @@
 					return;
 				}
 			}elseif("2" == $identity || 2 == $identity){
-
+				$data = $_POST['id_data'];
+				$studentID = $_GET['user_id'];
+				import("Home.Action.OrderClass.OrderClassBasicService");
+				$orderclassOp = new OrderClassBasicService();
+				$result = $orderclassOp->OrderOneToOneClass($studentID,$data);
+				if($result['status']){
+					echo "课程订购成功";
+					return;
+				}else{
+					echo "课程订购失败";
+					return;
+				}
 			}elseif("4" == $identity || 4 == $identity){
-
+				$data = $_POST['id_data'];
+				$studentID = $_GET['user_id'];
+				import("Home.Action.OrderClass.OrderClassBasicService");
+				$orderclassOp = new OrderClassBasicService();
+				$result = $orderclassOp->OrderOneToOneClass($studentID,$data);
+				if($result['status']){
+					echo "课程订购成功";
+					return;
+				}else{
+					echo "课程订购失败";
+					return;
+				}
 			}else{
 				$this->error("你没有权限进行操作");
 				return;

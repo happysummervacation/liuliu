@@ -379,7 +379,7 @@
                         </div>
                         <div class="panel-footer" style="overflow: auto">
                             <div class="pull-right">
-                                <a href="<?php echo U('Root/BookingCourse',array('user_id'=>$student_id,'check'=>md5($student_id)));?>">
+                                <a href="<?php echo U('OrderClass/showOrderClassInfo',array('user_id'=>$studentID));?>">
                                     <button class="btn btn-primary">
                                         添加课程
                                     </button>

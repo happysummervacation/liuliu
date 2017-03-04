@@ -181,9 +181,21 @@
 			}elseif(1 == $identity || "1" == $identity){
 
 			}elseif(2 == $identity || "2" == $identity){
-
+				$teacherID = $_POST['teacher_id'];
+				$result = $classOp->getTeacherFreeClassTime($teacherID);
+				if(is_null($result)){
+					echo json_encode(array());
+				}else{
+					echo json_encode($result);
+				}
 			}elseif(4 == $identity || "4" == $identity){
-
+				$teacherID = $_POST['teacher_id'];
+				$result = $classOp->getTeacherFreeClassTime($teacherID);
+				if(is_null($result)){
+					echo json_encode(array());
+				}else{
+					echo json_encode($result);
+				}
 			}else{
 				echo "用户权限不够";
 			}

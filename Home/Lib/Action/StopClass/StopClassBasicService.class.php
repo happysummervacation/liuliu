@@ -34,6 +34,10 @@
 				$stopClassResult = $inquiry->query($sql);
 				if($stopClassResult){
 					$this->dealStudentActiveOrderPacAndStopClass($studentID,$stopClassResult);
+					$message['status'] = true;
+					$message['message'] = "已经处理了要处理的停课数据,成功与否不能进行保证";
+					$message['isStop'] = false;
+					return $message;
 				}else{
 					$message['status'] = true;
 					$message['message'] = "没有要处理的数据";
