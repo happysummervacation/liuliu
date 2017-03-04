@@ -117,10 +117,11 @@
                                 <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
                             </li>
                              <li>
-                                <a href="<?php echo U('Teacher/Feedback');?>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
+                                <a href="<?php echo U('Comment/TeacherCommentManage',array('type'=>'now'));?>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
                             </li>
                             <li>
-                               <a href="<?php echo U('Teacher/HistoryFeedback');?>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
+                                <!--HistoryFeedback-->
+                               <a href="<?php echo U('Comment/TeacherCommentManage',array('type'=>'history'));?>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
                            </li>
                         <li>
                             <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>

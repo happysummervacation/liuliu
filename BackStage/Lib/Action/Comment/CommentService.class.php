@@ -159,7 +159,7 @@
 					//进行月评邮件提醒
 					//获取指定教师的邮箱
 					$email = UserOperate::getUserInfo('teacher',$value['teacherID'],null,null,null,"email")[0]['email'];
-					$result = MailTo::PostMail($email,"月评评添加提醒","老师，本月你需要对本周上过的学生进行月评评价，请注意等账户查看");
+					$result = MailTo::PostMail($email,"月评评添加提醒","老师，本月你需要对本月上过的学生进行月评评价，请注意等账户查看");
 					//不进行发送成功与否的判断
 				}
 			}
