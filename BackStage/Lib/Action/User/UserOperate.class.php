@@ -66,10 +66,11 @@
                 }
             }
 
+			import("BackStage.Action.DBConfig.Config");
             if(!is_null($tableName)){
-                $inquiry = new Model($tableName);
+                $inquiry = new Model($tableName,Config::$frefix,Config::$db_config);
             }else{
-                $inquiry = new Model();
+                $inquiry = new Model('',Config::$frefix,Config::$db_config);
             }
 
             $fieldString = "";

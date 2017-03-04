@@ -39,4 +39,19 @@
 			array_push($arr, $week_end_time);
 			return $arr;
 		}
+
+		/*
+		*作者：俞鹏泽
+		*作用：获取本月的开始时间与结束时间
+		*/
+		//返回数据数组，第一个数据是开始时间，第二个数据是结束时间
+		public static function GetThisMonthStartEndTime(){
+			$time = (int)PublicFunction::GetTime() - 3600*24;   //表示获取上一个月的时间
+			$month_start_time = strtotime(date('Y-m',$time));
+			$month_end_time = strtotime(date('Y-m-d H:i:s',$month_start_time).' +1 month');
+			$arr = array();
+			array_push($arr, $month_start_time);
+			array_push($arr, $month_end_time);
+			return $arr;
+		}
 	}

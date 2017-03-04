@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'ID', 1 => 'account', 2 => 'password', 3 => 'country', 4 => 'status', 5 => 'chinesename', 6 => 'englishname', 7 => 'email', 8 => 'phone', 9 => 'skype', 10 => 'QQ', 11 => 'age', 12 => 'sex', 13 => 'weixin', 14 => 'openID', 15 => 'image_path', 16 => 'accept_time', 17 => 'introduction', 18 => 'video_path', 19 => 'zoom', 20 => 'identity', 21 => 'teacher_type', 22 => 'level', 23 => 'paypal', 24 => 'bankcard', 25 => 'teachercertification', 26 => 'create_time', 27 => 'last_modify', 28 => 'simplevideo', 29 => 'teachercomment', '_autoinc' => false, ); ?>
