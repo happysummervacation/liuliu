@@ -77,7 +77,7 @@
 				}elseif(is_string($field)){
 					$fieldString = $field;
 				}else{
-					return false;
+					;
 				}
 			}
 

@@ -323,5 +323,72 @@
 				 return $message;
 			 }
 		}
+
+		/*
+		*俞鹏泽
+		*学生进行上课的操作服务
+		*/
+		//获取指定的订购课程的数据,
+		//判断课程对应的套餐的合同是否已经签订,没有签订就进行签订,签订了就直接进行上课
+		//并进行处理上课处理
+		public function studentAttendClassService($studentID = null,$orderClassID = null,$classType = null){
+			$message = array();
+
+			if(is_null($studentID) || is_null($orderClassID) || is_null($classType)){
+				$message['status'] = false;
+				$message['message'] = "缺失重要的数据";
+				return $message;
+			}
+
+			if($classType != "onetoone" && $classType != "group"){
+				$message['status'] = false;
+				$message['message'] = "课程类型有问题";
+				return $message;
+			}
+
+			$sql = "select
+			 isSign,zoom,tp_student.chinesename,tp_student.sex,tp_student.phone,tp_student.country,
+			 tp_orderpackage.packageMoney,tp_packageconfig.packageName,tp_orderpackage.classType,
+			 tp_orderpackage.packageType,tp_orderpackage.classNumber,tp_orderpackage.teacherNation,
+			 tp_orderpackage.teacherType ,tp_orderpackage.time,tp_orderpackage.orderpackageID,ordercontractID
+			 from tp_studentcontract
+			 inner join tp_orderpackage on tp_orderpackage.orderpackageID=tp_studentcontract.orderpackageID
+			 inner join tp_oneorderclass on tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
+			 and tp_oneorderclass.oneorderclassID={$orderClassID}
+			 inner join tp_class on tp_oneorderclass.classID=tp_class.classID
+			 inner join tp_teacher on tp_teacher.ID=tp_class.teacherID
+			 inner join tp_student on tp_student.ID=tp_studentcontract.order_party and order_party={$studentID}
+			 inner join tp_packageconfig on tp_packageconfig.packageconID=tp_orderpackage.category";
+
+			 $inquiry = new Model();
+			 $result = $inquiry->query($sql);
+			if("0" == $result[0]['isSign'] || 0 == $result[0]['isSign']){
+				//表示没有签订数据
+				$message['status'] = false;
+				$message['message'] = "还没有签订合同";
+				$message['contractInfo'] = $result[0];
+				return $message;
+			}else{
+				//表示签订了合同,进行正常的上课操作
+				//先将学生订购的课程的课程状态设置成学生上课的状态
+				if("onetoone" == $classType){
+					import("Home.Action.OrderClass.OrderClassBasicOperate");
+					$orderClaOp = new OrderClassBasicOperate();
+					$data['status'] = 1;
+					$updateResult = $orderClaOp->updateOneOrderClassInfo($orderClassID,$data);
+					//暂时不做课程状态修改成功与否的判断
+					// if(!$result['status']){
+					//
+					// }
+				}else{
+					//这里进行小班课的上课
+				}
+
+				header("location:".$result[0]['zoom']);
+				$message['status'] = true;
+				$message['message'] = "学生已经签订合同,正常上课";
+				return $message;
+			}
+		}
 	}
  ?>

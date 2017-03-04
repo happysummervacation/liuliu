@@ -118,5 +118,38 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*获取订购的上课数据的数据
+		*/
+		public function getOneOrderClassInfo($orderclassID = null,$field = null){
+			if(is_null($orderclassID)){
+				return null;
+			}
+
+			$fieldString = "";
+			if(is_array($field)){
+				for ($i = 0; $i < count($field); $i++) {
+					if($i == count($field)-1){
+						$fieldString = $fieldString.$field[$i];
+					}else{
+						$fieldString = $fieldString.$field[$i].",";
+					}
+				}
+			}elseif(is_string($field)){
+				$fieldString = $field;
+			}else{
+				;
+			}
+
+			$inquiry = new Model("oneorderclass");
+			if(is_null($field)){
+				$result = $inquiry->where("oneorderclassID={$orderclassID}")->select();
+			}else{
+				$result = $inquiry->where("oneorderclassID={$orderclassID}")
+				->field($fieldString)->select();
+			}
+			return $result;
+		}
 	}
  ?>

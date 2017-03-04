@@ -226,12 +226,56 @@
 					}else{
 						$this->error("教师退课失败,请重试");
 					}
+					return;
 				}else{
 					$this->error("没有对应的操作");
 					return;
 				}
 			}else{
 				$this->error("你没有权限进行管理操作");
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*学生进行上课操作
+		*/
+		public function studentAttendClass(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+
+			import("Home.Action.OrderClass.OrderClassBasicService");
+			$ordSerOp = new OrderClassBasicService();
+			if("0" == $identity || 0 == $identity){
+				//判断学生是否签过相应套餐的合同
+				$studentID = $_SESSION['ID'];
+				$orderClassID = $_GET['ID'];
+				$classType = $_GET['classtype'];
+
+				$result = $ordSerOp->studentAttendClassService($studentID,$orderClassID,$classType);
+
+				if(!$result['status'] && !empty($result['contractInfo'])){
+					//表明需要进行合同的签订
+					$contractInfo = $result['contractInfo'];
+					$contractInfo['startTime'] = getTime();
+					$contractInfo['nowTime'] = getTime();
+
+					$this->assign("orderClassID",$orderClassID);
+					$this->assign("contract_data",$contractInfo);
+					$this->assign("classType",$classType);
+					$this->assign("onlyreadflag",false);
+					$this->display("Student:Contract");
+					return;
+				}elseif(!result['status'] && empty($result['contractInfo'])){
+					$this->error("发生错误,请联系课程顾问");
+					return;
+				}else{
+					;
+				}
+			}else{
+				$this->error("你没有权限进行操作");
+				return;
 			}
 		}
 	}

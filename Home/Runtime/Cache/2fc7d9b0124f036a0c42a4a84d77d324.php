@@ -1,0 +1,208 @@
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>学生合同</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="__PUBLIC__/bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- MetisMenu CSS -->
+    <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
+
+    <!-- DataTables CSS -->
+    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
+
+    <!-- DataTables Responsive CSS -->
+    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
+
+    <!-- Custom Fonts -->
+    <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body style="font-family: 微软雅黑;">
+
+    <div id="wrapper">
+
+        <!-- Navigation -->
+        <!-- 标题 -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <?php if($onlyreadflag){?>
+                    <a class="navbar-brand" href="<?php echo U('Student/MyContract');?>" ><strong>返回</strong></a>
+                <?php }else{?>
+                    <a class="navbar-brand" href="<?php echo U('Student/MySchedule');?>" ><strong>返回</strong></a>
+                <?php }?>
+
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 消息中心 -->
+            <ul class="nav navbar-top-links navbar-right">
+                <!-- 中英文切换 -->
+
+                <!-- 用户 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户信息</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 账号设置</a>
+                        </li>
+                        <li class="divider"></li> -->
+                        <li><a href="<?php echo U('Login/DoLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+        </nav>
+
+        <div class="row">
+           <div class="col-lg-8 col-lg-offset-2">
+              <div class="well" style="margin-top: 15px;">
+                <h1 style="text-align: center;">溜溜英语合同书</h1>
+                <ul style="list-style: none;margin-top: 35px;">
+                  <li>甲    方：宁波溜溜电子商务有限公司  </li>
+                  <li>公司地址：宁波市海曙区翠柏路89号宁波工程学院内公共培训平台A座1303  </li>
+                  <li>联系电话：13586888505 </li>
+                  <li>乙    方：
+                    <?php if(empty($contract_data['chinesename'])) {} else {echo $contract_data['chinesename'];} ?>
+                  </li>
+                  <li>性    别：
+                    <!-- <?php if(empty($contract_data['sex'])) {} else {echo $contract_data['sex'];} ?> -->
+                    <?php switch($contract_data['sex']): case "0": ?>女<?php break;?>
+                        <?php case "1": ?>男<?php break; endswitch;?>
+                  </li>
+                  <li>联系方式：
+                    <?php if(empty($contract_data['phone'])) {} else {echo $contract_data['phone'];} ?>
+                  </li>
+                 <!--  <li>居民身份证号码：</li> -->
+                  <li>联系住址：
+                    <?php if(empty($contract_data['country'])) {} else {echo $contract_data['country'];} ?>
+                  </li>
+                  <li><p>根据《中华人民共和国合同法》，甲乙双方经平等协商，自愿签订本合同，共同遵守本合同所列条款。</p></li>
+                  <li><p>第一条 甲方有义务向乙方提供支付指导，乙方支付完费用须向甲方及时联系确认，甲方在确认乙方付款后须要及时的为学员开通相应权限，并指导其使用。
+                  </p></li>
+                  <li><p>第二条 乙方按甲方课程收费要求，向甲方支付相应课程费用共人民币<?php echo ($contract_data['packageMoney']); ?> 元。 甲方在乙方付款后，向乙方提供
+                      <?php echo ($contract_data['packageName']); ?>/
+                      <?php switch($contract_data['classType']): case "0": ?>一对一<?php break;?>
+                          <?php case "1": ?>小班<?php break; endswitch;?>/
+                      <?php switch($contract_data['teacherNation']): case "0": ?>中教<?php break;?>
+                          <?php case "1": ?>外教<?php break; endswitch;?>/
+                      <?php switch($contract_data['teacherType']): case "0": ?>普通教师<?php break;?>
+                          <?php case "1": ?>名教<?php break; endswitch;?>
+                      课程 <?php echo ($contract_data['classNumber']); ?> 节。</p></li>
+                  <li>
+                    <p>第三条 甲方有义务针对乙方的课程要求，如对老师的要求以及对上课时间的要求，来为其预约老师上课。</p>
+                  </li>
+                  <li>
+                    <p>第四条 乙方享有提交相应数目的课程申请的权限。</p>
+                  </li>
+                  <li>
+                    <p>第五条 乙方成为付费学员后，乙方享有提交课程计划安排以及课后完成对老师授课评估的权限。</p>
+                  </li>
+                  <li>
+                    <p>第六条 本合同终止时间以乙方课时结束为准，课程有效期为 <?php echo ($contract_data['time']); ?> 天,免费延期10天，超出规定期限后每30天加收100元管理费直至课程上完为止，自 <?php echo (date('Y-m-d',$contract_data['startTime'])); ?> 上第一节课开始算起。</p>
+                  </li>
+                  <li>
+                    <p>第七条 违约责任
+                      <ol>
+                        <li>因甲方单方面原因导致合同无法履行的，甲方向乙方提供退款不收取手续费。</li>
+                        <li>因乙方单方面原因导致合同无法履行的，甲方可以向乙方提供退款并扣取剩余费用30%的手续费。</li>
+                        <li>课程有效期开始七天以内（以套餐第一节课程上课时间为准），乙方可以向甲方申请无条件退款（需扣除已上过课时费用）。</li>
+                        <li>由于发生不可抗力情况，而直接影响本合同的履行时，甲方对本合同受不可抗力影响的部分义务或全部义务无法履行的责任不予承担。经双方协商，履行本合同义务的期限也可相应推迟。本协议在执行中若发生争议，双方应协议解决；协商未果，任何一方有权依据《中华人民共和国民事诉讼法》第22条之规定向人民法院提起诉讼。</li>
+                      </ol>
+                    </p>
+                  </li>
+                  <li><p>第八条 本合同传真件或扫描件与原件具同等效力。</p></li>
+                  <li>
+                    <p>第九条 本合同自甲乙双方签字盖章后生效并表示同意本合同附件的全部条款。</p>
+                  </li>
+                  <li>
+                    <p>甲 方： 宁波溜溜电子商务有限公司<span style="float: right;">乙 方：
+                      <?php if(empty($contract_data['chinesename'])) {} else {echo $contract_data['chinesename'];} ?>
+                    </span></p>
+                  </li>
+                  <li>
+                    <p>负 责 人:王日飞</p>
+                  </li>
+                  <li>
+                    <p>签 章:___________________<span style="float: right;"></p>
+                  </li>
+                  <li>
+                    <p>日 期：<?php echo (date("Y-m-d",$contract_data['nowTime'])); ?><span style="float: right;">日 期：<?php echo (date("Y-m-d",$contract_data['nowTime'])); ?></p>
+                  </li>
+                </ul>
+              </div>
+           </div>
+           <div class="col-lg-8 col-lg-offset-2">
+             <div style="text-align: center;">
+               <?php
+ $token = md5($contract_data['ordercontractID']); $orderclasstoken = md5($orderClassID); dump($classType); ?>
+              <?php if($onlyreadflag){?>
+
+              <?php }else{?>
+                <a href="<?php echo U('Contract/agreeContract',array('order'=>$contract_data['ordercontractID'], 'token'=>$token,'ordercls'=>$orderClassID,'ordclstoken'=>$orderclasstoken,'classtype'=>$classType));?>"><button class="btn btn-primary">同意继续</button></a>
+              <?php }?>
+              <span style="width: 50px;display: inline-block;"></span>
+              <?php if($onlyreadflag){?>
+
+              <?php }else{?>
+              <a href="<?php echo U('Student/MySchedule');?>"><button class="btn btn-default">取消返回</button></a>
+              <?php }?>
+            </div>
+           </div>
+        </div>
+
+    </div>
+
+        <!-- jQuery -->
+        <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
+
+        <!-- Bootstrap Core JavaScript -->
+        <script src="__PUBLIC__/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+        <!-- Metis Menu Plugin JavaScript -->
+        <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
+        <!-- Custom Theme JavaScript -->
+        <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+
+       <script type="text/javascript">
+           $(".suredel").click(function () {
+               if(confirm('您确定要删除吗?')){
+                  window.location.href="<?php echo U('Admin/deletemessageoneuser');?>"+"/message_id/"+$(this).val();;
+               };
+           });
+           $(".sureread").click(function () {
+                window.location.href="<?php echo U('Admin/markonemessageasread');?>"+"/message_id/"+$(this).val();;
+           });
+       </script>
+</body>
+</html>

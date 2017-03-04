@@ -99,15 +99,14 @@
                                                 <!-- <td><a href="<{$value['zoom']}>"><button class="btn btn-primary">GO!</button></a></td> -->
 
                                                 <!--这里面要加一个上课按钮的生效判断-->
-                                                <! --这里表示只有上课前五分钟上课按钮生效-->
                                                 <?php
                                                     $check = md5($value['oneorderclassID']); $class_type = md5($value['classType']); ?>
                                                     <!-- 这里的class_type是class中的 -->
                                                 <?php if($time['nowtime']>=$value['classStartTime']-$time['buttonEffectTime']&&$time['nowtime']<=$value['classEndTime']+$time['buttonLostTime']){?>
-                                                <td><a href="www.baidu.com">
-                                                  <input type="button" value="GO" class="btn btn-primary">
-                                                  <!-- onclick='window.open("<?php echo $value['zoom'];?>")' -->
-                                                </a>
+                                                <td>
+                                                    <a href="<{:U('OrderClass/studentAttendClass',array('ID'=>$value['oneorderclassID'],'classtype'=>'onetoone'))}>">
+                                                      <input type="button" value="GO" class="btn btn-primary">
+                                                    </a>
                                                 </td>
                                                 <?php }else{?>
                                                   <td>还没有到上课时间</td>
