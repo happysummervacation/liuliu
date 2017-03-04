@@ -222,13 +222,17 @@
 				if(0 == $type){
 					//一对一
 					$result = $inquiry
-					->table('tp_class,tp_oneorderclass,tp_orderpackage,tp_teacher')
+					->table('tp_class,tp_oneorderclass,tp_orderpackage,tp_teacher,tp_packageconfig')
 					->where("tp_oneorderclass.studentID = {$studentID} and
 					tp_oneorderclass.classID = tp_class.classID and
 					tp_oneorderclass.orderpackageID = tp_orderpackage.orderpackageID
 					 and tp_class.teacherID = tp_teacher.ID and
 					 tp_oneorderclass.isdelete = 0  and tp_oneorderclass.classStatus = 0
-					 and tp_class.classEndTime > {$time}")->order("classEndTime asc")->select();
+					 and tp_class.classEndTime > {$time}
+					 and tp_orderpackage.category=tp_packageconfig.packageconID")
+					 ->field("tp_orderpackage.*,tp_packageconfig.packageName as claName,
+					 tp_oneorderclass.*,tp_teacher.*,tp_class.*")
+					 ->order("classEndTime asc")->select();
 				}elseif(1 == $type){
 					//小班课
 					//$result = $inquiry->table()->where()->select();

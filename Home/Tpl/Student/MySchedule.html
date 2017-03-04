@@ -83,7 +83,10 @@
                                     	<?php foreach ($classdata as $key => $value) { ?>
                                             <tr >
                                                 <td><{$value['oneorderclassID']}> </td>
-                                                <td><if condition="$value['classType'] eq 0">一对一<else/>小班课</if></td>
+                                                <td>
+                                                    <!-- <if condition="$value['classType'] eq 0">一对一<else/>小班课</if> -->
+                                                    <{$value['claName']}>
+                                                </td>
                                                 <?php  $value['material']=explode(":",$value['material'])[1];   ?>
                                                 <td><{$value['material']}></td>
                                                 <td><{$value['classStartTime']|date='Y-m-d H:i',###}> </td>
@@ -100,7 +103,7 @@
                                                 <?php
                                                     $check = md5($value['oneorderclassID']); $class_type = md5($value['classType']); ?>
                                                     <!-- 这里的class_type是class中的 -->
-                                                <?php if($time['nowtime']>=$value['classStartTime']-$time['buttonEffectTime']&&$time['nowtime']<=$value['classStartTime']+$time['buttonLostTime']){?>
+                                                <?php if($time['nowtime']>=$value['classStartTime']-$time['buttonEffectTime']&&$time['nowtime']<=$value['classEndTime']+$time['buttonLostTime']){?>
                                                 <td><a href="www.baidu.com">
                                                   <input type="button" value="GO" class="btn btn-primary">
                                                   <!-- onclick='window.open("<?php echo $value['zoom'];?>")' -->
