@@ -60,7 +60,14 @@
 						$monthStartTime = strtotime("2017-2");
 						$monthEndTime = strtotime("2017-2 +1 month");
 					}
+					import("Home.Action.Comment.CommentBasicService");
+					$comBasOp = new CommentBasicService();
+					$result = $comBasOp->getOneTeacherFeededComment($_SESSION['ID'],$monthStartTime,$monthEndTime);
 
+					$this->assign('dayCommentResult',$result[0]);
+					$this->assign('weekCommentResult',$result[1]);
+					$this->assign('monthCommentResult',$result[2]);
+					$this->assign('auditionCommentResult',$result[3]);
 					$this->display("Teacher:HistoryFeedback");
 				}else{
 					$this->error("没有该种类型的操作");

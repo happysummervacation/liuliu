@@ -171,7 +171,31 @@
 		*查询指定时间内教师评论的一对一日评,周评,月评,以及试听课评论
 		*/
 		public function getOneTeacherFeededComment($teacherID = null,$startTime = null,$endTime = null){
+			if(is_null($teacherID) || is_null($startTime) || is_null($endTime)){
+				return null;
+			}
 
+			//获取教师的一对一评论数据
+			$inquiry = new Model('oneorderclass');
+			$dayCommentResult = $inquiry
+			->join("inner join tp_oneteachercom on tp_oneteachercom.oneteachercomID
+			=tp_oneorderclass.teacherComment and teacherID={$teacherID} and comEndTime>={$startTime} and
+			comEndTime<={$endTime} and substring_index(comStatus,':',1)='0' and
+			substring_index(substring_index(comStatus,':',2),':',-1)='0'
+			inner join tp_student on tp_student.ID=tp_oneorderclass.studentID")
+			->select();
+
+			import("Home.Action.Comment.CommentBasicOperate");
+			$comBasOp = new CommentBasicOperate();
+			$weekCommentResult = $comBasOp->getFeededComment($teacherID,'one',$startTime,$endTime);
+			$monthCommentResult = $comBasOp->getFeededComment($teacherID,'month',$startTime,$endTime);
+			$auditionCommentResult = null;        //试听课评论暂时不管
+
+			$returnData = array();
+			array_push($returnData,$dayCommentResult,$weekCommentResult,$monthCommentResult,
+			$auditionCommentResult);
+
+			return $returnData;
 		}
 
 		/*
@@ -199,7 +223,9 @@
 			$addresult = $inquiry->table('tp_onestudentcom')->add($data);
 			//更新class中的studentComment
 			$updatedata['studentComment'] = $addresult;
-			$updateresult = $inquiry->table('tp_oneorderclass')->where("tp_oneorderclass.oneorderclassID = {$oneorderclassID}")->save($updatedata);
+			$updateresult = $inquiry->table('tp_oneorderclass')
+			->where("tp_oneorderclass.oneorderclassID = {$oneorderclassID}")
+			->save($updatedata);
 			if($addresult!=false&&$updateresult){
 				//提交事务
 				$inquiry->commit();

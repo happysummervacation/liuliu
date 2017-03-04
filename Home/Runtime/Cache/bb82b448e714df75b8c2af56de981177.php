@@ -272,9 +272,9 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
-                                            <th style="display:none">Booking number</th>
-                                            <th style="display:none">Course number</th>
-                                            <th style="display:none">Comemnt number</th>
+                                            <th style="display:none">OrderClassID</th>
+                                            <th style="display:none">ClassID</th>
+                                            <th style="display:none">ComemntID</th>
                                             <th>Students name</th>
                                             <th>Class time</th>
                                             <th>Add notes</th>
@@ -283,19 +283,19 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php if(empty($dairyComment)): else: ?>
+                                        <?php if(empty($dayCommentResult)): else: ?>
                                           <?php $i=1 ?>
-                                          <?php if(is_array($dairyComment)): foreach($dairyComment as $key=>$vo): ?><tr>
+                                          <?php if(is_array($dayCommentResult)): foreach($dayCommentResult as $key=>$vo): ?><tr>
                                               <td><?php echo ($i); ?></td>
                                               <?php $i++ ?>
-                                              <td style="display:none"><?php echo ($vo["orderclass_id"]); ?></td>
-                                              <td style="display:none"><?php echo ($vo["class_id"]); ?></td>
-                                              <td style="display:none"><?php echo ($vo["comment_id"]); ?></td>
+                                              <td style="display:none"><?php echo ($vo["oneorderclassID"]); ?></td>
+                                              <td style="display:none"><?php echo ($vo["classID"]); ?></td>
+                                              <td style="display:none"><?php echo ($vo["oneteachercomID"]); ?></td>
                                               <td><?php echo ($vo["englishname"]); ?></td>
-                                              <td><?php echo (date("Y-m-d",$vo["start_time"])); ?></td>
+                                              <td><?php echo (date("Y-m-d",$vo["comStartTime"])); ?></td>
                                               <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="getcolinfo">Click Upload</a></td>
-                                              <td><?php echo ($vo["comment_level"]); ?></td>
-                                              <td><?php echo ($vo["comment_content"]); ?></td>
+                                              <td><?php echo ($vo["commentlevel"]); ?></td>
+                                              <td><?php echo ($vo["commentcontent"]); ?></td>
                                             </tr><?php endforeach; endif; endif; ?>
                                     </tbody>
                                 </table>
@@ -305,7 +305,6 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
                                                 <th style="display:none">Comment number</th>
                                                 <th style="display:none">Student number</th>
                                                 <th>Student name</th>
@@ -316,14 +315,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          <?php if(empty($weekComment)): else: ?>
-                                            <?php if(is_array($weekComment)): foreach($weekComment as $key=>$vo): ?><tr>
-                                                <td style="display:none"><?php echo ($vo["comment_id"]); ?></td>
-                                                <td style="display:none"><?php echo ($vo["ID"]); ?></td>
+                                          <?php if(empty($weekCommentResult)): else: ?>
+                                            <?php if(is_array($weekCommentResult)): foreach($weekCommentResult as $key=>$vo): ?><tr>
+                                                <td style="display:none"><?php echo ($vo["oneteachercomID"]); ?></td>
+                                                <td style="display:none"><?php echo ($vo["studentID"]); ?></td>
                                                 <td><?php echo ($vo["englishname"]); ?></td>
-                                                <td><?php echo (date("Y-m-d",$vo["comment_time"])); ?></td>
-                                                <td><?php echo ($vo["comment_level"]); ?></td>
-                                                <td><?php echo ($vo["comment_content"]); ?></td>
+                                                <td><?php echo (date("Y-m-d",$vo["comEndTime"])); ?></td>
+                                                <td><?php echo ($vo["commentlevel"]); ?></td>
+                                                <td><?php echo ($vo["commentcontent"]); ?></td>
                                               </tr><?php endforeach; endif; endif; ?>
                                         </tbody>
                                     </table>
@@ -333,7 +332,6 @@
                                     <table class="table table-hover">
                                         <thead>
                                             <tr>
-                                                <th>#</th>
                                                 <th style="display:none">Comment number</th>
                                                 <th style="display:none">Student number</th>
                                                 <th>Student name</th>
@@ -344,14 +342,14 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          <?php if(empty($monthComment)): else: ?>
-                                            <?php if(is_array($monthComment)): foreach($monthComment as $key=>$vo): ?><tr>
-                                                <td style="display:none"><?php echo ($vo["comment_id"]); ?></td>
-                                                <td style="display:none"><?php echo ($vo["ID"]); ?></td>
+                                          <?php if(empty($monthCommentResult)): else: ?>
+                                            <?php if(is_array($monthCommentResult)): foreach($monthCommentResult as $key=>$vo): ?><tr>
+                                                <td style="display:none"><?php echo ($vo["oneteachercomID"]); ?></td>
+                                                <td style="display:none"><?php echo ($vo["studentID"]); ?></td>
                                                 <td><?php echo ($vo["englishname"]); ?></td>
-                                                <td><?php echo (date("Y-m-d",$vo["comment_time"])); ?></td>
-                                                <td><?php echo ($vo["comment_level"]); ?></td>
-                                                <td><?php echo ($vo["comment_content"]); ?></td>
+                                                <td><?php echo (date("Y-m-d",$vo["comEndTime"])); ?></td>
+                                                <td><?php echo ($vo["commentlevel"]); ?></td>
+                                                <td><?php echo ($vo["commentcontent"]); ?></td>
                                               </tr><?php endforeach; endif; endif; ?>
                                         </tbody>
                                     </table>
@@ -371,9 +369,9 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                          <?php if(empty($trailLessonComment)): else: ?>
+                                          <?php if(empty($auditionCommentResult)): else: ?>
                                               <?php $i=0 ?>
-                                            <?php if(is_array($trailLessonComment)): foreach($trailLessonComment as $key=>$vo): $i++ ?>
+                                            <?php if(is_array($auditionCommentResult)): foreach($auditionCommentResult as $key=>$vo): $i++ ?>
                                               <tr>
                                                 <td>$i</td>
                                                 <td style="display:none"><?php echo ($vo["comment_id"]); ?></td>

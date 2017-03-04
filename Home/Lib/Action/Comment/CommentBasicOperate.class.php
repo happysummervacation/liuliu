@@ -20,7 +20,6 @@
 			}
 
 			$inquiry = new Model("oneteachercom");
-			$deadline = (int)getTime()-(int)$this->systemSet['weekDeadline'];
 
 			if("week" == $commentType){
 				$deadline = (int)getTime()-(int)$this->systemSet['weekDeadline'];
@@ -41,6 +40,58 @@
 				 substring_index(comStatus,':',1)='2' and substring_index(comStatus,':',-1)='0'
 				 and substring_index(substring_index(comStatus,':',2),':',-1)='3'")->select();
 				 return $result;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*获取教师已经评论过的周评或者月评
+		*/
+		public function getFeededComment($teacherID = null,$commentType = null,$startTime = null,$endTime = null){
+			if(is_null($teacherID) || is_null($commentType)){
+				return null;
+			}
+
+			$inquiry = new Model("oneteachercom");
+
+			if(is_null($startTime) || is_null($endTime)){
+				if("one" == $commentType){
+					$result = $inquiry
+					->join("inner join tp_student on tp_student.ID=tp_oneteachercom.studentID")
+					->where("teacherID={$teacherID} and substring_index(comStatus,':',1)='1'
+					and substring_index(comStatus,':',-1)='0'
+					and substring_index(substring_index(comStatus,':',2),':',-1)='0'")
+					->select();
+					return $result;
+				}elseif("month" == $commentType){
+					$result = $inquiry
+					->join("inner join tp_student on tp_student.ID=tp_oneteachercom.studentID")
+					->where("teacherID={$teacherID} and substring_index(comStatus,':',1)='2'
+					and substring_index(comStatus,':',-1)='0'
+					and substring_index(substring_index(comStatus,':',2),':',-1)='0'")
+					->select();
+					return $result;
+				}
+			}else{
+				if("one" == $commentType){
+					$result = $inquiry
+					->join("inner join tp_student on tp_student.ID=tp_oneteachercom.studentID")
+					->where("teacherID={$teacherID} and substring_index(comStatus,':',1)='1'
+					and substring_index(comStatus,':',-1)='0'
+					and substring_index(substring_index(comStatus,':',2),':',-1)='0' and
+					comEndTime>={$startTime} and comEndTime<={$endTime}")
+					->select();
+					return $result;
+				}elseif("month" == $commentType){
+					$result = $inquiry
+					->join("inner join tp_student on tp_student.ID=tp_oneteachercom.studentID")
+					->where("teacherID={$teacherID} and substring_index(comStatus,':',1)='2'
+					and substring_index(comStatus,':',-1)='0'
+					and substring_index(substring_index(comStatus,':',2),':',-1)='0' and
+					comEndTime>={$startTime} and comEndTime<={$endTime}")
+					->select();
+					return $result;
+				}
 			}
 		}
 
