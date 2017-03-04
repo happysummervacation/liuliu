@@ -83,7 +83,6 @@
 					$this->error($filterResult['message']);
 					return;
 				}
-				// $this->assign('teacher_result',$result);
 				$this->assign("studentID",$studentID);
 				$this->assign("teacher_result",$teacherResult);
 				$this->display("Root:BookCourse");

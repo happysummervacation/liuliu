@@ -58,5 +58,23 @@
 
 			}
 		}
+
+		/*
+		*蒋周杰
+		*学生得到自身的被送课信息
+		*/
+		public function getsendClassInfo($studentID){
+			if($studentID == null){
+				return null;
+			}
+			$inquiry = new Model();
+			$result = $inquiry
+			->table('tp_sendclassnum,tp_register')
+			->where("tp_sendclassnum.sendedParty = {$studentID} and
+			tp_sendclassnum.sendParty = tp_register.ID")
+			->field("tp_sendclassnum.*,tp_register.chinesename")
+			->select();
+			return $result;
+		}
 	}
  ?>

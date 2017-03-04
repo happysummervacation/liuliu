@@ -109,8 +109,38 @@
 			 $this->CheckSession();
   			$identity = $_SESSION['identity'];
  			if(0 == $identity||'0' == $identity){
-
- 				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+ 			// 	import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+ 			// 	$ordpOp = new OrderPackageBasicOperate();
+ 			// 	$packageInfo = $ordpOp->getStuActiveOrderPackageInfo($_SESSION['ID'],null);
+ 			// 	$this->assign('package_list',$packageInfo);
+				//
+ 			// 	import("Home.Action.User.UserBasicOperate");
+ 			// 	$userOp = new UserBasicOperate();
+ 			// 	$field = array('student_sum_money');
+ 			// 	$moneyInfo = $userOp->getUserInfo('student',$_SESSION['ID'],null,null,null,'student_sum_money');
+ 			// 	$this->assign('money',$moneyInfo[0]['student_sum_money']);
+				//
+				// //获取课时消费历史  消费历史  送课历史
+ 			// 	$studentID = $_SESSION['ID'];
+ 			// 	//上课历史
+ 			// 	import("Home.Action.OrderClass.OrderClassBasicService");
+ 			// 	$ocBS = new OrderClassBasicService();
+ 			// 	$myclass = $ocBS->getMyFinishedClass($studentID);
+ 			// 	//消费历史
+ 			// 	import("Home.Action.Money.MoneyBasicService");
+ 			// 	$moneyBS = new MoneyBasicService();
+ 			// 	$trade = $moneyBS->getStudentopaccount($studentID);
+				// //送课历史
+ 			// 	import("Home.Action.SendClass.SendClassBasicService");
+ 			// 	$scBS = new SendClassBasicService();
+ 			// 	$sendinfo = $scBS->getsendClassInfo($studentID);
+				//
+ 			// 	$this->assign('sendclass_result',$sendinfo);
+ 			// 	$this->assign('trade_list',$trade);
+ 			// 	$this->assign('student_consume_result',$myclass);
+				//
+ 			// 	$this->display("Student:MyPackage");
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
  				$ordpOp = new OrderPackageBasicOperate();
  				$packageInfo = $ordpOp->getStuActiveOrderPackageInfo($_SESSION['ID'],null);
  				$this->assign('package_list',$packageInfo);
@@ -119,6 +149,26 @@
  				$userOp = new UserBasicOperate();
  				$field = array('student_sum_money');
  				$moneyInfo = $userOp->getUserInfo('student',$_SESSION['ID'],null,null,null,'student_sum_money');
+
+ 				//蒋周杰
+ 				//获取课时消费历史  消费历史  送课历史
+ 				$studentID = $_SESSION['ID'];
+ 				//上课历史
+ 				import("Home.Action.OrderClass.OrderClassBasicService");
+ 				$ocBS = new OrderClassBasicService();
+ 				$myclass = $ocBS->getMyFinishedClass($studentID);
+ 				//消费历史
+ 				import("Home.Action.Money.MoneyBasicService");
+ 				$moneyBS = new MoneyBasicService();
+ 				$trade = $moneyBS->getStudentopaccount($studentID);
+				//送课历史
+ 				import("Home.Action.SendClass.SendClassBasicService");
+ 				$scBS = new SendClassBasicService();
+ 				$sendinfo = $scBS->getsendClassInfo($studentID);
+
+ 				$this->assign('sendclass_result',$sendinfo);
+ 				$this->assign('trade_list',$trade);
+ 				$this->assign('student_consume_result',$myclass);
  				$this->assign('money',$moneyInfo[0]['student_sum_money']);
  				$this->display("Student:MyPackage");
  			}else{

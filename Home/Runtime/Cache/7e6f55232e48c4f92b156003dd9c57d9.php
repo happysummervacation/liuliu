@@ -300,17 +300,15 @@
 	                                            <th>课程类型</th>
 	                                            <th>任课教师</th>
 	                                            <th>上课时间</th>
-	                                            <th>消耗课时</th>
 	                                        </tr>
 	                                    </thead>
 	                                    <tbody>
                                         <?php if(is_array($student_consume_result)): foreach($student_consume_result as $key=>$vo): ?><tr>
-	                                            <td><?php echo ($vo["orderclass_id"]); ?></td>
-	                                            <td style="display:none"><?php echo ($vo["class_id"]); ?></td>
-	                                            <td><?php echo ($vo["class_type"]); ?></td>
+	                                            <td><?php echo ($vo["oneorderclassID"]); ?></td>
+	                                            <td style="display:none"><?php echo ($vo["classID"]); ?></td>
+	                                            <td><?php if($vo.classType == 0) echo "一对一"; elseif($vo.classType == 1) echo "小班";else {echo "试听课";}?></td>
 	                                            <td><?php echo ($vo["englishname"]); ?></td>
-                                              <td><?php echo (date('Y-m-d H:i:s',$vo["start_time"])); ?></td>
-	                                            <td>1</td>
+                                              <td><?php echo (date('Y-m-d H:i:s',$vo["classStartTime"])); ?></td>
 	                                        </tr><?php endforeach; endif; ?>
 	                                    </tbody>
 	                                </table>
@@ -400,7 +398,7 @@
                                     <tbody>
                                     	<?php if(is_array($trade_list)): foreach($trade_list as $key=>$vo): ?><tr>
                                             <td><?php echo ($vo["ope_id"]); ?></td>
-                                            <td><?php echo ($vo["ope_time"]); ?></td>
+                                            <td><?php echo (date('Y-m-d H:i',$vo["ope_time"])); ?></td>
                                             <td><?php echo ($vo["remark"]); ?></td>
                                             <td><?php echo ($vo["ope_money"]); ?></td>
                                         </tr><?php endforeach; endif; ?>
@@ -436,8 +434,8 @@
                                     <tbody>
                                       <?php if(is_array($sendclass_result)): foreach($sendclass_result as $key=>$vo): ?><tr>
                                             <td><?php echo ($vo["chinesename"]); ?>-管理员</td>
-                                            <td><?php echo ($vo["send_time"]); ?></td>
-                                            <td><?php echo ($vo["send_number"]); ?></td>
+                                            <td><?php echo (date( 'Y-m-d H:i',$vo["sendTime"])); ?></td>
+                                            <td><?php echo ($vo["sendNum"]); ?></td>
                                             <td><?php echo ($vo["remark"]); ?></td>
                                         </tr><?php endforeach; endif; ?>
                                     </tbody>

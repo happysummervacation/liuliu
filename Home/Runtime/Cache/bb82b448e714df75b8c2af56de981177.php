@@ -107,7 +107,7 @@
                         <li class="sidebar-search">
                         </li>
                         <li>
-                          <a href="<?php echo U('Teacher/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
+                          <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
                         </li>
                             <li>
                                 <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
@@ -399,7 +399,7 @@
                   Upload Class Note
               </div>
               <div class="modal-body">
-                   <form enctype="multipart/form-data" class="form-horizontal" action="<?php echo U('Teacher/UploadTeacherNote');?>" method="post">
+                   <form enctype="multipart/form-data" class="form-horizontal" action="<?php echo U('Note/UploadTeacherNote');?>" method="post">
                       <div class="form-group">
                         <label  class="col-sm-4 control-label">Booking Number:</label>
                         <div class="col-sm-8">

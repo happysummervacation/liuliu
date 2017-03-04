@@ -107,7 +107,7 @@
                         <li class="sidebar-search">
                         </li>
                         <li>
-                          <a href="<?php echo U('Teacher/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
+                          <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
                         </li>
                             <li>
                                 <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>

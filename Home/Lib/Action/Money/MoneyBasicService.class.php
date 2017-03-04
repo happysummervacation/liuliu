@@ -111,5 +111,20 @@
 				return null;
 			}
 		}
+
+		/*
+		*蒋周杰
+		*获取学生的消费历史
+		*参数一：学生ID
+		*/
+		public function getStudentopaccount($studentID = null){
+			if($studentID == null){
+				return ;
+			}
+			$inquiry = new Model('studentopaccount');
+			$result = $inquiry->where("student_id = {$studentID}")->select();
+			return $result;
+
+		}
 	}
  ?>

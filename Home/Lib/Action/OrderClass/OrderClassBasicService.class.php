@@ -176,7 +176,7 @@
 			 inner join tp_teoneclasssalary on tp_teoneclasssalary.isLastest=1
 			 and tp_teoneclasssalary.teacherType=tp_orderpackage.teacherType and
 			 tp_orderpackage.category=tp_teoneclasssalary.scategory and tp_orderpackage.studentID={$studentID}
-			 and classType=0
+			 and classType=0 and tp_orderpackage.status=1
 			 inner join tp_teacher on tp_teacher.teacher_type=tp_orderpackage.teacherNation
 			 and tp_teacher.ID=tp_teoneclasssalary.teacherID
 			 ";
@@ -395,6 +395,30 @@
 				$message['message'] = "学生已经签订合同,正常上课";
 				return $message;
 			}
+		}
+
+		/*
+		*蒋周杰
+		*获取学生已经完成的课程
+		*参数一：学生的ID
+		*/
+		public function getMyFinishedClass($studentID = null){
+			if($studentID == null){
+				return;
+			}
+			$inquiry = new Model();
+			$result = $inquiry
+			->table('tp_class,tp_oneorderclass,tp_teacher')
+			->where("tp_class.classID = tp_oneorderclass.classID and
+			tp_oneorderclass.studentID = {$studentID} and
+			(tp_oneorderclass.classStatus=1 or tp_oneorderclass.classStatus=3 or
+			tp_oneorderclass.classStatus=4) and tp_oneorderclass.isdelete=0
+			and tp_class.teacherID = tp_teacher.ID")
+			->field("tp_teacher.englishname,tp_class.*,tp_oneorderclass.*")
+			->select();
+
+			return $result;
+
 		}
 	}
  ?>
