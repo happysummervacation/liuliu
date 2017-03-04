@@ -52,9 +52,9 @@
                     <span class="icon-bar"></span>
                 </button>
                 <?php if($onlyreadflag){?>
-                    <a class="navbar-brand" href="<?php echo U('Student/MyContract');?>" ><strong>返回</strong></a>
+                    <a class="navbar-brand" href="<?php echo U('Contract/showContract');?>" ><strong>返回</strong></a>
                 <?php }else{?>
-                    <a class="navbar-brand" href="<?php echo U('Student/MySchedule');?>" ><strong>返回</strong></a>
+                    <a class="navbar-brand" href="<?php echo U('Contract/showContract');?>" ><strong>返回</strong></a>
                 <?php }?>
 
             </div>
@@ -165,7 +165,7 @@
            <div class="col-lg-8 col-lg-offset-2">
              <div style="text-align: center;">
                <?php
- $token = md5($contract_data['ordercontractID']); $orderclasstoken = md5($orderClassID); dump($classType); ?>
+ $token = md5($contract_data['ordercontractID']); $orderclasstoken = md5($orderClassID); ?>
               <?php if($onlyreadflag){?>
 
               <?php }else{?>

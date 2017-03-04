@@ -23,19 +23,15 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/NewPackage.css">
+    <!-- 时间选择插件 -->
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/tool/flatpickr.min.css">
+
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
-    <style media="screen">
-    table {width:600px;table-layout:fixed;}
-    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis;}
-    </style>
 
 </head>
 
@@ -205,145 +201,222 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">购买套餐</h1>
+                        <h1 class="page-header">套餐延期</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-12">
-                       <div class="panel panel-yellow">
-                           <div class="panel-heading">套餐列表</div>
-                           <div class="panel-body">
-                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="<?php echo U('Package/packageManage');?>/type/select" method="post">
-                                   <div class="form-group col-md-2">
-                                       <select name="packageconID" class="form-control">
-                                          <option value="null">全部课程内容</option>
-                                          <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value='<?php echo ($vo['packageconID']); ?>'><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-2">
-                                       <select name="class_type" class="form-control">
-                                           <option value="null">全部课程类别</option>
-                                           <option value='0'>一对一课程</option>
-                                           <option value='1'>小班课程</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group  col-md-2">
-                                       <select name="teacher_type" class="form-control">
-                                           <option value="null">全部教师级别</option>
-                                           <option value='0'>普通教师</option>
-                                           <option value='1'>名师</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-2">
-                                       <select name="teacher_nation" class="form-control">
-                                           <option value="null">全部教师国籍</option>
-                                           <option value='0'>中教</option>
-                                           <option value='1'>外教</option>
-                                       </select>
-                                   </div>
-                                    <div class="form-group col-md-2">
-                                       <select name="package_type" class="form-control">
-                                           <option value="null">全部套餐类型</option>>
-                                           <option value='0'>课时套餐</option>
-                                           <option value='1'>卡类套餐</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-1">
-                                       <button class="btn btn-default">
-                                           确认筛选选择
-                                       </button>
-                                   </div>
-                               </form>
-
-                               <div class="row" style="margin-top: 20px;">
-                               <?php if(is_array($packageList)): foreach($packageList as $key=>$voList): ?><div class="col-md-3">
-
-                                       <div class="panel panel-default">
-
-                                           <div class="panel-heading" style="overflow: hidden;text-overflow :ellipsis;text-align: center;">
-                                               <?php echo ($voList['package_name']); ?>
-                                           </div>
-
-                                           <div class="panel-body">
-
-                                               <table class="table" style="font-size: 14px;">
-                                                   <tr>
-                                                       <td>套餐类别</td>
-                                                       <td><?php echo ($voList['packageName']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>课程类型</td>
-                                                       <td><?php if($voList['class_type'] == 0): ?>一对一
-                                                       <?php else: ?>小班<?php endif; ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐类型</td>
-                                                       <td>
-                                                       <?php if($voList['package_type'] == 0): ?>课时类<?php else: ?>卡类<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                    <tr>
-                                                       <td>学生人数</td>
-                                                       <td>
-                                                       <?php echo ($voList['student_number']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>课时数</td>
-                                                       <td>
-                                                         <?php echo ($voList['class_number']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>教师国籍</td>
-                                                       <td>
-                                                       <?php if($voList['teacher_nation'] == 0): ?>中教<?php else: ?>外教<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>教师类型</td>
-                                                       <td>
-                                                       <?php if($voList['teacher_type'] == 0): ?>普教
-                                                       <?php else: ?>名师<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>有效天数</td>
-                                                       <td><?php echo ($voList['time']); ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐价格</td>
-                                                       <td><?php echo ($voList['package_money']); ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐内容</td>
-                                                       <td><?php echo ($voList['package_content']); ?></td>
-                                                   </tr>
-
-                                               </table>
-
-                                           </div>
-                                           <div class="panel-footer" style="text-align: center;">
-                                               <a href="<?php echo U('Package/orderPackage',array('ID'=>$voList['package_id'],'check'=>md5($voList['package_id'])));?>">
-                                                   <button class="btn btn-warning">购买套餐</button></a>
-                                           </div>
-
-                                       </div>
-
-                                    </div><?php endforeach; endif; ?>
-                               </div>
-
-                           </div>
-                       </div>
+                    <div class="col-lg-10 col-lg-offset-1">
+                    	<div class="panel panel-primary">
+                    		<div class="panel-heading">
+                    			可延期套餐
+                    		</div>
+                    		<table class="table">
+                    			 <thead>
+                    			 	<tr>
+                    			 		<th>订单编号</th>
+                    			 		<th style="display:none">套餐编号</th>
+                    			 		<th>套餐类型</th>
+                              <th>教师类型</th>
+                              <th>课时数量</th>
+                              <th>学生数量</th>
+                              <th>有效时长</th>
+                             <!--  <th>可停课次数</th> -->
+                    			 		<!-- <th>套餐还可延期</th> -->
+                    			 		<th>套餐延期</th>
+                              <!--<th>
+                                停课申请
+                              </th> -->
+                    			 	</tr>
+                    			 </thead>
+                    			 <tbody>
+                    			 	<?php if(is_array($package_list)): foreach($package_list as $key=>$vo): if($vo['status']) { ?>
+                    			 	<tr>
+                    			 		<td><?php echo ($vo["orderpackageID"]); ?></td>
+                    			 		<td style="display:none"><?php echo ($vo["package_id"]); ?></td>
+                      			 		<td><?php echo ($vo["packageName"]); ?>/
+                                <?php if($vo['packageType'] == 0) {echo "课时类";}else{echo "卡类";} ?>/
+                                <?php if($vo['classType'] == 0) {echo "一对一";}else{echo"小班";} ?></td>
+                              <td> <?php if($vo['teacherNation'] == 0) {echo "中教";}else{echo "外教";} ?>/
+                                <?php if($vo['teacherType'] == 0) {echo "普通";}else{echo "名师";} ?></td>
+                              <td><?php echo ($vo["classNumber"]); ?></td>
+                              <td><?php echo ($vo["studentNumber"]); ?></td>
+                    			 		<td><?php echo (date('Y-m-d',$vo["startTime"])); ?>/<?php echo (date('Y-m-d',$vo["endTime"])); ?></td>
+                    			 		<!-- <td><?php echo ($vo["delay_month"]); ?>个月</td> -->
+  
+                    			 		<td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">申请延期</a></td>
+                             <!--  <td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo">申请停课</a></td> -->
+                    			 	</tr>
+                            <?php } endforeach; endif; ?>
+                    			 	<!-- <tr>
+                    			 		<td>1</td>
+                    			 		<td>568923</td>
+                    			 		<td>新生套餐</td>
+                    			 		<td>30课时</td>
+                    			 		<td>2016/1/1-2016/3/1</td>
+                    			 		<td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">点击申请延期</a></td>
+                    			 	</tr> -->
+                    			 </tbody>
+                    		</table>
+                    	</div>
                     </div>
+                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          					  <div class="modal-dialog modal-sm">
+          					    <div class="modal-content">
+          					      <div class="modal-header">
+          					      	申请延期(使用余额)
+          					      </div>
+          					      <div class="modal-body">
+          						      	<div>
+          								  <!-- Nav tabs -->
+          								  <ul class="nav nav-tabs" role="tablist">
+          								    <!-- <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">免费延期</a></li> -->
+          								    <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">付费延期</a></li>
+          								  </ul>
+          								  <!-- Tab panes -->
+          								  <div class="tab-content">
+
+          								    <div role="tabpanel" class="tab-pane active" id="profile">
+          								    	<form class="form-horizontal" action="<?php echo U('Student/MoneyDelayPackageAction');?>" method="post">
+          								    		<div class="form-group">
+          								    			<br>
+          											    <label class="col-sm-4 control-label">订单编号:</label>
+          											    <div class="col-sm-6">
+          											      <input type="text" class="fromtable1 form-control" name="orderpackage_id" readonly="true">
+          											    </div>
+          											</div>
+          											<div class="form-group">
+          											    <label class="col-sm-4 control-label">套餐类型:</label>
+          											    <div class="col-sm-6">
+          											      <input type="text" class="fromtable2 form-control" readonly="true">
+          											    </div>
+          											</div>
+          											<div class="form-group">
+          											    <label class="col-sm-4 control-label">所需价格:</label>
+          											    <div class="col-sm-6">
+          											      <label class="control-label" id="countmoney">100元/月</label>
+          											    </div>
+          											</div>
+          											<div class="form-group">
+          											    <label class="col-sm-4 control-label">延期时长:</label>
+          											    <div class="col-sm-6">
+          											      <select class="form-control" name="delay_month" id="delaymonthnumber">
+          											      	<option>1</option>
+          											      	<option>2</option>
+          											      	<option>3</option>
+          											      	<option>4</option>
+          											      	<option>5</option>
+          											      	<option>6</option>
+          											      	<option>7</option>
+          											      	<option>8</option>
+          											      	<option>9</option>
+          											      	<option>10</option>
+          											      	<option>11</option>
+          											      	<option>12</option>
+          											      </select>
+          											    </div>
+          											    <label class="control-label col-sm-1">月</label>
+          											</div>
+          											<div class="control-group" style="overflow: auto;">
+          												<div  class="pull-right">
+          										      		<button class="btn btn-default" data-dismiss="modal">
+          										      			取消
+          										      		</button>
+                                        <button class="btn btn-warning" type="submit">
+                                           	延期
+                                        </button>
+          										        </div>
+          											</div>
+          								    	</form>
+          								    </div>
+          								  </div>
+          								</div>
+          					      </div>
+          					      <!-- <div class="modal-footer">
+          					      		<button class="btn btn-default" data-dismiss="modal">
+          					      			取消
+          					      		</button>
+          					      		<button class="btn btn-primary">
+          					      			提交
+          					      		</button>
+          					      </div> -->
+          					    </div>
+          					  </div>
+          					</div>
+                    <div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+          					  <div class="modal-dialog modal-md">
+          					    <div class="modal-content">
+          					      <div class="modal-header">
+          					      	申请停课
+          					      </div>
+          					      <div class="modal-body">
+          						      	<div>
+          								  <!-- Nav tabs -->
+          								  <ul class="nav nav-tabs" role="tablist">
+          								    <!-- <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">免费延期</a></li> -->
+          								    <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">停课申请</a></li>
+          								  </ul>
+          								  <!-- Tab panes -->
+          								  <div class="tab-content">
+
+          								    <div role="tabpanel" class="tab-pane active" id="profile">
+          								    	<form class="form-horizontal" action="<?php echo U('Student/ApplyStopClass');?>" method="post">
+          								    		<div class="form-group">
+          								    			<br>
+          											    <label class="col-sm-4 control-label">申请编号：</label>
+          											    <div class="col-sm-6">
+          											      <input type="text" class="fromtable1 form-control" name="orderpackage_id" readonly="true">
+          											    </div>
+          											</div>
+          											<!-- <div class="form-group">
+          											    <label class="col-sm-4 control-label">套餐类型:</label>
+          											    <div class="col-sm-6">
+          											      <input type="text" class="fromtable2 form-control" readonly="true">
+          											    </div>
+          											</div> -->
+          											<div class="form-group">
+                                    <label class="col-sm-4 control-label">起始时间：</label>
+                                    <div class="col-sm-6">
+                                        <input type="text" name="stop_start_time" class="calendar form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">截止时间：</label>
+                                  <div class="col-sm-6">
+                                        <input type="text" name="stop_end_time" class="calendar form-control">
+                                    </div>
+          											</div>
+                                <div class="form-group">
+                                  <label class="col-sm-4 control-label">停课理由：</label>
+                                  <div class="col-sm-6">
+                                    <textarea name="reason" rows="3" cols="20" class="form-control"></textarea>
+                                  </div>
+                                </div>
+          											<div class="control-group" style="overflow: auto;">
+          												<div  class="pull-right">
+          										      		<button class="btn btn-default" data-dismiss="modal">
+          										      			取消
+          										      		</button>
+          	                            <button class="btn btn-warning" type="submit">
+          	                              停课
+          	                            </button>
+          										        </div>
+          											</div>
+          								    	</form>
+          								    </div>
+          								  </div>
+          								</div>
+          					      </div>
+          					    </div>
+          					  </div>
+          					</div>
                 </div>
             </div>
             <!-- /.container-fluid -->
@@ -352,6 +425,7 @@
 
     </div>
     <!-- /#wrapper -->
+
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -364,10 +438,31 @@
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
+    <!-- 时间选择插件 -->
+    <script src="__PUBLIC__/tool/flatpickr.min.js"></script>
+
+<!--     <script type="text/javascript">
+    	$(".getcolinfo").click(function() {
+    		$(".fromtable1").html($(this).parent().siblings(':first').next().html());
+    		$(".fromtable2").html($(this).parent().siblings(':first').next().next().html());
+    	})
+    </script> -->
+
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
+        //初始化时间选择器
+        $(".calendar").flatpickr({
+            "enableTime": true,
+            "minuteIncrement":30,
+            "time_24hr": true,
+            minDate:new Date()
+        });
+
+        $("#delaymonthnumber").change(function(){
+          $('#countmoney').html("共计"+$(this).val()*100+"元");
+        })
     </script>
 
 </body>

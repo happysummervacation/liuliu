@@ -69,19 +69,23 @@
                                             <tbody>
 
                                                  <tr>
-                                                    <td class="simpleline">合同编号：</td><td><{$vo.ordercontract_id}></td>
+                                                    <td class="simpleline">合同编号：</td><td><{$vo.ordercontractID}></td>
                                                 </tr>
                                                 <tr>
                                                     <td class="simpleline">合同名称：</td><td class="simpleline">用户使用协议</td>
                                                 </tr>
                                                 <tr>
                                                     <td class="simpleline">合同状态：</td>
-                                                    <td>已签订</td>
+                                                    <?php if($vo['isSign'] == 1) {?>
+                                                        <td>已签订</td>
+                                                    <?php }else{ ?>
+                                                        <td>未签订</td>
+                                                    <?php } ?>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2" style="text-align: center;">
                                                         <br>
-                                                        <a href="<{:U('Student/MyContractInfo',array("ID"=>$vo['ordercontract_id']))}>"><button class="btn btn-default">合同详情</button></a>
+                                                        <a href="<{:U('Contract/getContractInfo',array('ordercontractID'=>$vo['ordercontractID'],'isSign'=>$vo['isSign']))}>"><button class="btn btn-default">合同详情</button></a>
                                                     </td>
                                                 </tr>
 

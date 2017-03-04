@@ -60,5 +60,68 @@
 				return;
 			}
 		}
+
+		/*
+		*蒋周杰
+		获取学生合同信息
+		*/
+		public function showContract(){
+			$this->CheckSession();
+			$identity = $_SESSION['identity'];
+			import("Home.Action.Contract.ContractBasicOperate");
+			$conBo = new ContractBasicOperate();
+			if("0" == $identity || 0 == $identity){
+				$studentID= $_SESSION['ID'];
+				$result = array();
+				$result = $conBo->getStudentContract($studentID);
+				$this->assign('contractresult',$result);
+				$this->display("Student:MyContract");
+			}
+		}
+
+		/*
+		*蒋周杰
+		*获得学生合同的具体信息
+		*/
+		public function getContractInfo(){
+			$this->CheckSession();
+			import("Home.Action.User.UserBasicOperate");
+			import("Home.Action.OrderPackage.OrderPackageBasicService");
+			$identity = $_SESSION['identity'];
+			$studentID = $_SESSION['ID'];
+			$contractID = $_GET['ordercontractID'];
+			$userOp = new UserBasicOperate();
+			$packageOp = new OrderPackageBasicService();
+			if("0" == $identity || 0 == $identity){
+				//获得学生的个人信息
+				$studentInfo = $userOp->getUserInfo('student',$studentID);
+
+				//获取套餐的信息
+				$packageInfo = $packageOp->getOrderPackageInfo($orderpackageID);
+				$result = array();
+				$result['chinesename'] = $studentInfo[0]['chinesename'];
+				$result['sex'] = $studentInfo[0]['sex'];
+				$result['country'] = $studentInfo[0]['country'];
+				$result['phone'] = $studentInfo[0]['phone'];
+				$result['classType'] = $packageInfo[0]['classType'];
+				$result['teacherNation'] = $packageInfo[0]['teacherNation'];
+				$result['teacherType'] = $packageInfo[0]['teacherType'];
+				$result['classNumber'] = $packageInfo[0]['classNumber'];
+				$result['time'] = $packageInfo[0]['time'];
+				$result['startTime'] = $packageInfo[0]['startTime'];
+				$result['nowTime'] = getTime();
+				$result['ordercontractID'] = $contractID;
+			}
+			//判断是否只读
+			if($_GET['isSign']){
+				$onlyreadflag = 1;
+			}else{
+				$onlyreadflag = 0;
+			}
+			$this->assign("onlyreadflag",$onlyreadflag);
+			$this->assign('contract_data',$result);
+			$this->display('Student:Contract');
+		}
+
 	}
  ?>

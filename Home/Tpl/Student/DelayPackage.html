@@ -61,27 +61,38 @@
                     			 		<th>订单编号</th>
                     			 		<th style="display:none">套餐编号</th>
                     			 		<th>套餐类型</th>
-                    			 		<th>有效时长</th>
-                              <th>可停课次数</th>
+                              <th>教师类型</th>
+                              <th>课时数量</th>
+                              <th>学生数量</th>
+                              <th>有效时长</th>
+                             <!--  <th>可停课次数</th> -->
                     			 		<!-- <th>套餐还可延期</th> -->
                     			 		<th>套餐延期</th>
-                              <th>
+                              <!--<th>
                                 停课申请
-                              </th>
+                              </th> -->
                     			 	</tr>
                     			 </thead>
                     			 <tbody>
                     			 	<foreach name="package_list" item="vo">
+                            <?php if($vo['status']) { ?>
                     			 	<tr>
-                    			 		<td><{$vo.orderpackage_id}></td>
+                    			 		<td><{$vo.orderpackageID}></td>
                     			 		<td style="display:none"><{$vo.package_id}></td>
-                    			 		<td><{$vo.category}>/<{$vo.package_type}></td>
-                    			 		<td><{$vo.end_time}></td>
+                      			 		<td><{$vo.packageName}>/
+                                <?php if($vo['packageType'] == 0) {echo "课时类";}else{echo "卡类";} ?>/
+                                <?php if($vo['classType'] == 0) {echo "一对一";}else{echo"小班";} ?></td>
+                              <td> <?php if($vo['teacherNation'] == 0) {echo "中教";}else{echo "外教";} ?>/
+                                <?php if($vo['teacherType'] == 0) {echo "普通";}else{echo "名师";} ?></td>
+                              <td><{$vo.classNumber}></td>
+                              <td><{$vo.studentNumber}></td>
+                    			 		<td><{$vo.startTime|date='Y-m-d',###}>/<{$vo.endTime|date='Y-m-d',###}></td>
                     			 		<!-- <td><{$vo.delay_month}>个月</td> -->
-                              <td><{$vo.stop_number}></td>
+  
                     			 		<td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">申请延期</a></td>
-                              <td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo">申请停课</a></td>
+                             <!--  <td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo">申请停课</a></td> -->
                     			 	</tr>
+                            <?php }?>
                     			 	</foreach>
                     			 	<!-- <tr>
                     			 		<td>1</td>

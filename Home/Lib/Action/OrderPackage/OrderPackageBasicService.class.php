@@ -302,5 +302,19 @@
  				return $message;
 			 }
 		}
+
+		/*
+		*蒋周杰
+		*合同中得到套餐的信息
+		*参数一：订购的套餐ID
+		*/
+		//用在学生合同的显示上(单一的服务)
+		public function getOrderPackageInfo($orderpackageID = null){
+			$inquiry = new Model();
+			$result = $inquiry->table('tp_orderpackage,tp_packageconfig')
+			->where("tp_orderpackage.orderpackageID = {$orderpackageID} and
+			tp_orderpackage.category = tp_packageconfig.packageconID")->select();
+			return $result;
+		}
 	}
  ?>

@@ -23,19 +23,12 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/css/NewPackage.css">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-
-    <style media="screen">
-    table {width:600px;table-layout:fixed;}
-    td {white-space:nowrap;overflow:hidden;word-break:keep-all;text-overflow:ellipsis;}
-    </style>
 
 </head>
 
@@ -205,144 +198,66 @@
             <!-- /.navbar-static-side -->
         </nav>
 
+
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">购买套餐</h1>
+                        <h1 class="page-header">学员合同</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
                     <div class="col-lg-12">
-                       <div class="panel panel-yellow">
-                           <div class="panel-heading">套餐列表</div>
-                           <div class="panel-body">
-                               <form class="form-inline row" onsubmit="javascript:return confirm('确认提交条件');" action="<?php echo U('Package/packageManage');?>/type/select" method="post">
-                                   <div class="form-group col-md-2">
-                                       <select name="packageconID" class="form-control">
-                                          <option value="null">全部课程内容</option>
-                                          <?php if(is_array($packageConfig)): foreach($packageConfig as $key=>$vo): ?><option value='<?php echo ($vo['packageconID']); ?>'><?php echo ($vo['packageName']); ?></option><?php endforeach; endif; ?>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-2">
-                                       <select name="class_type" class="form-control">
-                                           <option value="null">全部课程类别</option>
-                                           <option value='0'>一对一课程</option>
-                                           <option value='1'>小班课程</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group  col-md-2">
-                                       <select name="teacher_type" class="form-control">
-                                           <option value="null">全部教师级别</option>
-                                           <option value='0'>普通教师</option>
-                                           <option value='1'>名师</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-2">
-                                       <select name="teacher_nation" class="form-control">
-                                           <option value="null">全部教师国籍</option>
-                                           <option value='0'>中教</option>
-                                           <option value='1'>外教</option>
-                                       </select>
-                                   </div>
-                                    <div class="form-group col-md-2">
-                                       <select name="package_type" class="form-control">
-                                           <option value="null">全部套餐类型</option>>
-                                           <option value='0'>课时套餐</option>
-                                           <option value='1'>卡类套餐</option>
-                                       </select>
-                                   </div>
-                                   <div class="form-group col-md-1">
-                                       <button class="btn btn-default">
-                                           确认筛选选择
-                                       </button>
-                                   </div>
-                               </form>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
+                                合同列表
+                            </div>
 
-                               <div class="row" style="margin-top: 20px;">
-                               <?php if(is_array($packageList)): foreach($packageList as $key=>$voList): ?><div class="col-md-3">
+                            <div class="panel-body">
+                              <?php if(is_array($contractresult)): foreach($contractresult as $key=>$vo): ?><div class="col-lg-4" style="text-align: center;">
+                                        <div class="well" style="max-width: 280px;min-width: 250px;width:90%;display: inline-block;">
+                                            <table class="table" style="max-width:100%;">
+                                            <thead>
+                                                <tr>
+                                                    <th colspan="2" style="text-align: center;">
+                                                        <span class="fa fa-gavel fa-4x"></span>
+                                                    </th>
+                                                </tr>
+                                            </thead>
 
-                                       <div class="panel panel-default">
+                                            <tbody>
 
-                                           <div class="panel-heading" style="overflow: hidden;text-overflow :ellipsis;text-align: center;">
-                                               <?php echo ($voList['package_name']); ?>
-                                           </div>
+                                                 <tr>
+                                                    <td class="simpleline">合同编号：</td><td><?php echo ($vo["ordercontractID"]); ?></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="simpleline">合同名称：</td><td class="simpleline">用户使用协议</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="simpleline">合同状态：</td>
+                                                    <?php if($vo['isSign'] == 1) {?>
+                                                        <td>已签订</td>
+                                                    <?php }else{ ?>
+                                                        <td>未签订</td>
+                                                    <?php } ?>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2" style="text-align: center;">
+                                                        <br>
+                                                        <a href="<?php echo U('Contract/getContractInfo',array('ordercontractID'=>$vo['ordercontractID'],'isSign'=>$vo['isSign']));?>"><button class="btn btn-default">合同详情</button></a>
+                                                    </td>
+                                                </tr>
 
-                                           <div class="panel-body">
+                                            </tbody>
 
-                                               <table class="table" style="font-size: 14px;">
-                                                   <tr>
-                                                       <td>套餐类别</td>
-                                                       <td><?php echo ($voList['packageName']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>课程类型</td>
-                                                       <td><?php if($voList['class_type'] == 0): ?>一对一
-                                                       <?php else: ?>小班<?php endif; ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐类型</td>
-                                                       <td>
-                                                       <?php if($voList['package_type'] == 0): ?>课时类<?php else: ?>卡类<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                    <tr>
-                                                       <td>学生人数</td>
-                                                       <td>
-                                                       <?php echo ($voList['student_number']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>课时数</td>
-                                                       <td>
-                                                         <?php echo ($voList['class_number']); ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>教师国籍</td>
-                                                       <td>
-                                                       <?php if($voList['teacher_nation'] == 0): ?>中教<?php else: ?>外教<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>教师类型</td>
-                                                       <td>
-                                                       <?php if($voList['teacher_type'] == 0): ?>普教
-                                                       <?php else: ?>名师<?php endif; ?>
-                                                       </td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>有效天数</td>
-                                                       <td><?php echo ($voList['time']); ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐价格</td>
-                                                       <td><?php echo ($voList['package_money']); ?></td>
-                                                   </tr>
-                                                   <tr>
-                                                       <td>套餐内容</td>
-                                                       <td><?php echo ($voList['package_content']); ?></td>
-                                                   </tr>
-
-                                               </table>
-
-                                           </div>
-                                           <div class="panel-footer" style="text-align: center;">
-                                               <a href="<?php echo U('Package/orderPackage',array('ID'=>$voList['package_id'],'check'=>md5($voList['package_id'])));?>">
-                                                   <button class="btn btn-warning">购买套餐</button></a>
-                                           </div>
-
-                                       </div>
-
+                                            </table>
+                                        </div>
                                     </div><?php endforeach; endif; ?>
-                               </div>
-
-                           </div>
-                       </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -352,6 +267,7 @@
 
     </div>
     <!-- /#wrapper -->
+
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 

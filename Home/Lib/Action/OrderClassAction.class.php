@@ -111,8 +111,13 @@
 				}
 			}elseif(2 == $identity || "2" == $identity){
 				//获取学生订购的一对一课程数据
+				$studentID = $_GET['user_id'];
+				$result = $ocBS->manageGetStudentOrderClass($studentID);
 
+				$this->assign('studentID',$studentID);
+				$this->assign("classdata",$result);
 				//获取学生订购的小班课程数据
+				$this->display("Admin:StuPersonalClass");
 			}elseif(4 == $identity || "4" == $identity){
 				//获取学生订购的一对一课程数据
 				$studentID = $_GET['user_id'];

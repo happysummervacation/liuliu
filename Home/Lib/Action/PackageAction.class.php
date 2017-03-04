@@ -67,6 +67,9 @@
 			$packageOp = new PackageBasicOperate();
 			$userOp = new UserBasicOperate();
 			$studentID = $_GET['user_id'];
+
+			import("Home.Action.Package.PackageConfigBasicOperate");
+			$configOp = new PackageConfigBasicOperate();
 			/*
 			*获取该学生订购的套餐的数据
 			*/
@@ -92,6 +95,14 @@
 				$this->assign("orderPackageList",$result);
 				$this->assign("studentID",$studentID);
 				$this->display("Root:StuPackageInfo");
+			}elseif($identity == 0 || $identity = "0"){
+				$result = $configOp->getPackageConfigInfo();
+				$packageResult = $packageOp->getPackageInfo();
+
+				$this->assign('packageConfig',$result);
+				$this->assign('packageList',$packageResult);
+				$this->display("Student:NewPackage");
+				return;
 			}else{
 				$this->error("你没有权限查看数据");
 			}
@@ -383,5 +394,21 @@
 			echo json_encode($result);
 		}
 
+		/*
+		*蒋周杰
+		*学生套餐延期页面的显示
+		*/
+		public function delayPackage(){
+			$this->CheckSession();
+			$identity = $_SESSION['identity'];
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			$opBO = new OrderPackageBasicOperate();
+			if(0 == $identity || "0" == $identity){
+				$result = $opBO->getOrderPackageInfoWithCondition();
+			}
+			$this->assign("package_list",$result);
+			$this->display("Student:DelayPackage");
+
+		}
 	}
  ?>

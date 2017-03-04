@@ -253,7 +253,7 @@
 			$inquiry = new Model("oneorderclass");
 			//获一对一的订购课程
 			$result = $inquiry->join("inner join tp_orderpackage on tp_orderpackage.orderpackageID=
-			tp_oneorderclass.orderpackageID
+			tp_oneorderclass.orderpackageID and tp_orderpackage.studentID={$studentID}
 			inner join tp_class on tp_class.classID=tp_oneorderclass.classID
 			inner join tp_packageconfig on tp_orderpackage.category=tp_packageconfig.packageconID
 			")

@@ -1,6 +1,6 @@
 <?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
-
+试听课评论暂时没有完成
 <head>
 
     <meta charset="utf-8">
@@ -240,14 +240,14 @@
                                         <?php $i = 1; foreach ($day_data as $key => $value) {?>
                                             <tr>
                                                 <td><?php echo ($i); ?></td>
-                                                <td style="display:none"><?php echo ($value['orderclass_id']); ?></td>
-                                                <td style="display:none"><?php echo ($value['class_id']); ?></td>
-                                                <td style="display:none"><?php echo ($value['ID']); ?></td>
+                                                <td style="display:none"><?php echo ($value['oneorderclassID']); ?></td>
+                                                <td style="display:none"><?php echo ($value['classID']); ?></td>
+                                                <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                 <td><?php echo ($value['englishname']); ?></td>
                                                 <td><?php echo (date("Y-m-d H:i:s",$value['start_time'])); ?></td>
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="getcolinfo">Click To Upload</a></td>
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo AddRemark">Click To Add</a></td>
-                                                <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">Click To Evaluation</a></td>                                               
+                                                <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">Click To Evaluation</a></td>
                                             </tr>
                                         <?php $i++;}?>
 

@@ -91,5 +91,36 @@
 				return $message;
 			}
 		}
+
+		/*蒋周杰
+		*根据学生ID获取该学生合同的全部信息
+		*/
+		public function getStudentContract($studentID = null,$Field = null){
+			if(is_null($studentID)){
+				return null;
+			}
+			$fieldString = "";
+			if(is_array($Field)){
+				for ($i = 0; $i < count($Field); $i++) {
+					if($i == count($Field)-1){
+						$fieldString = $fieldString.$Field[$i];
+					}else{
+						$fieldString = $fieldString.$Field[$i].",";
+					}
+				}
+			}elseif(is_string($Field)){
+				$fieldString = $Field;
+			}else{
+				;
+			}
+			$inquiry = new Model('studentcontract');
+			if(is_null($Field)){
+				$result = $inquiry->where("order_party = {$studentID}")->select();
+			}else{
+				$result = $inquiry->where("order_party = {$studentID}")->field($fieldString)->select();
+			}
+
+			return $result;
+		}
 	}
  ?>

@@ -32,7 +32,7 @@
 			->where("(classStatus=1 or classStatus=3 or classStatus=4) and tp_oneorderclass.
 			teacherComment is null")
 			->select();
-dump($inquiry);
+// dump($inquiry);
 			import("Home.Action.Comment.CommentBasicOperate");
 			$comBasOp = new CommentBasicOperate();
 			$weekCommentresult = $comBasOp->getNotFeedComment($teacherID,"week");
@@ -42,8 +42,8 @@ dump($inquiry);
 			$returnData = array();
 			array_push($returnData,$dayCommentResult,$weekCommentresult,$monthCommentResult,
 			$auditionCommentResult);
-dump($returnData);
-exit;
+// dump($returnData);
+// exit;
 			return $returnData;
 		}
 	}
