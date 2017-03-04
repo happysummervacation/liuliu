@@ -25,6 +25,10 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*学生签署合同的操作
+		*/
 		public function agreeContract(){
 			$this->CheckSession();
 			$identity = $_SESSION['identity'];

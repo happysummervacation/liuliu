@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 1.这里面学生消耗的课时数需要进行统计得出
 <head>
@@ -40,236 +40,7 @@
 
 </head>
 <body>
-    <div id="wrapper">
-        <!-- Navigation -->
-        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
-            </div>
-            <!-- /.navbar-header -->
-            <!-- 显示北京时间 -->
-            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
-                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
-            </div>
-            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
-                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
-            </div>
-            <!-- //显示北京时间 -->
-            <!-- 消息中心 -->
-           <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      <?php echo count($unreadmessage) ?>
-                      <i class="fa fa-envelope fa-fw"></i>
-                      <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-messages">
-                        <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
-                                <a href="<?php echo U('Root/InformationCenter');?>">
-                                <div>
-                                    <strong><?php echo ($value['account']); ?></strong>
-                                    <span class="pull-right text-muted">
-                                        <em><?php echo (date("Y-m-d H:i:s",$value['create_time'])); ?></em>
-                                    </span>
-                                </div>
-                                <div><?php echo ($value['content']); ?></div>
-                                </a>
-                            </li><?php endif; endforeach; endif; ?>
-                        <li>
-                        <!-- 9.06修改01 -->
-                            <a class="text-center" href="<?php echo U('Root/InformationCenter');?>">
-                                <strong>查看所有消息</strong>
-                                <i class="fa fa-angle-right"></i>
-                            </a>
-                        <!-- //9.06修改01 -->
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-messages -->
-                </li>
-                <!-- 用户 -->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
-                        </li>
-                    </ul>
-                    <!-- /.dropdown-user -->
-                </li>
-                <!-- /.dropdown -->
-            </ul>
-            <!-- /.navbar-top-links -->
-
-            <div class="navbar-default sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-                        <li class="sidebar-search">
-                            <!-- <div class="input-group custom-search-form">
-                                <input type="text" class="form-control" placeholder="搜索...">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div> -->
-                            <!-- /input-group -->
-                        </li>
-                        <li>
-                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
-                        </li>
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Root/SearchTeacher');?>">搜索教师</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CheckTeacher');?>">查看教师</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CreateTeacher');?>">创建教师</a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Root/SearchTeacher');?>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showCreateUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
-                        </li>
-
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Root/SearchStudent');?>">搜索学生</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CheckStudent');?>">查看学生</a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
-                        </li>
-
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Root/SearchAdmin');?>">搜索顾问</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CheckAdmin');?>">查看顾问</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CreateAdmin');?>">创建顾问</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/DownloadLogfile');?>">
-                                    操作历史
-                                    </a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Root/DownloadLogfile');?>"> <i class="fa fa-umbrella fa-fw"></i>
-                            操作历史
-                            </a>
-                        </li>
-
-                        <!-- <li>
-                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
-                          <ul class="nav nav-second-level">
-                              <li>
-                                  <a href="<?php echo U('Root/Information');?>">查看管理员</a>
-                              </li>
-                              <li>
-                                  <a href="<?php echo U('Root/CreateRoot');?>">创建管理员</a>
-                              </li>
-                          </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Info/Information');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showCreateUser');?>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
-                        </li>
-
-
-
-                        <li>
-                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
-                                </li>
-                                <li>
-                                     <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/salaryMgr');?>">
-                                        工资管理
-                                    </a>
-                                    <!-- <a href="">
-                                        工资管理
-                                    </a> -->
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
-                                </li>
-                                 <li>
-                                     <a href="<?php echo U('Root/VideoManage');?>"> 视频管理</a>
-                                </li>
-                            </ul>
-                                    <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                             <a href="<?php echo U('Root/Message');?>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
-                        </li>
-
-                    </ul>
-                </div>
-                <!-- /.sidebar-collapse -->
-            </div>
-            <!-- /.navbar-static-side -->
-        </nav>
-
+    <include file="Public:PublicBodyAdmin" />
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
@@ -305,51 +76,60 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php $student_id=$_GET['user_id']; ?>
-                                        <?php foreach($orderPackageList as $key=>$value){ if($value['isdelete']==0){ ?>
+                                        <php>$student_id=$_GET['user_id'];</php>
+                                        <php>foreach($orderPackageList as $key=>$value){
+                                            if($value['isdelete']==0){</php>
                                             <tr>
-                                                <td class="packageID"><?php echo ($value['orderpackageID']); ?></td>
-                                                <!-- <td style="display:none"><?php echo ($value['package_id']); ?></td> -->
+                                                <td class="packageID"><{$value['orderpackageID']}></td>
+                                                <!-- <td style="display:none"><{$value['package_id']}></td> -->
                                                 <td>
-                                                    <?php switch($value['packageType']): case "0": ?>课时类<?php break;?>
-                                                        <?php case "1": ?>卡类<?php break; endswitch;?>
+                                                    <switch name="value['packageType']">
+                                                        <case value="0">课时类</case>
+                                                        <case value="1">卡类</case>
+                                                    </switch>
                                                     /
-                                                    <?php echo ($value['packageName']); ?>
+                                                    <{$value['packageName']}>
                                                     /
-                                                    <?php switch($value['classType']): case "0": ?>一对一<?php break;?>
-                                                        <?php case "1": ?>小班<?php break; endswitch;?>
+                                                    <switch name="value['classType']">
+                                                        <case value="0">一对一</case>
+                                                        <case value="1">小班</case>
+                                                    </switch>
                                                 </td>
-                                                <td style="display:none"><?php echo ($value['studentID']); ?></td>
-                                                <td><?php echo ($value['classNumber']); ?></td>
-                                                <td><?php echo ($value['packageMoney']); ?></td>
-                                                <td class="delaymouth" style="cursor:pointer;"><span><?php echo (date("Y-m-d",$value['startTime'])); ?></span>到
-                                                <span><?php echo (date("Y-m-d",$value['endTime'])); ?></span></td>
-                                                <td><?php printf('%.2f',$value['delayTime']/3600/24) ?>天</td>
-                                                <td class="sendclass"  style="cursor:pointer;"><?php echo ($value['otherClass']); ?></td>
-                                                <td><?php echo ($value['haveClass']); ?></td>
-                                                <!-- <td><?php echo ($value['stop_number']); ?></td> -->
+                                                <td style="display:none"><{$value['studentID']}></td>
+                                                <td><{$value['classNumber']}></td>
+                                                <td><{$value['packageMoney']}></td>
+                                                <td class="delaymouth" style="cursor:pointer;"><span><{$value['startTime']|date="Y-m-d",###}></span>到
+                                                <span><{$value['endTime']|date="Y-m-d",###}></span></td>
+                                                <td><php>printf('%.2f',$value['delayTime']/3600/24)</php>天</td>
+                                                <td class="sendclass"  style="cursor:pointer;"><{$value['otherClass']}></td>
+                                                <td><{$value['haveClass']}></td>
+                                                <!-- <td><{$value['stop_number']}></td> -->
                                                 <td><?php if($value['status'] == "0") {echo "无效";} else {echo "有效";}?></td>
                                                 <td>
-                                                  <?php $tem = "";$tem = explode(":",$value['material'])[1]; ?>
-                                                  <?php if($value['classType'] == "1" || $value['classType'] == 1){ ?>
+                                                  <php>$tem = "";$tem = explode(":",$value['material'])[1];
+                                                  </php>
+                                                  <php>if($value['classType'] == "1" || $value['classType'] == 1){</php>
                                                       这是小班课,请在班级中进行指定教材
-                                                  <?php }else{ ?>
-                                                      <?php echo ($tem); ?>
-                                                  <?php } ?>
+                                                  <php>}else{</php>
+                                                      <{$tem}>
+                                                  <php>}</php>
                                                 </td>
                                                 <td>
-                                                  <a href="<?php echo U('OrderPackage/OrderPackageManage', array('orderpackageID'=>$value['orderpackageID'],'type'=>'loseff'));?>" class="cancelOrderPackageID">套餐无效</a>
-                                                  <a href="<?php echo U('OrderPackage/OrderPackageManage', array('orderpackageID'=>$value['orderpackageID'],'type'=>'effect'));?>" class="effectOrderPackageID">套餐有效</a>
+                                                  <a href="<{:U('OrderPackage/OrderPackageManage',
+                                                  array('orderpackageID'=>$value['orderpackageID'],'type'=>'loseff'))}>" class="cancelOrderPackageID">套餐无效</a>
+                                                  <a href="<{:U('OrderPackage/OrderPackageManage',
+                                                  array('orderpackageID'=>$value['orderpackageID'],'type'=>'effect'))}>" class="effectOrderPackageID">套餐有效</a>
                                                   <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage" >停课</a>
-                                                  <?php if($value['classType'] == "1" || $value['classType'] == 1){ ?>
+                                                  <php>if($value['classType'] == "1" || $value['classType'] == 1){</php>
 
-                                                  <?php }else{ ?>
+                                                  <php>}else{</php>
                                                       <button  class="bookMgr">教材管理</button>
-                                                  <?php } ?>
+                                                  <php>}</php>
 
                                                 </td>
                                             </tr>
-                                        <?php } } ?>
+                                        <php>}
+                                        }</php>
                                     </tbody>
                                 </table>
                             </div>
@@ -377,7 +157,7 @@
                 套餐有效期
                 </div>
                 <div class="modal-body"  style="overflow: auto;">
-                    <form class="form" method="post" action="<?php echo U('OrderPackage/OrderPackageManage',array('type'=>'delay'));?>">
+                    <form class="form" method="post" action="<{:U('OrderPackage/OrderPackageManage',array('type'=>'delay'))}>">
                         <div class="form-group col-lg-4">
                             <label>记录编号:</label>
                             <input type="text" name="orderpackage" class="form-control orderpackage_id" readonly="true">
@@ -408,7 +188,7 @@
                 赠送课时
                 </div>
                 <div class="modal-body"  style="overflow: auto;">
-                    <form class="form" method="post" action="<?php echo U('SendClass/sendClassNum',array('user_id'=>$studentID));?>">
+                    <form class="form" method="post" action="<{:U('SendClass/sendClassNum',array('user_id'=>$studentID))}>">
                         <div class="form-group col-lg-3">
                             <label>记录编号</label>
                             <input type="text" name="orderpackage_id" class="form-control orderpackage_id" readonly="true">
@@ -450,7 +230,7 @@
                 </div>
 
                   <div class="modal-body"  style="overflow: auto;">
-                   <form class="form-horizontal" action="<?php echo U('Book/selectBookForStudent');?>" method="post" role="form" style>
+                   <form class="form-horizontal" action="<{:U('Book/selectBookForStudent')}>" method="post" role="form" style>
                      <div class="form-group" style="margin: 10px;">
                        <label for="name">选择列表</label>
                          <select class="form-control" name="BookID" id="classList">
@@ -489,7 +269,7 @@
                     添加套餐
                     </div>
                 <div class="modal-body"  style="overflow: auto;">
-                    <form class="form" method="post" action="<?php echo U('Package/pakcageOrderDeal',array('user_id'=>$user_id));?>">
+                    <form class="form" method="post" action="<{:U('Package/pakcageOrderDeal',array('user_id'=>$user_id))}>">
                     <div class="form-group col-lg-6">
                         <label>学员编号</label>
                         <input type="text" name="student_id" readonly="true" class="form-control addpackagestuname">
@@ -497,9 +277,9 @@
                     <div class="form-group col-lg-6">
                         <label>选择套餐</label>
                         <select class="form-control packageidlist" name="package_id">
-                          <?php foreach($packageid as $key=>$value){ ?>
-                                <option value="<?php echo ($value['package_id']); ?>"><?php echo ($value['package_id']); ?></option>
-                          <?php } ?>
+                          <php>foreach($packageid as $key=>$value){  </php>
+                                <option value="<{$value['package_id']}>"><{$value['package_id']}></option>
+                          <php>}</php>
                         </select>
                     </div>
                     <div class="class-group">
@@ -556,21 +336,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach($packageinfomation as $key=>$value){ ?>
+                            <php>foreach($packageinfomation as $key=>$value){</php>
                                 <tr>
-                                    <td><?php echo ($value['orderpackage_id']); ?></td>
-                                    <td><?php echo ($value['package_id']); ?></td>
-                                    <td><?php echo ($value['student_id']); ?></td>
-                                    <td><?php echo ($value['total_class']); ?></td>
-                                    <td><span><?php echo (date("Y-m-d",$value['start_time'])); ?></span>到
-                                    <span><?php echo (date("Y-m-d",$value['end_time'])); ?></span></td>
-                                    <td><?php echo ($value['delay_month']); ?>月</td>
-                                    <td><?php echo ($value['other_class']); ?></td>
-                                    <td><?php echo ($value['have_class']); ?></td>
+                                    <td><{$value['orderpackage_id']}></td>
+                                    <td><{$value['package_id']}></td>
+                                    <td><{$value['student_id']}></td>
+                                    <td><{$value['total_class']}></td>
+                                    <td><span><{$value['start_time']|date="Y-m-d",###}></span>到
+                                    <span><{$value['end_time']|date="Y-m-d",###}></span></td>
+                                    <td><{$value['delay_month']}>月</td>
+                                    <td><{$value['other_class']}></td>
+                                    <td><{$value['have_class']}></td>
                                     <td><?php if($value['status'] == "0") {echo "无效";} else {echo "有效";}?></td>
-                                    <td><a href="<?php echo U('Root/deletestudentpackage',array('orderpackage_id'=>$value['orderpackage_id']));?>" >删除</a></td>
+                                    <td><a href="<{:U('Root/deletestudentpackage',array('orderpackage_id'=>$value['orderpackage_id']))}>" >删除</a></td>
                                 </tr>
-                            <?php } ?>
+                            <php>}</php>
                         </tbody>
                     </table>
                 </div>
@@ -590,7 +370,7 @@
               停课申请
               </div>
               <div class="modal-body"  style="overflow: auto;">
-                  <form class="form" method="post" action="<?php echo U('Root/DealStudentStopClass');?>">
+                  <form class="form" method="post" action="<{:U('Root/DealStudentStopClass')}>">
                       <div class="form-group col-lg-4">
                           <label>记录编号:</label>
                           <input type="text" name="orderpackage" class="form-control orderpackage_id" readonly="true">
@@ -686,12 +466,12 @@
     });
     //根据ID获取套餐的详细信息
     function getpackageinformation(){
-        var student_id="<?php echo ($student_id); ?>";
+        var student_id="<{$student_id}>";
         $('.addpackagestuname').val(student_id);
         var package_id=$('.packageidlist').val();
         $.ajax({
             type: "POST",
-            url: "<?php echo U('Package/AjaxgetPackageInfor');?>",
+            url: "<{:U('Package/AjaxgetPackageInfor')}>",
             data:{
                     package_id:package_id
                 },
@@ -730,7 +510,7 @@
         $("#packageID").val(nowPackage);
         $.ajax({
           type: "POST",
-          url: "<?php echo U('Book/AjaxGetBookInfoWithOrderClassID');?>",
+          url: "<{:U('Book/AjaxGetBookInfoWithOrderClassID')}>",
           data: {
             ID: packageID,
           },

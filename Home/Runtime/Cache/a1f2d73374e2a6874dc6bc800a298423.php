@@ -41,7 +41,9 @@
 </head>
 <body>
     <div id="wrapper">
+
         <!-- Navigation -->
+        <!-- 标题 -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -62,16 +64,15 @@
             </div>
             <!-- //显示北京时间 -->
             <!-- 消息中心 -->
-           <ul class="nav navbar-top-links navbar-right">
+            <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                      <?php echo count($unreadmessage) ?>
-                      <i class="fa fa-envelope fa-fw"></i>
-                      <i class="fa fa-caret-down"></i>
+                        <?php echo count($unreadmessage) ?>
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
-                                <a href="<?php echo U('Root/InformationCenter');?>">
+                                <a href="<?php echo U('Admin/InformationCenter');?>">
                                 <div>
                                     <strong><?php echo ($value['account']); ?></strong>
                                     <span class="pull-right text-muted">
@@ -82,16 +83,28 @@
                                 </a>
                             </li><?php endif; endforeach; endif; ?>
                         <li>
-                        <!-- 9.06修改01 -->
-                            <a class="text-center" href="<?php echo U('Root/InformationCenter');?>">
+                            <a class="text-center" href="<?php echo U('Admin/InformationCenter');?>">
                                 <strong>查看所有消息</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
-                        <!-- //9.06修改01 -->
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
+                <!-- 中英文切换 -->
+                <!-- <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-language fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><img src="__PUBLIC__/resource/img/chinese.png"></i>    &nbsp;&nbsp;中文&nbsp;&nbsp; </i><i class="fa  fa-check"></i></a>
+                        </li>
+
+                        <li class="divider"></li>
+                        <li><a href="#"><img src="__PUBLIC__/resource/img/english.png"></i>    &nbsp;&nbsp;English</a>
+                        </li>
+                    </ul>
+                </li> -->
                 <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -105,7 +118,6 @@
                 </li>
                 <!-- /.dropdown -->
             </ul>
-            <!-- /.navbar-top-links -->
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
@@ -122,147 +134,73 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 顾问中心</a>
                         </li>
                         <!-- <li>
                             <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/SearchTeacher');?>">搜索教师</a>
+                                    <a href="<?php echo U('Admin/SearchTeacher');?>">搜索教师账户</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Root/CheckTeacher');?>">查看教师</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CreateTeacher');?>">创建教师</a>
+                                    <a href="<?php echo U('Admin/CheckTeacher');?>">查看教师</a>
                                 </li>
                             </ul>
                         </li> -->
 
                         <li>
-                            <a href="<?php echo U('Root/SearchTeacher');?>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
-                        </li>
-                        <li>
                             <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showCreateUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
                         </li>
 
                         <!-- <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('Root/SearchStudent');?>">搜索学生</a>
+                                    <a href="<?php echo U('Admin/SearchStudent');?>">搜索学生账号</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Root/CheckStudent');?>">查看学生</a>
-                                </li>
-                            </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
-                        </li>
-
-                        <!-- <li>
-                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Root/SearchAdmin');?>">搜索顾问</a>
+                                    <a href="<?php echo U('Admin/CheckStudent');?>">分管学员</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Root/CheckAdmin');?>">查看顾问</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/CreateAdmin');?>">创建顾问</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/DownloadLogfile');?>">
-                                    操作历史
-                                    </a>
+                                    <a href="<?php echo U('Admin/MyStudent');?>">查看学员</a>
                                 </li>
                             </ul>
                         </li> -->
 
                         <li>
-                            <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student/isMy/myStudent"> <i class="fa fa-users fa-fw"></i> 分管学员</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Root/DownloadLogfile');?>"> <i class="fa fa-umbrella fa-fw"></i>
-                            操作历史
-                            </a>
-                        </li>
-
-                        <!-- <li>
-                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
-                          <ul class="nav nav-second-level">
-                              <li>
-                                  <a href="<?php echo U('Root/Information');?>">查看管理员</a>
-                              </li>
-                              <li>
-                                  <a href="<?php echo U('Root/CreateRoot');?>">创建管理员</a>
-                              </li>
-                          </ul>
-                        </li> -->
-
-                        <li>
-                            <a href="<?php echo U('Info/Information');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/showCreateUser');?>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student/isMy/allStudent"> <i class="fa fa-users fa-fw"></i> 查看学员</a>
                         </li>
 
 
-
                         <li>
-                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i> 课程顾问信息<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
+                                    <!-- <a href="Information.html">个人信息</a> -->
+                                    <a href="<?php echo U('Info/Information');?>"> 课程顾问信息</a>
                                 </li>
                                 <li>
-                                     <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/salaryMgr');?>">
-                                        工资管理
-                                    </a>
-                                    <!-- <a href="">
-                                        工资管理
-                                    </a> -->
+                                    <!-- <a href="ResetPassword.html">修改密码</a> -->
+                                    <a href="<?php echo U('Info/resetPassword');?>">修改密码</a>
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
-                                </li>
-                                 <li>
-                                     <a href="<?php echo U('Root/VideoManage');?>"> 视频管理</a>
-                                </li>
-                            </ul>
-                                    <!-- /.nav-second-level -->
+                             <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-exchange fa-fw"></i> 教材库</a>
                         </li>
                         <li>
-                             <a href="<?php echo U('Root/Message');?>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
+                             <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
                         </li>
-
+                        <li>
+                             <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                        </li>
+                         <li>
+                             <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
+                        </li>
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->

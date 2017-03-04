@@ -66,7 +66,7 @@
                                             <th>学员账号</th>
                                             <th>英文名</th>
                                             <th>中文名</th>
-                                            <th>个人信息</th>
+                                        <!--     <th>个人信息</th> -->
                                             <th>学员课表</th>
                                             <th>个人套餐</th>
                                             <th>余额</th>
@@ -85,9 +85,9 @@
                                             <td><{$value['account']}></td>
                                             <td><{$value['englishname']}></td>
                                             <td><{$value['chinesename']}></td>
-                                            <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td>
+                                            <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
                                             <td><a href="<{:U('Admin/StuPersonalClass',array('user_id'=>$value['ID']))}>">课表查看</a></td>
-                                            <td><a href="<{:U('Admin/StudentPackageInformation',array('user_id'=>$value['ID']))}>">套餐查看</a></td>
+                                            <td><a href="<{:U('Package/studentPackageShow',array('user_id'=>$value['ID']))}>">套餐查看</a></td>
                                             <td><{$value['student_sum_money']}></td>
                                             <td><?php if($value['status'] == 1) {echo "可用";} else {echo "不可用";}?></td>
                                             <td>
@@ -324,7 +324,7 @@
             var user_id=$(this).parents('tr').find('td').eq(0).html();
             $.ajax({
                 type: "POST",
-                url: "<{:U('Admin/getstudentinformation')}>",
+                url: "<{:U('Info/UserManage')}>",
                 data: "user_id="+user_id,
                 success:function(msg){
                     if(msg!='error'){

@@ -269,7 +269,7 @@
                     添加套餐
                     </div>
                 <div class="modal-body"  style="overflow: auto;">
-                    <form class="form" method="post" action="<{:U('Root/addpackageforstudent')}>">
+                    <form class="form" method="post" action="<{:U('Package/pakcageOrderDeal',array('user_id'=>$user_id))}>">
                     <div class="form-group col-lg-6">
                         <label>学员编号</label>
                         <input type="text" name="student_id" readonly="true" class="form-control addpackagestuname">
@@ -288,11 +288,13 @@
                                 <tr>
                                     <th>套餐类型</th>
                                     <th>课时类型</th>
-                                    <th>可延迟月数</th>
-                                    <th>课时总数</th>
-                                    <th>套餐简介</th>
-                                    <th>开始时间</th>
-                                    <th>结束时间</th>
+                                    <th>课程类型</th>
+                                    <th>教师类型</th>
+                                    <th>教师类别</th>
+                                    <th>有效期(天)</th>
+                                    <th>套餐内容</th>
+                                    <th>剩余课时</th>
+                                    <th>班级人数</th>
                                     <th>套餐价格</th>
                                 </tr>
                             </thead>
@@ -469,20 +471,25 @@
         var package_id=$('.packageidlist').val();
         $.ajax({
             type: "POST",
-            url: "<{:U('Root/getpackageinformation')}>",
-            data: "package_id="+package_id,
+            url: "<{:U('Package/AjaxgetPackageInfor')}>",
+            data:{
+                    package_id:package_id
+                },
+                dataType:"json",
             success:function(msg){
                 if (msg=="error") {
                     // alert('未知错误！');
                 }else{
                     var packageinformation="<tr><td>"
-                    +msg['0']['category']+"</td><td>"
+                    +msg['0']['packageName']+"</td><td>"
                     +msg['0']['package_type']+"</td><td>"
-                    +msg['0']['delay_month_num']+"</td><td name='class_number'>"
-                    +msg['0']['class_number']+"</td><td>"
+                    +msg['0']['class_type']+"</td><td>"
+                    +msg['0']['teacher_nation']+"</td><td>"
+                    +msg['0']['teacher_type']+"</td><td>"
+                    +msg['0']['time']+"</td><td>"
                     +msg['0']['package_content']+"</td><td>"
-                    +msg['0']['starttime']+"</td><td>"
-                    +msg['0']['stoptime']+"</td><td>"
+                    +msg['0']['class_number']+"</td><td>"
+                    +msg['0']['student_number']+"</td><td>"
                     +msg['0']['package_money']+"</td><td>"
                     +"<input name='starttime' style='display:none;' value='"+msg['0']['starttime']+"'>"
                     +"<input name='stoptime' style='display:none;' value='"+msg['0']['stoptime']+"'>"

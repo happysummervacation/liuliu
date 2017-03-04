@@ -21,8 +21,8 @@
     <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
 
     <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/responsive.dataTables.css" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/bower_components/datatables-responsive">
+    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
@@ -31,10 +31,10 @@
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
+   <!--  [if lt IE 9]>
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    <![endif]-- -->
 
 </head>
 
@@ -209,14 +209,12 @@
         </nav>
 
 
-        <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
+                        <h1 class="page-header">所有学员</h1>
                     </div>
-                    <h1 class="page-header">分管学员</h1>
-                    <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
@@ -231,50 +229,43 @@
                                         <tr>
                                             <th>学员ID</th>
                                             <th>学员账号</th>
-                                            <th>英文名</th>
                                             <th>中文名</th>
-                                        <!--     <th>个人信息</th> -->
-                                            <th>学员课表</th>
-                                            <th>个人套餐</th>
-                                            <th>余额</th>
+                                            <th>英文名</th>
+                                            <th>学员性别</th>
+                                            <!-- <th>个人课表</th> -->
+                                            <th>其他信息</th>
                                             <th>账号状态</th>
-                                            <th>
-                                              停课状态
-                                            </th>
-                                            <th>操作</th>
-                                            <!-- <th>管理员操作</th> -->
+                                            <!-- <th>安排试听课</th> -->
                                         </tr>
                                     </thead>
                                     <tbody >
-                                    <?php $i = 1; foreach ($students as $key => $value) {?>
-                                        <tr>
-                                            <td><?php echo ($value['ID']); ?></td>
-                                            <td><?php echo ($value['account']); ?></td>
-                                            <td><?php echo ($value['englishname']); ?></td>
-                                            <td><?php echo ($value['chinesename']); ?></td>
-                                            <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
-                                            <td><a href="<?php echo U('Admin/StuPersonalClass',array('user_id'=>$value['ID']));?>">课表查看</a></td>
-                                            <td><a href="<?php echo U('Package/studentPackageShow',array('user_id'=>$value['ID']));?>">套餐查看</a></td>
-                                            <td><?php echo ($value['student_sum_money']); ?></td>
-                                            <td><?php if($value['status'] == 1) {echo "可用";} else {echo "不可用";}?></td>
+                                    <?php if(is_array($student_list)): foreach($student_list as $key=>$vo): ?><tr>
+                                            <td><?php echo ($vo["ID"]); ?></td>
+                                            <td><?php echo ($vo["account"]); ?></td>
+                                            <td><?php echo ($vo["chinesename"]); ?></td>
+                                            <td><?php echo ($vo["englishname"]); ?></td>
                                             <td>
-                                              <a href="#" data-toggle="modal" data-target="#stopclass" class="getstopclass">停课时间</a>
+                                                <?php if(($vo["sex"]) == "0"): ?>女<?php endif; ?>
+                                                <?php if(($vo["sex"]) == "1"): ?>男<?php endif; ?>
                                             </td>
-                                            <td><button class="editStudent">修改</button></td>
-                                            <!-- <td> -->
-                                                <!-- <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Admin/changestudentinformation',array('user_id'=>$value['ID'],'status'=>'0'));?>">禁用账号</a>
-                                                <?php else: ?>
-                                                    <a href="<?php echo U('Admin/changestudentinformation',array('user_id'=>$value['ID'],'status'=>'1'));?>">启用账号</a><?php endif; ?>
-                                                <span>&nbsp;</span> -->
-                                                <!-- <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="chongqian">余额充值</a>
+                                            <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg3" class="getpersoninfo">信息查看</a></td>
+                                            <td>
+                                                <?php if(($vo["status"]) == "0"): ?>禁用<?php endif; ?>
+                                                <?php if(($vo["status"]) == "1"): ?>开启<?php endif; ?>
+                                            </td>
+                                            <!-- <td><a href="<?php $check = md5($value['register_id']); echo U('Admin/StuPersonalClass',array('register_id'=>$value['register_id'],'check'=>$check));?>">点击查看</a></td>
+                                            <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="getmoreinfo">点击查看</a></td>
+                                            <td>
+                                                <?php if($value['can_use_account'] == 0) echo "不可用";else echo "可用";?>
                                             </td> -->
-                                        </tr>
-                                    <?php $i++;}?>
+                                            <!-- <td><a href="#">改变账户状态</a></td> -->
+                                            <!-- <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getstudentid">选择教师</a></td> -->
+                                        </tr><?php endforeach; endif; ?>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- 模态框1,查看用户信息 -->
-                            <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                            <!-- 用来查看学生的信息-->
+                            <div class="modal fade bs-example-modal-lg3" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                 <div class="modal-dialog modal-lg">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -298,129 +289,136 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- 模态框2 -->
-                            <!-- 模态框3,停课信息修改 -->
-                            <div class="modal fade " tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="stopclass">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                        学员停课信息
+                            <!-- 模态框1,查看用户课表 -->
+                            <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                              <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                        选择教师
                                         </div>
-                                        <div class="modal-body"  style="overflow: auto;">
-                                          <form class="" action="<?php echo U('Admin/CancelStopClass');?>" method="post">
-                                            <div class="form-group">
-                                              <label for="">停课编号</label>
-                                              <input type="text" name="stopID" value="" class="form-control" id="stopID" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">学生名字</label>
-                                              <input type="text" name="stu_name" value="" class="form-control" id="stu_name" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">开始时间</label>
-                                              <input type="text" name="strattime" value="" class="form-control" id="stu_starttime" readonly="true">
-                                            </div>
-                                            <div class="form-group">
-                                              <label for="">结束时间</label>
-                                              <input type="text" name="stoptime" value="" class="form-control" id="stu_stoptime" readonly="true">
-                                            </div>
+                                        <div class="modal-body">
+                                            <ul class="nav nav-tabs" role="tablist">
+                                              <li role="presentation" class="active"><a href="#home" role="tab" data-toggle="tab">外教</a></li>
+                                              <!-- <li role="presentation"><a href="#profile" role="tab" data-toggle="tab">中教</a></li> -->
+                                              <li role="presentation"><a href="#messages" role="tab" data-toggle="tab">名师</a></li>
+                                            </ul>
 
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                              <div role="tabpanel" class="tab-pane active" id="home">
+                                                  <h4>普通教师列表</h4>
+                                                  <div class="lope">
+                                                    <?php foreach ($teacher_result as $key => $value) { if($value['teacher_level'] == '0'){?>
+                                                        <div class="col-lg-12 laoshiif waitao">
+                                                            <div class="col-xs-3 laoshiif">
+                                                                <a href="<?php echo U('Admin/SendLesson',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>" class="choosetea"><img src="<?php echo ($value['image_path']); ?>"></a>
+                                                            </div>
+                                                            <div class="col-xs-7 laoshiif">
+                                                                <h3><?php echo ($value['teacher_name']); ?></h3>
+                                                                <p><?php echo ($value['introduction']); ?></p>
+                                                            </div>
+                                                            <!-- <div class="col-xs-2 laoshiif">
+                                                                <a href="<?php echo U('Student/TeacherInformation',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>">
+                                                                    <button type="button" class="btn btn-default btn-circle btn-lg">
+                                                                        <i class="fa fa-link"></i >
+                                                                    </button>
+                                                                </a>
+                                                            </div>   -->
+                                                        </div>
+                                                    <?php }}?>
+                                                </div>
+                                              </div>
+                                              <!-- <div role="tabpanel" class="tab-pane" id="profile">
+                                                  <h4>中教列表</h4>
+                                                  <div class="lope">
+                                                    <?php foreach ($teacher_result as $key => $value) { if($value['teacher_level'] == '0' && ($value['country'] == '中国' || $value['country'] == 'china')) {?>
+                                                        <div class="col-lg-12 laoshiif waitao">
+                                                            <div class="col-xs-3 laoshiif">
+                                                                <a href="<?php echo U('Admin/SendLesson',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>" class="choosetea"><img src="<?php echo ($value['image_path']); ?>"></a>
+                                                            </div>
+                                                            <div class="col-xs-7 laoshiif">
+                                                                <h3><?php echo ($value['teacher_name']); ?></h3>
+                                                                <p><?php echo ($value['introduction']); ?></p>
+                                                            </div> -->
+                                                            <<!-- div class="col-xs-2 laoshiif">
+                                                                <a href="<?php echo U('Student/TeacherInformation',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>">
+                                                                    <button type="button" class="btn btn-default btn-circle btn-lg">
+                                                                        <i class="fa fa-link"></i >
+                                                                    </button>
+                                                                </a>
+                                                            </div>  -->
+                                                 <!--        </div>
+                                                    <?php }}?>
+                                                </div>
+                                              </div> -->
+                                              <div role="tabpanel" class="tab-pane" id="messages">
+                                                  <h4>名师列表</h4>
+                                                  <div class="lope">
+                                                    <?php foreach ($teacher_result as $key => $value) { if($value['teacher_level'] == '1') {?>
+                                                        <div class="col-lg-12 laoshiif waitao">
+                                                            <div class="col-xs-3 laoshiif">
+                                                                <a href="<?php echo U('Admin/SendLesson',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>" class="choosetea"><img src="<?php echo ($value['image_path']); ?>"></a>
+                                                            </div>
+                                                            <div class="col-xs-7 laoshiif">
+                                                                <h3><?php echo ($value['teacher_name']); ?></h3>
+                                                                <p><?php echo ($value['introduction']); ?></p>
+                                                            </div>
+                                                            <!-- <div class="col-xs-2 laoshiif">
+                                                                <a href="<?php echo U('Student/TeacherInformation',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>">
+                                                                    <button type="button" class="btn btn-default btn-circle btn-lg">
+                                                                        <i class="fa fa-link"></i >
+                                                                    </button>
+                                                                </a>
+                                                            </div>  -->
+                                                        </div>
+                                                    <?php }}?>
+                                                </div>
+                                              </div>
+                                            </div>
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                            <button type="submit" class="btn btn-default">取消停课</button>
+                                            <button type="submit" class="btn btn-primary">提交</button>
                                         </div>
-                                        </form>
+                                </div>
+                              </div>
+                            </div>
+                            <!-- 模态框1 -->
+                            <!-- 模态框2,查看用户信息 -->
+                            <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        教师信息
+                                        </div>
+                                         <div class="modal-body">
+                                           邮箱:
+                                            <span class="emailinfo"></span>
+                                            <br>
+                                            联系号码:
+                                            <span class="telinfo"></span>
+                                            <br>
+                                            QQ:
+                                            <span class="QQinfo"></span> &nbsp;
+                                            ZOOM:
+                                            <span class="zoominfo"></span> &nbsp;
+                                            skype:
+                                            <span class="skypeinfo"></span>
+                                            <br>
+                                            地域:
+                                            <span class="areainfo"></span>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <!-- 模态框1 -->
+                            <!-- 模态框2 -->
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="row" id="editStudentInfo">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            修改学生资料
-                        </div>
-                        <div class="panel-body">
-                        <form class="form-horizontal" action="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'update'));?>" method="post" role="form">
-                            <div class="form-group">
-                                <label for="firstname" class="col-sm-2 control-label">账号</label>
-                                <div class="col-sm-10">
-                                    <input id="account" type="text" readonly="true" name="account" class="form-control" placeholder="账号">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="firstname" class="col-sm-2 control-label">中文名</label>
-                                <div class="col-sm-10">
-                                    <input id="chinesename" type="text" name="chinesename" class="form-control" placeholder="中文名">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname" class="col-sm-2 control-label">英文名</label>
-                                <div class="col-sm-10">
-                                    <input id="englishname" type="text" name="englishname" class="form-control" placeholder="英文名">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname" class="col-sm-2 control-label">邮箱</label>
-                                <div class="col-sm-10">
-                                    <input id="email" type="text" name="email" class="form-control" placeholder="邮箱">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname" class="col-sm-2 control-label">电话</label>
-                                <div class="col-sm-10">
-                                    <input id="phone" type="text" name="phone" class="form-control" placeholder="电话">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname" class="col-sm-2 control-label">QQ</label>
-                                <div class="col-sm-10">
-                                    <input id="qq" type="text" name="qq" class="form-control" placeholder="QQ">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname" class="col-sm-2 control-label">微信</label>
-                                <div class="col-sm-10">
-                                    <input id="weixin" type="text" name="weixin" class="form-control" placeholder="微信">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="lastname" class="col-sm-2 control-label">年龄</label>
-                                <div class="col-sm-10">
-                                    <input id="age" type="text" name="age" class="form-control" placeholder="年龄">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="lastname" class="col-sm-2 control-label">国籍</label>
-                              <div class="col-sm-10">
-                                <input id="country" type="text" name="country" class="form-control" placeholder="国籍">
-                              </div>
-                            </div>
-                            <div class="form-group">
-                              <label for="lastname" class="col-sm-2 control-label">性别</label>
-                              <div class="col-sm-10" style="padding-top: 8px;">
-                                <!-- <input id="" type="text" name="Basic" class="form-control" placeholder="性别"> -->
-                                <select class="form-control" id="sex" name="sex">
-                                  <option value="1">男</option>
-                                  <option value="0">女</option>
-                                </select>
-                              </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default" id="">修改</button>
-                                </div>
-                            </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
             <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
@@ -443,6 +441,7 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
+    <script src="__PUBLIC__/js/md5.js"></script>
 
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
@@ -453,47 +452,77 @@
         $('#dataTables-example2').DataTable({
                 responsive: true
         });
-
-
-        $(".getstopclass").click(function(){
-          var stu_no=$(this).parent().parent().find('td').html();
-          $.ajax({
-            type:'post',
-            url:"<?php echo U('Admin/GetStudentStopRecord');?>",
-            data:"student_id="+stu_no,
-            success:function(msg){
-              msg = JSON.parse(msg);
-              $("#stopID").val(msg['stopclass_id'])
-              $("#stu_name").val(msg['chinesename']);
-              $("#stu_starttime").val(msg['stop_start_time']);
-              $("#stu_stoptime").val(msg['stop_end_time']);
-            }
-          })
-        });
     });
+    //axaj请求返回用户信息
+    // $(".getmoreinfo").click(function(){
+    //     var SCri=$(this).parent().siblings(':first').next().html();
+    //     var request = new XMLHttpRequest();
+    //     var re="";
+    //     var obj="";
+    //     request.open("POST",'__URL__/doinfo');
+    //     var data = "userID="+SCri;
+    //     // alert(data);
+    //     request.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+    //     request.send(data);
+    //     request.onreadystatechange = function() {
+    //             if (request.readyState===4) {
+    //                 if (request.status===200) {
+    //                     re=request.responseText;
+    //                     obj=JSON.parse(re);
+    //                     $(".emailinfo").html(obj.email);
+    //                     $(".telinfo").html(obj.phonenumber);
+    //                     $(".QQinfo").html(obj.qq);
+    //                     $(".zoominfo").html(obj.zoom);
+    //                     $(".skypeinfo").html(obj.skype);
+    //                     $(".areainfo").html(obj.country);
+    //                 } else {
+    //                     alert("发生错误：" + request.status);
+    //                 }
+    //             }
+    //     }
+    // })en
+    var stuID;
+    var check;
+    // var teaID;
+    // var status;
+    $('.getstudentid').click(function(){
+        stuID=$(this).parent().parent().children(':first').html();
+        check=hex_md5(stuID);
+        // var n="<?php echo U('Admin/SendLesson',array('id'=>$value['register_id'],'status'=>md5($value['register_id'])));?>";
+        // var n = ($('.choosetea').attr('href')).split('/')[6];
+        // alert(n);
+        // $('.choosetea').attr('href',n+'/stuid/'+stuID+'/check/'+check);
+        // alert($('.choosetea').parent().html());
+        // $.UrlUpdateParams(window.location.href, "mid");
 
-
-
+    });
+    $('.choosetea').click(function(){
+            teaID=$(this).attr('href');
+            // teaID=teaID.split('/')[6];
+            // status=status.split('/')[7];
+            // alert(teaID);
+            // alert(hex_md5(teaID));
+            $('.choosetea').attr('href',teaID+'/stuid/'+stuID+'/check/'+check);
+    })
     </script>
 
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
-        $('.chongqian').click(function(){
-             $('#chongzhicount').val($(this).parent().parent().find('td').html());
-             $('#chongzhicount2').val($(this).parent().parent().find('td').next().html());
-        });
+    </script>
 
+    <script type="text/javascript">
         $('.getpersoninfo').click(function(){
-            var user_id=$(this).parents('tr').find('td').eq(0).html();
+            // alert('asd');
+            var user_id = $(this).parents('tr').find('td').eq(0).html();
             $.ajax({
-                type: "POST",
-                url: "<?php echo U('Info/UserManage');?>",
-                data: "user_id="+user_id,
+                type:"POST",
+                url:"<?php echo U('Admin/getstudentinformation');?>",
+                data:"user_id="+user_id,
                 success:function(msg){
-                    if(msg!='error'){
-                        var innerhtml=
+                    if(msg != 'error'){
+                    var innerhtml=
                         "<tr><th>中文名</th><td>"+msg['0']['chinesename']
                         +"</td><th>英文名</th><td>"+msg['0']['englishname']
                         +"</td><th>国家</th><td>"+msg['0']['country']
@@ -504,8 +533,8 @@
                         +"</td><th>电话</th><td>"+msg['0']['phone']
                         +"</td><th>微信</th><td>"+msg['0']['weixin']
                         // +"</td><th>接入时间</th><td>"+msg['0']['accept_time']
-                        +"</td><th>顾问编号</th><td>"+msg['0']['student_manage_id']
                         +"</td></tr>"
+                        +"</td><th>顾问编号</th><td>"+msg['0']['student_manage_id']
                         +"</td><th>邮箱</th><td>"+msg['0']['email']
                         +"</td></tr>";
                         $('.information').html(innerhtml);
@@ -519,40 +548,6 @@
         })
     </script>
 
-    <script type="text/javascript">
-      // $(document).ready(function(){
-        $("#editStudentInfo").hide();
-        $(".editStudent").click(function(){
-          var studentID = $(this).parent().parent().children(":first").html();
-          $.ajax({
-            type: "POST",
-            url: "<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'checkUpdate'));?>",
-            data: {
-              type: "student",
-              ID: studentID,
-            },
-            dataType: "json",
-            success: function(data){
-              $("#editStudentInfo").slideDown();
-              $("#account").val(data.account);
-              $("#chinesename").val(data.chinesename);
-              $("#englishname").val(data.englishname);
-              $("#email").val(data.email);
-              $("#phone").val(data.phone);
-              $("#qq").val(data.QQ);
-              $("#weixin").val(data.weixin);
-              $("#age").val(data.age);
-              $("#country").val(data.country);
-              $("#sex").val(data.sex);
-
-            },
-            error: function(jqXHR){
-              alert(jqXHR.status);
-            },
-          });
-        });
-      // });
-    </script>
 </body>
 
 </html>

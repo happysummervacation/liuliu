@@ -29,32 +29,71 @@
 		*显示套餐的信息
 		*/
 		public function packageShow(){
+			// $this->CheckSession();
+			// import("Home.Action.Package.PackageConfigBasicOperate");
+			// import("Home.Action.Package.PackageBasicOperate");
+			// $configOp = new PackageConfigBasicOperate();
+			// $packageOp = new PackageBasicOperate();
+			//
+			// $identity = $_SESSION['identity'];
+			// if($identity == 4 || $identity == "4"){
+			// 	$result = $configOp->getPackageConfigInfo();
+			// 	$packageResult = $packageOp->getPackageInfo();
+			//
+			// 	$this->assign("packageList",$packageResult);
+			// 	$this->assign('packageConfig',$result);
+			// 	$this->display("Root:PackageManage");
+			// 	return;
+			// }elseif($identity == 0 || $identity = "0"){
+			// 	$result = $configOp->getPackageConfigInfo();
+			// 	$packageResult = $packageOp->getPackageInfo();
+			//
+			// 	$this->assign('packageConfig',$result);
+			// 	$this->assign('packageList',$packageResult);
+			// 	$this->display("Student:NewPackage");
+			// 	return;
+			// }else{
+			// 	$this->error("你没有权限查看该页面内容");
+			// 	return;
+			// }
 			$this->CheckSession();
-			import("Home.Action.Package.PackageConfigBasicOperate");
-			import("Home.Action.Package.PackageBasicOperate");
-			$configOp = new PackageConfigBasicOperate();
-			$packageOp = new PackageBasicOperate();
-
 			$identity = $_SESSION['identity'];
-			if($identity == 4 || $identity == "4"){
-				$result = $configOp->getPackageConfigInfo();
-				$packageResult = $packageOp->getPackageInfo();
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			import("Home.Action.OrderPackage.OrderPackageFeatureService");
+			import("Home.Action.Package.PackageBasicOperate");
+			import("Home.Action.User.UserBasicOperate");
+			$orderpacOp = new OrderPackageBasicOperate();
+			$orderPacFeaSerOp = new OrderPackageFeatureService();
+			$packageOp = new PackageBasicOperate();
+			$userOp = new UserBasicOperate();
+			$studentID = $_GET['user_id'];
+			/*
+			*获取该学生订购的套餐的数据
+			*/
+			$sql = "studentID={$_GET['user_id']} and isdelete=0";
+			$result = $orderpacOp->getOrderPackageInfoWithCondition($sql);
+			//获取学生的套餐数据
+			$result = $orderPacFeaSerOp->dealOrderPackageOrderClassData($studentID,$result);
 
-				$this->assign("packageList",$packageResult);
-				$this->assign('packageConfig',$result);
-				$this->display("Root:PackageManage");
-				return;
-			}elseif($identity == 0 || $identity = "0"){
-				$result = $configOp->getPackageConfigInfo();
-				$packageResult = $packageOp->getPackageInfo();
+			/* 获取所有的package的id*/
+			$packageid = $packageOp->getPackageInfo(null,array('package_id'));
+			$this->assign("packageid",$packageid);
 
-				$this->assign('packageConfig',$result);
-				$this->assign('packageList',$packageResult);
-				$this->display("Student:NewPackage");
-				return;
+			if(2 == $identity || "2" == $identity){
+				/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
+				$manageID = $userOp->getUserInfo('student',$studentID,null,null,null,array('student_manage_id'));
+				if($manageID[0]['student_manage_id'] != $_SESSION['ID']){
+					$this->error("你没有权限查看该学生的数据");
+				}
+				$this->assign("orderPackageList",$result);
+				$this->assign("studentID",$studentID);
+				$this->display("Root:StuPackageInfo");
+			}elseif(4 == $identity || "4" == $identity){
+				$this->assign("orderPackageList",$result);
+				$this->assign("studentID",$studentID);
+				$this->display("Root:StuPackageInfo");
 			}else{
-				$this->error("你没有权限查看该页面内容");
-				return;
+				$this->error("你没有权限查看数据");
 			}
 		}
 
@@ -63,30 +102,72 @@
 		*获取学生订购的套餐的信息
 		*/
 		public function studentPackageShow(){
+			// $this->CheckSession();
+			//
+			// $identity = $_SESSION['identity'];
+			//
+			// import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			// import("Home.Action.OrderPackage.OrderPackageFeatureService");
+			// $orderpacOp = new OrderPackageBasicOperate();
+			// $orderPacFeaSerOp = new OrderPackageFeatureService();
+			//
+			// if(2 == $identity || "2" == $identity){
+			// 	/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
+			// 	$manageID = $userOp->getUserInfo('student',$studentID,null,null,null,array('student_manage_id'));
+			// 	if($manageID[0]['student_manage_id'] != $_SESSION['ID']){
+			// 		$this->error("你没有权限查看该学生的数据");
+			// 	}
+			// 	$this->assign("orderPackageList",$result);
+			// 	$this->assign("studentID",$studentID);
+			// 	$this->display("Admin:StuPackageInfo");
+			// }elseif(4 == $identity || "4" == $identity){
+			// 	/*
+			// 	*获取该学生订购的套餐的数据
+			// 	*/
+			// 	$studentID = $_GET['user_id'];
+			// 	$sql = "studentID={$_GET['user_id']} and isdelete=0";
+			// 	$result = $orderpacOp->getOrderPackageInfoWithCondition($sql); //获取学生的套餐数据
+			// 	$result = $orderPacFeaSerOp->dealOrderPackageOrderClassData($studentID,$result);
+			//
+			// 	$this->assign("orderPackageList",$result);
+			// 	$this->assign("studentID",$studentID);
+			// 	$this->display("Root:StuPackageInfo");
+			// }else{
+			// 	$this->error("你没有权限查看数据");
+			// }
 			$this->CheckSession();
-
 			$identity = $_SESSION['identity'];
-
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 			import("Home.Action.OrderPackage.OrderPackageFeatureService");
+			import("Home.Action.Package.PackageBasicOperate");
+			import("Home.Action.User.UserBasicOperate");
 			$orderpacOp = new OrderPackageBasicOperate();
 			$orderPacFeaSerOp = new OrderPackageFeatureService();
+			$packageOp = new PackageBasicOperate();
+			$userOp = new UserBasicOperate();
+			$studentID = $_GET['user_id'];
+			/*
+			*获取该学生订购的套餐的数据
+			*/
+			$sql = "studentID={$_GET['user_id']} and isdelete=0";
+			$result = $orderpacOp->getOrderPackageInfoWithCondition($sql);
+			//获取学生的套餐数据
+			$result = $orderPacFeaSerOp->dealOrderPackageOrderClassData($studentID,$result);
+
+			/* 获取所有的package的id*/
+			$packageid = $packageOp->getPackageInfo(null,array('package_id'));
+			$this->assign("packageid",$packageid);
 
 			if(2 == $identity || "2" == $identity){
 				/*这里在进行学生数据展示时需要进行判断,判断该学生时候是归该admin管理*/
+				$manageID = $userOp->getUserInfo('student',$studentID,null,null,null,array('student_manage_id'));
+				if($manageID[0]['student_manage_id'] != $_SESSION['ID']){
+					$this->error("你没有权限查看该学生的数据");
+				}
+				$this->assign("orderPackageList",$result);
+				$this->assign("studentID",$studentID);
+				$this->display("Admin:StuPackageInfo");
 			}elseif(4 == $identity || "4" == $identity){
-				/*
-				*获取该学生订购的套餐的数据
-				*/
-				$studentID = $_GET['user_id'];
-				$sql = "studentID={$_GET['user_id']} and isdelete=0";
-				$result = $orderpacOp->getOrderPackageInfoWithCondition($sql); //获取学生的套餐数据
-				$result = $orderPacFeaSerOp->dealOrderPackageOrderClassData($studentID,$result);
-
-				/*  */
-
-				/*   */
-
 				$this->assign("orderPackageList",$result);
 				$this->assign("studentID",$studentID);
 				$this->display("Root:StuPackageInfo");
@@ -219,13 +300,30 @@
 					$_SESSION['packageID'] = null;
 					return;
 				}
-			}elseif(2 == $identity || "2" == $identity){
-
-			}elseif(4 == $identity || "4" == $identity){
-
+			}elseif(2 == $identity || "2" == $identity){  //站内支付
+				$result = $orderService->orderPakcageWithStatPay($_POST['package_id'],$_POST['student_id']);
+				if($result['status']){
+					$this->success("套餐购买成功");
+				}else{
+					$this->error("套餐购买失败");
+				}
+			}elseif(4 == $identity || "4" == $identity){  //站内支付
+				$result = $orderService->orderPakcageWithStatPay($_POST['package_id'],$_POST['student_id']);
+				if($result['status']){
+					$this->success("套餐购买成功");
+				}else{
+					$this->error("套餐购买失败");
+				}
 			}else{
 				$this->error("你没有权限进行操作");
 			}
+			// elseif(2 == $identity || "2" == $identity){
+			//
+			// }elseif(4 == $identity || "4" == $identity){
+			//
+			// }else{
+			// 	$this->error("你没有权限进行操作");
+			// }
 		}
 
 		/*
@@ -247,6 +345,42 @@
 			}else{
 				$this->error("你没有权限进行操作");
 			}
+		}
+
+		/*
+		*蒋周杰
+		*ajax获取套餐的信息
+		*/
+		public function AjaxgetPackageInfor(){
+			$ajaxResult = judgeAjaxRequest();
+			if(!$ajaxResult){
+				echo "非指定访问方式";
+				return;
+			}
+			import("Home.Action.Package.PackageBasicOperate");
+			$packageOp = new PackageBasicOperate();
+			$result = $packageOp->getPackageInfo($_POST['package_id']);
+			if(0 == $result[0]['class_type']){
+				$result[0]['class_type']='一对一';
+			}else{
+				$result[0]['class_type']='小班课';
+			}
+			if(0 == $result[0]['package_type']){
+				$result[0]['package_type']='课时类';
+			}else{
+				$result[0]['package_type']='卡类';
+			}
+			if(0 == $result[0]['teacher_nation']){
+				$result[0]['teacher_nation']='中教';
+			}else{
+				$result[0]['teacher_nation']='外教';
+			}
+			if(0 == $result[0]['teacher_type']){
+				$result[0]['teacher_type']='普通';
+			}else{
+				$result[0]['teacher_type']='名师';
+			}
+			echo json_encode($result);
 		}
 
 	}
