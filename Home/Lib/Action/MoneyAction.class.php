@@ -121,5 +121,34 @@
 				$this->error("你没有权限查看该页面");
 			}
 		}
+		/*
+		*俞鹏泽
+		*教师的工资管理
+		*/
+		public function teacherSalaryManage(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			$type = $_GET['type'];
+
+			if(1 == $identity || "1" == $identity){
+				if("howcacu" == $type){
+
+					$this->display("Teacher:HowCaculate");
+					return;
+				}elseif("mymoney" == $type){
+					$this->display("Teacher:MyMoney");
+					return;
+				}else{
+					$this->error("没有对应的操作类型");
+					return;
+				}
+			}elseif(4 == $identity || "4" == $identity){
+
+			}else{
+				$this->error("你没有权限进行查看");
+				return;
+			}
+		}
 	}
  ?>

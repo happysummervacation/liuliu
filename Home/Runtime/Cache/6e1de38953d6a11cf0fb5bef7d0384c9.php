@@ -17,19 +17,11 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
-    <!-- DataTables Responsive CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-responsive/css/dataTables.responsive.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <link href="__PUBLIC__/css/Myschedule.css" rel="stylesheet" type="text/css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -41,8 +33,7 @@
 </head>
 
 <body>
-
-    <div id="wrapper">
+        <div id="wrapper">
         <!-- Navigation -->
 
         <!-- 标题 -->
@@ -152,7 +143,7 @@
                                     <a href="<?php echo U('Comment/studentComment');?>"><i class="fa fa-book fa-fw"></i> 评价教师</a>
                                 </li>
                                 <li>
-                                    <a href="<?php echo U('Comment/showCommentFromTeacher');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
+                                    <a href="<?php echo U('Student/TeacherValuation');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
                                 </li>
                             <!-- </ul> -->
                             <!-- /.nav-second-level -->
@@ -206,109 +197,113 @@
             <!-- /.navbar-static-side -->
         </nav>
 
-
+        <!-- Page Content -->
         <div id="page-wrapper">
-            <div class="row">
-                <div class="col-lg-12">
-                    <h1 class="page-header">课程评论</h1>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">学员信息</h1>
+                    </div>
+                    <!-- /.col-lg-12 -->
                 </div>
-                <!-- /.col-lg-12 -->
-            </div>
-            <!-- /.row -->
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            已完成课程
-                        </div>
-                        <!-- /.panel-heading -->
-                        <div class="panel-body overfw">
-                            <div class="dataTable_wrapper">
-                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th >订课编号</th>
-                                            <th style="display:none">课程编号</th>
-                                            <th>上课时间</th>
-                                            <th>任课教师</th>
-                                            <th style="display: none">教师ID</th>
-                                            <!-- <th>课程笔记</th> -->
-                                            <!-- <th>评分分数</th> -->
-                                            <th>我的评论</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php $i = 1; foreach ($data as $key => $value) {?>
-                                        <tr>
-                                            <td><?php echo ($i); ?></td>
-                                            <td ><?php echo ($value['oneorderclassID']); ?></td>
-                                            <td><?php echo (date("Y-m-d H:i",$value['classStartTime'])); ?></td>
-                                            <td value="<?php echo ($value['ID']); ?>"><?php echo ($value['englishname']); ?></td>
-                                            <td style="display: none"><?php echo ($value['ID']); ?></td>
-                                            <?php $check = md5($value['oneorderclassID']); if(empty($value['notelink']) || is_null($value['notelink'])) {?><td>未上传</td><?php } else {?>
-                                            <!-- <td><a href="<?php echo U('Student/DownLoadNote',array('note_id'=>$value['oneorderclassID'],'check'=>$check));?>">查看</a></td><?php }?>
-                                            <td> -->
-                                            <?php if(is_null($value['studentcomment'])){?>
-                                            <button class="btn btn-default getcolinfo"  data-toggle="modal" data-target=".bs-example-modal-sm">开始评分</button>
-                                            <?php }else{?>
-                                            <button>已上传</button>
-                                            <?php }?>
-                                            </td>
-                                        </tr>
-                                    <?php $i++;}?>
-                                    </tbody>
-                                </table>
+                <!-- /.row -->
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1">
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">学员信息</div>
+                            <div class="panel-body">
+                                <form enctype="multipart/form-data" action="<?php echo U('Info/ChangeUserInformation');?>" method="post">
+                                    <div class="col-lg-8">
+                                        <div class="col-lg-6">
+                                            <h4>学员昵称：</h4>
+                                            <input type="text" class="form-control" name="account" value="<?php echo ($data['account']); ?>" disabled="disabled">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>中文姓名：</h4>
+                                            <input type="text" class="form-control" name="chinesename" value="<?php echo ($data['chinesename']); ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>英语姓名：</h4>
+                                            <input type="text" class="form-control" name="englishname" value="<?php echo ($data['englishname']); ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>年龄：</h4>
+                                            <input type="text" class="form-control age" name="age" value="<?php echo ($data['age']); ?>" maxlength="3">
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h4>性别：</h4>
+                                            <select class="form-control" name="sex">
+                                                <?php
+ if($data['sex'] == 0){ echo '<option selected="selected" value="0">女</option>'; }else{ echo '<option selected="selected" value="1">男</option>'; } ?>
+                                                <?php
+ if($data['sex'] == 0){ echo '<option value="1">男</option>'; }else{ echo '<option value="0">女</option>'; } ?>
+                                            </select>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>邮箱：</h4>
+                                            <input type="text" class="form-control" name="email" value="<?php echo ($data['email']); ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>联系号码：</h4>
+                                            <input type="text" class="form-control" name="phone" value="<?php echo ($data['phone']); ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>QQ：</h4>
+                                            <input type="text" class="form-control" name="qq" value="<?php echo ($data['QQ']); ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>微信：</h4>
+                                            <input type="text" class="form-control" name="weixin" value="<?php echo ($data['weixin']); ?>">
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <h4>skype：</h4>
+                                            <input type="text" class="form-control" name="skype" value="<?php echo ($data['skype']); ?>">
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <h4>地址：</h4>
+                                            <input type="text" class="form-control" name="country" value="<?php echo ($data['country']); ?>">
+                                        </div>
+
+                                        <div class="col-lg-12">
+                                            <h4>教材：</h4>
+                                            <?php if(empty($book)){echo "还没有教材";}else{ ?>
+                                              <?php if(is_array($book)): foreach($book as $key=>$vo): if($vo != "" && $vo != ";;"){ $bookname = "";$bookname = explode(";",$vo['material'])[1] ?>
+                                                  <input type="text" class="form-control" readonly="true" value="<?php echo ($bookname); ?>">
+                                                <?php } endforeach; endif; ?>
+                                            <?php } ?>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4" style="text-align: center">
+                                        <br>
+                                        <!--这里的图片的路径要改-->
+                                        <div id="result">
+                                        <img id="touxxx" src="<?php if($data['image_path'] == null){echo '';} else {echo $data['image_path'];}?>"  style="width:130px;border: 2px solid #CCC;height: 130px;"  alt="没有头像!">
+                                        </div>
+                                        <br>
+                                        <br>
+                                        <div class="uploadbutton btn btn-default" style="width:50%;">
+                                            <input type="file" nv-file-select="" uploader="uploader" multiple   name="photo" value="上传头像" id="file_input"/>
+                                            上传头像
+                                        </div>
+                                        <br/>
+                                        图片大小不要超过2M
+                                        <!-- <input class="btn btn-default" value="上传头像" type="file" name="photo"/> -->
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <br>
+
+                                    </div>
+
                             </div>
-                            <!-- /.table-responsive -->
+                            <div class="panel-footer" style="overflow: auto">
+                                <button class="btn btn-primary" type="submit" style="float: right;width: 10%;">保存</button>
+                            </div>
+                            </form>
                         </div>
-                        <!-- /.panel-body -->
-                    </div>
-                    <!-- /.panel -->
-                    <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
-                      <div class="modal-dialog modal-sm">
-                        <div class="modal-content">
-                           <div class="modal-header">课程评论</div>
-                           <div class="modal-body">
-
-
-                               <form class="form-horizontal" action="<?php echo U('Comment/SetStudentClassComment');?>" method="post">
-
-                                   <div class="form-group" style="display: none">
-                                       <label class="col-sm-4 control-label">课程编号:</label>
-                                       <div class="col-sm-8">
-                                            <input type="text" class=" form-control" name="oneorderclassID" readonly="true" id="oneorderclassID">
-                                        </div>
-                                   </div>
-                                   <div class="form-group">
-                                        <label  class="col-sm-4 control-label">课程评分:</label>
-                                        <div class="col-sm-8">
-                                            <input type="text" name="teacherID" id="teacherid" style="display: none;">
-                                            <!-- <input type="text" name="oneorderclassID" id="oneorderclassID" style="display: none;"> -->
-                                            <select class="form-control" name="commentlevel">
-                                               <option>A(老师非常棒 excellent)</option>
-                                               <option>B(老师挺好 good)</option>
-                                               <option>C(老师还行 qualified)</option>
-                                               <option>D(老师不太满意 unsatisfied)</option>
-                                               <option>E(非常不满意 terrible)</option>
-                                           </select>
-                                        </div>
-                                   </div>
-                                   <div class="modal-footer">
-                                       <button class="btn btn-default"  data-dismiss="modal">取消</button>
-                                       <button type="submit" class="btn btn-primary">提交
-                                       </button>
-                                   </div>
-                               </form>
-                           </div>
-
-                        </div>
-                      </div>
                     </div>
                 </div>
-                <!-- /.col-lg-12 -->
             </div>
-            <!-- /.row -->
+            <!-- /.container-fluid -->
         </div>
         <!-- /#page-wrapper -->
 
@@ -324,37 +319,47 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-    <!-- DataTables JavaScript -->
-    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <!-- Page-Level Demo Scripts - Tables - Use for reference -->
-    <script>
-    $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true,
-                ordering:false,
-                searching:false
-        });
-    });
-    $('.getcolinfo').click(function(){
-        var teacherID = $(this).parents('tr').find('td').eq('3').attr('value');
-        var classID = $(this).parents('tr').find('td').eq('1').html();
-        // alert(classID);
-        $('#teacherid').val(teacherID);
-        $('#oneorderclassID').val(classID);
-    });
-    </script>
+    <script type="text/javascript" src="__PUBLIC__/js/Countries.js"></script>
+
 
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
         upDateTime();
-    </script>
 
+        $('.age').change(function(){
+            if ($(this).val()<0||$(this).val()>150) {
+                alert("请检查您的年龄填写是否正确");
+                $(this).val('');
+            }
+        })
+
+        var result = document.getElementById("result");
+        var input = document.getElementById("file_input");
+
+        if(typeof FileReader==='undefined'){
+            result.innerHTML = "抱歉，你的浏览器不支持 FileReader";
+            input.setAttribute('disabled','disabled');
+        }else{
+            input.addEventListener('change',readFile,false);
+        }
+
+        function readFile(){
+            var file = this.files[0];
+            if(!/image\/\w+/.test(file.type)){
+                alert("文件图片类型文件");
+                return false;
+            }
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function(e){
+                $('#result img').attr('src',this.result);
+            }
+        }
+    </script>
 </body>
 
 </html>

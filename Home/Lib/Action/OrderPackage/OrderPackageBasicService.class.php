@@ -1,5 +1,7 @@
 <?php
 	class OrderPackageBasicService extends Action{
+		private $delayMoney = 100;	//表示延期一个月100元
+		private $monthDay = 30;   //表示一个月30天
 		/*
 		*俞鹏泽
 		*通过站内支付的方式订购套餐
@@ -315,6 +317,52 @@
 			->where("tp_orderpackage.orderpackageID = {$orderpackageID} and
 			tp_orderpackage.category = tp_packageconfig.packageconID")->select();
 			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*学生使用账户余额进行套餐延期的服务
+		*/
+		public function studentDelayOrderPacWithMoney($orderPackageID = null,$studentID = null,$delayMonth = 0){
+			$message = array();
+			if(is_null($orderPackageID) || is_null($studentID)){
+				$message['status'] = false;
+				$message['message'] = "缺少重要的数据,延期失败";
+				return $message;
+			}
+
+			$money = (int)$delayMonth*(int)$this->delayMoney;
+			//现获取学生的账户余额
+			import("Home.Action.User.UserBasicOperate");
+			$userBasOp = new UserBasicOperate();
+			$userResult = $userBasOp->getUserInfo("student",$studentID,null,null,null,"student_sum_money");
+			if((int)$userResult[0]['student_sum_money'] < (int)$money){
+				$message['status'] = false;
+				$message['message'] = "账户余额不足,延期失败";
+				return $message;
+			}
+
+			$inquiry = new Model();
+			$inquiry->startTrans();
+
+			//先更新学生账户中的余额
+			$sql = "update tp_student set student_sum_money=student_sum_money-{$money} where ID={$studentID}";
+			$moneyResult = $inquiry->execute($sql);
+			//进行延期的操作
+			$sql = "update tp_orderpackage set endTime=endTime+{$delayMonth}*30 where orderpackageID={$orderpackageID}";
+			$delayResult = $inquiry->execute($sql);
+			if($moneyResult && $delayResult){
+				$inquiry->commit();
+				$message['status'] = true;
+				$message['message'] = "套餐延期成功";
+				return $message;
+			}else{
+				$inquiry->rollback();
+				$message['status'] = true;
+				$message['message'] = "套餐延期失败";
+				return $message;
+			}
+
 		}
 	}
  ?>

@@ -115,6 +115,21 @@
 					$this->error("没有该类型的操作");
 					return;
 				}
+			}elseif(0 == $identity || "0" == $identity){   //表示对象是学生时,对订购的套餐的管理
+				if("delayMon" == $type){   //   表示使用账户余额进行套餐的延期
+					import("Home.Action.OrderPackage.OrderPackageBasicService");
+					$orderPacSerOp = new OrderPackageBasicService();
+					$result = $orderPacSerOp->studentDelayOrderPacWithMoney($_POST['orderpackage_id'],$_SESSION['ID'],$_POST['delay_month']);
+					if($result['status']){
+						$this->success("套餐延期成功");
+					}else{
+						$this->error($result['message']);
+					}
+					return;
+				}else{
+					$this->error("没有对应的操作");
+					return;
+				}
 			}else{
 				$this->error("你没有权限进行操作");
 				return;

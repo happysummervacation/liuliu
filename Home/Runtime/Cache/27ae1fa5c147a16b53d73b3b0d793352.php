@@ -144,7 +144,7 @@
                                 </li>
                                 <li>
                                     <!-- <a href="CourseeValuation.html">课程评价</a> -->
-                                    <a href="<?php echo U('Student/CourseeValuation');?>"><i class="fa fa-book fa-fw"></i> 评价教师</a>
+                                    <a href="<?php echo U('Comment/studentComment');?>"><i class="fa fa-book fa-fw"></i> 评价教师</a>
                                 </li>
                                 <li>
                                     <a href="<?php echo U('Student/TeacherValuation');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
@@ -242,19 +242,18 @@
                     			 		<td><?php echo ($vo["orderpackageID"]); ?></td>
                     			 		<td style="display:none"><?php echo ($vo["package_id"]); ?></td>
                       			 		<td><?php echo ($vo["packageName"]); ?>/
-                                <?php if($vo['packageType'] == 0) {echo "课时类";}else{echo "卡类";} ?>/
-                                <?php if($vo['classType'] == 0) {echo "一对一";}else{echo"小班";} ?></td>
-                              <td> <?php if($vo['teacherNation'] == 0) {echo "中教";}else{echo "外教";} ?>/
-                                <?php if($vo['teacherType'] == 0) {echo "普通";}else{echo "名师";} ?></td>
-                              <td><?php echo ($vo["classNumber"]); ?></td>
-                              <td><?php echo ($vo["studentNumber"]); ?></td>
+                                            <?php if($vo['packageType'] == 0) {echo "课时类";}else{echo "卡类";} ?>/
+                                            <?php if($vo['classType'] == 0) {echo "一对一";}else{echo"小班";} ?></td>
+                                          <td> <?php if($vo['teacherNation'] == 0) {echo "中教";}else{echo "外教";} ?>/
+                                            <?php if($vo['teacherType'] == 0) {echo "普通";}else{echo "名师";} ?></td>
+                                          <td><?php echo ($vo["classNumber"]); ?></td>
+                                          <td><?php echo ($vo["studentNumber"]); ?></td>
                     			 		<td><?php echo (date('Y-m-d',$vo["startTime"])); ?>/<?php echo (date('Y-m-d',$vo["endTime"])); ?></td>
                     			 		<!-- <td><?php echo ($vo["delay_month"]); ?>个月</td> -->
-  
+
                     			 		<td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">申请延期</a></td>
-                             <!--  <td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo">申请停课</a></td> -->
                     			 	</tr>
-                            <?php } endforeach; endif; ?>
+                                        <?php } endforeach; endif; ?>
                     			 	<!-- <tr>
                     			 		<td>1</td>
                     			 		<td>568923</td>
@@ -284,7 +283,7 @@
           								  <div class="tab-content">
 
           								    <div role="tabpanel" class="tab-pane active" id="profile">
-          								    	<form class="form-horizontal" action="<?php echo U('Student/MoneyDelayPackageAction');?>" method="post">
+          								    	<form class="form-horizontal" action="<?php echo U('OrderPackage/OrderPackageManage',array('type'=>'delayMon'));?>" method="post">
           								    		<div class="form-group">
           								    			<br>
           											    <label class="col-sm-4 control-label">订单编号:</label>

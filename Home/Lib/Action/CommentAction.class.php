@@ -216,7 +216,31 @@
 			}else{
 				$this->error($result['message']);
 			}
-
+		}
+		/*
+		*俞鹏泽
+		*获取教师给学生的评论
+		*/
+		public function showCommentFromTeacher(){
+			$this->CheckSession();
+			$identity = $_SESSION['identity'];
+			import("Home.Action.Comment.CommentBasicOperate");
+			$comOp = new CommentBasicOperate();
+			if(0 == $identity || '0' == $identity){
+				$studentID = $_SESSION['ID'];
+				//获得日评
+				$ri = $comOp->getDailyCommentFromTeacher($studentID);
+				//获得周评
+				$zhou = $comOp->getWeekCommentFromTeacher($studentID);
+				//获得月评
+				$yue = $comOp->getMonthCommentFromTeacher($studentID);
+				//$test = $comOp->getTestCommentFromTeacher($studentID);
+			}
+			$this->assign('classcomment',$ri);
+			$this->assign('weekcomment',$zhou);
+			$this->assign('monthcomment',$yue);
+			// $this->assign('classcomment',$test);
+			$this->display("Student:TeacherValuation");
 		}
 	}
 

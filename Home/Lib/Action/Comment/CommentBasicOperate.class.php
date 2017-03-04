@@ -116,5 +116,69 @@
 			return $result;
 		}
 
+		/*
+		*蒋周杰
+		*获取日评
+		*参数一：学生ID
+		*/
+		public function getDailyCommentFromTeacher($studentID = null){
+			$inquiry = new Model();
+			$result = $inquiry->table('tp_oneteachercom,tp_teacher')
+			->where("tp_oneteachercom.studentID = {$studentID} and
+			tp_oneteachercom.teacherID = tp_teacher.ID and
+			SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',1)=0 and
+			SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',2)=0 and
+			SUBSTRING_INDEX(SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',2),':',-1)='0'")
+			->select();
+			return $result;
+		}
+
+		/*
+		*蒋周杰
+		*获取周评
+		*参数一：学生ID
+		*/
+		public function getWeekCommentFromTeacher($studentID = null){
+			$inquiry = new Model();
+			$result = $inquiry->table('tp_oneteachercom,tp_teacher')
+			->where("tp_oneteachercom.studentID = {$studentID} and
+			tp_oneteachercom.teacherID = tp_teacher.ID and
+			SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',1)='1' and
+			(SUBSTRING_INDEX(SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',2),':',-1)='0' or
+			SUBSTRING_INDEX(SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',2),':',-1)='3')")->select();
+
+			return $result;
+		}
+
+		/*
+		*蒋周杰
+		*获取月评
+		*参数一：学生ID
+		*/
+		public function getMonthCommentFromTeacher($studentID = null){
+			$inquiry = new Model();
+			$result = $inquiry->table('tp_oneteachercom,tp_teacher')
+			->where("tp_oneteachercom.studentID = {$studentID} and
+			tp_oneteachercom.teacherID = tp_teacher.ID and
+			SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',1)=2 and
+			(SUBSTRING_INDEX(SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',2),':',-1)='0' or
+			SUBSTRING_INDEX(SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',2),':',-1)='3')")->select();
+			return $result;
+		}
+
+		/*
+		*蒋周杰
+		*获取试听课评论
+		*参数一学生ID
+		*/
+		public function getTestCommentFromTeacher($studentID = null){
+			$inquiry = new Model();
+			$result = $inquiry->table('tp_oneteachercom,tp_teacher')
+			->where("tp_oneteachercom.studentID = {$studentID} and
+			tp_oneteachercom.teacherID = tp_teacher.ID and
+			SUBSTRING_INDEX(tp_oneteachercom.comStatus,':',1) = 3")->select();
+			return $result;
+		}
+
 	}
  ?>

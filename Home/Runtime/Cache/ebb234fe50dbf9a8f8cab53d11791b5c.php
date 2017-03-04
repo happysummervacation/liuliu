@@ -17,16 +17,11 @@
     <!-- MetisMenu CSS -->
     <link href="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.css" rel="stylesheet">
 
-    <!-- DataTables CSS -->
-    <link href="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.css" rel="stylesheet">
-
     <!-- Custom CSS -->
     <link href="__PUBLIC__/dist/css/sb-admin-2.css" rel="stylesheet">
 
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-
-    <link rel="stylesheet" href="__PUBLIC__/css/flipclock.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,6 +29,7 @@
         <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
 </head>
 
 <body>
@@ -199,151 +195,215 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Teacher Center</h1>
+                        <h1 class="page-header">Teacher's Salary</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
                 <div class="row">
-                    <div class="col-lg-3 col-md-6">
+                    <div class="col-md-6 col-md-offset-3">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-user fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge simpleline"><?php echo ($teacher_info_result['englishname']); ?></div>
-                                        <div>Teacher</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="Information.html"> -->
-                            <a href="<?php echo U('Teacher/Information');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Personal Information</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-green">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-calendar fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge  simpleline"><!-- <?php echo ($class_info_result); ?> --></div>
-                                        <!-- <div>My schedule</div> -->
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="MyMouthPlan.html"> -->
-                            <a href="<?php echo U('Teacher/MyMouthPlan');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left"> manage my schedule</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-yellow">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-database fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge  simpleline"><?php echo ($classed_info_result); ?></div>
-                                        <div>Achieved class</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="Feedback.html"> -->
-                            <a href="<?php echo U('Teacher/Feedback');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Course Feedback</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="col-lg-3 col-md-6">
-                        <div class="panel panel-red">
-                            <div class="panel-heading">
-                                <div class="row">
-                                    <div class="col-xs-3">
-                                        <i class="fa fa-youtube-play fa-5x"></i>
-                                    </div>
-                                    <div class="col-xs-9 text-right">
-                                        <div class="huge  simpleline"><?php echo ($video_result); ?></div>
-                                        <div>Number of Videos</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- <a href="UploadNow.html"> -->
-                            <a href="<?php echo U('Teacher/UploadNow');?>">
-                                <div class="panel-footer">
-                                    <span class="pull-left">Upload Video</span>
-                                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                                    <div class="clearfix"></div>
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">Student Evaluation</div>
-                            <!-- <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>评价课程上课时间</th>
-                                        <th>评价课程编号</th>
-                                        <th>评价时间</th>
-                                        <th>评分</th>
-                                    </tr>
-                                </thead>
+                            <div class="panel-heading">Salary Records For This Month</div>
+                            <div>
+                            <table class="table">
                                 <tbody>
-                                    <?php if(is_array($to_teacher_comment_result)): foreach($to_teacher_comment_result as $key=>$vo): ?><tr>
-                                            <td><?php echo (date('Y-m-d H:i',$vo['start_time'])); ?></td>
-                                            <td><?php echo ($vo['class_id']); ?></td>
-                                            <td><?php echo (date('Y-m-d H:i',$vo['create_time'])); ?></td>
-                                            <td><?php echo ($vo['comment_level']); ?></td>
-                                        </tr><?php endforeach; endif; ?>
+                                  <tr>
+                                    <td>
+                                      Period
+                                    </td>
+                                    <td>
+                                      <?php echo (date('Y-m-d',$month_start_time)); ?>~ <?php echo (date('Y-m-d',$month_end_time)); ?>
+                                    </td>
+                                    <td>
+                                      Setting
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      Children's Course(Normal/Absence/Cancel)
+                                    </td>
+                                    <td>
+                                      <?php echo ($class_result['young_classed_number']); ?>
+                                      /<?php echo ($class_result['young_teacher_absent']); ?>
+                                      /<?php echo ($class_result['young_teacher_withdraw']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['childclass']); ?> yuan/class
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      Adult's Course(Normal/Absence/Cancel)
+                                    </td>
+                                    <td>
+                                      <?php echo ($class_result['adult_classed_number']); ?>
+                                      /<?php echo ($class_result['adult_teacher_absent']); ?>
+                                      /<?php echo ($class_result['adult_teacher_withdraw']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['adultclass']); ?> yuan/class
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      IELTS's Course(Normal/Absence/Cancel)
+                                    </td>
+                                    <td>
+                                      <?php echo ($class_result['IELTS_classed_number']); ?>
+                                      /<?php echo ($class_result['IELTS_teacher_absent']); ?>
+                                      /<?php echo ($class_result['IELTS_teacher_withdraw']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['ieltsclass']); ?> yuan/class
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      Group Course(Normal/Absence/Cancel)
+                                    </td>
+                                    <td>
+                                      <?php echo ($class_result['many_classed_number']); ?>
+                                      /<?php echo ($class_result['many_teacher_absent']); ?>
+                                      /<?php echo ($class_result['many_teacher_withdraw']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['groupclass']); ?> yuan/class
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      Daily Comment
+                                    </td>
+                                    <td>
+                                      <?php echo ($comment_result['day_comment']); ?>/<?php echo ($comment_result['day_comment_sum']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['day_comment_bonus']); ?>%
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      Weekly Comment
+                                    </td>
+                                    <td>
+                                      <?php echo ($comment_result['week_comment']); ?>/<?php echo ($comment_result['week_comment_sum']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['week_comment_bonus']); ?>%
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td>
+                                      Monthly Comment
+                                    </td>
+                                    <td>
+                                      <?php echo ($comment_result['month_comment']); ?>/<?php echo ($comment_result['month_comment_sum']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['month_comment_bonus']); ?>%
+                                    </td>
+                                  </tr>
+<!--                                   <tr>
+                                    <td>
+                                      Total Video Upload
+                                    </td>
+                                    <td>
+                                      <?php echo ($video_result['video_number']); ?>
+                                    </td>
+                                    <td>
+                                      <?php echo ($money_bonus['video_bonus']); ?>
+                                    </td>
+                                  </tr> -->
+                                  <tr>
+                                    <td>
+                                      Total Amount
+                                    </td>
+                                    <td>
+
+                                    </td>
+                                    <td>
+                                      <?php echo ($totalMoney); ?>
+                                    </td>
+                                  </tr>
+                                  <th></th>
                                 </tbody>
-                            </table> -->
-                            <div class="panel-body overfw">
-                                <div class="dataTable_wrapper">
-                                    <table class="table table-striped  table-hover" id="dataTables-example">
-                                        <thead>
-                                            <tr>
-                                                <th>Course Time</th>
-                                                <th>Course Number</th>
-                                                <th>Comment Period</th>
-                                                <th>Course Score</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php if(is_array($to_teacher_comment_result)): foreach($to_teacher_comment_result as $key=>$vo): ?><tr>
-                                                    <td><?php echo (date('Y-m-d H:i',$vo['start_time'])); ?></td>
-                                                    <td><?php echo ($vo['class_id']); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$vo['create_time'])); ?></td>
-                                                    <td><?php echo ($vo['comment_level']); ?></td>
-                                                </tr><?php endforeach; endif; ?>
-                                        </tbody>
-                                    </table>
+                            </table>
+                            </div>
+                            <div class="panel-footer" style="overflow: auto">
+                                <div class="pull-right">
+                                    <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Salary History</button>
                                 </div>
+                            </div>
+                            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Search By Time</h4>
+                                  </div>
+                                  <div class="modal-body" style="overflow: auto">
+                                    <form role="form" action="<?php echo U('Teacher/SearchMonthMoney');?>" method="post">
+                                      <div class="form-group col-lg-4">
+                                        <label for="exampleInputEmail1">Year</label>
+                                        <select class="form-control" name="year">
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                            <option>2021</option>
+                                            <option>2022</option>
+                                            <option>2023</option>
+                                            <option>2024</option>
+                                        </select>
+                                      </div>
+                                      <div class="form-group col-lg-4">
+                                        <label for="exampleInputPassword1">Start Month</label>
+                                        <select class="form-control" name="month">
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                            <option>7</option>
+                                            <option>8</option>
+                                            <option>9</option>
+                                            <option>10</option>
+                                            <option>11</option>
+                                            <option>12</option>
+                                        </select>
+                                      </div>
+                                      <!-- <div class="form-group col-lg-4">
+                                        <label for="exampleInputFile">结束月</label>
+                                        <select class="form-control">
+                                            <option>1月</option>
+                                            <option>2月</option>
+                                            <option>3月</option>
+                                            <option>4月</option>
+                                            <option>5月</option>
+                                            <option>6月</option>
+                                            <option>7月</option>
+                                            <option>8月</option>
+                                            <option>9月</option>
+                                            <option>10月</option>
+                                            <option>11月</option>
+                                            <option>12月</option>
+                                        </select>
+                                      </div> -->
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                      </div>
+                                    </form>
+                                  </div>
+
+                                </div>
+                              </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <!-- /.container-fluid -->
@@ -362,32 +422,15 @@
     <!-- Metis Menu Plugin JavaScript -->
     <script src="__PUBLIC__/bower_components/metisMenu/dist/metisMenu.min.js"></script>
 
-     <!-- DataTables JavaScript -->
-    <script src="__PUBLIC__/bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
-    <script src="__PUBLIC__/bower_components/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.min.js"></script>
-
-
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-    <script src="__PUBLIC__/js/flipclock.js"></script>
-    <!--引入计时器的代码-->
     <script src="__PUBLIC__/js/time.js"></script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-        $('#dataTables-example').DataTable({
-                responsive: true,
-                autoWidth:true,
-                ordering:false,
-                searching:true
-        });
-
-    });
-    </script>
-    <script type="text/javascript">
         upDateTime();
     </script>
+
 </body>
 
 </html>

@@ -29,6 +29,7 @@
 		*俞鹏泽
 		*学生签署合同的操作
 		*/
+		//学生签署合时同时设置对应的订购的套餐的有效时间
 		public function agreeContract(){
 			$this->CheckSession();
 			$identity = $_SESSION['identity'];
@@ -42,11 +43,12 @@
 					$this->error("发生意外,签署失败",U('UserCenter/index'));
 					return;
 				}
-				import("Home.Action.Contract.ContractBasicOperate");
-				$conBasOp = new ContractBasicOperate();
-				$data['isSign'] = 1;
-				$data['signTime'] = getTime();
-				$result = $conBasOp->updateStudentContract($ordercontractID,$data);
+				import("Home.Action.Contract.ContractBasicService");
+				$conBasOp = new ContractBasicService();
+				$result = $conBasOp->signContract($ordercontractID);
+				// $data['isSign'] = 1;
+				// $data['signTime'] = getTime();
+				// $result = $conBasOp->updateStudentContract($ordercontractID,$data);
 				if($result['status']){    //表示签署成功
 					$this->success("合同签署成功",U('OrderClass/studentAttendClass',
 					array('ID'=>$orderclassID,'classtype'=>$classtype)));

@@ -75,24 +75,23 @@
                     			 </thead>
                     			 <tbody>
                     			 	<foreach name="package_list" item="vo">
-                            <?php if($vo['status']) { ?>
+                                        <?php if($vo['status']) { ?>
                     			 	<tr>
                     			 		<td><{$vo.orderpackageID}></td>
                     			 		<td style="display:none"><{$vo.package_id}></td>
                       			 		<td><{$vo.packageName}>/
-                                <?php if($vo['packageType'] == 0) {echo "课时类";}else{echo "卡类";} ?>/
-                                <?php if($vo['classType'] == 0) {echo "一对一";}else{echo"小班";} ?></td>
-                              <td> <?php if($vo['teacherNation'] == 0) {echo "中教";}else{echo "外教";} ?>/
-                                <?php if($vo['teacherType'] == 0) {echo "普通";}else{echo "名师";} ?></td>
-                              <td><{$vo.classNumber}></td>
-                              <td><{$vo.studentNumber}></td>
+                                            <?php if($vo['packageType'] == 0) {echo "课时类";}else{echo "卡类";} ?>/
+                                            <?php if($vo['classType'] == 0) {echo "一对一";}else{echo"小班";} ?></td>
+                                          <td> <?php if($vo['teacherNation'] == 0) {echo "中教";}else{echo "外教";} ?>/
+                                            <?php if($vo['teacherType'] == 0) {echo "普通";}else{echo "名师";} ?></td>
+                                          <td><{$vo.classNumber}></td>
+                                          <td><{$vo.studentNumber}></td>
                     			 		<td><{$vo.startTime|date='Y-m-d',###}>/<{$vo.endTime|date='Y-m-d',###}></td>
                     			 		<!-- <td><{$vo.delay_month}>个月</td> -->
-  
+
                     			 		<td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">申请延期</a></td>
-                             <!--  <td><a href="" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo">申请停课</a></td> -->
                     			 	</tr>
-                            <?php }?>
+                                        <?php }?>
                     			 	</foreach>
                     			 	<!-- <tr>
                     			 		<td>1</td>
@@ -123,7 +122,7 @@
           								  <div class="tab-content">
 
           								    <div role="tabpanel" class="tab-pane active" id="profile">
-          								    	<form class="form-horizontal" action="<{:U('Student/MoneyDelayPackageAction')}>" method="post">
+          								    	<form class="form-horizontal" action="<{:U('OrderPackage/OrderPackageManage',array('type'=>'delayMon'))}>" method="post">
           								    		<div class="form-group">
           								    			<br>
           											    <label class="col-sm-4 control-label">订单编号:</label>

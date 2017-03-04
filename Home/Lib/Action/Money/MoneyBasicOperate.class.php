@@ -62,7 +62,8 @@
 			}else{
 				$inquiry = new Model('teoneclasssalary');
 				$result = $inquiry
-				->join("inner join tp_packageconfig on tp_teoneclasssalary.scategory=tp_packageconfig.packageconID")
+				->join("inner join tp_packageconfig on
+				tp_teoneclasssalary.scategory=tp_packageconfig.packageconID")
 				->where("teacherID=$teacherID and isLastest=1")
 				->select();
 				if($result){
