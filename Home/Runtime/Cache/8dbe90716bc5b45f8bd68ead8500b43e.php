@@ -232,7 +232,7 @@
                                                 <!-- <th>学员反馈评分</th> -->
                                                 <!-- <th>教师评价</th> -->
                                                 <th>Add notes</th>
-                                                <th>Feedback</th>
+                                                <!-- <th>Feedback</th> -->
                                                 <th>Teacher`evaluation</th>
                                             </tr>
                                         </thead>
@@ -246,7 +246,7 @@
                                                 <td><?php echo ($value['englishname']); ?></td>
                                                 <td><?php echo (date("Y-m-d H:i:s",$value['classStartTime'])); ?></td>
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm1" class="getcolinfo">Click To Upload</a></td>
-                                                <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo AddRemark">Click To Add</a></td>
+                                                <!-- <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm2" class="getcolinfo AddRemark">Click To Add</a></td> -->
                                                 <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-sm" class="getcolinfo">Click To Evaluation</a></td>
                                             </tr>
                                         <?php $i++;}?>
@@ -281,7 +281,7 @@
                                                     <td style="display:none"><?php echo ($value['oneteachercomID']); ?></td>
                                                     <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                     <td><?php echo ($value['englishname']); ?></td>
-                                                    <td><?php echo (date("Y-m-d",$value['comStartTime'])); ?>~<?php echo (date("Y-m-d",$value['comment_end_time'])); ?></td>
+                                                    <td><?php echo (date("Y-m-d",$value['comStartTime'])); ?></td>
                                                     <td><?php echo (date('Y-m-d H:i',$value['comDeadline'])); ?></td>
                                                     <td>
                                                         <!-- <?php dump($value['comStatus']) ?> -->
@@ -321,7 +321,7 @@
                                                     <td style="display:none"><?php echo ($value['oneteachercomID']); ?></td>
                                                     <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                     <td><?php echo ($value['englishname']); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$value['comStartTime'])); ?>~<?php echo (date('Y-m-d H:i',$value['comment_end_time'])); ?></td>
+                                                    <td><?php echo (date('Y-m-d H:i',$value['comStartTime'])); ?></td>
                                                     <td><?php echo (date('Y-m-d H:i',$value['comDeadline'])); ?></td>
                                                     <td>
                                                     <!-- <?php if($value['comment_type'] == '7') echo '<a href="#" data-toggle="modal" data-target="#weekandmonth" class="getcolinfo">Click to Write Comment</a>'; else {echo 'Writed';} ?> -->
@@ -440,7 +440,7 @@
                               Teacher's Comment
                           </div>
                           <div class="modal-body">
-                               <form class="form-horizontal" action="<?php echo U('Teacher/UploadTeacherComment');?>" method="post">
+                               <form class="form-horizontal" action="<?php echo U('Comment/TeacherComment');?>" method="post">
                                   <div class="form-group">
                                     <label  class="col-sm-4 control-label">Comment Type:</label>
                                     <div class="col-sm-8">
@@ -448,22 +448,22 @@
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Booking Number:</label>
+                                    <label  class="col-sm-4 control-label">OrderClassID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable13 form-control" name="orderclass_id" readonly="true">
+                                        <input type="text" class="fromtable13 form-control" name="orderclassID" readonly="true">
                                     </div>
 
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Course Number:</label>
+                                    <label  class="col-sm-4 control-label">ClassID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable2 form-control" name="class_id" readonly="true">
+                                        <input type="text" class="fromtable2 form-control" name="classID" readonly="true">
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label ">Student Name:</label>
+                                    <label  class="col-sm-4 control-label ">StudentID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable3 form-control" name="student_name" readonly="true">
+                                        <input type="text" class="fromtable3 form-control" name="studentID" readonly="true">
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -484,16 +484,31 @@
                                         <textarea name="feedback" class="form-control"></textarea>
                                     </div>
                                   </div>
+                                  <div class="form-group">
+                                    <label  class="col-sm-4 control-label">Current Process:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="CurrentProcess" class="form-control" name="currentProcess">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label  class="col-sm-4 control-label">Overall Process:</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" id="OverallProcess" class="form-control" name="overallProcess">
+                                    </div>
+                                  </div>
+                                  <div class="form-group">
+                                    <label  class="col-sm-4 control-label ">Class Remark:</label>
+                                    <div class="col-sm-8">
+                                        <textarea id="ClassRemark" class="form-control" name="classRemark"></textarea>
+                                    </div>
+                                  </div>
+
                                   <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
                                     <button type="submit" class="btn btn-primary">Submit</button>
                                   </div>
                                 </form>
                           </div>
-                          <!-- <div class="modal-footer">
-                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-                            <button type="button" class="btn btn-primary">提交</button>
-                          </div> -->
                         </div>
                       </div>
                     </div>
@@ -505,7 +520,7 @@
                               Teacher's Comment
                           </div>
                           <div class="modal-body">
-                               <form class="form-horizontal" action="<?php echo U('Teacher/UploadTeacherComment');?>" method="post">
+                               <form class="form-horizontal" action="<?php echo U('Comment/TeacherComment');?>" method="post">
                                   <div class="form-group">
                                     <label  class="col-sm-4 control-label">Comment Type:</label>
                                     <div class="col-sm-8">
@@ -513,16 +528,16 @@
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Comment Number:</label>
+                                    <label  class="col-sm-4 control-label">CommentID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable13 form-control" name="comment_id" readonly="true">
+                                        <input type="text" class="fromtable13 form-control" name="commentID" readonly="true">
                                     </div>
 
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Student Number:</label>
+                                    <label  class="col-sm-4 control-label">StudentID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable2 form-control" name="student_id" readonly="true">
+                                        <input type="text" class="fromtable2 form-control" name="studentID" readonly="true">
                                     </div>
                                   </div>
                                   <div class="form-group">
@@ -556,7 +571,7 @@
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Comment Content:</label>
+                                    <label  class="col-sm-4 control-label">Comment Content：</label>
                                     <div class="col-sm-8">
                                         <textarea name="feedback" class="form-control"></textarea>
                                     </div>
@@ -582,22 +597,22 @@
                               Upload Class Note
                           </div>
                           <div class="modal-body">
-                               <form enctype="multipart/form-data" class="form-horizontal" action="<?php echo U('Teacher/UploadTeacherNote');?>" method="post">
+                               <form enctype="multipart/form-data" class="form-horizontal" action="<?php echo U('Comment/teacherUploadNote');?>" method="post">
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Booking Number:</label>
+                                    <label  class="col-sm-4 control-label">OrderClassID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable13 form-control" name="orderclass_id" readonly="true">
+                                        <input type="text" class="fromtable13 form-control" name="orderclassID" readonly="true">
                                     </div>
 
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Course Number:</label>
+                                    <label  class="col-sm-4 control-label">ClassID:</label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="fromtable2 form-control" readonly="true" name="class_id">
+                                        <input type="text" class="fromtable2 form-control" readonly="true" name="classID">
                                     </div>
                                   </div>
                                   <div class="form-group">
-                                    <label  class="col-sm-4 control-label">Student Name:</label>
+                                    <label  class="col-sm-4 control-label">StudentID:</label>
                                     <div class="col-sm-8">
                                         <input type="text" class="fromtable3 form-control" readonly="true">
                                     </div>
@@ -622,7 +637,7 @@
                         </div>
                       </div>
 
-                      <div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
+                      <!-- <div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                         <div class="modal-dialog modal-sm">
                           <div class="modal-content">
                             <div class="modal-header">
@@ -630,8 +645,8 @@
                             </div>
                             <div class="modal-body">
                                  <form enctype="multipart/form-data" class="form-horizontal" action="<?php echo U('Teacher/ClassRemarkChange');?>" method="post">
-                                   <input style="display:none" id="StudentID" readonly="true" type="text" class="form-control" name="StudentID">
-                                   <input style="display:none" id="ClassID" readonly="true" type="text" class="form-control" name="ClassID">
+                                   <input  id="StudentID" readonly="true" type="text" class="fromtable3 form-control" name="StudentID">
+                                   <input  id="ClassID" readonly="true" type="text" class="fromtable2 form-control" name="ClassID">
 
                                     <div class="form-group">
                                       <label  class="col-sm-4 control-label">Current Process:</label>
@@ -651,15 +666,6 @@
                                           <textarea id="ClassRemark" class="form-control" name="classRemark"></textarea>
                                       </div>
                                     </div>
-                                    <!-- <div class="form-group">
-                                      <label  class="col-sm-4 control-label formtable5"></label>
-                                      <div class="col-sm-8">
-                                          <button class="uploadbutton btn btn-default" style="width:100%;">
-                                              <input name="file" type="file" nv-file-select="" uploader="uploader" multiple  />
-                                              Add File
-                                          </button>
-                                      </div>
-                                    </div> -->
                                     </div>
                                     <div class="modal-footer">
                                       <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
@@ -668,7 +674,7 @@
                                   </form>
                             </div>
                           </div>
-                        </div>
+                        </div> -->
 
                       <div class="modal fade " id="triallesson" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">
                         <div class="modal-dialog modal-sm">

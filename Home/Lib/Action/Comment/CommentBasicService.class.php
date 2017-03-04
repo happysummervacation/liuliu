@@ -43,8 +43,127 @@
 			$returnData = array();
 			array_push($returnData,$dayCommentResult,$weekCommentresult,$monthCommentResult,
 			$auditionCommentResult);
-dump($returnData);
 			return $returnData;
+		}
+
+		/*
+		*俞鹏泽
+		*对日评进行评论
+		*/
+		//先生成评论的数据
+		//再跟新订购课程表中的数据
+		public function OneClassDayCommentService($postData = null,$teacherID = null){
+			$message = array();
+			if(is_null($postData) || is_null($teacherID)){
+				$message['status'] = false;
+				$message['message'] = "评论缺乏数据";
+				return $message;
+			}
+
+			$inquiry = new Model();
+			$inquiry->startTrans();
+			//获取指定课程的课程结束时间的数据
+			import("Home.Action.Class.ClassBasicOperate");
+			$classOp = new ClassBasicOperate();
+			$classInfo = $classOp->getClassInfo($postData['classID'],"classEndTime");
+
+			$data['studentID'] = $postData['studentID'];
+			$data['teacherID'] = $teacherID;
+			$data['commentlevel'] = $postData['comment_level'];
+			$data['commentcontent'] = $postData['feedback'];
+			$data['comStartTime'] = $classInfo[0]['classEndTime'];   //一对一的课程评论的开始时间就是课程结束时间
+			$data['comEndTime'] = getTime();
+			$data['comDeadline'] = (int)$classInfo[0]['classEndTime']+(int)$this->systemSet['dayDeadline'];
+			$data['comStatus'] = "0:0:0";
+			$data['createTime'] = getTime();
+			$data['curProgress'] = $postData['currentProcess'];
+			$data['furProgress'] = $postData['overallProcess'];
+			$data['isdelete'] = 0;
+
+			$inquiryDayComment = new Model("oneteachercom");
+			$addResult = $inquiryDayComment->add($data);
+			//如果添加成功就进行课程数据的更新
+			$sql = "update tp_oneorderclass,tp_class set `remark`='{$postData['classRemark']}',
+			`teacherComment`={$addResult} where tp_oneorderclass.classID=tp_class.classID and
+			oneorderclassID={$postData['orderclassID']} and tp_class.ClassID='{$postData['classID']}'";
+
+			$updateResult = $inquiry->execute($sql);
+
+			if($addResult && $updateResult){
+				$inquiry->commit();    //进行事务提交
+				$message['status'] = true;
+				$message['message'] = "日评成功";
+				return $message;
+			}else{
+				$inquiry->rollback();   //进行事务回滚
+				$message['status'] = false;
+				$message['message'] = "日评失败";
+				return $message;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*教师对周评进行评论
+		*/
+		public function OneClassWeekCommentService($postData = null,$teacherID = null){
+			$message = array();
+			if(is_null($postData) || is_null($teacherID)){
+				$message['status'] = false;
+				$message['message'] = "评论缺乏数据";
+				return $message;
+			}
+
+			$inquiry = new Model("oneteachercom");
+			$data['commentlevel'] = $postData['comment_level'];
+			$data['commentcontent'] = $postData['feedback'];
+			$data['comEndTime'] = getTime();
+			$data['comStatus'] = "1:0:0";
+			$data['curProgress'] = $postData['current_progress'];
+			$data['furProgress'] = $postData['full_progress'];
+			$result = $inquiry->where("oneteachercomID={$postData['commentID']}")->save($data);
+
+			if($result){
+				$message['status'] = true;
+				$message['message'] = "周评成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "周评失败";
+				return $message;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*教师对月评进行评论
+		*/
+		public function OneClassMonthCommentService($postData = null,$teacherID = null){
+			$message = array();
+			if(is_null($postData) || is_null($teacherID)){
+				$message['status'] = false;
+				$message['message'] = "评论缺乏数据";
+				return $message;
+			}
+
+			$inquiry = new Model("oneteachercom");
+			$data['commentlevel'] = $postData['comment_level'];
+			$data['commentcontent'] = $postData['feedback'];
+			$data['comEndTime'] = getTime();
+			$data['comStatus'] = "2:0:0";
+			$data['curProgress'] = $postData['current_progress'];
+			$data['furProgress'] = $postData['full_progress'];
+			$result = $inquiry->where("oneteachercomID={$postData['commentID']}")->save($data);
+
+			if($result){
+				$message['status'] = true;
+				$message['message'] = "月评成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "月评失败";
+				return $message;
+			}
 		}
 	}
  ?>
