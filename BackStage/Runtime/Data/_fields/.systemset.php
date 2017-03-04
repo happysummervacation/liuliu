@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'systemID', 1 => 'appointCourseDeadline', 2 => 'classRemindTime', 3 => 'cancelCourseDeadline', 4 => 'remindStartTime', 5 => 'remindEndTime', 6 => 'buttonEffectTime', 7 => 'buttonLostTime', 8 => 'monthDeadline', 9 => 'weekDeadline', 10 => 'dayDeadline', 11 => 'groupDeadline', 12 => 'cancelClassRate', '_autoinc' => true, '_pk' => 'systemID', ); ?>

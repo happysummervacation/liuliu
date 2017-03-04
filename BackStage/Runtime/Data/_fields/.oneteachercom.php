@@ -1,0 +1,2 @@
+<?php
+return array ( 0 => 'oneteachercomID', 1 => 'studentID', 2 => 'teacherID', 3 => 'commentlevel', 4 => 'commentcontent', 5 => 'comStartTime', 6 => 'comEndTime', 7 => 'comDeadline', 8 => 'comStatus', 9 => 'createTime', 10 => 'curProgress', 11 => 'furProgress', 12 => 'isdelete', '_autoinc' => false, '_pk' => 'oneteachercomID', ); ?>
