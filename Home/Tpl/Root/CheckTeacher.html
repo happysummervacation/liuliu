@@ -83,7 +83,7 @@
                                             <td><{$value['account']}></td>
                                             <td><{$value['chinesename']}></td>
                                             <td><{$value['englishname']}></td>
-                                            <td><a href="<{:U('Root/PersonalClass',array('user_id'=>$value['ID']))}>">查看课表</a></td>
+                                            <td><a href="<{:U('Class/getTeacherClassPlan',array('user_id'=>$value['ID']))}>">查看课表</a></td>
                                             <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
 
                                             <td><a href="<{:U('Root/TeacherContract',array('user_id'=>$value['ID']))}>">教师合同</a></td>

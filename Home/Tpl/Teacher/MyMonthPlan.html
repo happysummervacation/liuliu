@@ -853,7 +853,7 @@ user-select: none;
         var jsonarr=JSON.stringify(arr);
         // console.log(jsonarr);
 
-        post("<{:U('Class/ClassManage')}>/type/add", {data:jsonarr});
+        post("<{:U('Class/ClassManage')}>/type/add", {data:jsonarr,year:<{$this_year}>,month:<{$this_month}>});
 
 
         // $.ajax({
@@ -892,8 +892,6 @@ user-select: none;
                 }
             }else if(month==12){
                 var yuefen=zongzuobiao.split('-')[0];
-                console.log(zongzuobiao);
-                console.log(yuefen);
                 if(yuefen=="1"){
                     nainfen +=1;
                     // console.log(nainfen);
@@ -905,23 +903,24 @@ user-select: none;
             }
         });
         var jsonarr=JSON.stringify(arr);
-        // console.log(jsonarr);
-        $.ajax({
-            type:'POST',
-            url:"<{:U('Teacher/BatchDeleteTeacherClass')}>",
-            data:'data='+jsonarr,
-            dataType:'json',
-            success:function(msg){
-                alert(msg.responseText);
-                location.reload();//刷新页面
-                // reload();
-            },
-            error:function(error){
-                alert(error.responseText);
-                location.reload();//刷新页面
-                // reload();
-            }
-        });
+
+        post("<{:U('Class/ClassManage')}>/type/delete", {data:jsonarr,year:<{$this_year}>,month:<{$this_month}>});
+        // $.ajax({
+        //     type:'POST',
+        //     url:"<{:U('Teacher/BatchDeleteTeacherClass')}>",
+        //     data:'data='+jsonarr,
+        //     dataType:'json',
+        //     success:function(msg){
+        //         alert(msg.responseText);
+        //         location.reload();//刷新页面
+        //         // reload();
+        //     },
+        //     error:function(error){
+        //         alert(error.responseText);
+        //         location.reload();//刷新页面
+        //         // reload();
+        //     }
+        // });
     })
 </script>
 

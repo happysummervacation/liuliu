@@ -40,8 +40,13 @@
 			$month = (int)$_POST['month'];
 			//提供公用的数据
 			if(empty($year) || empty($month)){
-				$year = date('Y',getTime());
-				$month = date('m',getTime());
+				if(empty($_GET['year']) || empty($_GET['month'])){
+					$year = date('Y',getTime());
+					$month = date('m',getTime());
+				}else{
+					$year = (int)$_GET['year'];
+					$month = (int)$_GET['month'];
+				}
 			}
 			$this->assign('this_month',$month);
             $this->assign('this_year',$year);
@@ -53,8 +58,14 @@
 			array_push($field,"teacher_type");
 
 			$identity = $_SESSION['identity'];
-			if(1 == $identity || "1" == $identity){
-				$teacherID = $_SESSION['ID'];
+			if(1 == $identity || "1" == $identity || 2 == $identity || "2" == $identity ||
+			4 == $identity || "4" == $identity){
+				if(1 == $identity || "1" == $identity){
+					$teacherID = $_SESSION['ID'];
+				}else{
+					$teacherID = (int)$_GET['user_id'];
+				}
+
 				$teacherResult = $userBasOp->getUserInfo("register",$teacherID,null,null,null,$field);
 				$beforeTime = GlobalValue::beforeTime;
 				$afterTime = GlobalValue::afterTime;
@@ -66,11 +77,18 @@
 
 				$this->assign("teacherClassResult",json_encode($classStatusResult));
 				$this->assign("teacherType",$teacherResult[0]);
-				$this->display("Teacher:MyMonthPlan");
-			}elseif(2 == $identity || "2" == $identity){
+				if(1 == $identity || "1" == $identity){
+					$this->display("Teacher:MyMonthPlan");
+				}elseif(2 == $identity || "2" == $identity){
+					$this->assign('teacherID',$teacherID);
+					$this->display("Admin:TeaMonthPlan");
+				}elseif(4 == $identity || "4" == $identity){
+					$this->assign('teacherID',$teacherID);
+					$this->display("Root:TeaMonthPlan");
+				}else{
 
-			}elseif(4 == $identity || "4" == $identity){
-
+				}
+				return;
 			}else{
 				$this->error("你没有权限查看教师信息");
 			}
@@ -87,21 +105,43 @@
 			$identity = $_SESSION['identity'];
 
 			$opType = $_GET['type'];    //获取操作类型
-
+			$year = $_POST['year'];
+			$month = $_POST['month'];
 			//如果用户不是教师,不是admin,不是root
 			if($identity != 1 || $identity != "1" || $identity != 2 || $identity != "2" || $identity != 4 || $identity != "4" ){
 				if($opType == "add"){
-					$teacherID = $_SESSION['ID'];
+					if(1 == $identity || "1" == $identity){
+						$teacherID = $_SESSION['ID'];
+					}else{
+						$teacherID = (int)$_GET['user_id'];
+					}
+
 					$classTimeData = json_decode($_POST['data'],true);    //将获取到的json类型的课程数据转成数组
 					$classBasOp = new ClassBasicService();
 					$result = $classBasOp->Opencourse($teacherID,$classTimeData);
 					if($result['status']){
-						$this->success("开课成功",U('Class/getTeacherClassPlan'));
+						//不论成功与否都带上教师的ID即,array('user_id'=>$teacherID)
+						$this->success("开课成功",U('Class/getTeacherClassPlan',array('user_id'=>$teacherID,'year'=>$year,'month'=>$month)));
 					}else{
-						$this->error("开课失败",U('Class/getTeacherClassPlan'));
+						$this->error("开课失败",U('Class/getTeacherClassPlan',array('user_id'=>$teacherID,'year'=>$year,'month'=>$month)));
 					}
+					return;
 				}elseif($opType == "delete"){
-
+					if(1 == $identity || "1" == $identity){
+						$teacherID = $_SESSION['ID'];
+					}else{
+						$teacherID = (int)$_GET['user_id'];
+					}
+					$classTimeData = json_decode($_POST['data'],true);    //将获取到的json类型的课程数据转成数组
+					$classBasOp = new ClassBasicService();
+					$result = $classBasOp->DeleteCourse($teacherID,$classTimeData);
+					if($result['status']){
+						//不论成功与否都带上教师的ID即,array('user_id'=>$teacherID)
+						$this->success("取消课程成功",U('Class/getTeacherClassPlan',array('user_id'=>$teacherID,'year'=>$year,'month'=>$month)));
+					}else{
+						$this->error("取消课程失败",U('Class/getTeacherClassPlan',array('user_id'=>$teacherID,'year'=>$year,'month'=>$month)));
+					}
+					return;
 				}elseif($opType == "find"){
 
 				}else{

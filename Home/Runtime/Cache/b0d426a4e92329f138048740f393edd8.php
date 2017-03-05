@@ -312,7 +312,7 @@
                                             <td><?php echo ($value['account']); ?></td>
                                             <td><?php echo ($value['chinesename']); ?></td>
                                             <td><?php echo ($value['englishname']); ?></td>
-                                            <td><a href="<?php echo U('Root/PersonalClass',array('user_id'=>$value['ID']));?>">查看课表</a></td>
+                                            <td><a href="<?php echo U('Class/getTeacherClassPlan',array('user_id'=>$value['ID']));?>">查看课表</a></td>
                                             <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
 
                                             <td><a href="<?php echo U('Root/TeacherContract',array('user_id'=>$value['ID']));?>">教师合同</a></td>

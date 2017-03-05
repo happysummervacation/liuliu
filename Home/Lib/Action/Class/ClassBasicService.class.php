@@ -78,6 +78,45 @@
 
 		/*
 		*俞鹏泽
+		*关闭教师的有空时间段
+		*/
+		//参数一:教师ID
+		//参数二:课程的时间数据
+		public function DeleteCourse($teacherID = null,$classData = null){
+			$message = array();
+			if(is_null($teacherID) || is_null($classData)){
+				$message['status'] = false;
+				$message['message'] = "取消课程失败";
+				return $message;
+			}
+
+			import("Home.Action.Class.ClassBasicFilter");
+			import("Home.Action.Class.ClassBasicOperate");
+			//获取转换的之后的时间戳数组
+			$dealClassData = ClassBasicFilter::transformTimeStrToTimeStamp($classData);
+
+			$inquiry = new Model("class");
+			$inquiry->startTrans();
+			foreach ($dealClassData as $key => $value) {
+				$result = $inquiry->where("teacherID={$teacherID} and classStartTime={$value} and isSelected=0")
+				->delete();
+				if(!$result){
+					$inquiry->rollback();
+					$message['status'] = false;
+					$message['message'] = "取消课程失败";
+					return $message;
+				}
+			}
+
+			//跳出循环就表示全部删除成功
+			$inquiry->commit();
+			$message['status'] = true;
+			$message['message'] = "取消课程成功";
+			return $message;
+		}
+
+		/*
+		*俞鹏泽
 		*查询教师的还没有过期的课程数据
 		*/
 		//这里暂时只是参看教师还没有过期,也没有过期的空余课程时间

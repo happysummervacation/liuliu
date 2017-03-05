@@ -249,7 +249,7 @@
                                                 <?php if(($vo["sex"]) == "1"): ?>男<?php endif; ?>
                                             </td>
                                             <td>
-                                                <a href="<?php echo U('Admin/PersonalClass',array('user_id'=>$vo['ID']));?>">查看教师课表</a>
+                                                <a href="<?php echo U('Class/getTeacherClassPlan',array('user_id'=>$vo['ID']));?>">查看教师课表</a>
                                             </td>
                                             <td><a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="getmoreinfo">点击查看</a></td>
                                             <td>
@@ -262,7 +262,7 @@
                                     </tbody>
                                 </table>
                             </div>
-                            
+
                             <!-- 模态框1 -->
                             <!-- 模态框2,查看用户信息 -->
                             <div class="modal fade bs-example-modal-lg2" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
