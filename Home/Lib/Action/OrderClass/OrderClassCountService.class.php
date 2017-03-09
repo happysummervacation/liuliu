@@ -66,6 +66,26 @@
 			$result = $inquiry->query($sql);
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		统计某一套餐的已用课时
+		参数一：套餐订单ID
+		*/
+		public function getPackageHaveClass($studentID = null,$orderpackageID = null){
+			if(is_null($orderpackageID) || is_null($studentID)){
+				return null;
+			}
+			$inquiry = new Model();
+			//dump($orderpackageID);
+			$sql = "select count(classStatus=1 or classStatus=3 or classStatus=4 or null) as num
+			from tp_oneorderclass
+			inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+			tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}
+			and tp_orderpackage.orderpackageID={$orderpackageID}";
+			$result = $inquiry->query($sql);
+			return $result[0]['num'];
+		}
 		/*****************************************************************/
 
 		/*

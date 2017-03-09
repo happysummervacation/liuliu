@@ -18,7 +18,7 @@
 
 			//先获取是否有在停课时间内的停课记录
 			$inquiry = new Model("stopclass");
-			$sql = "select count(*) from tp_stopclass where status=1 and stopClassTime<{$time} and
+			$sql = "select count(*) from tp_stopclass where status=1 and stopStartTime<{$time} and
 			stopEndTime>{$time} and isdelete=0 and studentID={$studentID}";
 			$stopClassNum = $inquiry->query($sql);
 			if($stopClassNum > 0){

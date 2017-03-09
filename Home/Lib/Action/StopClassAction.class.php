@@ -33,7 +33,28 @@
 			$stopClassOp = new StopClassBasicService();
 
 			if("2" == $identity || 2 == $identity){
-
+				if("apply" == $type){
+					$startTime = strtotime($_POST['startTime']);
+					$endTime = strtotime($_POST['endTime']);
+					$result = $stopClassOp->
+					addStudentStopClassInfoService($_POST['studentID'],$_SESSION['ID'],$startTime,$endTime);
+					if($result['status']){
+						$this->success("添加停课成功");
+					}else{
+						$this->error("添加停课失败");
+					}
+					return;
+				}elseif("cancel" == $type){
+					$result = $stopClassOp->cancelStudentStopClass($_POST['stopID']);
+					if($result['status']){
+						$this->success("取消停课成功");
+					}else{
+						$this->error("取消停课失败");
+					}
+					return;
+				}else{
+					$this->error("没有对应的操作");
+				}
 			}elseif("4" == $identity || 4 == $identity){
 				if("apply" == $type){
 					$startTime = strtotime($_POST['startTime']);

@@ -298,6 +298,10 @@
                                             <th>学员账号</th>
                                             <th>中文名</th>
                                             <th>英文名</th>
+                                            <th>微信</th>
+                                            <th>QQ</th>
+                                            <th>phone</th>
+                                            <th>email</th>
                                             <!-- <th>学员信息</th> -->
                                             <th>学员课表</th>
                                             <th>学员套餐</th>
@@ -314,6 +318,10 @@
                                             <td><?php echo ($value['account']); ?></td>
                                             <td><?php echo ($value['chinesename']); ?></td>
                                             <td><?php echo ($value['englishname']); ?></td>
+                                            <td><?php echo ($value['weixin']); ?></td>
+                                            <td><?php echo ($value['QQ']); ?></td>
+                                            <td><?php echo ($value['phone']); ?></td>
+                                            <td><?php echo ($value['email']); ?></td>
                                             <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
                                             <td><a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable', array('user_id'=>$value['ID']));?>">课表查看</a></td>
                                             <td><a href="<?php echo U('Package/studentPackageShow',array('user_id'=>$value['ID']));?>">套餐查看</a></td>

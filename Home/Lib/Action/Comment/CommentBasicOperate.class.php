@@ -11,6 +11,27 @@
         }
 
 		/*
+		蒋周杰
+		获取学生已经完成的课程评论
+		参数一：教师的ID
+		*/
+		public function getStudentComment($teacherID = null){
+			if(is_null($teacherID)){
+				return 0;
+			}
+			$inquiry = new Model();
+			$result = $inquiry->table('tp_class,tp_onestudentcom,tp_oneorderclass')
+			->where("tp_onestudentcom.onestudentcommentID
+				= tp_oneorderclass.studentComment
+				and tp_oneorderclass.classID = tp_class.classID
+				and tp_onestudentcom.teacherID = {$teacherID}")
+			->field("tp_class.classStartTime,tp_oneorderclass.oneorderclassID,
+				tp_onestudentcom.*")
+			->select();
+			return $result;
+		}
+
+		/*
 		*俞鹏泽
 		*获取教师还没有评论过的周评或者月评
 		*/

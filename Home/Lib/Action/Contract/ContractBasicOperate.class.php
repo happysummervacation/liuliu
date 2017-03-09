@@ -122,5 +122,21 @@
 
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		获取教师的合同信息
+		参数一：教师ID
+		*/
+		public function getTeacherContract($teacherID = null){
+			if(is_null($teacherID)){
+				return null;
+			}
+			$inquiry = new Model('teachercontract');
+			$result = $inquiry
+			->where("teacherID = {$teacherID}
+				and isdelete=0")->select();
+			return $result;
+		}
 	}
  ?>

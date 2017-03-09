@@ -175,7 +175,7 @@
                             <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Teacher/MyContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
+                            <a href="<?php echo U('Contract/showContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
                         </li>
                         <li>
                             <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
@@ -333,10 +333,10 @@
                                         </thead>
                                         <tbody>
                                             <?php if(is_array($to_teacher_comment_result)): foreach($to_teacher_comment_result as $key=>$vo): ?><tr>
-                                                    <td><?php echo (date('Y-m-d H:i',$vo['start_time'])); ?></td>
-                                                    <td><?php echo ($vo['class_id']); ?></td>
-                                                    <td><?php echo (date('Y-m-d H:i',$vo['create_time'])); ?></td>
-                                                    <td><?php echo ($vo['comment_level']); ?></td>
+                                                    <td><?php echo (date('Y-m-d H:i',$vo['classStartTime'])); ?></td>
+                                                    <td><?php echo ($vo['oneorderclassID']); ?></td>
+                                                    <td><?php echo (date('Y-m-d H:i',$vo['createtime'])); ?></td>
+                                                    <td><?php echo ($vo['commentlevel']); ?></td>
                                                 </tr><?php endforeach; endif; ?>
                                         </tbody>
                                     </table>

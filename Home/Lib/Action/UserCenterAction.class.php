@@ -70,6 +70,8 @@
 				$this->assign('classnumber',$classNum);
 				$this->display("Student:index");
 			}elseif($identity == 1 || $identity == "1"){
+
+
 				$teacherID = $_SESSION['ID'];
 				$info = $userOp->getUserInfo('teacher',$teacherID,null,null,null,array('englishname'));
 				$this->assign('teacher_info_result',$info[0]);
@@ -78,6 +80,12 @@
 				// $ocCS = new OrderClassCountService();
 				// $classNum = $ocCS->($teacherID);
 				// $this->assign('classed_info_result',$classNum);
+
+				//获取评论
+				import("Home.Action.Comment.CommentBasicOperate");
+				$comBO = new CommentBasicOperate();
+				$studentcomment = $comBO->getStudentComment($teacherID);
+				$this->assign('to_teacher_comment_result',$studentcomment);
 
 				//获取教师上传的video数目
 				import("Home.Action.Video.VideoBasicCountService");
@@ -221,10 +229,50 @@
  			// 	$this->assign('student_consume_result',$myclass);
 				//
  			// 	$this->display("Student:MyPackage");
-			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			// import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+ 		// 		$ordpOp = new OrderPackageBasicOperate();
+ 		// 		$packageInfo = $ordpOp->getStuActiveOrderPackageInfo($_SESSION['ID'],null);
+ 		// 		$this->assign('package_list',$packageInfo);
+			//
+ 		// 		import("Home.Action.User.UserBasicOperate");
+ 		// 		$userOp = new UserBasicOperate();
+ 		// 		$field = array('student_sum_money');
+ 		// 		$moneyInfo = $userOp->getUserInfo('student',$_SESSION['ID'],null,null,null,'student_sum_money');
+			//
+ 		// 		//蒋周杰
+ 		// 		//获取课时消费历史  消费历史  送课历史
+ 		// 		$studentID = $_SESSION['ID'];
+ 		// 		//上课历史
+ 		// 		import("Home.Action.OrderClass.OrderClassBasicService");
+ 		// 		$ocBS = new OrderClassBasicService();
+ 		// 		$myclass = $ocBS->getMyFinishedClass($studentID);
+ 		// 		//消费历史
+ 		// 		import("Home.Action.Money.MoneyBasicService");
+ 		// 		$moneyBS = new MoneyBasicService();
+ 		// 		$trade = $moneyBS->getStudentopaccount($studentID);
+			// 	//送课历史
+ 		// 		import("Home.Action.SendClass.SendClassBasicService");
+ 		// 		$scBS = new SendClassBasicService();
+ 		// 		$sendinfo = $scBS->getsendClassInfo($studentID);
+			//
+			// 	//得到剩余课时数
+ 		// 		import("Home.Action.OrderPackage.OrderPackageCountService");
+ 		// 		$opCS = new OrderPackageCountService();
+ 		// 		$classNum = $opCS->getPackageClassNum($studentID);
+ 		// 		$this->assign('classCount',$classNum);
+			//
+ 		// 		//得到剩余套餐数
+ 		// 		$packageNum = $opCS->getPackageNum($studentID);
+ 		// 		$this->assign('packageCount',$packageNum);
+			//
+ 		// 		$this->assign('sendclass_result',$sendinfo);
+ 		// 		$this->assign('trade_list',$trade);
+ 		// 		$this->assign('student_consume_result',$myclass);
+ 		// 		$this->assign('money',$moneyInfo[0]['student_sum_money']);
+ 		// 		$this->display("Student:MyPackage");
+				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
  				$ordpOp = new OrderPackageBasicOperate();
  				$packageInfo = $ordpOp->getStuActiveOrderPackageInfo($_SESSION['ID'],null);
- 				$this->assign('package_list',$packageInfo);
 
  				import("Home.Action.User.UserBasicOperate");
  				$userOp = new UserBasicOperate();
@@ -251,12 +299,20 @@
  				import("Home.Action.OrderPackage.OrderPackageCountService");
  				$opCS = new OrderPackageCountService();
  				$classNum = $opCS->getPackageClassNum($studentID);
- 				$this->assign('classCount',$classNum);
 
+
+ 				import("Home.Action.OrderClass.OrderClassCountService");
+ 				$ocCS = new OrderClassCountService();
+ 				//得到套餐已用课时
+ 				foreach ($packageInfo as $key => $value) {
+ 					$packageInfo[$key]['haveClass'] = $ocCS->getPackageHaveClass($studentID,$value['orderpackageID']);
+ 				}
  				//得到剩余套餐数
  				$packageNum = $opCS->getPackageNum($studentID);
- 				$this->assign('packageCount',$packageNum);
 
+ 				$this->assign('classCount',$classNum);
+ 				$this->assign('package_list',$packageInfo);
+ 				$this->assign('packageCount',$packageNum);
  				$this->assign('sendclass_result',$sendinfo);
  				$this->assign('trade_list',$trade);
  				$this->assign('student_consume_result',$myclass);

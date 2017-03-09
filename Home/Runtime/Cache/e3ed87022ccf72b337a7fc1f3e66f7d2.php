@@ -262,17 +262,17 @@
                                             <td>
                                               <a href="#" data-toggle="modal" data-target="#stopclass" class="getstopclass">停课时间</a>
                                             </td>
+                                            <!-- <td>
+                                                <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Info/UserManage', array('personType'=>'student','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'0'));?>">禁用账号</a>
+                                                <?php else: ?>
+                                                    <a href="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'resetStatus','user_id'=>$value['ID'],'status'=>'1'));?>">启用账号</a><?php endif; ?>
+                                                <!-- <span>&nbsp;</span>
+                                                <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="chongqian">余额充值</a> -->
+                                           <!--  </td> -->
                                             <td>
                                                 <button class="editStudent btn btn-primary" style="margin:5px">修改</button>
                                                 <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage"><button type="button" name="button" class="btn btn-primary" style="margin:5px">停课</button></a>
                                             </td>
-                                            <!-- <td> -->
-                                                <!-- <?php if(($value['status']) == "1"): ?><a href="<?php echo U('Admin/changestudentinformation',array('user_id'=>$value['ID'],'status'=>'0'));?>">禁用账号</a>
-                                                <?php else: ?>
-                                                    <a href="<?php echo U('Admin/changestudentinformation',array('user_id'=>$value['ID'],'status'=>'1'));?>">启用账号</a><?php endif; ?>
-                                                <span>&nbsp;</span> -->
-                                                <!-- <a href="#" data-toggle="modal" data-target=".bs-example-modal-lg2" class="chongqian">余额充值</a>
-                                            </td> -->
                                         </tr>
                                     <?php $i++;}?>
                                     </tbody>
@@ -286,18 +286,18 @@
                                       停课申请
                                       </div>
                                       <div class="modal-body"  style="overflow: auto;">
-                                          <form class="form" method="post" action="<?php echo U('Root/DealStudentStopClass');?>">
+                                          <form class="form" method="post" action="<?php echo U('StopClass/StopClassManage',array('type'=>'apply'));?>">
                                               <div class="form-group col-lg-4" >
                                                   <label>学生ID:</label>
-                                                  <input type="text" name="orderpackage" class="form-control orderpackage_id" readonly="true">
+                                                  <input type="text" name="studentID" class="form-control orderpackage_id" readonly="true">
                                               </div>
                                               <div class="form-group col-lg-4">
                                                   <label>起始时间</label>
-                                                  <input type="text" name="start_time" class="form-control flatpickr starttime" >
+                                                  <input type="text" name="startTime" class="form-control flatpickr starttime" >
                                               </div>
                                               <div class="form-group col-lg-4">
                                                   <label>截止时间</label>
-                                                  <input type="text" name="end_time" class="form-control flatpickr stoptime">
+                                                  <input type="text" name="endTime" class="form-control flatpickr stoptime">
                                               </div>
                                       </div>
                                       <div class="modal-footer">
@@ -344,7 +344,7 @@
                                         学员停课信息
                                         </div>
                                         <div class="modal-body"  style="overflow: auto;">
-                                          <form class="" action="<?php echo U('Admin/CancelStopClass');?>" method="post">
+                                          <form class="" action="<?php echo U('StopClass/StopClassManage',array('type'=>'cancel'));?>" method="post">
                                             <div class="form-group">
                                               <label for="">停课编号</label>
                                               <input type="text" name="stopID" value="" class="form-control" id="stopID" readonly="true">
@@ -497,14 +497,19 @@
           var stu_no=$(this).parent().parent().find('td').html();
           $.ajax({
             type:'post',
-            url:"<?php echo U('Admin/GetStudentStopRecord');?>",
+            url:"<?php echo U('StopClass/ajaxGetStudentStopClass');?>",
             data:"student_id="+stu_no,
             success:function(msg){
               msg = JSON.parse(msg);
-              $("#stopID").val(msg['stopclass_id'])
+              $("#stopID").val("")
+              $("#stu_name").val("");
+              $("#stu_starttime").val("");
+              $("#stu_stoptime").val("");
+            alert (msg);
+              $("#stopID").val(msg['stopclassID'])
               $("#stu_name").val(msg['chinesename']);
-              $("#stu_starttime").val(msg['stop_start_time']);
-              $("#stu_stoptime").val(msg['stop_end_time']);
+              $("#stu_starttime").val(msg['stopStartTime']);
+              $("#stu_stoptime").val(msg['stopEndTime']);
             }
           })
         });

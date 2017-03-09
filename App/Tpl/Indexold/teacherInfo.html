@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>66Speak|教师介绍</title>
+<link rel="icon" href="/liuliu/AppPublic/assets/images/icon.png" sizes="512x512">
+<link rel="stylesheet" type="text/css" href="/liuliu/AppPublic/assets/css/teacherInfo.css">
+<link rel="stylesheet" type="text/css" href="/liuliu/AppPublic/assets/css/teacherInfoDef.css">
+<link rel="stylesheet" href="/liuliu/AppPublic/assets/css/font-awesome.min.css">
+
+</head>
+<body>
+<section class="strips">
+  <article class="strips__strip">
+	<div class="strip__content">
+	  <h1 class="strip__title" data-name="Lorem">Nisal Photos</h1>
+  	<div class="strip__inner-text">
+	  	<!-- <p style="font-size: 58px;">Nisal</p>
+  		<p>
+        <img src="assets/images/hIcon.png" width="50%" height="50%" alt="">
+  		</p> -->
+    <img src="/liuliu/AppPublic/assets/images/rbg1.jpg" width="100%" height="100%" alt="" onclick="imgShow($(this))">
+
+		</div>
+	</div>
+  </article>
+  <article class="strips__strip">
+	<div class="strip__content">
+	  <h1 class="strip__title" data-name="Ipsum">Introduce Myself</h1>
+	  <div class="strip__inner-text">
+      <video src="/liuliu/AppPublic/assets/images/1.mp4" controls="controls" width="100%">
+
+      </video>
+	  </div>
+	</div>
+  </article>
+  <article class="strips__strip">
+	<div class="strip__content">
+	  <h1 class="strip__title" data-name="Dolor">Course</h1>
+	  <div class="strip__inner-text">
+      <video src="/liuliu/AppPublic/assets/images/1.mp4" controls="controls" width="100%">
+
+      </video>
+	  </div>
+	  </div>
+	</div>
+  </article>
+  <article class="strips__strip">
+	<div class="strip__content">
+	  <h1 class="strip__title" data-name="Sit">More Information</h1>
+	  <div class="strip__inner-text">
+      <img src="/liuliu/AppPublic/assets/images/hIcon.png" width="20%" style="border-radius: 1000px;" alt="" />
+      <p>Name: <span>Nisal</span></p>
+      <p>Age: <span>18</span></p>
+      <p>Qualifications: Primary</p>
+      <p>achievement: No.</p>
+      <p></p>
+	  </div>
+	</div>
+  </article>
+  <article class="strips__strip">
+	<div class="strip__content">
+	  <h1 class="strip__title" data-name="Amet">Back</h1>
+	  <div class="strip__inner-text">
+      <a href="<{:U('Index/teachers')}>" class="backLink">66Speak.</a>
+	  </div>
+	</div>
+  </article>
+  <i class="fa fa-close strip__close"></i>
+</section>
+
+<div id="outerdiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:999;width:100%;height:100%;display:none;">
+	<div id="innerdiv" style="position:absolute;">
+		<img id="bigimg" style="border:5px solid #fff;" src="" />
+	</div>
+</div>
+
+<script src="/liuliu/AppPublic/assets/js/jquery.js"></script>
+<script src="/liuliu/AppPublic/assets/js/imgCinCout.js"></script>
+<script src="/liuliu/AppPublic/assets/js/teacherInfoInit.js"></script>
+
+</body>
+</html>

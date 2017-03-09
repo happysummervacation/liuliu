@@ -66,13 +66,13 @@
                                                 </thead>
                                                 <tbody>
                                                      <tr>
-                                                        <td class="simpleline">Contract Number：</td><td><{$vo.teachercontractID}></td>
+                                                        <td class="simpleline">Contract Number：</td><td><{$vo.teacherID}></td>
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2" style="text-align: center;">
                                                             <br>
                                                             <!-- <button class="btn btn-default">Contract Details</button> -->
-                                                            <button class="btn btn-default"><a href="<{:U('Teacher/DownloadTeacherContract',array('teacherContractID'=>$vo['teachercontractID']))}>">下载查看</a></button>
+                                                            <button class="btn btn-default"><a href="<{:U('Contract/DownloadTeacherContract',array('teacherContractID'=>$vo['teachercontractID']))}>">下载查看</a></button>
                                                         </td>
                                                     </tr>
                                                     <tr>

@@ -79,7 +79,11 @@
 				$this->assign('contractresult',$result);
 				$this->display("Student:MyContract");
 			}elseif(1 == $identity || "1" == $identity){
-
+				$teacherID= $_SESSION['ID'];
+				$result = array();
+				$result = $conBo->getTeacherContract($teacherID);
+				$this->assign('TeacherContract',$result);
+				$this->display("Teacher:MyContract");
 			}elseif(4 == $identity || "4" == $identity){
 				dump($_GET);
 				$this->display("Root:TeacherContract");
