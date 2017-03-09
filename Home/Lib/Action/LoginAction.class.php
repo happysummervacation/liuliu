@@ -119,15 +119,19 @@
 
 				/*进行页面的跳转*/
 				if($result[0]['identity'] == "0" || $result[0]['identity'] == 0){
-					$this->display("Student:index");
+					$this->redirect("UserCenter/index");
+					// $this->display("Student:index");
 				}elseif($result[0]['identity'] == "1" || $result[0]['identity'] == 1){
-					$this->display("Teacher:index");
+					$this->redirect("UserCenter/index");
+					// $this->display("Teacher:index");
 				}elseif($result[0]['identity'] == "2" || $result[0]['identity'] == 2){
-					$this->display("Admin:index");
+					$this->redirect("UserCenter/index");
+					// $this->display("Admin:index");
 				}elseif($result[0]['identity'] == "3" || $result[0]['identity'] == 3){
 
 				}elseif($result[0]['identity'] == "4" || $result[0]['identity'] == 4){
-					$this->display("Root:index");
+					$this->redirect("UserCenter/index");
+					// $this->display("Root:index");
 				}else{
 					$this->error("没有该身份的用户");
 					return;

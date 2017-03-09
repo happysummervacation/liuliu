@@ -39,5 +39,21 @@
 			}
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		得到被禁用或正常使用的人数
+		参数一：表名
+		参数二：status 0禁用，1正常使用
+		*/
+		public function getpeopleNum($table = null,$type = null){
+			if(is_null($table) || is_null($type)){
+				return null;
+			}
+			$inquiry = new Model();
+			$sql = "select count(status = {$type} or null) as num from {$table}";
+			$result = $inquiry->query($sql);
+			return $result[0]['num'];
+		}
 	}
  ?>

@@ -163,7 +163,9 @@
                                 </li>
                             </ul>
                         </li> -->
-
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
                         <li>
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>
@@ -298,6 +300,10 @@
                                             <th>教师账号</th>
                                             <th>中文名</th>
                                             <th>英文名</th>
+                                            <th>微信</th>
+                                            <th>QQ</th>
+                                            <th>phone</th>
+                                            <th>email</th>
                                             <th>教师课表</th>
                                             <th>工资信息</th>
                                             <th>查看合同</th>
@@ -312,6 +318,10 @@
                                             <td><?php echo ($value['account']); ?></td>
                                             <td><?php echo ($value['chinesename']); ?></td>
                                             <td><?php echo ($value['englishname']); ?></td>
+                                             <td><?php echo ($value['weixin']); ?></td>
+                                            <td><?php echo ($value['QQ']); ?></td>
+                                            <td><?php echo ($value['phone']); ?></td>
+                                            <td><?php echo ($value['email']); ?></td>
                                             <td><a href="<?php echo U('Class/getTeacherClassPlan',array('user_id'=>$value['ID']));?>">查看课表</a></td>
                                             <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
 

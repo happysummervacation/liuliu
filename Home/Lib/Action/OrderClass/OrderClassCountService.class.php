@@ -12,16 +12,31 @@
 		//参数一:表示学生
 		//参数二:表示教师的类型   0表示中教,1表示外教
 		public function countStudentOrderClassNum($studentID = null,$teacherType = null){
-			if(is_null($studentID) || is_null($teacherType)){
+			if(is_null($studentID)){
 				return -1;
 			}
 
+			// $inquiry = new Model();
+			// $sql = "select count(classStatus=0 or classStatus=1 or classStatus=3 or classStatus=4 or null) as num
+			// from tp_oneorderclass
+			// inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+			// tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}
+			// and teacherNation={$teacherType}";
 			$inquiry = new Model();
-			$sql = "select count(classStatus=0 or null) from tp_oneorderclass
-			inner join tp_orderpackage on tp_orderpackage.orderpackageID=
-			tp_oneorderclass.orderpackageID and tp_oneorderclass.tudentID={$studentID}
-			and teacherNation={$teacherType}";
-			$result = $inquiry->execute($sql);
+			if(is_null($teacherType)){
+				$sql = "select count(classStatus=0 or classStatus=1 or classStatus=3 or classStatus=4 or null) as num
+				from tp_oneorderclass
+				inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+				tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}";
+			}else{
+				$sql = "select count(classStatus=0 or classStatus=1 or classStatus=3 or classStatus=4 or null) as num
+				from tp_oneorderclass
+				inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+				tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}
+				and teacherNation={$teacherType}";
+			}
+			$result = $inquiry->query($sql);
+
 			return $result;
 		}
 
@@ -30,19 +45,34 @@
 		*统计学生已上的一对一课程数量
 		*/
 		public function countStudentHaveClassNum($studentID = null,$teacherType = null){
-			if(is_null($studentID) || is_null($teacherType)){
+			if(is_null($studentID)){
 				return -1;
 			}
 
 			$inquiry = new Model();
-			$sql = "select count(classStatus=1 or classStatus=3 or classStatus=4 or null)
-			from tp_oneorderclass
-			inner join tp_orderpackage on tp_orderpackage.orderpackageID=
-			tp_oneorderclass.orderpackageID and tp_oneorderclass.tudentID={$studentID}
-			and teacherNation={$teacherType}";
+			if(is_null($teacherType)){
+				$sql = "select count(classStatus=1 or classStatus=3 or classStatus=4 or null) as num
+				from tp_oneorderclass
+				inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+				tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}";
+			}else{
+				$sql = "select count(classStatus=1 or classStatus=3 or classStatus=4 or null) as num
+				from tp_oneorderclass
+				inner join tp_orderpackage on tp_orderpackage.orderpackageID=
+				tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}
+				and teacherNation={$teacherType}";
+			}
 
-			$result = $inquiry->execute($sql);
+			$result = $inquiry->query($sql);
 			return $result;
 		}
 		/*****************************************************************/
+
+		/*
+		蒋周杰
+		统计教师Achieved Class
+		*/
+		public function getAchievedClass($teacherID){
+
+		}
 	}

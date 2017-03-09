@@ -166,7 +166,9 @@
                                 </li>
                             </ul>
                         </li> -->
-
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
                         <li>
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>
@@ -295,7 +297,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                    <div>课程顾问</div>
-                                   <div class="huge"><?php echo ($admin_number[0]['alive']); ?>人|<?php echo ($admin_number[0]['die']); ?>人</div>
+                                   <div class="huge"><?php echo ($admin1Num); ?>人|<?php echo ($admin0Num); ?>人</div>
 
                                 </div>
                             </div>
@@ -318,7 +320,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div>学员总数</div>
-                                    <div class="huge"><?php echo ($student_number[0]['alive']); ?>人|<?php echo ($student_number[0]['die']); ?>人</div>
+                                    <div class="huge"><?php echo ($student1Num); ?>人|<?php echo ($student0Num); ?>人</div>
                                 </div>
                             </div>
                         </div>
@@ -340,7 +342,7 @@
                                 </div>
                                 <div class="col-xs-9 text-right">
                                     <div>教师总数</div>
-                                    <div class="huge"><?php echo ($teacher_number[0]['alive']); ?>人|<?php echo ($teacher_number[0]['die']); ?>人</div>
+                                    <div class="huge"><?php echo ($teacher1Num); ?>人|<?php echo ($teacher0Num); ?>人</div>
                                 </div>
                             </div>
                         </div>

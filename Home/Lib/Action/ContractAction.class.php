@@ -78,6 +78,13 @@
 				$result = $conBo->getStudentContract($studentID);
 				$this->assign('contractresult',$result);
 				$this->display("Student:MyContract");
+			}elseif(1 == $identity || "1" == $identity){
+
+			}elseif(4 == $identity || "4" == $identity){
+				dump($_GET);
+				$this->display("Root:TeacherContract");
+			}else{
+				$this->error("你没有权限进行查看");
 			}
 		}
 

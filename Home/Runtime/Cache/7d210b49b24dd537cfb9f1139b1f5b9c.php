@@ -29,8 +29,6 @@
     <!-- Custom Fonts -->
     <link href="__PUBLIC__/bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
 
-    <link rel="stylesheet" type="text/css" href="__PUBLIC__/tool/flatpickr.min.css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -161,7 +159,9 @@
                                 </li>
                             </ul>
                         </li> -->
-
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
                         <li>
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>
@@ -296,6 +296,10 @@
                                             <th>学员账号</th>
                                             <th>中文名</th>
                                             <th>英文名</th>
+                                            <th>微信</th>
+                                            <th>QQ</th>
+                                            <th>phone</th>
+                                            <th>email</th>
                                             <!-- <th>学员信息</th> -->
                                             <th>学员课表</th>
                                             <th>学员套餐</th>
@@ -312,6 +316,10 @@
                                             <td><?php echo ($value['account']); ?></td>
                                             <td><?php echo ($value['chinesename']); ?></td>
                                             <td><?php echo ($value['englishname']); ?></td>
+                                            <td><?php echo ($value['weixin']); ?></td>
+                                            <td><?php echo ($value['QQ']); ?></td>
+                                            <td><?php echo ($value['phone']); ?></td>
+                                            <td><?php echo ($value['email']); ?></td>
                                             <!-- <td><a href="" data-toggle="modal" data-target=".bs-example-modal-lg1" class="getpersoninfo">信息查看</a></td> -->
                                             <td><a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable', array('user_id'=>$value['ID']));?>">课表查看</a></td>
                                             <td><a href="<?php echo U('Package/studentPackageShow',array('user_id'=>$value['ID']));?>">套餐查看</a></td>
@@ -337,44 +345,12 @@
                                                 <button class="editStudent btn btn-primary" style="margin:5px">修改</button>
                                                 <a href="<?php echo U('Info/ResetPassword',array('type'=>'check','user_id'=>$value['account']));?>" class="resetPasswordID"><button class="btn btn-primary" style="margin:5px">一键重置密码</button></a>
                                                 <a href="<?php echo U('Info/UserManage',array('personType'=>'student','type'=>'delete','user_id'=>$value['ID']));?>" class="removeAccountID"><button class="btn btn-primary" style="margin:5px">彻底删除</button></a>
-                                                <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage"><button type="button" name="button" class="btn btn-primary" style="margin:5px">停课</button></a>
                                             </td>
                                         </tr>
                                     <?php $i++;}?>
                                     </tbody>
                                 </table>
                             </div>
-                            <!-- 模态框5,套餐停课处理 -->
-                            <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
-                                <div class="modal-dialog modal-md">
-                                  <div class="modal-content">
-                                      <div class="modal-header">
-                                      停课申请
-                                      </div>
-                                      <div class="modal-body"  style="overflow: auto;">
-                                          <form class="form" method="post" action="<?php echo U('StopClass/StopClassManage',array('type'=>'apply'));?>">
-                                              <div class="form-group col-lg-4" >
-                                                  <label>学生ID:</label>
-                                                  <input type="text" name="studentID" class="form-control orderpackage_id" readonly="true">
-                                              </div>
-                                              <div class="form-group col-lg-4">
-                                                  <label>起始时间</label>
-                                                  <input type="text" name="startTime" class="form-control flatpickr starttime" >
-                                              </div>
-                                              <div class="form-group col-lg-4">
-                                                  <label>截止时间</label>
-                                                  <input type="text" name="endTime" class="form-control flatpickr stoptime">
-                                              </div>
-                                      </div>
-                                      <div class="modal-footer">
-                                          <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                                          <button type="submit" class="btn btn-primary">提交</button>
-                                      </div>
-                                      </form>
-                                  </div>
-                                </div>
-                            </div>
-                            <!-- 模态框5 -->
                             <!-- 模态框1,查看用户信息 -->
                             <!-- <div class="modal fade bs-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
                                 <div class="modal-dialog modal-lg">
@@ -438,7 +414,7 @@
                                         停课取消操作
                                         </div>
                                         <div class="modal-body"  style="overflow: auto;">
-                                          <form class="" action="<?php echo U('StopClass/StopClassManage',array('type'=>'cancel'));?>" method="post">
+                                          <form class="" action="<?php echo U('Root/CancelStopClass');?>" method="post">
                                             <div class="form-group">
                                               <label for="">停课编号</label>
                                               <input type="text" name="stopID" value="" class="form-control" id="stopID" readonly="true">
@@ -575,8 +551,6 @@
     <!-- Custom Theme JavaScript -->
     <script src="__PUBLIC__/dist/js/sb-admin-2.js"></script>
 
-        <script type="text/javascript" src="__PUBLIC__/tool/flatpickr.min.js"></script>
-
     <!-- Page-Level Demo Scripts - Tables - Use for reference -->
     <script>
     $(document).ready(function() {
@@ -637,19 +611,14 @@
           var stu_no=$(this).parent().parent().find('td').html();
           $.ajax({
             type:'post',
-            url:"<?php echo U('StopClass/ajaxGetStudentStopClass');?>",
+            url:"<?php echo U('Root/GetStudentStopRecord');?>",
             data:"student_id="+stu_no,
             success:function(msg){
               msg = JSON.parse(msg);
-              $("#stopID").val("")
-              $("#stu_name").val("");
-              $("#stu_starttime").val("");
-              $("#stu_stoptime").val("");
-
-              $("#stopID").val(msg['stopclassID'])
+              $("#stopID").val(msg['stopclass_id'])
               $("#stu_name").val(msg['chinesename']);
-              $("#stu_starttime").val(msg['stopStartTime']);
-              $("#stu_stoptime").val(msg['stopEndTime']);
+              $("#stu_starttime").val(msg['stop_start_time']);
+              $("#stu_stoptime").val(msg['stop_end_time']);
             }
           })
         });
@@ -705,29 +674,6 @@
         }else{
           return false;
         }
-      })
-
-      $('.delaymouth').click(function(){
-          var starttime=$(this).parent().find('span').first().html();
-          flatpickr(".flatpickr",{
-              minDate:starttime
-          });
-          var stoptime=$(this).parent().find('span').last().html();
-          var orderpackage_id=$(this).parent().find('td').first().html();
-          $('#delay .orderpackage_id').val(orderpackage_id);
-          $('#delay .starttime').val(starttime);
-          $('#delay .stoptime').val(stoptime);
-          $('#delay').modal();
-      });
-
-      $('.stoppackage').click(function(){
-          flatpickr(".flatpickr",{
-              minDate:new Date()
-          });
-          var orderpackage_id=$(this).parent().parent().find('td').first().html();
-          $('#modalmoneyinfo .orderpackage_id').val(orderpackage_id);
-          // $('#delay .starttime').val(starttime);
-          // $('#delay .stoptime').val(stoptime);
       })
     </script>
 

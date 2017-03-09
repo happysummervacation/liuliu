@@ -223,7 +223,9 @@ user-select: none;
                                 </li>
                             </ul>
                         </li> -->
-
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
                         <li>
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>

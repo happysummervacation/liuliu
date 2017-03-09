@@ -160,7 +160,9 @@
                                 </li>
                             </ul>
                         </li> -->
-
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
                         <li>
                             <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
                         </li>
@@ -293,6 +295,10 @@
                                         <tr>
                                             <th>顾问编号</th>
                                             <th>顾问姓名</th>
+                                            <th>微信</th>
+                                            <th>QQ</th>
+                                            <th>phone</th>
+                                            <th>email</th>
                                             <!-- <th>顾问信息</th> -->
                                             <th>工资信息</th>
                                             <th>分管学生</th>
@@ -305,6 +311,10 @@
                                         <tr>
                                             <td class="adminID"><?php echo ($value['ID']); ?></td>
                                             <td><?php echo ($value['account']); ?></td>
+                                             <td><?php echo ($value['weixin']); ?></td>
+                                            <td><?php echo ($value['QQ']); ?></td>
+                                            <td><?php echo ($value['phone']); ?></td>
+                                            <td><?php echo ($value['email']); ?></td>
                                             <!-- <td><a href="#" data-toggle="modal" data-target="#modalpersoninfo" class="getpersoninfo" >查看信息</a></td> -->
                                             <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
                                             <td><a href="#" data-toggle="modal" data-target="#modalstdinfo" class="getstdlist" >查看学员</a></td>
