@@ -341,7 +341,7 @@
                                                 <td>
                                                   <a href="<?php echo U('OrderPackage/OrderPackageManage', array('orderpackageID'=>$value['orderpackageID'],'type'=>'loseff'));?>" class="cancelOrderPackageID">套餐无效</a>
                                                   <a href="<?php echo U('OrderPackage/OrderPackageManage', array('orderpackageID'=>$value['orderpackageID'],'type'=>'effect'));?>" class="effectOrderPackageID">套餐有效</a>
-                                                  <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage" >停课</a>
+                                                  <!-- <a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="stoppackage" >停课</a> -->
                                                   <?php if($value['classType'] == "1" || $value['classType'] == 1){ ?>
 
                                                   <?php }else{ ?>
@@ -584,7 +584,7 @@
     </div>
     <!-- 模态框4 -->
     <!-- 模态框5,套餐停课处理 -->
-    <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
+    <!-- <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" id="modalmoneyinfo">
         <div class="modal-dialog modal-md">
           <div class="modal-content">
               <div class="modal-header">
@@ -612,7 +612,7 @@
               </form>
           </div>
         </div>
-    </div>
+    </div> -->
     <!-- 模态框5 -->
     <!-- </div> -->
 
