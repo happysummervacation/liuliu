@@ -58,7 +58,7 @@
 				<li><a href="#contact" class="smoothScroll">联系我们</a></li>
 				<!-- <li><a href="<?php echo U('Index/publicClass');?>" class="smoothScroll">公开课</a></li> -->
 				<li><a href="<?php echo U('Index/aboutUs');?>" class="smoothScroll">关于我们</a></li>
-				<li><a href="/liuliu/app.php/Login/Login" class="smoothScroll">登入/注册</a></li>
+				<li><a href="/liuliu3/app.php/Login/Login" class="smoothScroll">登入/注册</a></li>
 				<li><a href="#phone"><span class="fa fa-phone">0574-87170280</span></a></li>
 			</ul>
 
@@ -416,7 +416,7 @@
 									Kimi
 									<span class="cus-title">
 										小学生
-									</span> 
+									</span>
 								</span>
 							</div>
 						</li>
@@ -469,7 +469,7 @@
 									Shirley
 									<span class="cus-title">
 										小学生
-									</span> 
+									</span>
 								</span>
 						</li>
 						<li class="customer">

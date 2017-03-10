@@ -414,7 +414,7 @@
 					$this->assign("onlyreadflag",false);
 					$this->display("Student:Contract");
 					return;
-				}elseif(!result['status'] && empty($result['contractInfo'])){
+				}elseif(!$result['status'] && empty($result['contractInfo'])){
 					$this->error("发生错误,请联系课程顾问");
 					return;
 				}else{

@@ -424,7 +424,7 @@
                                                 <div class="col-sm-6 col-sm-offset-2">
                                                    <input type="file" nv-file-select="" multiple   name="video" value="Upload Video" id="uploadinput"/>
                                                     <div class="input-append">
-                                                    
+
                                                         <input id="photoCover" class="input-large form-control" type="text" style="height: 30px; border-radius:5px; border:1px solid #CCCCCC; padding-left:10px;" placeholder="视频文件(限定大小80M,支持mp4,wmv)" />
                                                     </div>
                                                     <script type="text/javascript">
@@ -433,9 +433,9 @@
                                                         });
                                                     </script>
                                                 </div>
-                                                <div class="col-sm-3">
+                                                <!-- <div class="col-sm-3">
                                                     <button type="button" class="btn btn-primary" onclick="$('input[id=lefile]').click();">选择文件</button>
-                                                </div>
+                                                </div> -->
                                               </div>
                                         </div>
                                         <div class="modal-footer">

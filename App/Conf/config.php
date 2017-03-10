@@ -8,7 +8,7 @@ return array(
     // 'SHOW_PAGE_TRACE'=>true,  //开启页面调试
     // 'ERROR_MESSAGE' =>'发生错误!',  //错误信息显示
 
-    'DB_DSN'=>'mysql://liuliu:123456@localhost:3306/new_liuliu', //数据库连接配置
+    'DB_DSN'=>'mysql://root:123456@localhost:3306/liuliu', //数据库连接配置
     'DB_PREFIX'=>'tp_',  //设置表前缀
 
     'DEFAULT_CHARSET'=>'utf8',  //设置默认编码

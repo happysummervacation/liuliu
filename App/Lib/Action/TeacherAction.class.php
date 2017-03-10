@@ -1,7 +1,7 @@
 <?php
 	class TeacherAction extends Action{
 		public function __construct(){
-            
+
         }
 
 		//空操作访问
