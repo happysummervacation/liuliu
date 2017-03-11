@@ -219,7 +219,7 @@
                                 </div>
                             </div>
                             <!-- <a href="Information.html"> -->
-                            <a href="<?php echo U('Teacher/Information');?>">
+                            <a href="<?php echo U('Info/Information');?>">
                                 <div class="panel-footer">
                                     <span class="pull-left">Personal Information</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

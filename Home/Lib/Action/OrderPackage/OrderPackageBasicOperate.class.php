@@ -155,7 +155,6 @@
 					tp_orderpackage.category")->where($condition)->select();
 				}
 			}
-
 			return $result;
 		}
 

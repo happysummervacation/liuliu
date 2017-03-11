@@ -231,7 +231,7 @@
                                 </div>
                             </div>
                            <!--  <a href="Information.html"> -->
-                            <a href="<?php echo U('Student/Information');?>">
+                            <a href="<?php echo U('Info/Information');?>">
                                 <div class="panel-footer">
                                     <span class="pull-left">个人信息</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -276,7 +276,7 @@
                                         <div class="huge  simpleline">
                                          <!-- <?php echo ($classnumber); ?>
                                         课时 -->
-                                        <?php echo ($classnumber['o_c_h_ClassNumber']); ?>|<?php echo ($classnumber['o_c_a_ClassNumber']); ?>    
+                                        <?php echo ($classnumber['o_c_h_ClassNumber']); ?>|<?php echo ($classnumber['o_c_a_ClassNumber']); ?>
                                         </div>
                                         <div>中教课:已上|预订总数</div>
                                     </div>

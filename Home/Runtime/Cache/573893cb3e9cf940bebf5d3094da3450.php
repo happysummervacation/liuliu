@@ -41,10 +41,7 @@
 <body>
     <div id="wrapper">
         <!-- Navigation -->
-
-        <!-- 标题 -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -56,23 +53,24 @@
             </div>
             <!-- /.navbar-header -->
             <!-- 显示北京时间 -->
-                <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
-                    <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
-                </div>
-                <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
-                    <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
-                </div>
+            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
             <!-- //显示北京时间 -->
             <!-- 消息中心 -->
-            <ul class="nav navbar-top-links navbar-right">
+           <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <?php echo count($unreadmessage) ?>
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                      <?php echo count($unreadmessage) ?>
+                      <i class="fa fa-envelope fa-fw"></i>
+                      <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
-                                <a href="<?php echo U('Student/InformationCenter');?>">
+                                <a href="<?php echo U('Root/InformationCenter');?>">
                                 <div>
                                     <strong><?php echo ($value['account']); ?></strong>
                                     <span class="pull-right text-muted">
@@ -83,25 +81,22 @@
                                 </a>
                             </li><?php endif; endforeach; endif; ?>
                         <li>
-                            <a class="text-center" href="<?php echo U('Student/InformationCenter');?>">
+                        <!-- 9.06修改01 -->
+                            <a class="text-center" href="<?php echo U('Root/InformationCenter');?>">
                                 <strong>查看所有消息</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
+                        <!-- //9.06修改01 -->
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
-
+                <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <!-- <li><a href="#"><i class="fa fa-user fa-fw"></i> 用户信息</a>
-                        </li>
-                        <li><a href="#"><i class="fa fa-gear fa-fw"></i> 账号设置</a>
-                        </li>
-                        <li class="divider"></li> -->
                         <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
                         </li>
                     </ul>
@@ -126,76 +121,149 @@
                             <!-- /input-group -->
                         </li>
                         <li>
-                            <!-- <a href="index.html"><i class="fa fa-home fa-fw"></i> 用户中心</a> -->
-                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 学员中心</a>
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
                         </li>
                         <!-- <li>
-                            <a href="#"><i class="fa fa-calendar fa-fw"></i> 课程管理<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level"> -->
-                                <li>
-                                    <!-- <a href="BookingCourse.html">预约课程</a> -->
-                                    <a href="<?php echo U('OrderClass/showOrderClassInfo');?>"><i class="fa fa-book fa-fw"></i> 预约课程</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="MySchedule.html">我的课表</a> -->
-                                    <a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable');?>/type/one"><i class="fa fa-book fa-fw"></i> 一对一课表</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="MySchedule.html">我的课表</a> -->
-                                    <a href="<?php echo U('OrderClass/getStudentOrderClassTimeTable');?>/type/group"><i class="fa fa-book fa-fw"></i> 小班课课表</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="CourseeValuation.html">课程评价</a> -->
-                                    <a href="<?php echo U('Comment/studentComment');?>"><i class="fa fa-book fa-fw"></i> 评价教师</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Comment/showCommentFromTeacher');?>"><i class="fa fa-book fa-fw"></i> 教师的评价</a>
-                                </li>
-                            <!-- </ul> -->
-                            <!-- /.nav-second-level -->
-                        <!-- </li> -->
-                        <!-- <li> -->
-                            <!-- <a href="#"><i class="fa fa-rocket fa-fw"></i> 学员订单<span class="fa arrow"></span></a> -->
-                            <!-- <ul class="nav nav-second-level"> -->
-                                <li >
-                                    <a  href="<?php echo U('UserCenter/getManageInfo');?>"><i class="fa fa-legal fa-fw"></i> 已有套餐</a>
-                                </li>
-
-                                <li >
-                                    <a href="<?php echo U('Package/packageShow');?>"><i class="fa fa-legal fa-fw"></i> 购买套餐</a>
-                                </li>
-                                <li >
-                                    <a href="<?php echo U('Package/delayPackage');?>"><i class="fa fa-legal fa-fw"></i> 套餐延期</a>
-                                </li>
-                            <!-- </ul> -->
-                            <!-- /.nav-second-level -->
-                        <!-- </li> -->
-                        <li>
-                            <a href="#"><i class="fa fa-pencil fa-fw"></i> 学员信息<span class="fa arrow"></span></a>
+                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <!-- <a href="Information.html">个人信息</a> -->
-                                    <a href="<?php echo U('Info/Information');?>"> 学员信息</a>
+                                    <a href="<?php echo U('Root/SearchTeacher');?>">搜索教师</a>
                                 </li>
                                 <li>
-                                    <!-- <a href="ResetPassword.html">修改密码</a> -->
-                                    <a href="<?php echo U('Info/resetPassword');?>"> 修改密码</a>
+                                    <a href="<?php echo U('Root/CheckTeacher');?>">查看教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateTeacher');?>">创建教师</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchTeacher');?>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchStudent');?>">搜索学生</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckStudent');?>">查看学生</a>
+                                </li>
+                            </ul>
+                        </li> -->
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchAdmin');?>">搜索顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckAdmin');?>">查看顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateAdmin');?>">创建顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/DownloadLogfile');?>">
+                                    操作历史
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/DownloadLogfile');?>"> <i class="fa fa-umbrella fa-fw"></i>
+                            操作历史
+                            </a>
+                        </li>
+
+                        <!-- <li>
+                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                              <li>
+                                  <a href="<?php echo U('Root/Information');?>">查看管理员</a>
+                              </li>
+                              <li>
+                                  <a href="<?php echo U('Root/CreateRoot');?>">创建管理员</a>
+                              </li>
+                          </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Info/Information');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
+                                </li>
+                                <li>
+                                     <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/salaryMgr');?>">
+                                        工资管理
+                                    </a>
+                                    <!-- <a href="">
+                                        工资管理
+                                    </a> -->
                                 </li>
                             </ul>
                             <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <!-- <a href="MyBook.html"><i class="fa fa-book fa-fw"></i> 我的教材</a> -->
-                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> 学员教材</a>
+                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
+                                </li>
+                                 <li>
+                                     <a href="<?php echo U('Root/VideoManage');?>"> 视频管理</a>
+                                </li>
+                            </ul>
+                                    <!-- /.nav-second-level -->
                         </li>
                         <li>
-                            <!-- <a href="MyContract.html"><i class="fa fa-legal fa-fw"></i> 我的合同</a> -->
-                            <a href="<?php echo U('Contract/showContract');?>"><i class="fa fa-legal fa-fw"></i> 学员合同</a>
+                             <a href="<?php echo U('Root/Message');?>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
                         </li>
-                        <li>
-                            <!-- <a href="ContactAdmin.html"><i class="fa fa-fax fa-fw"></i> 联系课程顾问</a> -->
-                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-fax fa-fw"></i> 联系顾问</a>
-                        </li>
+
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -656,9 +724,11 @@
                     $(this).css('color','green');
                     $(this).removeClass('ordered');
                     $(this).removeAttr('package');
-                    var res=removeitemformarr($(this).val,TEMPCLASSL);
-                    if(res){
-                        objarr.splice(res,1);
+                    var res=removeitemformarr($(this).val(),TEMPCLASSL);
+                    if(res||res==0){
+                        TEMPCLASSL.splice(res,1);
+                    }else{
+                        alert(res);
                     }
                 }else{
                     var packafenumarr=$("#packageid").val().split('_');
@@ -935,6 +1005,8 @@
             $('#submitorderclasslist').click(function(){
                 var CLASS_ID=new Array();
                 // var BOOK_ID=new Array();
+                //需要做重复时间的判断,定义一个新的数组来存放时间,每次循环,判断是否在数组中存在相同的项,是则停止且报错,否则加入数组
+                var TIME_ARR=new Array();
                 var length=$('#jiaoshikebiao3 tbody tr').length;
                 if(length<1){
                     alert('课程数量为零!请选择课程!');
@@ -947,6 +1019,19 @@
                     var classinfo={};
                     classinfo['class_id']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').html();
                     classinfo['package_id']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').eq(3).html();
+
+                    //获取时间
+                    classinfo['class_time']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').eq(1).html();
+
+                    //判断可以加入数组还是直接退出
+                    if(TIME_ARR.indexOf(classinfo['class_time'])==-1){
+                        //不存在,则加入
+                        TIME_ARR.push(classinfo['class_time']);
+                    }else{
+                        alert('存在相同时间段的课程,请确认');
+                        return;
+                    }
+
                     if(classinfo['package_id']==null){
                         alert('套餐数据为空!');
                         return;

@@ -44,9 +44,9 @@ return array(
     //MD5密钥，安全检验码，由数字和字母组成的32位字符串，查看地址：https://b.alipay.com/order/pidAndKey.html
     'key' => '8mfuu4k8kbhu6ucbxi6sqw9t1oe5wxgn',
     //服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    'notify_url' => 'http://localhost/liuliu3/app.php/Alipay/notify_url',
+    'notify_url' => 'http://localhost/liuliu/app.php/Alipay/notify_url',
     //页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    'return_url' => 'http://localhost/liuliu3/app.php/Alipay/return_url',
+    'return_url' => 'http://localhost/liuliu/app.php/Alipay/return_url',
     //签名方式
     'sign_type' => strtoupper('MD5'),
     //字符编码格式 目前支持 gbk 或 utf-8

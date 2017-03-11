@@ -22,9 +22,9 @@
 			//对课程状态进行获取
 			foreach ($classStatusResult as $key => $value) {
 				if($value == GlobalValue::notClass){
-					$statusResult = $statusResult." or tp_oneorderclass.Status=0 ";
+					$statusResult = $statusResult." or tp_oneorderclass.classStatus=0 ";
 				}elseif($value == GlobalValue::haveClass){
-					$statusResult = $statusResult." or tp_oneorderclass.Status=1 ";
+					$statusResult = $statusResult." or tp_oneorderclass.classStatus=1 ";
 				}
 			}
 			$statusResult = $statusResult.")";

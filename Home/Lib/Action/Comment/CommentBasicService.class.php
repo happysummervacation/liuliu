@@ -23,7 +23,7 @@
 			//日评数据子啊进行获取时需要判断当前时间是否已经超过了规定的评价时间
 			$nowtime = getTime();
 			$deadline = (int)$nowtime-(int)$this->systemSet['dayDeadline'];
-
+	
 			$inquiry = new Model("oneorderclass");
 			$dayCommentResult = $inquiry
 			->join("inner join tp_class on tp_class.classID=tp_oneorderclass.classID and

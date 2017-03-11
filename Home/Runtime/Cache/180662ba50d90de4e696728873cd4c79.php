@@ -368,7 +368,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="changsubmit()" action="<?php echo U('Package/packageManage');?>/type/update" method="post">
+                            <form class="form-horizontal modifypackagebox" action="<?php echo U('Package/packageManage');?>/type/update" method="post">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -411,7 +411,7 @@
                                   </div>
                                 </div>
                                 <div class="form-group">
-                                  <label class="col-sm-4 control-label">套餐类型</label>
+                                  <label class="col-sm-4 control-label ">套餐类型</label>
                                   <div class="col-sm-6">
                                     <select  class="form-control" name="packageType">
                                         <option value="0">课时套餐</option>
@@ -434,7 +434,7 @@
                                     <input type="number" name="studentNumber" class="form-control">
                                   </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group classNumber">
                                   <label class="col-sm-4 control-label">课时数量</label>
                                   <div class="col-sm-6">
                                     <input type="number" name="classNumber" class="form-control">
@@ -461,7 +461,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="submit" class="btn btn-primary" >提交</button>
+                            <button type="button" class="btn btn-primary" onclick="modifypack()">提交</button>
                         </div>
                         </form>
                     </div>
@@ -476,7 +476,7 @@
                             套餐信息
                         </div>
                         <div class="modal-body" style="overflow: auto;">
-                            <form class="form-horizontal" onsubmit="changsubmit()" action="<?php echo U('Package/packageManage',array('type'=>'add'));?>" method="post">
+                            <form class="form-horizontal openpackagebox" action="<?php echo U('Package/packageManage',array('type'=>'add'));?>" method="post">
                                 <div class="form-group">
                                 <label  class="col-sm-4 control-label">套餐名称</label>
                                 <div class="col-sm-6">
@@ -542,7 +542,7 @@
                                     <input type="number" name="studentNumber" class="form-control">
                                   </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group classNumber">
                                   <label class="col-sm-4 control-label">课时数量</label>
                                   <div class="col-sm-6">
                                     <input type="number" name="classNumber" class="form-control">
@@ -569,7 +569,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
-                            <button type="submit" class="btn btn-primary" >提交</button>
+                            <button type="button" class="btn btn-primary" onclick="openpack()">提交</button>
                         </div>
                         </form>
                     </div>
@@ -656,6 +656,8 @@
 			var packageId = $(this).parents('tr').find('td').eq(0).html();
             if(confirm('确认删除套餐?')){
                 window.location.href="<?php echo U('Package/packageManage');?>/type/delete/packageID/"+packageId;
+            }else{
+                return false;
             }
 		})
 
@@ -668,12 +670,43 @@
             }
         }
 
+        function modifypack(){
+            if(confirm('确认提交?')){
+                $('.modifypackagebox').submit()
+            }
+        }
+
+        function openpack(){
+            if(confirm('确认提交?')){
+                $('.openpackagebox').submit()
+            }
+        }
+
         $('select[name=studentType]').eq(1).change(function(){
             changereadonly(1);
         });
         $('select[name=studentType]').eq(0).change(function(){
             changereadonly(0);
         });
+        $('select[name=packageType]').eq(1).change(function(){
+            if($(this).val()==0){
+                $('.classNumber').eq(1).css('display','block');
+                $('select[name=classNumber]').eq(1).val("");
+            }else{
+                $('.classNumber').eq(1).css('display','none');
+                $('select[name=classNumber]').eq(1).val(0);
+            }
+        });
+        $('select[name=packageType]').eq(0).change(function(){
+            if($(this).val()==0){
+                $('.classNumber').eq(0).css('display','block');
+                var classNum=$(this).parents('tr').children().eq(9).html()
+                $('select[name=classNumber]').eq(0).val(classNum);
+            }else{
+                $('.classNumber').eq(0).css('display','none');
+                $('select[name=classNumber]').eq(0).val(0);
+            }
+        })
     </script>
 </body>
 

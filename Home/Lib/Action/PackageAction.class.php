@@ -407,6 +407,7 @@
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 			$opBO = new OrderPackageBasicOperate();
 			if(0 == $identity || "0" == $identity){
+				$studentID = $_SESSION['ID'];
 				// $result = $opBO->getOrderPackageInfoWithCondition();
 				$result = $opBO->getOrderPackageInfoWithCondition(
 					"studentID = {$studentID} and isdelete=0 and status=1");

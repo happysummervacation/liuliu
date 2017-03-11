@@ -49,12 +49,16 @@
 					foreach ($value as $t_key => $t_value) {
 						$temresult = 0;
 						$temresult = $classOp->getClassInfo($t_value,"tp_class.classStartTime")[0];
-						$temDealArr = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass,$key,"tp_class.classStartTime");
-						if(empty($temDealArr)){
-							$temDealArr = array();
-						}
 						array_push($temDealArr,$temresult);
 					}
+
+					$temDealArray = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass,$key,"tp_class.classStartTime");
+					if(!empty($temDealArray)){
+						foreach ($temDealArray as $key => $value) {
+							array_push($temDealArr,$value);
+						}
+					}
+
 					if(!OrderClassFeatureService::JudgeSameDay($temDealArr)){
 						$message['status'] = false;
 						$message['message'] = "卡类套餐有同一天的时间";
@@ -75,6 +79,7 @@
 			$stuOrdClassOp = new stuOrderClassService();
 			$notClassResult = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass,
 				null,"tp_class.classStartTime,tp_class.classEndTime");
+
 			//判断有预定的课程的数据与未上的课程的数据是否有时间上的重叠
 			$judgeResult = OrderClassFeatureService::JudgeTimes($notClassResult,$orderClassTimeArr);
 			if(!$judgeResult){
@@ -82,6 +87,7 @@
 				$message['message'] = "课程中有重复时间段的课程";
 				return $message;
 			}
+
 /*******************************   上面是对课程的过滤  ************************/
 /*******************************   下面是对课程的数据库写入   *************************/
 			/*
@@ -293,7 +299,7 @@
 					tp_oneorderclass.classID = tp_class.classID and
 					tp_oneorderclass.orderpackageID = tp_orderpackage.orderpackageID
 					 and tp_class.teacherID = tp_teacher.ID and (tp_oneorderclass.classStatus=0 or
-					 tp_oneorderclass.classStatus=1) and 
+					 tp_oneorderclass.classStatus=1) and
 					 tp_oneorderclass.isdelete = 0
 					 and tp_class.classEndTime > {$time}
 					 and tp_orderpackage.category=tp_packageconfig.packageconID")
@@ -429,6 +435,7 @@
 
 			 $inquiry = new Model();
 			 $result = $inquiry->query($sql);
+
 			if("0" == $result[0]['isSign'] || 0 == $result[0]['isSign']){
 				//表示没有签订数据
 				$message['status'] = false;

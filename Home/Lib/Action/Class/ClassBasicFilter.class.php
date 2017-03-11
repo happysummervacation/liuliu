@@ -49,7 +49,9 @@
 						if(0 == (int)$o_value['classStatus']){    //表示订购课程了但是还没有进行上课
 							$tem['student'] = $o_value['account'];
 							$tem['state'] = 2;
-						}elseif(1 == (int)$o_value['classStatus']){  //表示正常上课
+						}elseif(1 == (int)$o_value['classStatus'] ||
+						3 == (int)$o_value['classStatus'] ||
+					    4 == (int)$o_value['classStatus']){  //表示正常上课
 							$tem['student'] = $o_value['account'];
 							$tem['state'] = 3;
 						}elseif(5 == (int)$o_value['classStatus']){  //表示教师缺课

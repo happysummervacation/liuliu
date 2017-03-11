@@ -197,7 +197,7 @@
                              <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                             <a href="<?php echo U('UserCenter/showAdminExam');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
                         </li>
                          <li>
                              <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
@@ -440,7 +440,7 @@
                             <div class="form-group">
                                 <label>课程状态</label>
                                 <select class="form-control classstatus" name="classStatus">
-                                    <option value="-1">&nbsp;</option>
+                                    <!-- <option value="-1">&nbsp;</option> -->
                                     <!-- <option value="0">尚未上课</option> -->
                                     <option value="1">正常完成</option>
                                     <!-- <option value="2">学员退课</option> -->

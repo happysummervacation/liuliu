@@ -17,7 +17,8 @@
 				$result = $inquiry->join("inner join tp_orderpackage on
 				 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
 				  and tp_orderpackage.status=1 and tp_orderpackage.orderpackageID={$orderPackageID}")
-				 ->count("tp_oneorderclass.classStatus=0 or tp_oneorderclass.classStatus=1 or null");
+				 ->count("tp_oneorderclass.classStatus=0 or tp_oneorderclass.classStatus=1
+				 or tp_oneorderclass.classStatus=3 or tp_oneorderclass.classStatus=4 or null");
 			 }else{
 				 $result = $inquiry->join("inner join tp_orderpackage on
  				 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
@@ -27,6 +28,21 @@
 
 			 return $result;
 		}
+		// /*
+		// *蒋周杰
+		// *统计某个学生使用某个订购的套餐订购的一对一类型的课程数量(其中课程状态值包含:未上)
+		// */
+		// public function countStudentOneOrderClassNum0($orderPackageID = null){
+		// 	if(is_null($orderPackageID)){
+		// 		return null;
+		// 	}
+		// 	$inquiry = new Model("oneorderclass");
+		// 	$result = $inquiry->join("inner join tp_orderpackage on
+		// 	 tp_oneorderclass.orderpackageID=tp_orderpackage.orderpackageID
+		// 	  and tp_orderpackage.status=1 and tp_orderpackage.orderpackageID={$orderPackageID}")
+		// 	 ->count("tp_oneorderclass.classStatus=0");
+		// 	 return $result;
+		// }
 
 		/*
 		蒋周杰

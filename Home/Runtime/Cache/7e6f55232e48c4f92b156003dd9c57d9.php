@@ -221,7 +221,7 @@
 	                                    <div class="huge">
                                         	<?php echo ($classCount); ?>
                                         </div>
-	                                    <div>剩余课时</div>
+	                                    <div>课时类套餐 剩余课时</div>
 	                                </div>
 	                            </div>
 	                        </div>
@@ -359,7 +359,7 @@
                                                 <td><?php if($vo['teacherNation'] == 1){echo "外教";}else{echo "中教";}?></td>
                                                 <td><?php if($vo['teacherType'] == 1){echo "名师";}else{echo "普通";}?></td>
                                                 <td><?php echo (date("Y-m-d",$vo["endTime"])); ?></td>
-                                                <td><?php echo ($vo["haveClass"]); ?>/<?php echo $vo['classNumber']+$vo['otherClass'];?></td>
+                                                <td><?php echo ($vo["haveClass"]); ?>/<?php if($vo['packageType'] == 1){ ; } else{ echo $vo['classNumber']+$vo['otherClass'];}?></td>
                                                 <td><?php echo ($vo["packageMoney"]); ?></td>
                                                 <td>
                                                   <!--课程一旦用完订购的对应套餐就设为失效-->

@@ -75,8 +75,8 @@
 
 			foreach ($firstTime as $f_key => $f_value) {
 				foreach ($secondTime as $s_key => $s_value) {
-					if((int)$f_value['classStartTime'] > (int)$s_value['classEndTime'] ||
-					(int)$f_value['classEndTime'] < (int)$s_value['classStartTime']){
+					if((int)$f_value['classStartTime'] >= (int)$s_value['classEndTime'] ||
+					(int)$f_value['classEndTime'] <= (int)$s_value['classStartTime']){
 
 					}else{
 						return false;
@@ -98,17 +98,19 @@
 			if(is_null($time)){
 				return true;
 			}
-
 			$judgeArray = array();
 			foreach ($time as $key => $value) {
 				//$value是时间戳
-				$day = date('Y-m-d',$value);
+				$day = date('Y-m-d',$value['classStartTime']);
+
 				if(empty($judgeArray[$day])){
-					$judgeArray[$day] = 0;
+					$judgeArray[$day] = 1;
 				}else{
 					return false;
 				}
+
 			}
+
 			//跳出循环表示没有同一天的数据
 			return true;
 		}

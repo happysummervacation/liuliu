@@ -195,7 +195,7 @@
                              <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                             <a href="<?php echo U('UserCenter/showAdminExam');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
                         </li>
                          <li>
                              <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
@@ -660,9 +660,11 @@
                     $(this).css('color','green');
                     $(this).removeClass('ordered');
                     $(this).removeAttr('package');
-                    var res=removeitemformarr($(this).val,TEMPCLASSL);
-                    if(res){
-                        objarr.splice(res,1);
+                    var res=removeitemformarr($(this).val(),TEMPCLASSL);
+                    if(res||res==0){
+                        TEMPCLASSL.splice(res,1);
+                    }else{
+                        alert(res);
                     }
                 }else{
                     var packafenumarr=$("#packageid").val().split('_');
@@ -939,6 +941,8 @@
             $('#submitorderclasslist').click(function(){
                 var CLASS_ID=new Array();
                 // var BOOK_ID=new Array();
+                //需要做重复时间的判断,定义一个新的数组来存放时间,每次循环,判断是否在数组中存在相同的项,是则停止且报错,否则加入数组
+                var TIME_ARR=new Array();
                 var length=$('#jiaoshikebiao3 tbody tr').length;
                 if(length<1){
                     alert('课程数量为零!请选择课程!');
@@ -951,6 +955,17 @@
                     var classinfo={};
                     classinfo['class_id']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').html();
                     classinfo['package_id']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').eq(3).html();
+                    //获取时间
+                    classinfo['class_time']=$('#jiaoshikebiao3 tbody tr').eq(j).find('td').eq(1).html();
+
+                    //判断可以加入数组还是直接退出
+                    if(TIME_ARR.indexOf(classinfo['class_time'])==-1){
+                        //不存在,则加入
+                        TIME_ARR.push(classinfo['class_time']);
+                    }else{
+                        alert('存在相同时间段的课程,请确认');
+                        return;
+                    }
                     if(classinfo['package_id']==null){
                         alert('套餐数据为空!');
                         return;

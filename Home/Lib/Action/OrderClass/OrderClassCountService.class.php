@@ -54,7 +54,8 @@
 				$sql = "select count(classStatus=1 or classStatus=3 or classStatus=4 or null) as num
 				from tp_oneorderclass
 				inner join tp_orderpackage on tp_orderpackage.orderpackageID=
-				tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}";
+				tp_oneorderclass.orderpackageID and tp_oneorderclass.studentID={$studentID}
+				and tp_orderpackage.packageType=0";
 			}else{
 				$sql = "select count(classStatus=1 or classStatus=3 or classStatus=4 or null) as num
 				from tp_oneorderclass

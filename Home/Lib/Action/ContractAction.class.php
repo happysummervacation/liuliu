@@ -124,6 +124,7 @@
 				$result['teacherNation'] = $packageInfo[0]['teacherNation'];
 				$result['teacherType'] = $packageInfo[0]['teacherType'];
 				$result['classNumber'] = $packageInfo[0]['classNumber'];
+				$result['packageType'] = $packageInfo[0]['packageType'];
 				$result['time'] = $packageInfo[0]['time'];
 				$result['startTime'] = $packageInfo[0]['startTime'];
 				$result['nowTime'] = getTime();

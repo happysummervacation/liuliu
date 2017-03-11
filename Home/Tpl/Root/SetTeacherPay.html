@@ -180,9 +180,11 @@
                 }
             }
         }
-
-
+        $(function(){
+            $('#onsubmit').removeAttr('disabled');
+        })
         $('#onsubmit').click(function(){
+            $(this).attr('disabled','disabled');
             var info=[];
             $('#teacherPayInfo').find('tr').each(function(){
                 var v3=$(this).find('input[type=checkbox]').is(':checked');

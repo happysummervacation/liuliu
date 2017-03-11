@@ -205,13 +205,13 @@ class AlipayAction extends Action{
 					在".date("Y-m-d H:i:s",getTime())."购买套餐编号是{$packageInfo['packageID']},
 					套餐名是{$packageInfo['package_name']}的套餐,最终的购买结果是成功的";
 					AlipayLog($txt);
-					// $this->success("套餐购买成功",U('Package/packageShow'));
+					$this->success("套餐购买成功",U('Package/packageShow'));
 				}else{
 					$Mysql->rollback();
 					$txt = "账号为{$userData['account']}的用户,
 					在".date("Y-m-d H:i:s",getTime())."购买套餐编号是{$packageInfo['packageID']},
 					套餐名是{$packageInfo['package_name']}的套餐,最终的购买结果是失败的";
-					// $this->error("套餐购买失败",U('Package/packageShow'));
+					$this->error("套餐购买失败",U('Package/packageShow'));
 				}
 
 				// //添加套餐的数据

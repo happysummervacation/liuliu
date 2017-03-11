@@ -505,7 +505,6 @@
               $("#stu_name").val("");
               $("#stu_starttime").val("");
               $("#stu_stoptime").val("");
-            alert (msg);
               $("#stopID").val(msg['stopclassID'])
               $("#stu_name").val(msg['chinesename']);
               $("#stu_starttime").val(msg['stopStartTime']);

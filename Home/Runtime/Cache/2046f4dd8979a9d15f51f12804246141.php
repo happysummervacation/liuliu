@@ -321,6 +321,12 @@
                                                     /
                                                     <?php switch($value['classType']): case "0": ?>一对一<?php break;?>
                                                         <?php case "1": ?>小班<?php break; endswitch;?>
+                                                    /
+                                                    <?php switch($value['teacherType']): case "0": ?>普通<?php break;?>
+                                                        <?php case "1": ?>名师<?php break; endswitch;?>
+                                                    /
+                                                    <?php switch($value['teacherNation']): case "0": ?>中教<?php break;?>
+                                                        <?php case "1": ?>外教<?php break; endswitch;?>
                                                 </td>
                                                 <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                 <td><?php echo ($value['classNumber']); ?></td>

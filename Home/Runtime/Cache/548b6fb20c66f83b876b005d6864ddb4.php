@@ -756,7 +756,7 @@ user-select: none;
         }else if(yuzhimonth==((((month+11)%12)==0)?12:((month+11)%12))){
             var dijizhou=1;//第几周
             if(yuzhiday=(lastmonthdays-firstwekday)){
-                dijizhou=0;
+                dijizhou=1;
             }
         }
         var dijitian=(yuzhikecheng.getDay()==0)?7:yuzhikecheng.getDay();

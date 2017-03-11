@@ -118,7 +118,7 @@
                           <?php case "1": ?>外教<?php break; endswitch;?>/
                       <?php switch($contract_data['teacherType']): case "0": ?>普通教师<?php break;?>
                           <?php case "1": ?>名教<?php break; endswitch;?>
-                      课程 <?php echo ($contract_data['classNumber']); ?> 节。</p></li>
+                      课程 <?php if( 1 == $contract_data['packageType']){echo "每日至多一节.";}else{echo $contract_data['classNumber']."节";} ?> </p></li>
                   <li>
                     <p>第三条 甲方有义务针对乙方的课程要求，如对老师的要求以及对上课时间的要求，来为其预约老师上课。</p>
                   </li>
@@ -129,7 +129,7 @@
                     <p>第五条 乙方成为付费学员后，乙方享有提交课程计划安排以及课后完成对老师授课评估的权限。</p>
                   </li>
                   <li>
-                    <p>第六条 本合同终止时间以乙方课时结束为准，课程有效期为 <?php echo ($contract_data['time']); ?> 天,免费延期10天，超出规定期限后每30天加收100元管理费直至课程上完为止，自 
+                    <p>第六条 本合同终止时间以乙方课时结束为准，课程有效期为 <?php echo ($contract_data['time']); ?> 天,免费延期10天，超出规定期限后每30天加收100元管理费直至课程上完为止，自
                     <?php if($onlyreadflag) {?>
                      <?php echo (date('Y-m-d',$contract_data['signTime'])); ?>
                     <?php }else{ ?>
@@ -188,7 +188,7 @@
               <?php if($onlyreadflag){?>
 
               <?php }else{?>
-              <a href="<?php echo U('Student/MySchedule');?>"><button class="btn btn-default">取消返回</button></a>
+              <a href="<?php echo U('Contract/showContract');?>"><button class="btn btn-default">取消返回</button></a>
               <?php }?>
             </div>
            </div>

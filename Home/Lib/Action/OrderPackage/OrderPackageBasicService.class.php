@@ -163,7 +163,7 @@
 		*俞鹏泽
 		*生成关于订购套餐的合同信息
 		*/
-		private function createOrderPackageContract($orderPackageID = null,$StudentID = null){
+		public function createOrderPackageContract($orderPackageID = null,$StudentID = null){
 			$data = array();
 
 			if(is_null($orderPackageID) || is_null($StudentID)){
@@ -213,8 +213,11 @@
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 			import("Home.Action.OrderPackage.OrderPackageFeatureService");
 			import("Home.Action.OrderClass.OrderClassBasicOperate");
+			/**********************/
+			//导包,该类在此用于获取
 			import("Home.Action.OrderClass.stuOrderClassService");
 			$stuOrder = new stuOrderClassService();
+			/**********************/
 			$orderPackageOp = new OrderPackageBasicOperate();
 			$orderClassOp = new OrderClassBasicOperate();
 
@@ -263,12 +266,11 @@
 					//获取现在的时间
 					$nowTime = getTime();
 					//获取改套餐未上的课程
-					$temresult = $orderClassOp->countStudentOneOrderClassNum($StudentID,$value['orderpackageID'],"tp_oneorderclass.classStatus=0 or null");
-
-					//(开始时间+持续时间-现在的时间)/86400-预约的课程
+					$temresult = $orderClassOp
+					->countStudentOneOrderClassNum($StudentID,$value['orderpackageID'],"tp_oneorderclass.classStatus=0 or null");
 					if(empty($startTime)){
 						//持续天数-预约课程
-						$temresult = $time - $temresult;
+						$temresult = $time - (int)$temresult;
 					}else{
 						//持续天数-套餐开始的天数-预约课程
 						$temresult = $time - ($nowTime - $startTime)/86400 - $temresult;

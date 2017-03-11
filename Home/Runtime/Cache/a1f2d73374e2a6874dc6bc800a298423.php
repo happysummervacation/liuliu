@@ -196,7 +196,7 @@
                              <a href="<?php echo U('UserCenter/accessStudent');?>"><i class="fa fa-exchange fa-fw"></i> 接入学生</a>
                         </li>
                         <li>
-                             <a href="<?php echo U('Admin/MyExamination');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
+                             <a href="<?php echo U('UserCenter/showAdminExam');?>"><i class="fa fa-hand-o-right fa-fw"></i> 顾问考核</a>
                         </li>
                          <li>
                              <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-question-circle fa-fw"></i> 顾问须知</a>
@@ -256,6 +256,12 @@
                                                     /
                                                     <?php switch($value['classType']): case "0": ?>一对一<?php break;?>
                                                         <?php case "1": ?>小班<?php break; endswitch;?>
+                                                    /
+                                                    <?php switch($value['teacherType']): case "0": ?>普通<?php break;?>
+                                                        <?php case "1": ?>名师<?php break; endswitch;?>
+                                                    /
+                                                    <?php switch($value['teacherNation']): case "0": ?>中教<?php break;?>
+                                                        <?php case "1": ?>外教<?php break; endswitch;?>
                                                 </td>
                                                 <td style="display:none"><?php echo ($value['studentID']); ?></td>
                                                 <td><?php echo ($value['classNumber']); ?></td>
