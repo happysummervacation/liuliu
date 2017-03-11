@@ -21,7 +21,7 @@
 			$inquiry = new Model("groupstuclasssch");
 			$data = array();
 			$data['groupClassSchID'] = $groupClassSchID;
-			$data['classID'] = $studentID;
+			$data['studentID'] = $studentID;
 			$data['createTime'] = getTime();
 			$result = $inquiry->add($data);
 			if($result){
@@ -31,6 +31,37 @@
 			}else{
 				$message['status'] = false;
 				$message['message'] = "添加学生的课表数据失败";
+				return $message;
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*删除某个学生在某个小班的一节课程(这里的删除一节课就是在逻辑上就是删除一条数据)
+		*/
+		public function deleteStuGroupClass($studentID = null,$groupID = null){
+			$message = array();
+			if(is_null($studentID) || is_null($groupID)){
+				$message['status'] = false;
+				$message['message'] = "缺乏更新时的数据";
+				return $message;
+			}
+
+			$inquiry = new Model("groupstuclasssch");
+
+			$data['tp_groupstuclasssch.isdelete'] = 1;
+
+			$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
+			tp_groupstuclasssch.groupStuClassSchID and tp_groupstuclasssch.studentID={$studentID}
+			inner join tp_group on tp_group.groupID=tp_groupclasssch.groupID and tp_groupclasssch.
+			groupID={$groupID}")->save($data);
+			if($result){
+				$message['status'] = true;
+				$message['message'] = "更新学生的小班数据成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "更新学生的小班数据失败";
 				return $message;
 			}
 		}
