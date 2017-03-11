@@ -1,5 +1,5 @@
 <?php
-	class GroupAction extends Action{
+	class GroupClassAction extends Action{
 		private $systemSet = null;
 		public function __construct(){
             //获取系统设置
@@ -23,9 +23,5 @@
 				$this->error('请先登录',U('Login/Login'));
 				return;
 			}
-		}
-
-		public function GroupManage(){
-			$this->display("Root:GroupManage");
 		}
 	}
