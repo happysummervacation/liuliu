@@ -380,7 +380,7 @@
 				if("onetoone" == $classType){
 					import("Home.Action.OrderClass.OrderClassBasicOperate");
 					$orderClaOp = new OrderClassBasicOperate();
-					$data['status'] = 1;
+					$data['classStatus'] = 1;
 					$updateResult = $orderClaOp->updateOneOrderClassInfo($orderClassID,$data);
 					//暂时不做课程状态修改成功与否的判断
 					// if(!$result['status']){

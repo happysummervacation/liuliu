@@ -26,6 +26,20 @@
 		}
 
 		public function GroupManage(){
+			import("Home.Action.Group.GroupBasicService");
+			import("Home.Action.GroupClassSch.GroupClassSchBasicService");
+			import("Home.Action.GroupClassSch.GroupClassSchCountService");
+			import("Home.Action.GlobalValue.GlobalValue");
+
+			$groBasicOp = new GroupBasicService();
+			$groClassBasicOp = new GroupClassSchBasicService();
+			$groClassCountOp = new GroupClassSchCountService();
+			// $result = $groClassCountOp->countGroupClassWithStatus(1,GlobalValue::notClass.":".GlobalValue.haveClass);
+			// $result = $groClassBasicOp->addOneGroupClassInfo(1,"e5ce31ad9690bbc45d93ccf8376622d6");
+			// $result = $groClassCountOp->countGroupClassWithTeacherStatus(1,7,GlobalValue::notClass);
+			// $groBasicOp->AddGroupService(4,3);
+			dump($result);
+			exit;
 			$this->display("Root:GroupManage");
 		}
 	}

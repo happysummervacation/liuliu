@@ -326,3 +326,26 @@
 				return false;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*将对应的要查询的各种数据
+		*/
+		function transformFieldToFieldString($field = null){
+			$fieldString = "";
+			if(is_array($field)){
+				for ($i = 0; $i < count($field); $i++) {
+                    if($i == count($field)-1){
+                        $fieldString = $fieldString.$field[$i];
+                    }else{
+                        $fieldString = $fieldString.$field[$i].",";
+                    }
+                }
+			}elseif(is_string($field)){
+				$fieldString = $field;
+			}else{     //如果是null,表示查询所有的字段的信息
+				$fieldString = " * ";
+			}
+
+			return $fieldString;
+		}

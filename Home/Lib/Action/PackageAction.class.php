@@ -407,7 +407,9 @@
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 			$opBO = new OrderPackageBasicOperate();
 			if(0 == $identity || "0" == $identity){
-				$result = $opBO->getOrderPackageInfoWithCondition();
+				// $result = $opBO->getOrderPackageInfoWithCondition();
+				$result = $opBO->getOrderPackageInfoWithCondition(
+					"studentID = {$studentID} and isdelete=0 and status=1");
 			}
 			$this->assign("package_list",$result);
 			$this->display("Student:DelayPackage");

@@ -339,5 +339,18 @@
 				}
 			}
 		}
+
+		/*
+		*蒋周杰
+		*获取admin自己分管的学生
+		*/
+		public function getMystudentInfo($adminID){
+			if(is_null($adminID)){
+				return null;
+			}
+			$inquiry = new Model('student');
+			$result = $inquiry->where("student_manage_id = {$adminID}")->select();
+			return $result;
+		}
 	}
  ?>

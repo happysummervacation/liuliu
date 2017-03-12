@@ -42,7 +42,7 @@
 			$studentAccountOp = new StudentAccountOp();
 
 			$field = array();
-			array_push($field,"student_sum_money");
+			array_push($field,"student_sum_money","student_cancel_number");
 			$packageInfo = $packageOp->getPackageInfo($packageID);
 
 			$userInfo = $userOp->getUserInfo("register",$StudentID,null,null,null,$field);
@@ -74,20 +74,20 @@
 			// exit;
 			//创建相应的学生金额
 			$studentMoneyOpResult = true;        //暂时指定为true
-/*
+
 			//创建学生取消课程次数;
 			$countResult = $systemBasOp->getSystemSet();
-			// dump($countResult);
-			// dump($countResult['cancelClassRate']);
-			$canelcClassCount = $packageInfo['0']['class_number']/$countResult['cancelClassRate'];
-*/
+			$canelcClassCount['student_cancel_number'] = $packageInfo['0']['class_number']/$countResult['cancelClassRate'];
+			$canelcClassCount['student_cancel_number'] += $userInfo[0]['student_cancel_number'];
+			$cancelresult = $userOp->updateUserInfo($StudentID,null,$canelcClassCount);
+
 			//记录一份学生金额操作记录
 			$dataOfAccountOpRecord = $this->createStudentAccountOp($packageInfo,$StudentID);
 			$studentAccoutOpResult = $studentAccountOp
 			->addStudentAccountOpRecord($dataOfAccountOpRecord);
 
 			if($orderPackageResult['status'] && $studentContractResult['status'] &&
-			$moneyResult['status'] && $studentAccoutOpResult['status'] ){       //如果成功就进行
+			$moneyResult['status'] && $studentAccoutOpResult['status'] && $cancelresult['status']){       //如果成功就进行
 				$inquiry->commit();
 				$message['status'] = true;
 				$message['message'] = "购买套餐成功";
@@ -238,7 +238,8 @@
 			 and tp_teoneclasssalary.teacherType=tp_orderpackage.teacherType and classType=0
 			 and tp_teoneclasssalary.scategory=tp_orderpackage.category and
 			 tp_teoneclasssalary.isLastest=1 and tp_orderpackage.status=1
-			 inner join tp_packageconfig on tp_packageconfig.packageconID=tp_orderpackage.category";
+			 inner join tp_packageconfig on tp_packageconfig.packageconID=tp_orderpackage.category
+			 and tp_orderpackage.studentID = {$StudentID}";
 			 $inquiry = new Model();
 			 $orderPackageResult = $inquiry->query($sql);
 

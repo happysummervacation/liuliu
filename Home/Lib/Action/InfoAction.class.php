@@ -376,7 +376,11 @@
 						$this->assign("student_list",$result);
 						$this->display("Admin:MyStudent");
 					}elseif("myStudent" == $isMystudent){
-						$result = $userBasOp->getUserInfo('student');
+						// $result = $userBasOp->getUserInfo('student');
+						import("Home.Action.User.UserBasicService");
+						$userBS = new UserBasicService();
+						$result = $userBS->getMystudentInfo($_SESSION['ID']);
+
 						$this->assign("students",$result);
 						$this->display("Admin:CheckStudent");
 					}else{

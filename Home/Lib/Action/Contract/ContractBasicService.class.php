@@ -35,6 +35,7 @@
 				$message['message'] = "签署合同成功";
 				return $message;
 			}else{
+				$inquiry->rollback();
 				$message['status'] = false;
 				$message['message'] = "签署合同失败";
 				return $message;

@@ -497,7 +497,7 @@
 											<div class="form-group">
 												<label for="lastname" class="col-sm-2 control-label">微信</label>
 												<div class="col-sm-10">
-													<input value="<?php echo ($teacherInfoResult['0']['weixin']); ?>" id="wechat" type="text" name="wechat" class="form-control" placeholder="微信">
+													<input value="<?php echo ($teacherInfoResult['0']['weixin']); ?>" id="weixin" type="text" name="weixin" class="form-control" placeholder="微信">
 												</div>
 											</div>
                                             <div class="form-group">
@@ -730,7 +730,7 @@
               $("#email").val(data.email);
               $("#phone").val(data.phone);
               $("#qq").val(data.QQ);
-              $("#wechat").val(data.weixin);
+              $("#weixin").val(data.weixin);
               $("#age").val(data.age);
               $("#country").val(data.country);
               $("#sex").val(data.sex);
