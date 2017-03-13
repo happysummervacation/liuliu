@@ -37,5 +37,79 @@
 			}
 		}
 
+		/*
+		*俞鹏泽
+		*根据各种条件查询某个小班的课程信息
+		*/
+		//参数一:表示小班
+		//参数二:表示是哪个教师
+		//参数三:要查询的数据字段  支持数据,字符串,null(其中直接包含评论的数据,所以查询时不用包含评论的数据)
+		//参数四:开始时间(时间戳)   这里的时间指的是课程开始时间以及结束时间
+		//参数五:结束时间
+		public function getOneGroupClassSchInfo($groupID = null,$teacherID = null,$field = null,
+		$startTime = null,$endTime = null){
+			if(is_null($groupID)){
+				return null;
+			}
+			$fieldString = "";
+			$fieldString = transformFieldToFieldString($field);
+
+			$teaCondition = "";
+			if(!is_null($teacherID)){
+				$teaCondition = " tp_class.teacherID={$teacherID} ";
+			}
+
+			$inquiry = new Model();
+
+			if(is_null($startTime) || is_null($endTime)){
+				$result = $inquiry
+				->table("tp_group,tp_groupclasssch,tp_groupteachercom,tp_class,tp_teacher")
+				->where("tp_group.groupID=tp_groupclasssch.groupID and tp_groupclasssch.isdelete=0
+				and tp_class.classID=tp_groupclasssch.classID and tp_class.teacherID=tp_teacher.ID
+				and if(tp_groupclasssch.gteacherComment is null,'1=1','tp_groupclasssch.
+				gteacherComment=tp_groupteachercom.groupTeacherComID')")
+				->field("if(tp_groupclasssch.gteacherComment is null,'','tp_groupteachercom.*,') {$fieldString}")
+				->select();
+			}else{
+				$result = $inquiry
+				->table("tp_group,tp_groupclasssch,tp_groupteachercom,tp_class,tp_teacher")
+				->where("tp_group.groupID=tp_groupclasssch.groupID and tp_groupclasssch.isdelete=0
+				and tp_class.classID=tp_groupclasssch.classID and tp_class.teacherID=tp_teacher.ID
+				and tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime}
+				and if(tp_groupclasssch.gteacherComment is null,'1=1','tp_groupclasssch.
+				gteacherComment=tp_groupteachercom.groupTeacherComID')")
+				->field("if(tp_groupclasssch.gteacherComment is null,'','tp_groupteachercom.*,') {$fieldString}")
+				->select();
+			}
+
+			return $result;
+		}
+
+		/*
+		*俞鹏泽
+		*该函数主要用来更新小班的课程数据
+		*/
+		//参数一:表示小班课程数据的ID
+		//参数二:表示要更新的小班的课程数据
+		public function updateOneGroupClassSchInfo($groupClassSchID = null,$Data = null){
+			$message = array();
+			if(is_null($groupClassSchID) || is_null($Data)){
+				$message['status'] = false;
+				$message['message'] = "缺乏更新的重要数据";
+				return $message;
+			}
+
+			$inquiry = new Model("groupclasssch");
+			$result = $inquiry->where("groupClassSchID={$groupClassSchID}")->save($Data);
+			if($result || 0 == $result){
+				$message['status'] = true;
+				$message['message'] = "更新小班课程数据成功";
+				return $message;
+			}else{
+				$message['status'] = false;
+				$message['message'] = "更新小班课程数据失败";
+				return $message;
+			}
+		}
 
 	}

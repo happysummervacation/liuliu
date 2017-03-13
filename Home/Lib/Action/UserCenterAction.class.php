@@ -96,6 +96,20 @@
 			}elseif($identity == 2 || $identity == "2"){
 				$this->display("Admin:index");
 			}elseif($identity == 4 || $identity == "4"){
+				import("Home.Action.Money.TeaSalaryService");
+				import("Home.Action.Money.MoneyBasicService");
+				import("Home.Action.GlobalValue.GlobalValue");
+				$op = new TeaSalaryService();
+				$salaryOp = new MoneyBasicService();
+				// $result = $op->getTeacherOneClassSalarySet(18,null,null,1488297600,1490976000);
+				$saResult = $salaryOp->getTeaOneClassSalaryInfo(19,GlobalValue::haveClass.":".GlobalValue::notClass,1488297600,1490976000);
+				exit;
+
+
+
+
+
+
 				import("Home.Action.User.UserFeatrueOperate");
 				$userFO = new UserFeatrueOperate();
 				$admin1Num = $userFO->getpeopleNum('tp_admin',1);
@@ -104,6 +118,8 @@
 				$student0Num = $userFO->getpeopleNum('tp_student',0);
 				$teacher1Num = $userFO->getpeopleNum('tp_teacher',1);
 				$teacher0Num = $userFO->getpeopleNum('tp_teacher',0);
+				addWebsiteTime($this);
+
 				$this->assign("admin1Num",$admin1Num);
 				$this->assign("admin0Num",$admin0Num);
 				$this->assign("student1Num",$student1Num);

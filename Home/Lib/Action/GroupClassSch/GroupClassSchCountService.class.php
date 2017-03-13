@@ -39,7 +39,7 @@
 			}else{   //表示在对应时间段之内进行数据查询
 				$result = $inquiry->join("inner join tp_class on tp_class.classID=tp_groupclasssch.
 				classID and groupID={$groupID} and tp_groupclasssch.isdelete=0 and
-				classStartTime>={$startTime} and classEndTime<={$$endTime}")
+				classStartTime>={$startTime} and classEndTime<={$endTime}")
 				->count("{$statusString}");
 			}
 

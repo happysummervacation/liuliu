@@ -43,11 +43,31 @@
 			$this->display("Root:GroupManage");
 		}
 
-		public function GroupClassRecode(){
-			$this->display("Root:GroupClassRecode");
-		}
+		
 
 		public function GroupStudentManage(){
-			$this->display("Root:GroupStudentManage");
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if(2 == $identity || '2' == $identity){
+
+			}elseif(4 == $identity || '4' == $identity){
+				$this->display("Root:GroupStudentManage");
+			}else{
+				$this->error("你没有权限访问该网页");
+			}
+		}
+
+		public function GroupHistory(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if(2 == $identity || '2' == $identity){
+
+			}elseif(4 == $identity || '4' == $identity){
+				$this->display("Root:GroupHistory");
+			}else{
+				$this->error("你没有权限访问该网页");
+			}
 		}
 	}

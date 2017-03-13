@@ -93,12 +93,16 @@
 			}
 
 			$addData = array();
+			import("Home.Action.GlobalValue.GlobalValue");
+			//现在最新的数据的结束时间都是通过GlobalValue中的数据进行获取
+			//方便后期计算时的方便
 			if($type == 0){
 				$addData['teacherID'] = $teacherID;
 				$addData['teacherType'] = $data[1];
 				$addData['scategory'] = $data[0];
 				$addData['price'] = $data[2];
 				$addData['vStartTime'] = getTime();
+				$addData['vEndTime'] = GlobalValue::initOrderPackageTime;
 				return $addData;
 			}elseif($type == 1){
 				$addData['teacherID'] = $teacherID;
@@ -106,6 +110,7 @@
 				$addData['scategory'] = $data[1];
 				$addData['price'] = $data[3];
 				$addData['vStartTime'] = getTime();
+				$addData['vEndTime'] = GlobalValue::initOrderPackageTime;
 				return $addData;
 			}else{
 				return null;
@@ -124,7 +129,45 @@
 			$inquiry = new Model('studentopaccount');
 			$result = $inquiry->where("student_id = {$studentID}")->select();
 			return $result;
+		}
 
+		/*
+		*俞鹏泽
+		*获取教师对应时间的课程情况以及工资情况
+		*/
+		//参数一:表示教师
+		//参数二:表示要查询的查询的课程的状态有那些  多种状态使用   ***:***:***
+		//参数三:表示开始时间(时间戳)
+		//参数四:表示结束时间
+		public function getTeaOneClassSalaryInfo($teacherID = null,$classStatus = null,
+		$startTime = null,$endTime = null){
+			if(is_null($teacherID) || is_null($classStatus)){
+				return null;
+			}
+			//先获取教师在指定时间内的工资,以及有效时间的的分布情况
+			import("Home.Action.Money.TeaSalaryService");
+			import("Home.Action.OrderClass.OrderClassCountService");
+			import("Home.Action.GlobalValue.GlobalValue");
+			$teaSalarySetOp = new TeaSalaryService();
+			$orderClassCountOp = new OrderClassCountService();
+
+			//获取查询对应时间的课程,价格分布
+			$teaSalarySetResult = $teaSalarySetOp->getTeacherOneClassSalarySet($teacherID,null,
+			"teacherType,scategory,packageName,price,vStartTime,vEndTime,isLastest",$startTime,$endTime);
+
+			$classStatus = explode(":",$classStatus);
+
+			foreach ($teaSalarySetResult as $key => $value) {
+				//表示要查询几次相应状态的数据结果
+				foreach ($classStatus as $c_key => $c_value) {
+					$temResult = "";
+					$temResult = $orderClassCountOp->countTeaHaveClass($teacherID,$value['scategory'],
+					$c_value,$startTime,$endTime);
+					$teaSalarySetResult[$key][$c_value] = $temResult;
+				}
+			}
+
+			return $teaSalarySetResult;
 		}
 	}
  ?>

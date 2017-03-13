@@ -349,3 +349,11 @@
 
 			return $fieldString;
 		}
+
+		/*
+		*俞鹏泽
+		*该函数统一为各个函数提供系统时间
+		*/
+		function addWebsiteTime($object = null){
+			$object->nowtime = getTime();
+		}

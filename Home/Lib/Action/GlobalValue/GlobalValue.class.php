@@ -7,6 +7,8 @@
 
 		const notClass = "notClass";   //表示没有上课
 		const haveClass = "haveClass";   //表示正常上课
+		const teaMissClass = "teaMissClass";   //表示教师缺席
+		const teaCancelClass = "teaCancelClass"; //表示教师退课
 
 		const dayComment = '0';   //表示评论的类型是日评
 

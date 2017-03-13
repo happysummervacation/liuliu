@@ -35,7 +35,7 @@
     <!-- 时间选择插件 -->
     <link rel="stylesheet" type="text/css" href="__PUBLIC__/tool/flatpickr.min.css">
 
-
+    
     <style type="text/css">
       .sgBtn{width: 135px; height: 35px; line-height: 35px; margin-left: 10px; margin-top: 10px; text-align: center; background-color: #0095D9; color: #FFFFFF; float: left; border-radius: 5px;}
     </style>
@@ -288,7 +288,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">小班课学生管理</h1>
+                        <h1 class="page-header">小班课管理</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -297,45 +297,38 @@
                   <div class="col-lg-12">
                       <div class="panel panel-default"  style="border-radius: 0px;">
                         <div class="panel-heading">
-                          小班学生管理
+                          小班历史                          
                         </div>
                         <div class="panel-body" style="overflow: auto;">
                             <div class="dataTable_wrapper" style="max-width: 100%;">
                               <table class="table table-striped table-bordered table-hover" id="dataTables-example2" style="max-width: 100%;">
                                 <thead>
                                   <tr>
-                                    <th>次数</th>
-                                    <th>时间</th>
-                                    <th>状态</th>
-                                    <th>教师评价</th>
-                                    <th>操作</th>
+                                    <th>小班课编号</th>
+                                    <th>小班课名称</th>
+                                    <th>任课教师</th>
+                                    <th>学生信息</th>
+                                    <th>课程教材</th>
+                                    <th>课程历史</th>
                                   </tr>
                                 </thead>
                                 <tbody>
                                   <tr>
-                                    <td value='classid'>1</td>
-                                    <td>2016-3-3 16:00-16:30</td>
-                                    <td>正常上课</td>
-                                    <td>A</td>
-                                    <td>
-                                      <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-default modifystatus" type="button">修改状态</button>
-                                        <button class="btn btn-default classnote" type="button">查看笔记</button>
-                                        <button class="btn btn-default teacherreturnclass" type="button">老师退课</button>
-                                      </div>
-                                    </td>
+                                    <td>01</td>
+                                    <td>A小班</td>
+                                    <td><a href="">Simon</a></td>
+                                    <td><a href="#" class="getstulist">学生列表</a></td>
+                                    <td><a href="">雅思初级上(1)</a></td>
+                                    <td><a href="#" class="getclasslist">点击查看</a></td>
                                   </tr>
                                 </tbody>
                               </table>
                             </div>
-                        </div>
-                        <div class="panel-footer clearfix">
-                          <button class="btn btn-primary pull-right addclass"> 添加课时</button>
-                        </div>
+                          </div>
                       </div>
                     </div>
                 </div>
-
+  
             </div>
             <!-- /.container-fluid -->
         </div>
@@ -343,105 +336,63 @@
 
     </div>
     <!-- /#wrapper -->
-    <!-- 修改课程状态 -->
-    <div class="modal fade" id="changeclassstatus" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- 学生列表 -->
+    <div class="modal fade" id="studentlist" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">修改课程状态</h4>
+            <h4 class="modal-title" id="myModalLabel1">Modal title</h4>
           </div>
           <div class="modal-body">
-            <form class="form" action="<?php echo U('Group:...');?>" method="post">
-              <div class="form-group">
-                <label>修改课程状态</label>
-                <select class="form-control">
-                  <option value="">daiding</option>
-                  <option></option>
-                </select>
-              </div>
-
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>学生ID</td>
+                  <td>学生姓名</td>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary">保存修改</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
           </div>
-          </form>
         </div>
       </div>
     </div>
-    <!-- //模态框1 -->
-
-    <!-- 添加课时 -->
-    <div class="modal fade" id="addclass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <!-- 学生列表 -->
+    <div class="modal fade" id="classhistory" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">添加课时</h4>
-          </div>
-          <div class="modal-body clearfix">
-            <form class="form row" action="<?php echo U('Group:...');?>" method="post">
-              <div class="form-group col-lg-4">
-                <label>选择课程时间</label>
-                <input type="text" name="classtime" class="form-control calendar">
-              </div>
-              <div class="form-group col-lg-5">
-                <label>课程次数(每周相同时间添加课程)</label>
-                <input type="number" name="times" class="form-control addtimes" min=1>
-              </div>
-              <div class="form-group col-lg-2">
-                <label style="visibility: hidden;">确认时间</label><br>
-                <button class="btn btn-default makesuretime" type="button" disabled="disabled">确认时间</button>
-              </div>
-            </form>
-            <div class="row">
-              <table class="table" id="cleartime">
-                <thead>
-                  <tr>
-                    <th>第几周</th>
-                    <th>具体时间</th>
-                  </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-              </table>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary submit" disabled="disabled">保存修改</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-    <!-- //模态框2 -->
-    <!-- 查看笔记 -->
-    <div class="modal fade" id="classnote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">查看课程笔记</h4>
+            <h4 class="modal-title" id="myModalLabel2">Modal title</h4>
           </div>
           <div class="modal-body">
-            <form class="form" action="<?php echo U('Group:...');?>" method="post">
-              <div class="form-group">
-                <label>课程笔记</label>
-                <textarea class="form-control"></textarea>
-              </div>
-            </form>
+            <table class="table">
+              <thead>
+                <tr>
+                  <td>课程序号</td>
+                  <td>上课时间</td>
+                  <td>课程状态</td>
+                  <td>课程备注</td>
+                  <td>笔记下载</td>
+                </tr>
+              </thead>
+              <tbody>
+                
+              </tbody>
+            </table>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
           </div>
-
         </div>
       </div>
     </div>
-    <!-- //模态框3 -->
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
 
@@ -466,33 +417,6 @@
     <script src="__PUBLIC__/tool/flatpickr.min.js"></script>
 
     <script src="__PUBLIC__/js/time.js"></script>
-    <script type="text/javascript">
-      // 对Date的扩展，将 Date 转化为指定格式的String
-      // 月(M)、日(d)、小时(h)、分(m)、秒(s)、季度(q) 可以用 1-2 个占位符，
-      // 年(y)可以用 1-4 个占位符，毫秒(S)只能用 1 个占位符(是 1-3 位的数字)
-      // 例子：
-      // (new Date()).Format("yyyy-MM-dd hh:mm:ss.S") ==> 2006-07-02 08:09:04.423
-      // (new Date()).Format("yyyy-M-d h:m:s.S")      ==> 2006-7-2 8:9:4.18
-      Date.prototype.Format = function (fmt) { //author: meizz
-          var o = {
-              "M+": this.getMonth() + 1, //月份
-              "d+": this.getDate(), //日
-              "h+": this.getHours(), //小时
-              "m+": this.getMinutes(), //分
-              "s+": this.getSeconds(), //秒
-              "q+": Math.floor((this.getMonth() + 3) / 3), //季度
-              "S": this.getMilliseconds() //毫秒
-          };
-          if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
-          for (var k in o)
-          if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
-          return fmt;
-      }
-      //跳转，url为传入参数
-      function load(url){
-        window.location.href=url;
-      }
-    </script>
 
     <script type="text/javascript">
       //初始化表格
@@ -501,92 +425,54 @@
                   responsive: true
           });
       });
-      //时间选择器初始化
-      $(".calendar").flatpickr({
-        "enableTime": true,
-        "minuteIncrement":30,
-        "time_24hr": true,
-        "minDate":new Date(),
-      });
-      $("input[name='classtime']").change(function(){
-        if($(this).val()!=""&&$("input[name='times']").val()!=""){
-          $('.makesuretime').removeAttr('disabled');
-        }else{
-          $('.makesuretime').attr('disabled','disabled');
-        }
-      });
-      $("input[name='times']").change(function(){
-        if($(this).val()!=""&&$("input[name='classtime']").val()!=""){
-          $('.makesuretime').removeAttr('disabled');
-        }else{
-          $('.makesuretime').attr('disabled','disabled');
-        }
-      });
-      $('.modifystatus').click(function(){
-        $('#changeclassstatus').modal();
-      });
-      $('.addclass').click(function(){
-        $('#addclass').modal();
-      });
-      var times=[];
-      $('.makesuretime').click(function(){
-        var str="";
-        times[0]=($('.calendar').val());
-        str=str+'<tr><td>第1周</td><td>'+times[0]+"</td></tr>";
-        var length=$('.addtimes').val();
-        for (var i = 0; i < length-1; i++) {
-          str=str+'<tr><td>第'+(i+2)+'周</td>';
-          var temp = new Date(times[i]);
-          temp.setDate(temp.getDate() + 7);
-          var t=temp.Format("yyyy-MM-dd hh:mm");
-          times[i+1]=t;
-          str=str+'<td>'+times[i+1]+'</td></tr>';
-        }
-        $('#cleartime').find('tbody').html(str);
-        $('.submit').removeAttr('disabled');
-      });
-      $('.submit').click(function(){
-        var data=JSON.stringify(times);
-        $.ajax({
-          url:'<?php echo U("Group:Group...");?>',
-          type:'post',
-          data:data,
-          success:function (msg){
-
-          },
-          error:function (msg){
-
-          }
-        });
-      });
-
-      //查看课程笔记
-      $('.classnote').click(function(){
+      //点击获取学生名单
+      $('.getstulist').click(function(){
         var data={};
-        data.classid=$(this).parents('tr').find('td').eq(0).attr('value');
+        data.class_id=$(this).parents('tr').find('td').eq(0). html();
         $.ajax({
-          url:'<{...}>',
-          type:'post',
-          data:data,
+          url:"<?php echo U('Group/GetStudentListByClassID');?>",
+          type:'POST',
+          data:data,//发送课程的编号
           success:function(msg){
-            $('#classnote').find('textarea').html(msg);
+            var str=""
+            for (var i = msg.length - 1; i >= 0; i--) {
+              //拼接字符串填写到表格中
+              str=str+"<tr><td>"+msg[i]['studentid']+"</td><td>"+msg[i]['student']+"</td></tr>";
+            }
+            $('#studentlist').find('tbody').html(str);
+            $('#studentlist').modal();
+          },
+          error:function(err){
+            alert(err);
           }
         })
-        $('#classnote').modal();
       });
 
-      //老师退课
-      $('.teacherreturnclass').click(function(){
+
+      //这里获取这个小班的课程历史记录
+      $('.getclasslist').click(function(){
         var data={};
-        data.classid=$(this).parents('tr').find('td').eq(0).attr('value');
-        if(confirm('教师退课将不消耗学生课时！\n请确认您的操作！')){
-          window.location.href='<{...}>'//记得加上data数据
-        }else{
-          return;
-        }
+        data.class_id=$(this).parents('tr').find('td').eq(0). html();
+        $.ajax({
+          url:"<?php echo U('Group/GetClassListByClassID');?>",
+          type:'POST',
+          data:data,//发送课程的编号
+          success:function(msg){
+            var str=""
+            for (var i = msg.length - 1; i >= 0; i--) {
+              //拼接字符串填写到表格中
+              str=str+"<tr><td>"+msg[i]['classid']+"</td><td>"+msg[i]['classtime']+"</td><td>"+msg[i]['classstatus']+"</td><td>"+msg[i]['desc']+"</td><td>"+msg[i]['note']+"</td></tr>";
+            }
+            $('#studentlist').find('tbody').html(str);
+            $('#classhistory').modal();
+          },
+          error:function(err){
+            alert(err);
+          }
+        })
       });
     </script>
-
+  
 </body>
 
 </html>

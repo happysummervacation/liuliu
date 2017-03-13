@@ -24,4 +24,21 @@
 				return;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*用于外部访问时的小班课程时的接口
+		*/
+		public function GroupClassRecode(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			if(2 == $identity || '2' == $identity){
+
+			}elseif(4 == $identity || '4' == $identity){
+				$this->display("Root:GroupClassRecode");
+			}else{
+				$this->error("你没有权限访问该网页");
+			}
+		}
 	}
