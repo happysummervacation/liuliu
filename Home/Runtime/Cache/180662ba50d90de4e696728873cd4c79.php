@@ -339,7 +339,7 @@
                                             <td><?php echo ($packageList['time']); ?></td>
                                             <td>
                                                 <button class="btn btn-default modifypackage" data-toggle="modal" data-target="#packagemodify">修改</button>
-                                                <button class="btn btn-danger" onclick="deletePackage()">删除</button>
+                                                <button class="btn btn-danger deletePackage">删除</button>
                                                 <span style="display: none" name='description'><?php echo ($packageList['package_content']); ?></span>
                                             </td>
 
@@ -646,12 +646,20 @@
             }
         }
 
-        function deletePackage(){
-            var packageId=$('.modifypackage').parents('tr').children().eq(0).html();
+        // function deletePackage(){
+        //     var packageId=$('.modifypackage').parents('tr').children().eq(0).html();
+        //     if(confirm('确认删除套餐?')){
+        //         window.location.href="<?php echo U('Package/packageManage');?>/type/delete/packageID/"+packageId;
+        //     }
+        // }
+        $('.deletePackage').click(function(){
+			var packageId = $(this).parents('tr').children().eq(0).html();
+            alert(packageId);
+            return;
             if(confirm('确认删除套餐?')){
                 window.location.href="<?php echo U('Package/packageManage');?>/type/delete/packageID/"+packageId;
             }
-        }
+		})
 
         function changsubmit(){
             if(confirm('确认提交?')){

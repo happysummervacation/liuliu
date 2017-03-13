@@ -25,22 +25,65 @@
 			import("Home.Action.OrderClass.OrderClassFeatureService");
 			//获取各类套餐订购的课时数据是哪些
 			$dealOrderclassResult = OrderClassFeatureService::dealOrderClassData($data);
-
-			//判断使用的套餐是否使用了卡类的套餐,如果有使用卡类套餐就进行同一时间段的判断
-			foreach ($dealOrderclassResult as $key => $value) {
-
-			}
-
 			//对获取到的课程数据进行时间上的筛选
 			/*主要是:
 			*1.卡类套餐同一天的过滤
 			*2.所有要订购的课程时间与已经订购的课程数据时间的同一时间交集的过滤
 			*/
+			//判断使用的套餐是否使用了卡类的套餐,如果有使用卡类套餐就进行同一时间段的判断
+			$orderClassTimeArr = array();
+			import("Home.Action.OrderClass.OrderClassFeatureService");
+			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
+			import("Home.Action.Class.ClassBasicOperate");
+			import("Home.Action.OrderClass.stuOrderClassService");
+			import("Home.Action.GlobalValue.GlobalValue");
+
+			$stuOrdClassOp = new stuOrderClassService();
+			$ordPacOp = new OrderPackageBasicOperate();
+			$classOp = new ClassBasicOperate();
+			foreach ($dealOrderclassResult as $key => $value) {
+				$temPacInfo = $ordPacOp->getOneOrderPackageInfo($key,"packageType");
+				//如果是卡类套餐,还要获取使用该卡类套餐订购的未上课程的时间
+				if(1 == $temPacInfo[0]['packageType'] || "1" == $temPacInfo[0]['packageType']){
+					$temDealArr = array();
+					foreach ($value as $t_key => $t_value) {
+						$temresult = 0;
+						$temresult = $classOp->getClassInfo($t_value,"tp_class.classStartTime")[0];
+						$temDealArr = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass,$key,"tp_class.classStartTime");
+						if(empty($temDealArr)){
+							$temDealArr = array();
+						}
+						array_push($temDealArr,$temresult);
+					}
+					if(!OrderClassFeatureService::JudgeSameDay($temDealArr)){
+						$message['status'] = false;
+						$message['message'] = "卡类套餐有同一天的时间";
+						return $message;
+					}
+				}
+				//获取所有提交上来的课程的开始时间与结束时间,在下面有使用
+				foreach ($value as $t_key => $t_value) {
+					$temresult = 0;
+					$temresult = $classOp->getClassInfo($t_value,"tp_class.classStartTime,tp_class.classEndTime")[0];
+					array_push($orderClassTimeArr,$temresult);
+				}
+			}
+
+			//获取所有未上课的数据用来判断是否有重叠的时间段课程
 			import("Home.Action.OrderClass.stuOrderClassService");
 			import("Home.Action.GlobalValue.GlobalValue");
 			$stuOrdClassOp = new stuOrderClassService();
-			$result = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass);
-
+			$notClassResult = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass,
+				null,"tp_class.classStartTime,tp_class.classEndTime");
+			//判断有预定的课程的数据与未上的课程的数据是否有时间上的重叠
+			$judgeResult = OrderClassFeatureService::JudgeTimes($notClassResult,$orderClassTimeArr);
+			if(!$judgeResult){
+				$message['status'] = false;
+				$message['message'] = "课程中有重复时间段的课程";
+				return $message;
+			}
+/*******************************   上面是对课程的过滤  ************************/
+/*******************************   下面是对课程的数据库写入   *************************/
 			/*
 			这里如果有必要还可以进行每个套餐的剩余可订购的课程数和现有的要处理的课程数量的比较
 			防止课程的多订

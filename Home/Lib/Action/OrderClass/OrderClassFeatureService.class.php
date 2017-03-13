@@ -63,5 +63,54 @@
 			return $orderClassData;
 		}
 
+		/*
+		*俞鹏泽
+		*判断两个时间集合是否有时间交集(主要是用来判断课程时间是否有重复)
+		*如果有时间交集就直接进行返回false,如果没有时间交集就返回true
+		*/
+		public static function JudgeTimes($firstTime = null,$secondTime = null){
+			if(is_null($firstTime) || is_null($secondTime)){
+				return true;   //表示没有时间交集
+			}
+
+			foreach ($firstTime as $f_key => $f_value) {
+				foreach ($secondTime as $s_key => $s_value) {
+					if((int)$f_value['classStartTime'] > (int)$s_value['classEndTime'] ||
+					(int)$f_value['classEndTime'] < (int)$s_value['classStartTime']){
+
+					}else{
+						return false;
+					}
+				}
+			}
+
+			//跳出循环表示没有重复的时间段
+			return true;
+		}
+
+		/*
+		*俞鹏泽
+		*判断卡类套套餐是否有同一天的数据
+		*/
+		//如果有同一天的数据,返回false;
+		//如果都没有同一天的数据,就true;
+		public static function JudgeSameDay($time = null){
+			if(is_null($time)){
+				return true;
+			}
+
+			$judgeArray = array();
+			foreach ($time as $key => $value) {
+				//$value是时间戳
+				$day = date('Y-m-d',$value);
+				if(empty($judgeArray[$day])){
+					$judgeArray[$day] = 0;
+				}else{
+					return false;
+				}
+			}
+			//跳出循环表示没有同一天的数据
+			return true;
+		}
 	}
  ?>
