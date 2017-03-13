@@ -240,7 +240,7 @@ user-select: none;
                             <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
                         </li>
                         <li>
-                            <a href="<?php echo U('Teacher/MyContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
+                            <a href="<?php echo U('Contract/showContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
                         </li>
                         <li>
                             <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
@@ -679,7 +679,7 @@ user-select: none;
         }else if(yuzhimonth==((((month+11)%12)==0)?12:((month+11)%12))){
             var dijizhou=1;//第几周
             if(yuzhiday=(lastmonthdays-firstwekday)){
-                dijizhou=0;
+                dijizhou=1;
             }
         }
         var dijitian=(yuzhikecheng.getDay()==0)?7:yuzhikecheng.getDay();

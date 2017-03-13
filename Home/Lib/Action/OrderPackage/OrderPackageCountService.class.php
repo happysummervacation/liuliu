@@ -49,4 +49,6 @@
 			$num = $inquiry->query($sql);
 			return $num[0]['num'];
 		}
+
+
 	}

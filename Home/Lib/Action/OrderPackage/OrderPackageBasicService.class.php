@@ -249,7 +249,11 @@
 				//由于数据是一个个迭代下去的,所以套餐和套餐对应的课程剩余数据是相同
 				$tem = array();
 				$temresult = 0;
-				$temresult = $orderClassOp->countStudentOneOrderClassNum($StudentID,$value['orderpackageID']);
+				if('0' == $value['packageType'] || 0 == $value['packageType']){
+					$temresult = $orderClassOp->countStudentOneOrderClassNum($StudentID,$value['orderpackageID']);
+				}elseif('1' == $value['packageType'] || 1 == $value['packageType']){
+					$temresult = $orderClassOp->countStudentOneOrderClassTime($value['orderpackageID']);
+				}
 				$tem['orderpackageID'] = $value['orderpackageID'];
 				$tem['haveClass'] = $temresult;
 				array_push($orderClassResult,$tem);

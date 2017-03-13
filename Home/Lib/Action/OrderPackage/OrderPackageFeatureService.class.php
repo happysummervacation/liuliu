@@ -20,8 +20,16 @@
 					$temString = "";
 
 					$tem['orderpackageID'] = $value['orderpackageID'];
-					$tem['packageNum'] = ((int)$value['classNumber']
-					+(int)$value['otherClass']);
+					// $tem['packageNum'] = ((int)$value['classNumber']
+					// +(int)$value['otherClass']);
+
+					if(0 == $value['packageType']){
+						$tem['packageNum'] = ((int)$value['classNumber']
+						+(int)$value['otherClass']);
+					}elseif(1 == $value['packageType']){
+						$tem['packageNum'] = (int)$value['haveClass'];
+					}
+
 					if((int)$value['packageType'] == 0){
 						$temString = "课时类";
 					}else{
@@ -45,8 +53,16 @@
 					$temString = "";
 
 					$tem['orderpackageID'] = $orderPacResult[$i]['orderpackageID'];
-					$tem['packageNum'] = ((int)$orderPacResult[$i]['classNumber']
+					// $tem['packageNum'] = ((int)$orderPacResult[$i]['classNumber']
+					// +(int)$orderPacResult[$i]['otherClass'] - (int)$orderClaResult[$i]['haveClass']);
+
+					if(0 == $orderPacResult[$i]['packageType']){
+						$tem['packageNum'] = ((int)$orderPacResult[$i]['classNumber']
 					+(int)$orderPacResult[$i]['otherClass'] - (int)$orderClaResult[$i]['haveClass']);
+					}elseif(1 == $orderPacResult[$i]['packageType']){
+						$tem['packageNum'] = (int)$orderClaResult[$i]['haveClass'];
+					}
+
 					if((int)$orderPacResult[$i]['packageType'] == 0){
 						$temString = "课时类";
 					}else{

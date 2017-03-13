@@ -23,7 +23,24 @@
 
 			//对获取到的数据先进行处理
 			import("Home.Action.OrderClass.OrderClassFeatureService");
+			//获取各类套餐订购的课时数据是哪些
 			$dealOrderclassResult = OrderClassFeatureService::dealOrderClassData($data);
+
+			//判断使用的套餐是否使用了卡类的套餐,如果有使用卡类套餐就进行同一时间段的判断
+			foreach ($dealOrderclassResult as $key => $value) {
+
+			}
+
+			//对获取到的课程数据进行时间上的筛选
+			/*主要是:
+			*1.卡类套餐同一天的过滤
+			*2.所有要订购的课程时间与已经订购的课程数据时间的同一时间交集的过滤
+			*/
+			import("Home.Action.OrderClass.stuOrderClassService");
+			import("Home.Action.GlobalValue.GlobalValue");
+			$stuOrdClassOp = new stuOrderClassService();
+			$result = $stuOrdClassOp->getStudentOneOrderClassWithStatus($studentID,GlobalValue::notClass);
+
 			/*
 			这里如果有必要还可以进行每个套餐的剩余可订购的课程数和现有的要处理的课程数量的比较
 			防止课程的多订

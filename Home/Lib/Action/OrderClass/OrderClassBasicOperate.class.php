@@ -29,6 +29,28 @@
 		}
 
 		/*
+		蒋周杰
+		统计某一套餐到期的剩余天数
+		*/
+		public function countStudentOneOrderClassTime($orderpackageID = null){
+			if(is_null($orderpackageID)){
+				return null;
+			}
+			$nowTime = getTime();
+			$inquiry = new Model('orderpackage');
+			$packageTime = $inquiry
+			->where("orderpackageID={$orderpackageID}")
+			->field(array('endTime','startTime','time'))
+			->select();
+
+			if(0 == ((int)$packageTime[0]['endTime'] - (int)$packageTime[0]['startTime'])){
+				return $packageTime[0]['time'];
+			}else{
+				return (string)(int)(((int)$packageTime[0]['endTime'] - $nowTime)/86400);
+			}
+		}
+
+		/*
 		*俞鹏泽
 		*判断指定学生的一对一套餐的各种统计
 		*/
