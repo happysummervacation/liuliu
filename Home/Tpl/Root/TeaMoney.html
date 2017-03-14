@@ -35,14 +35,14 @@
 
 <body>
 
-    <include file="Public:PublicBodyTeacher" />
+    <include file="Public:PublicBodyRoot" />
 
         <!-- Page Content -->
         <div id="page-wrapper">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Teacher's Salary</h1>
+                        <h1 class="page-header">教师工资</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -50,118 +50,10 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Salary Records For This Month</div>
+                            <div class="panel-heading">教师某个月的工资</div>
                             <div>
                             <table class="table">
                                 <tbody>
-                                  <!-- <tr>
-                                    <td>
-                                      Period
-                                    </td>
-                                    <td>
-                                      <{$month_start_time|date='Y-m-d',###}>~ <{$month_end_time|date='Y-m-d',###}>
-                                    </td>
-                                    <td>
-                                      Setting
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Children's Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <{$class_result['young_classed_number']}>
-                                      /<{$class_result['young_teacher_absent']}>
-                                      /<{$class_result['young_teacher_withdraw']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['childclass']}> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Adult's Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <{$class_result['adult_classed_number']}>
-                                      /<{$class_result['adult_teacher_absent']}>
-                                      /<{$class_result['adult_teacher_withdraw']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['adultclass']}> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      IELTS's Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <{$class_result['IELTS_classed_number']}>
-                                      /<{$class_result['IELTS_teacher_absent']}>
-                                      /<{$class_result['IELTS_teacher_withdraw']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['ieltsclass']}> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Group Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <{$class_result['many_classed_number']}>
-                                      /<{$class_result['many_teacher_absent']}>
-                                      /<{$class_result['many_teacher_withdraw']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['groupclass']}> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Daily Comment
-                                    </td>
-                                    <td>
-                                      <{$comment_result['day_comment']}>/<{$comment_result['day_comment_sum']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['day_comment_bonus']}>%
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Weekly Comment
-                                    </td>
-                                    <td>
-                                      <{$comment_result['week_comment']}>/<{$comment_result['week_comment_sum']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['week_comment_bonus']}>%
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Monthly Comment
-                                    </td>
-                                    <td>
-                                      <{$comment_result['month_comment']}>/<{$comment_result['month_comment_sum']}>
-                                    </td>
-                                    <td>
-                                      <{$money_bonus['month_comment_bonus']}>%
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Total Amount
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                      <{$totalMoney}>
-                                    </td>
-                                  </tr>
-                                  <th></th> -->
                                   <!-- <php>dump($classResult)</php> -->
                                   <!-- <php>dump($commentResult)</php> -->
                                   <tr>
@@ -214,7 +106,7 @@
                                     <h4 class="modal-title" id="myModalLabel">Search By Time</h4>
                                   </div>
                                   <div class="modal-body" style="overflow: auto">
-                                    <form role="form" action="<{:U('Money/teacherSalaryManage',array('type'=>'mymoney'))}>" method="post">
+                                    <form role="form" action="<{:U('Money/teacherSalaryManage')}>/user_id/<{$teacherID}>" method="post">
                                       <div class="form-group col-lg-4">
                                         <label for="exampleInputEmail1">Year</label>
                                         <select class="form-control" name="year">

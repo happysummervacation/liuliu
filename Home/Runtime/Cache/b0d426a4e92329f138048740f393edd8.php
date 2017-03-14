@@ -323,7 +323,8 @@
                                             <td><?php echo ($value['phone']); ?></td>
                                             <td><?php echo ($value['email']); ?></td>
                                             <td><a href="<?php echo U('Class/getTeacherClassPlan',array('user_id'=>$value['ID']));?>">查看课表</a></td>
-                                            <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td>
+                                            <!-- <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getmoneyinfo" >查看工资</a></td> -->
+                                            <td><a href="<?php echo U('Money/teacherSalaryManage',array('user_id'=>$value['ID']));?>">查看工资</a></td>
 
                                             <td><a href="<?php echo U('Root/TeacherContract',array('user_id'=>$value['ID']));?>">教师合同</a></td>
 

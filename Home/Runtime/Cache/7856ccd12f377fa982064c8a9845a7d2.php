@@ -35,12 +35,9 @@
 
 <body>
 
-     <div id="wrapper">
-
+    <div id="wrapper">
         <!-- Navigation -->
-        <!-- 标题 -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <div class="topmen">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="sr-only">Toggle navigation</span>
@@ -48,28 +45,28 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="/liuliu/index.php" ><strong>66Speak Home Page</strong></a>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
             </div>
             <!-- /.navbar-header -->
             <!-- 显示北京时间 -->
-           <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
-                <h3 align="center">Beijing Time&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h3>
+            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
             </div>
             <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
                 <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
             </div>
             <!-- //显示北京时间 -->
             <!-- 消息中心 -->
-            <ul class="nav navbar-top-links navbar-right">
+           <ul class="nav navbar-top-links navbar-right">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <?php echo count($unreadmessage) ?>
-                        <!-- <?php dump($unreadmessage) ?> -->
-                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                      <?php echo count($unreadmessage) ?>
+                      <i class="fa fa-envelope fa-fw"></i>
+                      <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-messages">
                         <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
-                                <a href="<?php echo U('Teacher/InformationCenter');?>">
+                                <a href="<?php echo U('Root/InformationCenter');?>">
                                 <div>
                                     <strong><?php echo ($value['account']); ?></strong>
                                     <span class="pull-right text-muted">
@@ -80,20 +77,23 @@
                                 </a>
                             </li><?php endif; endforeach; endif; ?>
                         <li>
-                            <a class="text-center" href="<?php echo U('Teacher/InformationCenter');?>">
-                                <strong>All Messages</strong>
+                        <!-- 9.06修改01 -->
+                            <a class="text-center" href="<?php echo U('Root/InformationCenter');?>">
+                                <strong>查看所有消息</strong>
                                 <i class="fa fa-angle-right"></i>
                             </a>
+                        <!-- //9.06修改01 -->
                         </li>
                     </ul>
                     <!-- /.dropdown-messages -->
                 </li>
+                <!-- 用户 -->
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
                     </a>
                     <ul class="dropdown-menu dropdown-user">
-                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> Quit</a>
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -106,83 +106,160 @@
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
                         <li class="sidebar-search">
+                            <!-- <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                            <!-- /input-group -->
                         </li>
                         <li>
-                          <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
-                        </li>
-                            <li>
-                                <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
-                            </li>
-                             <li>
-                                <a href="<?php echo U('Comment/TeacherCommentManage',array('type'=>'now'));?>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
-                            </li>
-                            <li>
-                                <!--HistoryFeedback-->
-                               <a href="<?php echo U('Comment/TeacherCommentManage',array('type'=>'history'));?>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
-                           </li>
-                        <li>
-                            <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=history"> Video History</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="__PUBLIC__/plug-in/examples/simple/index.html">现在上传</a> -->
-                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=updateVideo"> Upload Video</a>
-                                </li>
-                                <li>
-                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=updateIntroduction"> Upload Introduction Video</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-pencil fa-fw"></i> Teacher Information<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <!-- <a href="Information.html">个人信息修改</a> -->
-                                    <a href="<?php echo U('Info/Information');?>"> Teacher Information</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="Information.html">个人信息修改</a> -->
-                                    <a href="<?php echo U('Teacher/QualificationsInformation');?>"> Qualification Information</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="ResetPassword.html">密码修改</a> -->
-                                    <a href="<?php echo U('Info/resetPassword');?>"> Password Reset</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Teacher Salary<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <!-- <a href="MyMoney.html">我的工资</a> -->
-                                    <a href="<?php echo U('Money/teacherSalaryManage',array('type'=>'mymoney'));?>"> Teacher Salary</a>
-                                </li>
-                                <li>
-                                    <!-- <a href="HowCaculate.html">工资计算</a> -->
-                                    <a href="<?php echo U('Money/teacherSalaryManage',array('type'=>'howcacu'));?>"> Salary Settlement</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Contract/showContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
-                        </li>
-                        <li>
-                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
                         </li>
                         <!-- <li>
-                          <span ><?php echo date('Y/m/d H:i:s',$nowtime);?></span>
+                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchTeacher');?>">搜索教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckTeacher');?>">查看教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateTeacher');?>">创建教师</a>
+                                </li>
+                            </ul>
                         </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchTeacher');?>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchStudent');?>">搜索学生</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckStudent');?>">查看学生</a>
+                                </li>
+                            </ul>
+                        </li> -->
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchAdmin');?>">搜索顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckAdmin');?>">查看顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateAdmin');?>">创建顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/DownloadLogfile');?>">
+                                    操作历史
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/DownloadLogfile');?>"> <i class="fa fa-umbrella fa-fw"></i>
+                            操作历史
+                            </a>
+                        </li>
+
+                        <!-- <li>
+                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                              <li>
+                                  <a href="<?php echo U('Root/Information');?>">查看管理员</a>
+                              </li>
+                              <li>
+                                  <a href="<?php echo U('Root/CreateRoot');?>">创建管理员</a>
+                              </li>
+                          </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Info/Information');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
+                                </li>
+                                <li>
+                                     <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/salaryMgr');?>">
+                                        工资管理
+                                    </a>
+                                    <!-- <a href="">
+                                        工资管理
+                                    </a> -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
+                                </li>
+                                 <li>
+                                     <a href="<?php echo U('Root/VideoManage');?>"> 视频管理</a>
+                                </li>
+                            </ul>
+                                    <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                             <a href="<?php echo U('Root/Message');?>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
+                        </li>
+
                     </ul>
                 </div>
                 <!-- /.sidebar-collapse -->
@@ -196,7 +273,7 @@
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Teacher's Salary</h1>
+                        <h1 class="page-header">教师工资</h1>
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
@@ -204,118 +281,10 @@
                 <div class="row">
                     <div class="col-md-6 col-md-offset-3">
                         <div class="panel panel-primary">
-                            <div class="panel-heading">Salary Records For This Month</div>
+                            <div class="panel-heading">教师某个月的工资</div>
                             <div>
                             <table class="table">
                                 <tbody>
-                                  <!-- <tr>
-                                    <td>
-                                      Period
-                                    </td>
-                                    <td>
-                                      <?php echo (date('Y-m-d',$month_start_time)); ?>~ <?php echo (date('Y-m-d',$month_end_time)); ?>
-                                    </td>
-                                    <td>
-                                      Setting
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Children's Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <?php echo ($class_result['young_classed_number']); ?>
-                                      /<?php echo ($class_result['young_teacher_absent']); ?>
-                                      /<?php echo ($class_result['young_teacher_withdraw']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['childclass']); ?> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Adult's Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <?php echo ($class_result['adult_classed_number']); ?>
-                                      /<?php echo ($class_result['adult_teacher_absent']); ?>
-                                      /<?php echo ($class_result['adult_teacher_withdraw']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['adultclass']); ?> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      IELTS's Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <?php echo ($class_result['IELTS_classed_number']); ?>
-                                      /<?php echo ($class_result['IELTS_teacher_absent']); ?>
-                                      /<?php echo ($class_result['IELTS_teacher_withdraw']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['ieltsclass']); ?> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Group Course(Normal/Absence/Cancel)
-                                    </td>
-                                    <td>
-                                      <?php echo ($class_result['many_classed_number']); ?>
-                                      /<?php echo ($class_result['many_teacher_absent']); ?>
-                                      /<?php echo ($class_result['many_teacher_withdraw']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['groupclass']); ?> yuan/class
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Daily Comment
-                                    </td>
-                                    <td>
-                                      <?php echo ($comment_result['day_comment']); ?>/<?php echo ($comment_result['day_comment_sum']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['day_comment_bonus']); ?>%
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Weekly Comment
-                                    </td>
-                                    <td>
-                                      <?php echo ($comment_result['week_comment']); ?>/<?php echo ($comment_result['week_comment_sum']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['week_comment_bonus']); ?>%
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Monthly Comment
-                                    </td>
-                                    <td>
-                                      <?php echo ($comment_result['month_comment']); ?>/<?php echo ($comment_result['month_comment_sum']); ?>
-                                    </td>
-                                    <td>
-                                      <?php echo ($money_bonus['month_comment_bonus']); ?>%
-                                    </td>
-                                  </tr>
-                                  <tr>
-                                    <td>
-                                      Total Amount
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td>
-                                      <?php echo ($totalMoney); ?>
-                                    </td>
-                                  </tr>
-                                  <th></th> -->
                                   <!-- <?php dump($classResult) ?> -->
                                   <!-- <?php dump($commentResult) ?> -->
                                   <tr>
@@ -358,7 +327,8 @@
                                     <h4 class="modal-title" id="myModalLabel">Search By Time</h4>
                                   </div>
                                   <div class="modal-body" style="overflow: auto">
-                                    <form role="form" action="<?php echo U('Money/teacherSalaryManage',array('type'=>'mymoney'));?>" method="post">
+                                      <?php dump($teacherID) ?>
+                                    <form role="form" action="<?php echo U('Money/teacherSalaryManage');?>/user_id/<?php echo ($teacherID); ?>" method="post">
                                       <div class="form-group col-lg-4">
                                         <label for="exampleInputEmail1">Year</label>
                                         <select class="form-control" name="year">

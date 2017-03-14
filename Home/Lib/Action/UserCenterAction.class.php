@@ -112,7 +112,8 @@
 				$result = $moneyBasOp->getTeaCommentSalaryInfo(19,
 				GlobalValue::teaComment.":".GlobalValue::teaNeedComment."&".GlobalValue::autoComment.":".GlobalValue::teaNotNeedComment,
 				1488297600,1490976000);
-				exit;
+				dump($result);
+				// exit;
 
 
 

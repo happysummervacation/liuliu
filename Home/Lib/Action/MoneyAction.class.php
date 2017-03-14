@@ -137,6 +137,25 @@
 					$this->display("Teacher:HowCaculate");
 					return;
 				}elseif("mymoney" == $type){
+					$startTime = "";
+					$endTime = "";
+					$teacherID = $_SESSION['ID'];
+					if(empty($_POST['year']) || empty($_POST['month'])){
+						$year = date("Y",getTime());
+						$month = date("m",getTime());
+						$startTime = strtotime("{$year}-{$month}");
+						$endTime = strtotime("{$year}-{$month} +1month");
+					}else{
+						$year = $_POST['year'];
+						$month = $_POST['month'];
+						$startTime = strtotime("{$year}-{$month}");
+						$endTime = strtotime("{$year}-{$month} +1month");
+					}
+					import("Home.Action.Money.MoneyBasicService");
+					$moneyBasOp = new MoneyBasicService();
+					$result = $moneyBasOp->getTeaSalaryMainService($teacherID,$startTime,$endTime);
+					$this->assign("classResult",$result[0]);
+					$this->assign("commentResult",$result[2]);
 					$this->display("Teacher:MyMoney");
 					return;
 				}else{
@@ -144,7 +163,28 @@
 					return;
 				}
 			}elseif(4 == $identity || "4" == $identity){
-
+				$startTime = "";
+				$endTime = "";
+				$teacherID = $_GET['user_id'];
+				if(empty($_POST['year']) || empty($_POST['month'])){
+					$year = date("Y",getTime());
+					$month = date("m",getTime());
+					$startTime = strtotime("{$year}-{$month}");
+					$endTime = strtotime("{$year}-{$month} +1month");
+				}else{
+					$year = $_POST['year'];
+					$month = $_POST['month'];
+					$startTime = strtotime("{$year}-{$month}");
+					$endTime = strtotime("{$year}-{$month} +1month");
+				}
+				import("Home.Action.Money.MoneyBasicService");
+				$moneyBasOp = new MoneyBasicService();
+				$result = $moneyBasOp->getTeaSalaryMainService($teacherID,$startTime,$endTime);
+				$this->assign("classResult",$result[0]);
+				$this->assign("commentResult",$result[2]);
+				$this->assign("teacherID",$teacherID);
+				$this->display("Root:TeaMoney");
+				return;
 			}else{
 				$this->error("你没有权限进行查看");
 				return;

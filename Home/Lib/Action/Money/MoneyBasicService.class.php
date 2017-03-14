@@ -202,19 +202,21 @@
 				if(0 == $temClassType || '0' == $temClassType){  //表示是一对一的评论类型
 					$commentStatusResult = $this->createNewCommentStatus($temCommentType,$commentStatus);
 					//统计教师完成的评论的数量
-					$result = $teaComCountOp->countTeaComment($teacherID,$commentStatusResult,$value['cstarttime'],
+					$doneResult = $teaComCountOp->countTeaComment($teacherID,$commentStatusResult,$value['cstarttime'],
 					$value['cendtime']);
 					//统计教师应该完成的评论的数量
 					//获取全部的可能的情况
-					$allStatus =
-					$result = $teaComCountOp->countTeaComment($teacherID);
-					dump($selectResult[$key]);
-					dump($result);
+					$allStatus = $this->createAllCommentStatus($temCommentType);
+					$allResult = $teaComCountOp->countTeaComment($teacherID,$allStatus,$value['cstarttime'],
+					$value['cendtime']);
+					$selectResult[$key]['all'] = $allResult;
+					$selectResult[$key]['done'] = $doneResult;
 				}elseif(1 == $temClassType || '1' == $temClassType){
 
 				}
 			}
 
+			return $selectResult;
 		}
 		/*
 		*俞鹏泽
@@ -246,7 +248,42 @@
 		*/
 		//参数一:评论的类型
 		private function createAllCommentStatus($commentType = null){
+			if(is_null($commentType)){
+				return "";
+			}
 
+			$returnData = $commentType.":0:0&".$commentType.":1:0&".$commentType.":2:0&".
+			$commentType.":0:1&".$commentType.":1:1&".$commentType.":2:1";
+
+			return $returnData;
+		}
+
+		/*
+		*俞鹏泽
+		*用来获取教师某段时间的工资情况
+		*/
+		//参数一:表示教师的ID
+		//参数二:表示限制时间段的开始时间
+		//参数三:表示限制时间段的结束时间
+		public function getTeaSalaryMainService($teacherID = null,$startTime = null,$endTime = null){
+			if(is_null($teacherID)){
+				return null;
+			}
+
+			import("Home.Action.GlobalValue.GlobalValue");
+			//统计一对一的课程情况
+			$saResult = $this->getTeaOneClassSalaryInfo($teacherID,
+			GlobalValue::haveClass.":".GlobalValue::teaMissClass.":".GlobalValue::teaCancelClass
+			,$startTime,$endTime);
+			//统计小班的课程情况
+			$commentResult = $this->getTeaCommentSalaryInfo($teacherID,
+			GlobalValue::teaComment.":".GlobalValue::teaNeedComment."&".GlobalValue::autoComment.":".GlobalValue::teaNotNeedComment,
+			$startTime,$endTime);
+
+			$returnData = array();
+			array_push($returnData,$saResult,null,$commentResult);  //压入的顺序是一对一的课程情况,小班的课程情况,评论的情况
+
+			return $returnData;
 		}
 	}
  ?>
