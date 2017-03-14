@@ -44,4 +44,36 @@
 			return $result;
 		}
 
+		/*
+		*俞鹏泽
+		*查找某教师在指定时间内的小班课的薪水设定分布
+		*/
+		//参数一:表示是哪个教师
+		//参数二:表示要查询哪些字段
+		//参数三:表示指定时间的开始时间(时间戳)
+		//参数四:表示指定时间的结束时间
+		public function getTeacherGroupClassSalarySet($teacherID = null,$field = null,
+		$startTime = null,$endTime = null){
+			if(is_null($teacherID)){
+				return null;
+			}
+			// $classTypeString = " and 1=1";
+			$fieldString = "";
+			$fieldString = transformFieldToFieldString($field);
+
+			$inquiry = new Model("tegroupclasssalary");
+			if(is_null($startTime) || is_null($endTime)){
+				$result = $inquiry
+				->where("teacherID={$teacherID}")->field("{$fieldString}")->select();
+			}else{
+				$result = $inquiry
+				->where("teacherID={$teacherID} and
+				((gStartTime>={$startTime} and gEndTime<={$endTime}) ||
+				(gStartTime<={$startTime} and gEndTime>={$startTime}) ||
+				(gStartTime<={$endTime} and gEndTime>={$endTime}))")
+				->field("{$fieldString}")->select();
+			}
+
+			return $result;
+		}
 	}

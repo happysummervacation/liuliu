@@ -172,6 +172,34 @@
 
 		/*
 		*俞鹏泽
+		*获取教师对应时间的小班的课程情况以及工资情况
+		*/
+		//参数一:表示教师
+		//参数二:表示要查询的查询的课程的状态有那些  多种状态使用   ***:***:***
+		//参数三:表示开始时间(时间戳)
+		//参数四:表示结束时间
+		public function getTeaGroupClassSalaryInfo($teacherID = null,$classStatus = null,
+		$startTime = null,$endTime = null){
+			if(is_null($teacherID) || is_null($classStatus)){
+				return null;
+			}
+
+			import("Home.Action.Money.TeaBasicService");
+			import("Home.Action.GlobalValue.GlobalValue");
+			import("Home.Action.GroupClassSch.GroupClassSchCountService");
+			$teaSalarySetOp = new TeaSalaryService();
+			$groupClassCountOp = new GroupClassSchCountService();
+
+			//获取查询对应时间的课程,价格分布
+			$teaSalarySetResult = $teaSalarySetOp->getTeacherGroupClassSalarySet($teacherID,
+			null,$startTime,$endTime);
+
+			$classStatus = explode(":",$classStatus);
+
+		}
+
+		/*
+		*俞鹏泽
 		*查询与教师评论工资相关的信息
 		*/
 		//参数一:表示教师的ID

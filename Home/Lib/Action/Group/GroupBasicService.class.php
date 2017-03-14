@@ -13,9 +13,9 @@
 		*添加小班的服务
 		*该函数是根据传入的套餐ID获取课程的各种状态,根据教材ID来获取教材的信息,最后加小班的名称
 		*/
-		public function AddGroupService($packageID = null,$bookID = null,$groupName = null){
+		public function AddGroupService($packageID = null,$groupName = null){
 			$message = array();
-			if(is_null($packageID) || is_null($bookID)){
+			if(is_null($packageID)){
 				$message['status'] = false;
 				$message['message'] = "缺乏开课的必要数据,开课失败";
 				return $message;
@@ -33,8 +33,8 @@
 			$inquiry = new Model("group");
 			$data = array();
 			$data['groupName'] = is_null($groupName) ? "":$groupName;
-			$data['material'] = $bookInfo[0]['bookid'].":".$bookInfo[0]['bookname'].":".
-				$bookInfo[0]['book_type'];
+			// $data['material'] = $bookInfo[0]['bookid'].":".$bookInfo[0]['bookname'].":".
+			// 	$bookInfo[0]['book_type'];
 			$data['gcategory'] = $pacInfoResult[0]['category'];
 			$data['gclassNumber'] = $pacInfoResult[0]['class_number'];
 			$data['gstudentNumber'] = $pacInfoResult[0]['student_number'];
@@ -46,6 +46,7 @@
 			if($result){
 				$message['status'] = true;
 				$message['message'] = "添加小班数据成功";
+				$message['other'] = $result;
 				return $message;
 			}else{
 				$message['status'] = false;

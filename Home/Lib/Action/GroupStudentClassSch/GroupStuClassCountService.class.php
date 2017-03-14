@@ -14,9 +14,10 @@
 		//参数四:表示要统计哪种类型的课程,暂定是上过和没上过两种,后期看情况加减   多种情况时使用****:****:****
 		//参数五:表示开始时间(时间戳)
 		//参数六:表示结束时间(时间戳)
+		//参数七:学生订购的套餐ID,表示学生使用该订购的套餐的订购的某个小班的课程数
 		//暂时未做测试
 		public function countStuGroupClassWithStatus($groupID = null,$studentID = null,$teacherID = null
-		,$classStatus = null,$startTime = null,$endTime = null){
+		,$classStatus = null,$startTime = null,$endTime = null,$orderPackageID = null){
 			if(is_null($groupID) || is_null($studentID) || is_null($status)){
 				return -1;
 			}
@@ -37,18 +38,23 @@
 			if(!is_null($teacherID)){
 				$teaCondition = $teaCondition." tp_class.teacherID={$teacherID} and ";
 			}
+
+			$orderPackageCondition = "";
+			if(!is_null($orderPackageID)){
+				$orderPackageCondition = " and tp_groupstuclasssch.orderPackageID={$orderPackageID}";
+			}
 			$inquiry = new Model("groupstuclasssch");
 
 			if(is_null($startTime) || is_null($endTime)){
 				$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
 				tp_groupstuclasssch.groupClassSchID and studentID={$studentID} and tp_groupstuclasssch.
-				isdelete=0")
+				isdelete=0 {$orderPackageCondition}")
 				->join("inner join tp_class on tp_classID=tp_groupclasssch.classID and {$teaCondition}")
 				->count("{$statusString}");
 			}else{
 				$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
 				tp_groupstuclasssch.groupClassSchID and studentID={$studentID} and tp_groupstuclasssch.
-				isdelete=0")
+				isdelete=0 {$orderPackageCondition}")
 				->join("inner join tp_class on tp_classID=tp_groupclasssch.classID and {$teaCondition}
 				and classStartTime>={$startTime} and classEndTime<={$endTime}")
 				->count("{$statusString}");

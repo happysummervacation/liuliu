@@ -12,8 +12,9 @@
 		//参数二:表示要统计哪种类型的课程,暂定是上过和没上过两种,后期看情况加减,如果要表示多种情况使用 ***:***:***的方式
 		//参数三:表示开始时间(时间戳)  如果开始时间与结束时间中有一个是null则统计其整个小班期间的数据
 		//参数四:表示结束时间(时间戳)
+		//参数五:表示教师的ID,  表示该班级中的课程是该教师上的课的课程数量
 		public function countGroupClassWithStatus($groupID = null,$status = null,
-			$startTime = null,$endTime = null){
+			$startTime = null,$endTime = null,$teacherID = null){
 			if(is_null($groupID) || is_null($status)){
 				return -1;
 			}
@@ -25,21 +26,30 @@
 			//将课程的状态信息进行获取
 			foreach ($statusResult as $key => $value) {
 				if($value == GlobalValue::notClass){
-					$statusString = $statusString." or gclassStatus=0 ";
+					$statusString = $statusString." or gclassStatus=0";
 				}elseif($value == GlobalValue::haveClass){
-					$statusString = $statusString." or gclassStatus=1 ";
+					$statusString = $statusString." or gclassStatus=1 or gclassStatus=3 or gclassStatus=4";
+				}elseif($value == GlobalValue::teaMissClass){
+					$statusString = $statusString." or gclassStatus=5";
+				}elseif($value == GlobalValue::teaCancelClass){
+					$statusString = $statusString." or gclassStatus=6";
 				}
+			}
+
+			$teaCondition = "";
+			if(!is_null($teacherID)){
+				$teaCondition = " and tp_class.teacherID={$teacherID}";
 			}
 
 			$inquiry = new Model("groupclasssch");
 			if(is_null($startTime) || is_null($endTime)){   //直接进行该班级的所有数据的查找
 				$result = $inquiry->join("inner join tp_class on tp_class.classID=tp_groupclasssch.
-				classID and groupID={$groupID} and tp_groupclasssch.isdelete=0")
+				classID and groupID={$groupID} and tp_groupclasssch.isdelete=0 {$teaCondition}")
 				->count("{$statusString}");
 			}else{   //表示在对应时间段之内进行数据查询
 				$result = $inquiry->join("inner join tp_class on tp_class.classID=tp_groupclasssch.
 				classID and groupID={$groupID} and tp_groupclasssch.isdelete=0 and
-				classStartTime>={$startTime} and classEndTime<={$endTime}")
+				classStartTime>={$startTime} and classEndTime<={$endTime} {$teaCondition}")
 				->count("{$statusString}");
 			}
 

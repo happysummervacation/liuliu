@@ -14,7 +14,6 @@
 		//参数四:表示评论状态   主要根据GlobalValue中的值来进行比较
 		//参数五:表示开始时间(时间戳)
 		//参数六:表示结束时间(时间戳)
-
 		//返回的结果是统计之后的结果
 		public function countGroupCommentWithStatus($groupID = null,$teacherID = null,
 		$classStatus = null,$commentStatus = null,$startTime = null,$endTime = null){
