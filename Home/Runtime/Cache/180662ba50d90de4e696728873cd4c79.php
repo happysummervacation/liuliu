@@ -352,7 +352,7 @@
                         </div>
                         <div class="panel-footer" style="overflow: auto;">
                             <div class="pull-right">
-                                <button class="btn btn-primary" data-toggle="modal" data-target="#packagemodify2">开放套餐</button>
+                                <button class="btn btn-primary modifypackage" data-toggle="modal" data-target="#packagemodify2">开放套餐</button>
                             </div>
                         </div>
                     </div>
@@ -653,9 +653,7 @@
         //     }
         // }
         $('.deletePackage').click(function(){
-			var packageId = $(this).parents('tr').children().eq(0).html();
-            alert(packageId);
-            return;
+			var packageId = $(this).parents('tr').find('td').eq(0).html();
             if(confirm('确认删除套餐?')){
                 window.location.href="<?php echo U('Package/packageManage');?>/type/delete/packageID/"+packageId;
             }

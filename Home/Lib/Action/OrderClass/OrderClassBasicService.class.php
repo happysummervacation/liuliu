@@ -283,7 +283,7 @@
 		public function getClass($studentID = null,$type = null){
 			$result = array();
 			$inquiry = new Model();
-			$time = time();
+			$time = getTime();
 			if(!is_null($studentID)){
 				if(0 == $type){
 					//一对一
@@ -292,8 +292,9 @@
 					->where("tp_oneorderclass.studentID = {$studentID} and
 					tp_oneorderclass.classID = tp_class.classID and
 					tp_oneorderclass.orderpackageID = tp_orderpackage.orderpackageID
-					 and tp_class.teacherID = tp_teacher.ID and
-					 tp_oneorderclass.isdelete = 0  and tp_oneorderclass.classStatus = 0
+					 and tp_class.teacherID = tp_teacher.ID and (tp_oneorderclass.classStatus=0 or
+					 tp_oneorderclass.classStatus=1) and 
+					 tp_oneorderclass.isdelete = 0
 					 and tp_class.classEndTime > {$time}
 					 and tp_orderpackage.category=tp_packageconfig.packageconID")
 					 ->field("tp_orderpackage.*,tp_packageconfig.packageName as claName,

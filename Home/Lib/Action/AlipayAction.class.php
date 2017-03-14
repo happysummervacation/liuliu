@@ -169,14 +169,25 @@ class AlipayAction extends Action{
 				import("Home.Action.OrderPackage.OrderPackageBasicService");
 				import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 				import("Home.Action.User.UserBasicOperate");
+				import("Home.Action.Contract.ContractBasicOperate");
+				$contractOp = new ContractBasicOperate();
 				$packageOp = new PackageBasicOperate();
 				$packageServiceOp = new OrderPackageBasicService();
 				$orderPackageOp = new OrderPackageBasicOperate();
 				$userOp = new UserBasicOperate();
 
+				$StudentID = $_SESSION["ID"];
+
 				$packageInfo = $packageOp->getPackageInfo($_SESSION['packageID']);
-				$orderPackageData = $packageServiceOp->createOrderPackageInfo($packageInfo[0],$_SESSION["ID"]);
+				$orderPackageData = $packageServiceOp->createOrderPackageInfo($packageInfo[0],$StudentID);
+				//添加订购套餐信息
 				$orderPackageResult = $orderPackageOp->addOrderPakcageInfo($orderPackageData);
+
+				//创建合同的数据
+				$contractData = $packageServiceOp->createOrderPackageContract(
+					$orderPackageResult['data'],$StudentID);
+				//添加合同的信息
+				$studentContractResult = $contractOp->addContract($contractData);
 
 				$cancelNumResult = true;     //可取消的课程次数默认为true
 				//判断是否是课时类套餐,如果是就进行可取消次数修改

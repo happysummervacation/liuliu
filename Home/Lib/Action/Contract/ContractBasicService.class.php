@@ -20,7 +20,7 @@
 			//设置签署合同
 			$data['isSign'] = 1;
 			$data['signTime'] = getTime();
-			$contractResult = $conBasOp->updateStudentContract($ordercontractID,$data);
+			$contractResult = $conBasOp->updateStudentContract($studentContractID,$data);
 			//设置套餐的有效时间
 			$data = array();
 			$nowTime = getTime();
@@ -29,7 +29,7 @@
 			 and ordercontractID={$studentContractID}";
 			$orderPacResult = $inquiry->execute($sql);
 
-			if($contractResult && $orderPacResult){
+			if($contractResult['status'] && $orderPacResult){
 				$inquiry->commit();
 				$message['status'] = true;
 				$message['message'] = "签署合同成功";

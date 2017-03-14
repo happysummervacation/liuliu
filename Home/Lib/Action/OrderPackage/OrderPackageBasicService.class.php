@@ -213,6 +213,8 @@
 			import("Home.Action.OrderPackage.OrderPackageBasicOperate");
 			import("Home.Action.OrderPackage.OrderPackageFeatureService");
 			import("Home.Action.OrderClass.OrderClassBasicOperate");
+			import("Home.Action.OrderClass.stuOrderClassService");
+			$stuOrder = new stuOrderClassService();
 			$orderPackageOp = new OrderPackageBasicOperate();
 			$orderClassOp = new OrderClassBasicOperate();
 
@@ -252,7 +254,25 @@
 				if('0' == $value['packageType'] || 0 == $value['packageType']){
 					$temresult = $orderClassOp->countStudentOneOrderClassNum($StudentID,$value['orderpackageID']);
 				}elseif('1' == $value['packageType'] || 1 == $value['packageType']){
-					$temresult = $orderClassOp->countStudentOneOrderClassTime($value['orderpackageID']);
+					//获取该套餐的持续天数
+					$time = $orderPackageOp->getOneOrderPackageInfo($value['orderpackageID'],array('time'));
+					$time = $time[0]['time'];
+
+					//获取该套餐第一节课的时间(开始时间)
+					$startTime = $stuOrder->getStudentFirstOrderClass($StudentID,$value['orderpackageID']);
+					//获取现在的时间
+					$nowTime = getTime();
+					//获取改套餐未上的课程
+					$temresult = $orderClassOp->countStudentOneOrderClassNum($StudentID,$value['orderpackageID'],"tp_oneorderclass.classStatus=0 or null");
+
+					//(开始时间+持续时间-现在的时间)/86400-预约的课程
+					if(empty($startTime)){
+						//持续天数-预约课程
+						$temresult = $time - $temresult;
+					}else{
+						//持续天数-套餐开始的天数-预约课程
+						$temresult = $time - ($nowTime - $startTime)/86400 - $temresult;
+					}
 				}
 				$tem['orderpackageID'] = $value['orderpackageID'];
 				$tem['haveClass'] = $temresult;
