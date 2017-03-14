@@ -91,4 +91,104 @@
 			}
 		}
 
+		/*
+		蒋周杰
+		获取小班的信息
+		参数一：小班ID：    根据ID获得具体的单个小班信息
+		参数二：小班状态：	可取值为"active" 或者 "ever"
+		*/
+		public function getGroupClassInfo($groupID = null,$status = null){
+
+			import("Home.Action.GlobalValue.GlobalValue");
+			import("Home.Action.GroupClassSch.GroupClassSchCountService");
+			$gcsCS = new GroupClassSchCountService();
+			$inquiry = new Model("group");
+
+			if(is_null($groupID)){
+				//获取多个小班的信息
+				$classlist = $inquiry->join("inner join tp_tegroupclasssalary on
+					tp_tegroupclasssalary.groupID = tp_group.groupID
+					and tp_tegroupclasssalary.gIsLastest = 1
+					inner join tp_teacher on
+					tp_teacher.ID = tp_tegroupclasssalary.teacherID")->where("isdelete = 0 and groupID = {$groupID}")->field("tp_group.*,tp_teacher.account")->where("isdelete = 0")->select();
+				$classresult = array();
+
+				foreach ($classlist as $key => $value) {
+					//获取每个小班的已上课数，存在haveclass中
+					$classlist[$key]['haveclass'] = $gcsCS->countGroupClassWithStatus($value['groupID'],GlobalValue::haveClass);
+
+					if($status == GlobalValue::avtive){
+						//提取还在上课的小班
+						if($classlist[$key]['haveclass'] < $value['gclassNumber']+$value['gotherClassNum']){
+							array_push($classresult,$classlist[$key]);
+						}
+					}elseif($status == GlobalValue::ever){
+						//提取历史小班
+						if($classlist[$key]['haveclass'] >= $value['gclassNumber']+$value['gotherClassNum']){
+							array_push($classresult,$classlist[$key]);
+						}
+					}else{
+						array_push($classresult,$classlist[$key]);
+					}
+				}
+			}else{
+				//根据ID查询具体某个小班的信息
+				$classresult = $inquiry->join("inner join tp_tegroupclasssalary on
+					tp_tegroupclasssalary.groupID = tp_group.groupID
+					and tp_tegroupclasssalary.gIsLastest = 1
+					inner join tp_teacher on
+					tp_teacher.ID = tp_tegroupclasssalary.teacherID")->where("isdelete = 0 and groupID = {$groupID}")->field("tp_group.*,tp_teacher.account")->select();
+				//获取已上课时
+				$classresult = $classresult[0];
+				$classresult['haveclass'] = $gcsCS->countGroupClassWithStatus($classresult['groupID'],GlobalValue::haveClass);
+			}
+
+			return $classresult;
+		}
+
+
+		/*
+		蒋周杰
+		获取小班中学生的信息
+		参数一：小班的ID
+		参数二：学生的状态
+				"active" 获取在该小班有未上课程的学生
+				"null"获取在该下小班的所有上过课或预约课的学生
+		*/
+		public function getGroupStudentInfo($groupID = null,$status = null){
+			if(is_null($groupID)){
+				return null;
+			}
+			import("Home.Action.GlobalValue.GlobalValue");
+			import("Home.Action.GroupStudentClassSch.GroupStuClassCountService");
+			$gscCS = new GroupStuClassCountService();
+			$inquiry = new Model("groupstuclasssch");
+
+			//获取与这个班有关的全部学生
+			$studentlist = $inquiry->distinct(true)
+			->field(array('tp_groupstuclasssch.studentID','tp_student.account'))
+			->join("inner join tp_student on
+				tp_student.ID = tp_groupstuclasssch.studentID")
+			->where("tp_groupstuclasssch.groupID = {$groupID} and isdelete = 0")
+			->select();
+
+			$studentresult = array();
+			foreach ($studentlist as $key => $value) {
+				//获取该学生在小班中的已上课程数和课程总数
+				$studentlist[$key]['haveclass'] = $gscCS
+				->countStuGroupClassWithStatus($groupID,$value['studentID'],null,GlobalValue::haveClass);
+				$studentlist[$key]['classNumber'] = $gscCS
+				->countStuGroupClassWithStatus($groupID,$value['studentID'],null,GlobalValue::notClass) + $studentlist[$key]['haveclass'];
+
+				if($status == GlobalValue::avtive){
+					if($studentlist[$key]['haveclass'] < $studentlist[$key]['classNumber']){
+						array_push($studentresult,$studentlist[$key]);
+					}
+				}else{
+					array_push($studentresult,$studentlist[$key]);
+				}
+			}
+			return $studentresult;
+		}
+
 	}

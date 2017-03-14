@@ -112,4 +112,61 @@
 			}
 		}
 
+		/*
+		蒋周杰
+		给老师添加一节小班的上课时间
+		参数一：教师的ID
+		参数二：要开放的时间
+		*/
+		public function addGroupClass($teacherID = null,$date = null){
+			$inquiry = new Model();
+			$message = array();
+			if(is_null($teacherID) || is_null($date)){
+				$message['status'] = false;
+				$message['message'] = "开放课程失败";
+				return $message;
+			}
+			$Data = array();
+			//获取一节课的持续时间，中教一小时，外教半小时
+			$classPeriod = 0;
+			import("Home.Action.User.UserBasicOperate");
+			$userOp = new UserBasicOperate();
+			$field = array();
+			array_push($field,"teacher_type");
+			$teacherType = $userOp->getUserInfo("register",$teacherID,null,null,null,$field);
+			if(empty($teacherType)){
+				$message['status'] = false;
+				$message['message'] = "开放课程失败";
+				return $message;
+			}elseif($teacherType[0]['teacher_type'] == 0 ||$teacherType[0]['teacher_type'] == "0"){
+				$classPeriod = $this->chClassTime;
+			}else{
+				$classPeriod = $this->reClassTime;
+			}
+
+
+			//添加数据
+			$Data['classStartTime'] = "";
+			$Data['classStartTime'] = strtotime("{$date['year']}-{$date['date']} {$date['time']}");
+			$Data['classEndTime'] = (int)$Data['classStartTime']+$classPeriod;
+			$Data['classID'] = md5($Data['classStartTime'].$teacherID);
+			$Data['teacherID'] = $teacherID;
+			$Data['createTime'] = getTime();
+			$Data['lastModify'] = getTime();
+			$Data['isSelected'] = 1;
+			$Data['classType'] = 1;
+
+			$inquiry = new Model("class");
+			$result = $inquiry->add($Data);
+			if($result){
+                $message['status'] = true;
+                $message['message'] = "用户数据增添成功";
+                return $message;
+            }else{
+                $message['status'] = false;
+                $message['message'] = "用户数据增添失败";
+                return $message;
+            }
+		}
+
 	}

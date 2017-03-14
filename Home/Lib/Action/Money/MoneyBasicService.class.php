@@ -169,5 +169,84 @@
 
 			return $teaSalarySetResult;
 		}
+
+		/*
+		*俞鹏泽
+		*查询与教师评论工资相关的信息
+		*/
+		//参数一:表示教师的ID
+		//参数二:表示评论的状态,其中的值使用GlobalValue中的值,使用***:***的方式  第一个表示评论的状态,
+		//第二表示教师是否需要进行评论,多种添加时使用***:***&***:***
+		//参数三:表示查询到开始时间(时间戳)
+		//参数四:表示查询的结束时间
+		public function getTeaCommentSalaryInfo($teacherID = null,$commentStatus = null,
+		$startTime = null,$endTime = null){
+			if(is_null($teacherID) || is_null($commentStatus)){
+				return null;
+			}
+
+			//查询对应时间的评论的分布时间
+			import("Home.Action.Comment.TeaCommentRateSetService");
+			$teaComRateSetOp = new TeaCommentRateSetService();
+			$selectResult = $teaComRateSetOp->getTeacherCommentRateSer($teacherID,null,null,null,
+			$startTime,$endTime);
+
+			import("Home.Action.Comment.TeaCommentCountService");
+			$teaComCountOp = new TeaCommentCountService();
+			//获取对应时间段的评论数据(暂时去除小班的评论数据)
+			foreach ($selectResult as $key => $value) {
+				$temClassType = "";
+				$temCommentType = "";
+				$temClassType = explode(":",$value['commenttype'])[0];
+				$temCommentType = explode(":",$value['commenttype'])[1];
+				if(0 == $temClassType || '0' == $temClassType){  //表示是一对一的评论类型
+					$commentStatusResult = $this->createNewCommentStatus($temCommentType,$commentStatus);
+					//统计教师完成的评论的数量
+					$result = $teaComCountOp->countTeaComment($teacherID,$commentStatusResult,$value['cstarttime'],
+					$value['cendtime']);
+					//统计教师应该完成的评论的数量
+					//获取全部的可能的情况
+					$allStatus =
+					$result = $teaComCountOp->countTeaComment($teacherID);
+					dump($selectResult[$key]);
+					dump($result);
+				}elseif(1 == $temClassType || '1' == $temClassType){
+
+				}
+			}
+
+		}
+		/*
+		*俞鹏泽
+		*将原来的只有两个条件的字符串转成含有三个条件的字符串
+		*/
+		//参数一:表示要添加的数据,用来表示评论的类型
+		//参数二://参数二:表示评论的状态,其中的值使用GlobalValue中的值,使用***:***的方式  第一个表示评论的状态,
+		//第二表示教师是否需要进行评论,多种添加时使用***:***&***:***
+		private function createNewCommentStatus($commentType = null,$commentStatus = null){
+			if(is_null($commentType) || is_null($commentStatus)){
+				return "";
+			}
+
+			$tem = explode("&",$commentStatus);
+			$returnData = "";
+			for ($i = 0; $i < count($tem); $i++) {
+				if($i == count($tem)-1){
+					$returnData .= $commentType.":".$tem[$i];
+				}else{
+					$returnData .= $commentType.":".$tem[$i]."&";
+				}
+			}
+			return $returnData;
+		}
+
+		/*
+		*俞鹏泽
+		*获取所有出现的状态
+		*/
+		//参数一:评论的类型
+		private function createAllCommentStatus($commentType = null){
+
+		}
 	}
  ?>

@@ -99,10 +99,19 @@
 				import("Home.Action.Money.TeaSalaryService");
 				import("Home.Action.Money.MoneyBasicService");
 				import("Home.Action.GlobalValue.GlobalValue");
+				import("Home.Action.Comment.TeaCommentRateSetService");
+				import("Home.Action.Money.MoneyBasicService");
 				$op = new TeaSalaryService();
 				$salaryOp = new MoneyBasicService();
+				$teaCommentOp = new TeaCommentRateSetService();
+				$moneyBasOp = new MoneyBasicService();
 				// $result = $op->getTeacherOneClassSalarySet(18,null,null,1488297600,1490976000);
-				$saResult = $salaryOp->getTeaOneClassSalaryInfo(19,GlobalValue::haveClass.":".GlobalValue::notClass,1488297600,1490976000);
+				// $saResult = $salaryOp->getTeaOneClassSalaryInfo(19,GlobalValue::haveClass.":".GlobalValue::notClass,1488297600,1490976000);
+				// $result = $teaCommentOp->getTeacherCommentRateSer(18,null,null,null);
+				// $result = $teaCommentOp->updateTeaCommentRate(18,GlobalValue::oneToOneClass.":".GlobalValue::dayComment,80);
+				$result = $moneyBasOp->getTeaCommentSalaryInfo(19,
+				GlobalValue::teaComment.":".GlobalValue::teaNeedComment."&".GlobalValue::autoComment.":".GlobalValue::teaNotNeedComment,
+				1488297600,1490976000);
 				exit;
 
 

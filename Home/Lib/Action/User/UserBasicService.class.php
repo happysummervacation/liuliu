@@ -352,5 +352,21 @@
 			$result = $inquiry->where("student_manage_id = {$adminID}")->select();
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		查询所有的0中教1外教null所有教师
+		*/
+		public function getTeacherList($teacher_type = null){
+			$inquiry = new Model("teacher");
+			if(is_null($teacher_type)){
+				$result = $inquiry->where("status = 1")->select();
+			}else{
+				$result = $inquiry->where("status = 1 and
+					teacher_type = {$teacher_type}")
+				->select();
+			}
+			return $result;
+		}
 	}
  ?>

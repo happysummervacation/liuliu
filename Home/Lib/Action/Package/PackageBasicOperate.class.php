@@ -170,5 +170,42 @@
 				return $result;
 			}
 		}
+
+		/*
+		蒋周杰
+		根据所提供的的参数获取符合条件的套餐信息
+		参数一：课程类型（0一对一，1小班）
+		参数二：套餐类型（0课时，1卡类）
+		参数三：教师类型：0中教，1外教）
+		参数四：教师类别：（0普通，1名师）
+		*/
+		public function getGroupPackageInfo($classType = null,$packageType= null,$teaNa = null,$teaType = null){
+			$con = "";
+			if(!is_null($classType)){
+				$con.=" class_type = {$classType} ";
+			}
+			if(!is_null($packageType)){
+				$con.=" package_type = {$packageType} ";
+			}
+			if(!is_null($teaNa)){
+				$con.=" teacher_nation = {$teaNa} ";
+			}
+			if(!is_null($teaType)){
+				$con.="teacher_type = {$teaType}";
+			}
+
+			$inquiry = new Model("package");
+			if($con!=""){
+				$result = $inquiry->join("inner join tp_packageconfig on
+					tp_packageconfig.packageconID = tp_package.category")
+				->where($con)
+				->select();
+			}else{
+				$result = $inquiry->join("inner join tp_packageconfig on
+					tp_packageconfig.packageconID = tp_package.category")
+				->select();
+			}
+			return $result;
+		}
 	}
  ?>

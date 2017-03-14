@@ -11,6 +11,12 @@
 		const teaCancelClass = "teaCancelClass"; //表示教师退课
 
 		const dayComment = '0';   //表示评论的类型是日评
+		const weekComment = '1';   //表示评论的类型是周评
+		const monthComment = '2';  //表示评论的类型是月评
+		const trialComment = '3';  //表示试听课类型的评论
+
+		const oneToOneClass = '0';   //表示一对一的课程类型
+		const groupClass = '1';      //表示小班的课程类型
 
 		const teaComment = '0';   //表示评论的结果是教师完成评论
 		const teaNotComment = '1';   //表示教师没有完成评论
@@ -19,5 +25,8 @@
 
 		const teaNeedComment = '0';   //表示教师需要进行评论
 		const teaNotNeedComment = '1';  //表示教师不需要进行评论
+
+		const active = "active";	//状态为活跃(现在的小班)
+		const ever = "ever";		//状态为曾经
 	}
  ?>

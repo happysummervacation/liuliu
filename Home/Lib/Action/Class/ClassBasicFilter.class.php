@@ -7,7 +7,7 @@
 
 		public static function transformTimeStrToTimeStamp($timeStr = null){
 			$timeStampArray = array();
-			if(is_null($timeStampArray)){
+			if(is_null($timeStr)){
 				return $timeStampArray;
 			}
 
