@@ -64,9 +64,11 @@
 			$inquiry = new Model("tegroupclasssalary");
 			if(is_null($startTime) || is_null($endTime)){
 				$result = $inquiry
+				->join("inner join tp_group on tp_group.groupID=tp_tegroupclasssalary.groupID")
 				->where("teacherID={$teacherID}")->field("{$fieldString}")->select();
 			}else{
 				$result = $inquiry
+				->join("inner join tp_group on tp_group.groupID=tp_tegroupclasssalary.groupID")
 				->where("teacherID={$teacherID} and
 				((gStartTime>={$startTime} and gEndTime<={$endTime}) ||
 				(gStartTime<={$startTime} and gEndTime>={$startTime}) ||

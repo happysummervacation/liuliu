@@ -195,7 +195,17 @@
 			null,$startTime,$endTime);
 
 			$classStatus = explode(":",$classStatus);
-
+			foreach ($teaSalarySetResult as $key => $value) {
+				//表示要查询几次相应状态的数据结果
+				foreach ($classStatus as $c_key => $c_value) {
+					$temResult = "";
+					//获取某个教师上某个班级的课程数量
+					$temResult = $groupClassCountOp->countGroupClassWithTeacherStatus($value['groupID'],
+					$teacherID,$c_value,$startTime,$endTime);
+					$teaSalarySetResult[$key][$c_value] = $temResult;
+				}
+			}
+			return $teaSalarySetResult;
 		}
 
 		/*
@@ -220,7 +230,9 @@
 			$startTime,$endTime);
 
 			import("Home.Action.Comment.TeaCommentCountService");
+			import("Home.Action.GroupComment.GroupCommentCountService");
 			$teaComCountOp = new TeaCommentCountService();
+			$groupCommentCountOp = new GroupCommentCountService();
 			//获取对应时间段的评论数据(暂时去除小班的评论数据)
 			foreach ($selectResult as $key => $value) {
 				$temClassType = "";
@@ -240,7 +252,17 @@
 					$selectResult[$key]['all'] = $allResult;
 					$selectResult[$key]['done'] = $doneResult;
 				}elseif(1 == $temClassType || '1' == $temClassType){
-
+					$commentStatusResult = $this->createNewCommentStatus($temCommentType,$commentStatus);
+					//统计教师完成的次数
+					$doneResult = $groupCommentCountOp->countGroupCommentWithStatus($value['groupID'],$teacherID,null,
+					$commentStatusResult,$value['cstarttime'],$value['cendtime']);
+					//统计教师应该完成的评论的数量
+					//获取全部的可能的情况
+					$allStatus = $this->createAllCommentStatus($temCommentType);
+					$allResult = $groupCommentCountOp->countGroupCommentWithStatus($value['groupID'],$teacherID,null,
+					$allStatus,$value['cstarttime'],$value['cendtime']);
+					$selectResult[$key]['all'] = $allResult;
+					$selectResult[$key]['done'] = $doneResult;
 				}
 			}
 

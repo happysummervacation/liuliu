@@ -679,3 +679,20 @@ INFO: [ view_end ] --START--
 INFO: Run ShowPageTrace Behavior [ RunTime:0.000347s ]
 INFO: [ view_end ] --END-- [ RunTime:0.000385s ]
 
+[ 2017-03-15T07:37:15+08:00 ] 0.0.0.0 /liuliu3/app.php/UserCenter/index
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000539s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000627s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Dispatcher.class.php 第 120 行.
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000330s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000386s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `tp_tegroupclasssalary` [ RunTime:0.000874s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_tegroupclasssalary` inner join tp_group on tp_group.groupID=tp_tegroupclasssalary.groupID WHERE ( teacherID=18 and
+				((gStartTime>=1488297600 and gEndTime<=1488297600) ||
+				(gStartTime<=1488297600 and gEndTime>=1488297600) ||
+				(gStartTime<=1488297600 and gEndTime>=1488297600)) )  [ RunTime:0.013478s ]
+NOTIC: [2] Invalid argument supplied for foreach() /opt/lampp/htdocs/liuliu3/Home/Lib/Action/Money/MoneyBasicService.class.php 第 198 行.
+

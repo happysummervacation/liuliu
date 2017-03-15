@@ -12,6 +12,7 @@
 		//参数二:表示某个教师
 		//参数三:表示课程状态   如果是null则默认是正常上课,教师迟到,教师早退  (这里暂时只支持正常上课与没有上课)
 		//参数四:表示评论状态   主要根据GlobalValue中的值来进行比较
+		//多种评论条件查询时使用***:***:***&***:***:***的方式
 		//参数五:表示开始时间(时间戳)
 		//参数六:表示结束时间(时间戳)
 		//返回的结果是统计之后的结果
@@ -43,22 +44,28 @@
 			}
 			$classStatusCondition .= ")";
 
+			$commentStatusCondition = " null ";
+			$temCommentStatusResult = explode("&",$commentStatus);
+			foreach ($temCommentStatusResult as $key => $value) {
+				$commentStatusCondition .= " or gclassStatus='{$value}'";
+			}
+
 			$inquiry = new Model("groupclasssch");
 			if(is_null($startTime) || is_null($endTime)){
 				$result = $inquiry->join("inner join tp_group on tp_group.groupID=tp_groupclasssch.groupID
 				 and {$classStatusCondition} and tp_groupclasssch.isdelete=0
 				 inner join tp_class on tp_class.classID=tp_groupclasssch.classID {$teaCondition}
 				 inner join tp_groupteachercom on tp_groupclasssch.gteacherComment=tp_groupteachercom.
-				 groupTeacherComID and gComStatus={$commentStatus}")
-				 ->count("tp_groupteachercom.groupTeacherComID");
+				 groupTeacherComID ")
+				 ->count("{$temCommentStatusResult}");
 			 }else{
 				 $result = $inquiry->join("inner join tp_group on tp_group.groupID=tp_groupclasssch.groupID
  				 and {$classStatusCondition} and tp_groupclasssch.isdelete=0
  				 inner join tp_class on tp_class.classID=tp_groupclasssch.classID {$teaCondition} and
 				 tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime}
  				 inner join tp_groupteachercom on tp_groupclasssch.gteacherComment=tp_groupteachercom.
- 				 groupTeacherComID and gComStatus={$commentStatus}")
- 				 ->count("tp_groupteachercom.groupTeacherComID");
+ 				 groupTeacherComID ")
+ 				 ->count("{$temCommentStatusResult}");
 			 }
 			 return $result;
 		}

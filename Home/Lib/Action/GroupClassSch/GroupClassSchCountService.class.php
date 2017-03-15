@@ -79,13 +79,18 @@
 				if($value == GlobalValue::notClass){
 					$statusString = $statusString." or gclassStatus=0 ";
 				}elseif($value == GlobalValue::haveClass){
-					$statusString = $statusString." or gclassStatus=1 ";
+					$statusString = $statusString." or or gclassStatus=1 or gclassStatus=3 or gclassStatus=4 ";
+				}elseif($value == GlobalValue::teaMissClass){
+					$statusString = $statusString." or gclassStatus=5";
+				}elseif($value == GlobalValue::teaCancelClass){
+					$statusString = $statusString." or gclassStatus=6";
 				}
 			}
 
 			$inquiry = new Model("groupclasssch");
 			if(is_null($startTime) || is_null($endTime)){
-				$result = $inquiry->join("inner join tp_class on tp_class.classID=tp_groupclasssch.
+				$result = $inquiry
+				->join("inner join tp_class on tp_class.classID=tp_groupclasssch.
 				classID and groupID={$groupID} and tp_groupclasssch.isdelete=0 and tp_class.teacherID=
 				{$teacherID}")
 				->count("{$statusString}");

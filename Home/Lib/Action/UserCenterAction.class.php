@@ -114,15 +114,16 @@
 				// $result = $moneyBasOp->getTeaCommentSalaryInfo(19,
 				// GlobalValue::teaComment.":".GlobalValue::teaNeedComment."&".GlobalValue::autoComment.":".GlobalValue::teaNotNeedComment,
 				// 1488297600,1490976000);
-				$result = $groupClassOp->countGroupClassWithStatus(18,
+
+
+				// $result = $groupClassOp->countGroupClassWithStatus(18,
+				// GlobalValue::haveClass.":".GlobalValue::teaMissClass.":".GlobalValue::teaCancelClass,
+				// 1488297600,1488297600);
+				$result = $salaryOp->getTeaGroupClassSalaryInfo(18,
 				GlobalValue::haveClass.":".GlobalValue::teaMissClass.":".GlobalValue::teaCancelClass,
 				1488297600,1488297600);
 				dump($result);
 				exit;
-
-
-
-
 
 
 				import("Home.Action.User.UserFeatrueOperate");
