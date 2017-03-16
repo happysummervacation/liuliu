@@ -78,4 +78,45 @@
 
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		为一个教师新增一条小班课薪资数据（可用于更新教师小班课薪资）
+		参数一：教师ID
+		参数二：小班ID
+		参数三：金额
+		*/
+		public function addGroupClassSalary($teacherID = null,$groupID = null,$price = null){
+			$message = array();
+			if(is_null($teacherID) || is_null($groupID) || is_null($price)){
+				$message['status'] = fales;
+				$message['message'] = "缺少必要数据！";
+			}
+			//查询是否有薪资记录，有则更新原数据的信息
+			$data['gEndTime'] = getTime();
+			$data['gIsLastest'] = 0;
+			$inquiry = new Model("tegroupclasssalary");
+			$updateresult = $inquiry->where("teacherID = {$teacherID} and groupID = {$groupID}")
+			->save($data);
+			//添加现在的信息
+			import("Home.Action.GlobalValue.GlobalValue");
+			$data['gEndTime'] = GlobalValue::initOrderPackageTime;
+			$data['gStartTime'] = getTime();
+			$data['teacherID'] = $teacherID;
+			$data['groupID'] = $groupID;
+			$data['price'] = $price;
+			$data['gIsLastest'] = 1;
+			$result = $inquiry->add($data);
+
+			if($result){
+                $message['status'] = true;
+                $message['message'] = "用户数据增添成功";
+                $message['classID'] = $result;
+                return $message;
+            }else{
+                $message['status'] = false;
+                $message['message'] = "用户数据增添失败";
+                return $message;
+            }
+		}
 	}

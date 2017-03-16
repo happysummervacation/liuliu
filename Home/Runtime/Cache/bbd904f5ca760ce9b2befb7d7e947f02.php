@@ -292,6 +292,7 @@
                     </div>
                     <!-- /.col-lg-12 -->
                 </div>
+
                 <!-- /.row -->
                 <div class="row clearfix">
                     <div class="col-lg-12">
@@ -313,21 +314,23 @@
                                 </tr>
                               </thead>
                               <tbody>
+                              <?php foreach($classList as $key => $value){ ?>
                                 <tr>
-                                  <td>01</td>
-                                  <td>A小班</td>
-                                  <td><a href="">Simon</a></td>
-                                  <td><a href="">雅思初级上(1)</a></td>
-                                  <td>10/25</td>
+                                  <td><?php echo ($value['groupID']); ?></td>
+                                  <td><?php echo ($value['groupName']); ?></td>
+                                  <td><a href=""><?php echo ($value['account']); ?></a></td>
+                                  <td><a href=""><?php echo ($value['material']); ?></a></td>
+                                  <td><?php echo ($value['haveclass']); ?>/<?php echo $value['gclassNumber']+$value['gotherClassNum']; ?></td>
                                   <td>
                                      <div class="btn-group btn-group-sm">
                                         <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupClassRecode');?>")'>课程记录</button>
-                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupStudentManage');?>")'>学生管理</button>
-                                        <button class="btn btn-default" type="button">教师管理</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupStudentManage',array('groupID'=>$value['groupID']));?>")'>学生管理</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupTeacherManage',array('groupID'=>$value['groupID']));?>")'>教师管理</button>
                                         <button class="btn btn-default changeMgr" type="button" >教材管理</button>
                                       </div>
                                   </td>
                                 </tr>
+                                <?php } ?>
                               </tbody>
                             </table>
                             </div>
@@ -336,9 +339,10 @@
                               <button class="btn btn-primary openclass" style="float: right;margin-left: 15px;">
                                 新建小班
                               </button>
-                              <button class="btn btn-default" style="float: right;" data-toggle="modal" data-target="#watchhistory">
+                              <!-- <button class="btn btn-default" style="float: right;" data-toggle="modal" data-target="#watchhistory">
                                 小班历史查看
-                              </button>
+                              </button> -->
+                              <button class="btn btn-default" style="float: right;" onclick="load('<?php echo U('Group:GroupHistory');?>')">小班历史查看</button>
                             </div>
                         </div>
                     </div>
@@ -354,25 +358,34 @@
                       <div class="panel-body">
                         <div class="row clearfix">
                           <div class="col-lg-10">
-                          <form class="form-horizontal" id="createXiaoBan">
+                          <form class="form-horizontal" id="createXiaoBan" action="<?php echo U('Group/CreateGroup');?>" method="post">
+                            <div class="form-group">
+                              <label class="col-sm-2 control-label">小班名称</label>
+                              <div class="col-sm-10">
+                                <input type="text" name="groupName" class="form-control">
+                              </div>
+                            </div>
                             <div class="form-group">
                               <label class="col-sm-2 control-label">选择套餐</label>
                               <div class="col-sm-10">
-                                <select class="form-control">
+                                <select class="form-control" id="packer_arr" name="packageID">
                                   <option></option>
+                                  <?php foreach($packageList as $key => $value) { ?>
+                                  <option value='<?php echo ($value["package_id"]); ?>' desc="<?php echo ($value['packageName']); ?>_<?php echo ($value['student_number']); ?>_<?php echo ($value['teacher_nation']); ?>_<?php echo ($value['teacher_type']); ?>_<?php echo ($value['class_number']); ?>" id="package_info_<?php echo ($value['package_id']); ?>"><?php echo ($value['package_name']); ?></option>
+                                  <?php } ?>
                                 </select>
                               </div>
                             </div>
                             <div class="form-group">
                               <label class="col-sm-2 control-label">套餐信息</label>
                               <div class="col-sm-10">
-                                <textarea class="form-control"></textarea>
+                                <textarea class="form-control" id="package_detail" style="resize: none;" readonly="true"></textarea>
                               </div>
                             </div>
                             <div class="form-group">
                               <label for="inputPassword3" class="col-sm-2 control-label">选择教师</label>
                               <div class="col-sm-10">
-                                 <select class="form-control">
+                                 <select class="form-control" id="group_teacher" name="teacherID">
                                   <option></option>
                                 </select>
                               </div>
@@ -380,7 +393,7 @@
                             <div class="form-group">
                               <label for="inputPassword3" class="col-sm-2 control-label">教师薪资</label>
                               <div class="col-sm-10">
-                                 <input type="number" name="teachermoney" class="form-control">
+                                 <input type="number" name="teacherSalary" class="form-control">
                               </div>
                             </div>
                             <div class="form-group classtime">
@@ -395,12 +408,12 @@
                                  <button class="btn btn-primary addTime" type="button">添加</button>
                                </div>
                             </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                               <div class="col-sm-offset-2 col-sm-10">
                                 <button type="button" class="btn btn-default">查看可选学生</button>
                               </div>
-                            </div>
-                            <div class="form-group">
+                            </div> -->
+                            <!-- <div class="form-group">
                               <label for="inputPassword3" class="col-sm-2 control-label">选择学生</label>
                               <div class="col-sm-4">
                                <select id='pre-selected-options' multiple='multiple'>
@@ -412,7 +425,7 @@
                                   <option value='elem_100'>elem 100</option>
                                 </select>
                               </div>
-                            </div>
+                            </div> -->
                             <div class="form-group" style="display: none">
                               <input type="text" name="times" id='XiaobenTimes'>
                             </div>
@@ -715,6 +728,7 @@
             str=str+"<option value='"+tr[i]['bookid']+"_"+tr[i]['imagepath']+"'>"+tr[i]['bookname']+"</option>";
           };
           $('#classlist').html(str);
+
         },
         error:function(err){
           alert(err)
@@ -725,6 +739,39 @@
     $('#classlist').change(function(){
       var src=$(this).val().split("_");
       $('#bookMgr').find('img').attr('src',src[1]);
+    });
+
+    //获取到的套餐数据的处理
+    $('#packer_arr').change(function(){
+      $('#package_detail').html("");
+      var temp_package_info = $(this).val();
+      var desc=$('#package_info_'+temp_package_info).attr('desc');
+      desc=desc.split('_');
+      str="套餐类型:"+desc[0]+"\t"+
+          "学生人数"+desc[1]+"\t"+
+          "教师类型"+((desc[2]==0)?'中教':'外教')+"\t"+
+          "教师类别"+((desc[3]==0)?'普通':'名师')+"\t"+
+          "班级课时"+desc[4];
+      //对课程数量赋值
+      classnumber=desc[4];
+      $('#package_detail').html(str);
+      console.log(temp_package_info);
+      $.ajax({
+        url:"<?php echo U('Group/ajaxGetTeacherInfo');?>",
+        type:'post',
+        data:"package_id="+temp_package_info,
+        success:function(msg){
+          var message=(msg!=null)?JSON.parse(msg):null;
+          var str='';
+          for(var i=0;i<message.length;i++){
+            str=str+"<option value="+message[i]['ID']+">"+message[i]['englishname']+"</option>";
+          };
+          $('#group_teacher').html(str);
+        },
+        error:function(error){
+          alert(error);
+        }
+      })
     });
     </script>
 

@@ -313,14 +313,16 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td>01</td>
-                                    <td>A小班</td>
-                                    <td><a href="">Simon</a></td>
-                                    <td><a href="#" class="getstulist">学生列表</a></td>
-                                    <td><a href="">雅思初级上(1)</a></td>
-                                    <td><a href="#" class="getclasslist">点击查看</a></td>
-                                  </tr>
+                                  <?php foreach($classList as $key => $value){ ?>
+                                    <tr>
+                                      <td><?php echo ($value['groupID']); ?></td>
+                                      <td><?php echo ($value['groupName']); ?></td>
+                                      <td><a href=""><?php echo ($value['account']); ?></a></td>
+                                      <td><a href="#" class="getstulist">学生列表</a></td>
+                                      <td><a href=""><?php echo ($value['material']); ?></a></td>
+                                      <td><a href="#" class="getclasslist">点击查看</a></td>
+                                    </tr>
+                                  <?php } ?>
                                 </tbody>
                               </table>
                             </div>
@@ -383,7 +385,7 @@
                 </tr>
               </thead>
               <tbody>
-                
+
               </tbody>
             </table>
           </div>

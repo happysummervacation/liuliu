@@ -50,5 +50,24 @@
 			return $num[0]['num'];
 		}
 
+		/*
+		蒋周杰
+		获取小班套餐已用课时（0 1）
+		参数一：套餐ID
+		*/
+		public function getGroupPackagehaveclass($orderPackageID = null){
+			if(is_null($orderPackageID)){
+				return null;
+			}
+
+			$inquiry = new Model();
+			$sql = "select count(stuClassStatus = 0 or stuClassStatus = 1 or null) as num
+			from tp_groupstuclasssch
+			where orderPackageID = {$orderPackageID}";
+
+			$result = $inquiry->query($sql);
+			return $result[0]['num'];
+		}
+
 
 	}

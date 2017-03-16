@@ -103,4 +103,21 @@
 
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		查询一节未上小班课的学生人数
+		参数一：classID
+		*/
+		public function getclassStudentNum($classID = null){
+			if(is_null($classID)){
+				return null;
+			}
+
+			$inquiry = new Model();
+			$sql = "select count(groupClassSchID = {$classID} or null) as num
+			from tp_groupstuclasssch where isdelete = 0 and stuClassStatus = 0";
+			$result = $inquiry->query($sql);
+			return $result[0]['num'];
+		}
 	}

@@ -143,11 +143,11 @@
 			}else{
 				$classPeriod = $this->reClassTime;
 			}
-
-
+			
 			//添加数据
 			$Data['classStartTime'] = "";
-			$Data['classStartTime'] = strtotime("{$date['year']}-{$date['date']} {$date['time']}");
+
+			$Data['classStartTime'] = strtotime($date);
 			$Data['classEndTime'] = (int)$Data['classStartTime']+$classPeriod;
 			$Data['classID'] = md5($Data['classStartTime'].$teacherID);
 			$Data['teacherID'] = $teacherID;
@@ -158,15 +158,17 @@
 
 			$inquiry = new Model("class");
 			$result = $inquiry->add($Data);
+
 			if($result){
-                $message['status'] = true;
-                $message['message'] = "用户数据增添成功";
-                return $message;
-            }else{
-                $message['status'] = false;
-                $message['message'] = "用户数据增添失败";
-                return $message;
-            }
+	            $message['status'] = true;
+	            $message['message'] = "用户数据增添成功";
+	            $message['other'] = $Data['classID'];
+			}else{
+				$message['status'] = false;
+	            $message['message'] = "用户数据增添失败";
+			}
+            return $message;
+
 		}
 
 	}

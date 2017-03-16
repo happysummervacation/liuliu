@@ -111,14 +111,13 @@
 					tp_tegroupclasssalary.groupID = tp_group.groupID
 					and tp_tegroupclasssalary.gIsLastest = 1
 					inner join tp_teacher on
-					tp_teacher.ID = tp_tegroupclasssalary.teacherID")->where("isdelete = 0 and groupID = {$groupID}")->field("tp_group.*,tp_teacher.account")->where("isdelete = 0")->select();
+					tp_teacher.ID = tp_tegroupclasssalary.teacherID")->field("tp_group.*,tp_teacher.account")->where("tp_group.isdelete = 0 ")->select();
 				$classresult = array();
-
 				foreach ($classlist as $key => $value) {
 					//获取每个小班的已上课数，存在haveclass中
 					$classlist[$key]['haveclass'] = $gcsCS->countGroupClassWithStatus($value['groupID'],GlobalValue::haveClass);
 
-					if($status == GlobalValue::avtive){
+					if($status == GlobalValue::active){
 						//提取还在上课的小班
 						if($classlist[$key]['haveclass'] < $value['gclassNumber']+$value['gotherClassNum']){
 							array_push($classresult,$classlist[$key]);
@@ -190,6 +189,38 @@
 				}
 			}
 			return $studentresult;
+		}
+
+
+		/*
+		蒋周杰
+		根据套餐ID获取符合该套餐要求的教师列表
+		参数一：packageID
+		*/
+
+		public function getGroupTeacherList($packageID = null){
+			if(is_null($packageID)){
+				return null;
+			}
+
+			import("Home.Action.Package.PackageBasicOperate");
+			$packageBo = new PackageBasicOperate();
+			$packageInfo = $packageBo->getPackageInfo($packageID);
+			$teacherType = $packageInfo[0]['teacher_type'];
+			$classType = $packageInfo[0]['category'];
+			$teacherNation = $packageInfo[0]['teacher_nation'];
+			$inquiry = new Model("teacher");
+			// $result = $inquiry->distinct(true)
+			// ->field("englishname,ID")
+			// ->join("inner join tp_teoneclasssalary on tp_teoneclasssalary.teacherID = tp_teacher.ID")
+			// ->where("tp_teoneclasssalary.scategory = {$classType}
+			// 	and tp_teoneclasssalary.teacherType = {$teacherType}
+			// 	and tp_teacher.teacher_type = {$teacherNation}")
+			// ->select();
+			$result = $inquiry
+			->where("teacher_type = {$teacherNation} and status = 1")
+			->select();
+			return $result;
 		}
 
 	}

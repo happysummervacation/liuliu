@@ -124,4 +124,132 @@
 
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		获取添加学生的学生列表
+		参数一：classID   用于查小班的信息
+		参数二：
+		*/
+
+		public function getStudentList($groupID = null){
+			if(is_null($classID)){
+				return null;
+			}
+
+			//获取小班的信息
+			import("Home.Action.Group.GroupBasicService");
+			$groupBS = new GroupBasicService();
+			$groupInfo = $groupBS->getGroupClassInfo($groupID);
+
+
+			//查询所有学生
+			$inquiry = new Model("orderpackage");
+			$studentList = $inquiry
+			->join("inner join tp_student on tp_student.ID = tp_orderpackage.studentID")
+			->where("tp_orderpackage.category = {$groupInfo['category']}
+				and tp_orderpackage.classType = 1
+				and tp_orderpackage.studentNumber = {$groupInfo['gstudentNumber']}
+				and tp_orderpackage.teacherNation = {$groupInfo['gteacherType']}
+				tp_orderpackage.teacherType = {$groupInfo['gteacherLevel']}
+				and tp_orderpackage.status = 1 and tp_orderpackage.isdelete = 0")
+			->select();
+
+			$result = array();
+			import("Home.Action.OrderPackage.OrderPackageCountService");
+			$packageOp = new OrderPackageCountService();
+			foreach ($studentList as $key => $value) {
+				//查询改套餐的已用课时
+				$value['haveclass'] = $packageOp->getGroupPackagehaveclass($value['orderpackageID']);
+				//如果该套餐还能订课则将信息放入result中
+				if($value['haveclass']<$value['classNumber']+$value['otherClass']){
+					$result[$value['ID']]['ID'] = $value['ID'];
+					$result[$value['ID']]['account'] = $value['account'];
+					//可继续添加学生的一些信息
+				}
+			}
+			return $result;
+		}
+
+
+
+		/*
+		蒋周杰
+		获取一个小班剩余可增加学生的课程
+		参数一:groupID
+		*/
+
+		public function getOptionClass($groupID = null){
+			if(is_null($groupID)){
+				return null;
+			}
+
+			//获取小班的信息
+			import("Home.Action.Group.GroupBasicService");
+			$groupBS = new GroupBasicService();
+			$groupInfo = $groupBS->getGroupClassInfo($groupID);
+
+			$classNumber = $groupInfo['gstudentNumber'];
+
+			$inquiry = new Model();
+			//查询该小班的所有课程
+			$sql = "select * from tp_groupclasssch where
+			isdelete = 0 and gclassStatus = 0 and groupID = {$groupID}";
+			$classList = $inquiry->query($sql);
+
+			//筛选出可增加学生的课程
+			import("Home.Action.GroupClassSch.GroupClassSchCountService");
+			$groupCS = new  GroupClassSchCountService();
+
+			$result = array();
+			foreach ($classList as $key => $value) {
+				//获取该课的已有学生
+				$studentNum = $groupCS->getclassStudentNum($value['groupClassSchID']);
+				if($studentNum < $classNumber){
+					array_push($result,$classList[$key]);
+				}
+			}
+
+			return $result;
+		}
+
+		/*
+		蒋周杰
+		获取该学生在某一小班可用的套餐
+		参数一：学生ID
+		参数二：班级ID
+		*/
+		public function getGroupOptionPackageInfo($studentID = null,$groupID = null){
+			if(is_null($studentID)||is_null($groupID)){
+				return null;
+			}
+			/*根据 studentID 和 groupID 获取该学生的可用套餐*/
+			//获取小班信息
+			//获取小班的信息
+			import("Home.Action.Group.GroupBasicService");
+			$groupBS = new GroupBasicService();
+			$groupInfo = $groupBS->getGroupClassInfo($groupID);
+
+			//查询该学生符合小班的套餐
+			$inquiry = new Model("orderpackage");
+			$packageList = $inquiry
+			->where("category = {$groupInfo['category']}
+				and classType = 1
+				and studentNumber = {$groupInfo['gstudentNumber']}
+				and teacherNation = {$groupInfo['gteacherType']}
+				teacherType = {$groupInfo['gteacherLevel']}
+				and status = 1 and isdelete = 0
+				and studentID = {$studentID} ")
+			->select();
+
+			//获取每种套餐的剩余课时
+			import("Home.Action.OrderPackage.OrderPackageCountService");
+			$opCS = new OrderPackageCountService();
+			foreach ($packageList as $key => $value) {
+				$haveclass = $opCS-> getGroupPackagehaveclass($value['orderpackageID']);
+				$packageList[$key]['classNum'] = $value['classNumber']+$value['otherClass']-$haveclass;
+			}
+
+			return $packageList;
+		}
 	}
