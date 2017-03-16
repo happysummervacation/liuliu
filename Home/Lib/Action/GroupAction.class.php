@@ -150,7 +150,6 @@
 					}
 				}
 
-
 				/*添加教师薪资数据*/
 				import("Home.Action.Money.TeaSalaryService");
 				$teaSS = new TeaSalaryService();

@@ -73,7 +73,7 @@
                               <table class="table table-striped table-bordered table-hover" id="dataTables-example2" style="max-width: 100%;">
                                 <thead>
                                   <tr>
-                                    <th>次数</th>
+                                    <th>课程编号</th>
                                     <th>时间</th>
                                     <th>状态</th>
                                     <th>教师评价</th>
@@ -81,19 +81,40 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr>
-                                    <td value='classid'>1</td>
-                                    <td>2016-3-3 16:00-16:30</td>
-                                    <td>正常上课</td>
-                                    <td>A</td>
-                                    <td>
-                                      <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-default modifystatus" type="button">修改状态</button>
-                                        <button class="btn btn-default classnote" type="button">查看笔记</button>
-                                        <button class="btn btn-default teacherreturnclass" type="button">老师退课</button>
-                                      </div>
-                                    </td>
-                                  </tr>
+                                  <foreach name="groupClassInfo" item="vo">
+                                      <tr>
+                                        <td value='<{$vo.groupClassSchID}>'><{$vo.groupClassSchID}></td>
+                                        <td><{$vo.classStartTime|date='Y-m-d H:i',###}>-
+                                            <{$vo.classEndTime|date='H:i',###}></td>
+                                        <td>
+                                            <switch name="vo['gclassStatus']">
+                                                <case value="0">还没有上课</case>
+                                                <case value="1">正常上课</case>
+                                                <case value="2">学生退课</case>
+                                                <case value="3">教师早退</case>
+                                                <case value="4">教师迟到</case>
+                                                <case value="5">教师缺课</case>
+                                                <case value="6">教师退课</case>
+                                                <case value="7">意外情况</case>
+                                            </switch>
+                                        </td>
+                                        <td>
+                                            <php>if(empty($vo['comment'])){
+                                                    echo "还没有进行评论";
+                                                }else{
+                                                    echo $vo['comment'][0]['commentlevel'];
+                                                }
+                                            </php>
+                                        </td>
+                                        <td>
+                                          <div class="btn-group btn-group-sm">
+                                            <button class="btn btn-default modifystatus" type="button">修改状态</button>
+                                            <button class="btn btn-default classnote" type="button">查看笔记</button>
+                                            <button class="btn btn-default teacherreturnclass" type="button">老师退课</button>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                  </foreach>
                                 </tbody>
                               </table>
                             </div>
@@ -121,19 +142,19 @@
             <h4 class="modal-title" id="myModalLabel">修改课程状态</h4>
           </div>
           <div class="modal-body">
-            <form class="form" action="<{:U('Group:...')}>" method="post">
+            <form class="form" action="<{:U('GroupClass/GroupClassManage',array('type'=>'changeStatus'))}>" method="post">
               <div class="form-group">
                 <label>修改课程状态</label>
-                <select class="form-control">
-                  <option value="">daiding</option>
-                  <option></option>
+                <select name="status" class="form-control">
+                  <option value="1">正常完成</option>
+                  <option value="5">教师缺课</option>
+                  <option value="7">意外情况</option>
                 </select>
               </div>
-
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-            <button type="button" class="btn btn-primary">保存修改</button>
+            <button type="submit" class="btn btn-primary">保存修改</button>
           </div>
           </form>
         </div>
@@ -150,7 +171,7 @@
             <h4 class="modal-title" id="myModalLabel">添加课时</h4>
           </div>
           <div class="modal-body clearfix">
-            <form class="form row" action="<{:U('Group:...')}>" method="post">
+            <form class="form row" action="" method="post">
               <div class="form-group col-lg-4">
                 <label>选择课程时间</label>
                 <input type="text" name="classtime" class="form-control calendar">
@@ -188,7 +209,7 @@
     </div>
     <!-- //模态框2 -->
     <!-- 查看笔记 -->
-    <div class="modal fade" id="classnote" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="class_note" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -291,8 +312,16 @@
           $('.makesuretime').attr('disabled','disabled');
         }
       });
+
       $('.modifystatus').click(function(){
+        var groupClassSchID = $(this).parent().parent().parent().children().eq(0).html();
+        $('#changeclassstatus').find("form").attr("groupID",groupClassSchID);
         $('#changeclassstatus').modal();
+      });
+      $('#changeclassstatus').find("form").submit(function(){
+          var act=$(this).attr('action');
+          var gid=$(this).attr('groupID');
+          $(this).attr('action',act+"/groupClassID/"+gid);
       });
       $('.addclass').click(function(){
         $('#addclass').modal();
@@ -315,41 +344,45 @@
         $('.submit').removeAttr('disabled');
       });
       $('.submit').click(function(){
+        $(this).attr('disabled','disabled');
         var data=JSON.stringify(times);
         $.ajax({
-          url:'<{:U("Group:Group...")}>',
+          url:"<{:U('GroupClass/GroupClassManage',array('type'=>'addGroupClass','groupID'=>$groupID))}>",
           type:'post',
-          data:data,
+          data:'times='+data,
           success:function (msg){
-
+              alert(msg);
+              location.reload();
           },
           error:function (msg){
-
+              alert(msg);
+              location.reload();
           }
         });
       });
 
       //查看课程笔记
       $('.classnote').click(function(){
-        var data={};
-        data.classid=$(this).parents('tr').find('td').eq(0).attr('value');
         $.ajax({
-          url:'<{...}>',
+          url:'<{:U('GroupClass/GroupClassManage',array('type'=>'getNote'))}>',
           type:'post',
-          data:data,
+          data:'groupClassSchID='+$(this).parents('tr').find('td').eq(0).attr('value'),
           success:function(msg){
-            $('#classnote').find('textarea').html(msg);
+            $('#class_note').find('textarea').html(msg);
+          },
+          error:function(){
+            alert(error);
           }
-        })
-        $('#classnote').modal();
+        });
+        $('#class_note').modal();
       });
 
       //老师退课
       $('.teacherreturnclass').click(function(){
-        var data={};
-        data.classid=$(this).parents('tr').find('td').eq(0).attr('value');
+        var data="";
+        data=$(this).parents('tr').find('td').eq(0).attr('value');
         if(confirm('教师退课将不消耗学生课时！\n请确认您的操作！')){
-          window.location.href='<{...}>'//记得加上data数据
+          window.location.href='<{:U('GroupClass/GroupClassManage',array('type'=>'teaCancelClass'))}>/groupClassSchID/'+data//记得加上data数据
         }else{
           return;
         }

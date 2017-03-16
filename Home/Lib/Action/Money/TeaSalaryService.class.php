@@ -78,6 +78,35 @@
 
 			return $result;
 		}
+		/*
+		*俞鹏泽
+		*查询某个小班中,上过课的教师的薪资信息情况
+		*/
+		//参数一:表示小班
+		//参数二:表示要查询的数据
+		//参数三:表示是否是最新的  //true表示最新的,false表示非最新的
+		public function getTeaSalaryWithGroup($groupID = null,$field = null,$isLatest = true){
+			if(is_null($groupID)){
+				return null;
+			}
+
+			$fieldString = "";
+			$fieldString = transformFieldToFieldString($field);
+
+			$isLatestCondition = "";
+			if($isLatest){
+				$isLatestCondition = " gIsLastest=1 ";
+			}else{
+				$isLatestCondition = " gIsLastest=0 ";
+			}
+
+			$inquiry = new Model("tegroupclasssalary");
+			$result = $inquiry->where("isdelete=0 and groupID={$groupID} and {$isLatestCondition}")
+			->field("{$fieldString}")
+			->select();
+
+			return $result;
+		}
 
 		/*
 		蒋周杰

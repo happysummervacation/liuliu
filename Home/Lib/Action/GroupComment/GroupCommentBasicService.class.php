@@ -28,4 +28,23 @@
 				return $message;
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*查询的小班的评论数据
+		*/
+		public function getGroupCommentInfo($groupTeacherComID = null,$field = null){
+			if(is_null($groupClassSchID)){
+				return null;
+			}
+			$fieldString = "";
+			$fieldString = transformFieldToFieldString($field);
+
+			$inquiry = new Model("groupteachercom");
+			$result = $inquiry->where("groupTeacherComID={$groupTeacherComID}")
+			->field("{$fieldString}")
+			->select();
+
+			return $result;
+		}
 	}

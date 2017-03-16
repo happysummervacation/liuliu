@@ -323,9 +323,9 @@
                                   <td><?php echo ($value['haveclass']); ?>/<?php echo $value['gclassNumber']+$value['gotherClassNum']; ?></td>
                                   <td>
                                      <div class="btn-group btn-group-sm">
-                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupClassRecode');?>")'>课程记录</button>
-                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupStudentManage',array('groupID'=>$value['groupID']));?>")'>学生管理</button>
-                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupTeacherManage',array('groupID'=>$value['groupID']));?>")'>教师管理</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('GroupClass/GroupClassRecode',array('groupID'=>$value['groupID']));?>")'>课程记录</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group/GroupStudentManage',array('groupID'=>$value['groupID']));?>")'>学生管理</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group/GroupTeacherManage',array('groupID'=>$value['groupID']));?>")'>教师管理</button>
                                         <button class="btn btn-default changeMgr" type="button" >教材管理</button>
                                       </div>
                                   </td>

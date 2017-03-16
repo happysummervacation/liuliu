@@ -54,6 +54,10 @@
 			$fieldString = "";
 			$fieldString = transformFieldToFieldString($field);
 
+			if(trim($fieldString) == "*"){
+				$fieldString = " tp_group.*,tp_groupclasssch.*,tp_class.*,tp_teacher.*";
+			}
+
 			$teaCondition = "";
 			if(!is_null($teacherID)){
 				$teaCondition = " tp_class.teacherID={$teacherID} ";
@@ -63,23 +67,29 @@
 
 			if(is_null($startTime) || is_null($endTime)){
 				$result = $inquiry
-				->table("tp_group,tp_groupclasssch,tp_groupteachercom,tp_class,tp_teacher")
+				->table("tp_group,tp_groupclasssch,tp_class,tp_teacher")
 				->where("tp_group.groupID=tp_groupclasssch.groupID and tp_groupclasssch.isdelete=0
-				and tp_class.classID=tp_groupclasssch.classID and tp_class.teacherID=tp_teacher.ID
-				and if(tp_groupclasssch.gteacherComment is null,'1=1','tp_groupclasssch.
-				gteacherComment=tp_groupteachercom.groupTeacherComID')")
-				->field("if(tp_groupclasssch.gteacherComment is null,'','tp_groupteachercom.*,') {$fieldString}")
+				and tp_class.classID=tp_groupclasssch.classID and tp_class.teacherID=tp_teacher.ID")
+				->field("{$fieldString}")
 				->select();
 			}else{
 				$result = $inquiry
-				->table("tp_group,tp_groupclasssch,tp_groupteachercom,tp_class,tp_teacher")
+				->table("tp_group,tp_groupclasssch,tp_class,tp_teacher")
 				->where("tp_group.groupID=tp_groupclasssch.groupID and tp_groupclasssch.isdelete=0
 				and tp_class.classID=tp_groupclasssch.classID and tp_class.teacherID=tp_teacher.ID
-				and tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime}
-				and if(tp_groupclasssch.gteacherComment is null,'1=1','tp_groupclasssch.
-				gteacherComment=tp_groupteachercom.groupTeacherComID')")
-				->field("if(tp_groupclasssch.gteacherComment is null,'','tp_groupteachercom.*,') {$fieldString}")
+				and tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime}")
+				->field("{$fieldString}")
 				->select();
+			}
+			//根据是否有评论数据来获取评论的数据
+			import("Home.Action.GroupComment.GroupCommentBasicService");
+			$groupComOp = new GroupCommentBasicService();
+			foreach ($result as $key => $value) {
+				$temCom = "";
+				if(!is_null($value['gteacherComment'])){
+					$temCom = $groupComOp->getGroupCommentInfo($$value['gteacherComment']);
+				}
+				$result[$key]['comment'] = $temCom;
 			}
 
 			return $result;
@@ -111,12 +121,30 @@
 				return $message;
 			}
 		}
+		/*
+		*俞鹏泽
+		*获取小班的各种信息
+		*/
+		public function getGroupClassSchInfoWithCon($groupClassSchID = null,$field = null){
+			if(is_null($groupClassSchID)){
+				return null;
+			}
+			$fieldString = "";
+			$fieldString = transformFieldToFieldString($field);
+
+			$inquiry = new Model("groupclasssch");
+			$result = $inquiry->where("groupClassSchID={$groupClassSchID}")
+			->field("{$fieldString}")
+			->select();
+
+			return $result;
+		}
 
 		/*
 		蒋周杰
 		给老师添加一节小班的上课时间
 		参数一：教师的ID
-		参数二：要开放的时间
+		参数二：要开放的时间(不是时间戳,是时间的字符串)
 		*/
 		public function addGroupClass($teacherID = null,$date = null){
 			$inquiry = new Model();
@@ -143,7 +171,7 @@
 			}else{
 				$classPeriod = $this->reClassTime;
 			}
-			
+
 			//添加数据
 			$Data['classStartTime'] = "";
 

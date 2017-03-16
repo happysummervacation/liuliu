@@ -36,9 +36,97 @@
 			if(2 == $identity || '2' == $identity){
 
 			}elseif(4 == $identity || '4' == $identity){
+				import("Home.Action.GroupClassSch.GroupClassSchBasicService");
+				$groupClassOp = new GroupClassSchBasicService();
+				$result = $groupClassOp->getOneGroupClassSchInfo((int)$_GET['groupID']);
+
+				$this->assign("groupClassInfo",$result);
+				$this->assign("groupID",$_GET['groupID']);
 				$this->display("Root:GroupClassRecode");
 			}else{
 				$this->error("你没有权限访问该网页");
+			}
+		}
+
+		/*
+		*俞鹏泽
+		*表示对小班课程的各种管理
+		*/
+		public function GroupClassManage(){
+			$this->CheckSession();
+
+			$identity = $_SESSION['identity'];
+			$type = $_GET['type'];
+
+			import("Home.Action.GroupClassSch.GroupClassSchBasicService");
+			$groupClassOp = new GroupClassSchBasicService();
+
+			if('2' == $identity || 2 == $identity){
+
+			}elseif('4' == $identity || 4 == $identity){
+				if("changeStatus" == $type){
+					$data['gclassStatus'] = $_POST['status'];
+					$groupClassSchID = $_GET['groupClassID'];
+					$result = $groupClassOp->updateOneGroupClassSchInfo($groupClassSchID,$data);
+					if($result['status']){
+						$this->success("状态修改完成");
+					}else{
+						$this->error("状态修改失败");
+					}
+				}elseif("getNote" == $type){  //用于获取小班的课程笔记
+					$groupClassSchID = $_POST['groupClassSchID'];
+					$noteResult = $groupClassOp->getOneGroupClassSchInfo($groupClassSchID,"note")[0]['note'];
+					echo "".$noteResult;
+				}elseif('teaCancelClass' == $type){
+					$groupClassSchID = $_GET['groupClassSchID'];
+					$data['gclassStatus'] = 6;  //表示教师退课
+					$result = $groupClassOp->updateOneGroupClassSchInfo($groupClassSchID,$data);
+					if($result['status']){
+						$this->success("教师退课成功");
+					}else{
+						$this->error("教师退课失败");
+					}
+				}elseif("addGroupClass" == $type){
+					$dateList = $_POST['times'];
+					$dateList = json_decode($dateList,true);
+					$groupID = $_GET['groupID'];
+
+					//先查询是哪个教师在上该小班课,查询教师的小班薪资表来获取
+					import("Home.Action.Money.TeaSalaryService");
+					$flag = true;  //用来判断是否添加课程成功
+					$teaSalaryOp = new TeaSalaryService();
+					$teacherID = $teaSalaryOp->getTeaSalaryWithGroup($groupID,"teacherID")[0]['teacherID'];
+
+					$inquiry = new Model();
+					$inquiry->startTrans();
+
+					import("Home.Action.GroupClassSch.GroupClassSchBasicService");
+	                $gcsBS = new GroupClassSchBasicService();
+					foreach ($dateList as $key => $value) {
+						//教师开课
+						$teaClassresult = $gcsBS->addGroupClass($teacherID,$value);
+
+						if(!$teaClassresult['status']){
+							$flag = false;
+						}
+						//小班选课
+						$addClassresult = $gcsBS->addOneGroupClassInfo($groupID,$teaClassresult['other']);
+						if(!$addClassresult['status']){
+							$flag = false;
+						}
+					}
+					if($flag){
+						// $inquiry->commit();
+						echo "添加课程成功";
+					}else{
+						// $inquiry->rollback();
+						echo "添加课程失败";
+					}
+				}else{
+					$this->error("没有对应的操作类型");
+				}
+			}else{
+				$this->error("你没有权限进行操作");
 			}
 		}
 	}
