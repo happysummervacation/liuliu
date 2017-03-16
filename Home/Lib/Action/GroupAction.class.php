@@ -43,7 +43,7 @@
 			$this->display("Root:GroupManage");
 		}
 
-		
+
 
 		public function GroupStudentManage(){
 			$this->CheckSession();

@@ -123,7 +123,7 @@
 				GlobalValue::haveClass.":".GlobalValue::teaMissClass.":".GlobalValue::teaCancelClass,
 				1488297600,1488297600);
 				dump($result);
-				exit;
+				// exit;
 
 
 				import("Home.Action.User.UserFeatrueOperate");
