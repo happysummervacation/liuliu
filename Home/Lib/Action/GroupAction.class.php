@@ -31,10 +31,13 @@
 			import("Home.Action.Group.GroupBasicService");
 			import("Home.Action.GlobalValue.GlobalValue");
 			import("Home.Action.Package.PackageBasicOperate");
+			$packageBo = new PackageBasicOperate();
+			$groupBS = new GroupBasicService();
+
+			addWebsiteTime($this);
+
 			if(2 == $identity || '2' == $identity){
 
-				$packageBo = new PackageBasicOperate();
-				$groupBS = new GroupBasicService();
 				//获取所有active的小班
 				$result = $groupBS->getGroupClassInfo(null,GlobalValue::active);
 
@@ -44,8 +47,6 @@
 				$this->assign("packageList",$packageInfo);
 				$this->display("Admin:GroupManage");
 			}elseif(4 == $identity || '4' == $identity){
-				$packageBo = new PackageBasicOperate();
-				$groupBS = new GroupBasicService();
 				//获取所有active的小班
 				$result = $groupBS->getGroupClassInfo(null,GlobalValue::active);
 
@@ -67,15 +68,31 @@
 			$identity = $_SESSION['identity'];
 			import("Home.Action.Group.GroupBasicService");
 			import("Home.Action.GlobalValue.GlobalValue");
+			import("Home.Action.GroupStudentClassSch.GroupStuClassSchBasicService");
+			$groupstuBS = new GroupStuClassSchBasicService();
 			$groupBS = new GroupBasicService();
-
+			$groupID = $_GET['groupID'];
 			if(2 == $identity || '2' == $identity){
 
 			}elseif(4 == $identity || '4' == $identity){
-				$groupID = $_GET['groupID'];
+
 				//得到学生列表
 				$studentList = $groupBS->getGroupStudentInfo($groupID,GlobalValue::active);
+				foreach ($studentList as $key => $value) {
+					$studentList[$key]['orderClassList'] =
+					$groupstuBS->getGroupStuClassInfo($value['studentID'],$groupID,null,GlobalValue::notClass.':'.GlobalValue::haveClass,"tp_groupStuClassSch.*,tp_groupclasssch.*,tp_class.*");
+
+				}
+
 				$this->assign("studentList",$studentList);
+				//得到课添加的学生列表
+				$addstudentList = $groupstuBS->getStudentList($groupID);
+				$this->assign("addstudentList",$addstudentList);
+
+				//获取可选课程
+				$orderclassList = $groupstuBS->getOptionClass($groupID);
+				$this->assign("orderclassList",$orderclassList);
+				$this->assign("groupID",$groupID);
 				$this->display("Root:GroupStudentManage");
 			}else{
 				$this->error("你没有权限访问该网页");
@@ -176,8 +193,20 @@
 		通过ajax获取小班的可选教师
 		*/
 		public function ajaxGetTeacherInfo(){
+			$this->CheckSession();
+			$ajaxResult = judgeAjaxRequest();
+			if(!$ajaxResult){
+				echo "非指定访问方式";
+				return;
+			}
 			$identity = $_SESSION['identity'];
-			if(4 == $identity || "4" == $identity){
+			if(2 == $identity || "2" == $identity){
+				$packageID = $_POST['package_id'];
+				import("Home.Action.Group.GroupBasicService");
+				$groupBS = new GroupBasicService();
+				$teacherList = $groupBS->getGroupTeacherList($packageID);
+				echo json_encode($teacherList);
+			}elseif(4 == $identity || "4" == $identity){
 				$packageID = $_POST['package_id'];
 				import("Home.Action.Group.GroupBasicService");
 				$groupBS = new GroupBasicService();

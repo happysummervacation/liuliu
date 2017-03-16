@@ -324,8 +324,8 @@
                                   <td>
                                      <div class="btn-group btn-group-sm">
                                         <button class="btn btn-default" type="button" onclick='load("<?php echo U('GroupClass/GroupClassRecode',array('groupID'=>$value['groupID']));?>")'>课程记录</button>
-                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group/GroupStudentManage',array('groupID'=>$value['groupID']));?>")'>学生管理</button>
-                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group/GroupTeacherManage',array('groupID'=>$value['groupID']));?>")'>教师管理</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupStudentManage',array('groupID'=>$value['groupID']));?>")'>学生管理</button>
+                                        <button class="btn btn-default" type="button" onclick='load("<?php echo U('Group:GroupTeacherManage',array('groupID'=>$value['groupID']));?>")'>教师管理</button>
                                         <button class="btn btn-default changeMgr" type="button" >教材管理</button>
                                       </div>
                                   </td>
@@ -651,7 +651,7 @@
         "enableTime": true,
         "minuteIncrement":30,
         "time_24hr": true,
-        "minDate":new Date(),
+        "minDate":new Date(<?php echo ($nowtime); ?>*1000),
         // "maxDate":myDate,
         // mode: "multiple"
       });

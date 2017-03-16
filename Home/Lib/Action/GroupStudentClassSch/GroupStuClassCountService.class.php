@@ -18,10 +18,9 @@
 		//暂时未做测试
 		public function countStuGroupClassWithStatus($groupID = null,$studentID = null,$teacherID = null
 		,$classStatus = null,$startTime = null,$endTime = null,$orderPackageID = null){
-			if(is_null($groupID) || is_null($studentID) || is_null($status)){
+			if(is_null($groupID) || is_null($studentID) || is_null($classStatus)){
 				return -1;
 			}
-
 			$statusString = "null ";
 			$statusResult = explode(":",$classStatus);
 			import("Home.Action.GlobalValue.GlobalValue");
@@ -36,7 +35,7 @@
 
 			$teaCondition = "";
 			if(!is_null($teacherID)){
-				$teaCondition = $teaCondition." tp_class.teacherID={$teacherID} and ";
+				$teaCondition = $teaCondition."and tp_class.teacherID={$teacherID} and ";
 			}
 
 			$orderPackageCondition = "";
@@ -49,16 +48,17 @@
 				$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
 				tp_groupstuclasssch.groupClassSchID and studentID={$studentID} and tp_groupstuclasssch.
 				isdelete=0 {$orderPackageCondition}")
-				->join("inner join tp_class on tp_classID=tp_groupclasssch.classID and {$teaCondition}")
+				->join("inner join tp_class on tp_class.classID=tp_groupclasssch.classID {$teaCondition}")
 				->count("{$statusString}");
 			}else{
 				$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
 				tp_groupstuclasssch.groupClassSchID and studentID={$studentID} and tp_groupstuclasssch.
 				isdelete=0 {$orderPackageCondition}")
-				->join("inner join tp_class on tp_classID=tp_groupclasssch.classID and {$teaCondition}
+				->join("inner join tp_class on tp_class.classID=tp_groupclasssch.classID  {$teaCondition}
 				and classStartTime>={$startTime} and classEndTime<={$endTime}")
 				->count("{$statusString}");
 			}
+
 
 			return $result;
 		}

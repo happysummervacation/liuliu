@@ -63,7 +63,7 @@
 			$inquiry = new Model();
 			$sql = "select count(stuClassStatus = 0 or stuClassStatus = 1 or null) as num
 			from tp_groupstuclasssch
-			where orderPackageID = {$orderPackageID}";
+			where orderPackageID = {$orderPackageID} and isdelete = 0";
 
 			$result = $inquiry->query($sql);
 			return $result[0]['num'];

@@ -73,6 +73,7 @@
 			$bookBasicOp = new BookBasicOperate();
 
 			//获取对应的教材的信息
+
 			$bookInfo = $bookBasicOp->getoneBookInfo($bookID);
 
 			$data = array();
@@ -91,7 +92,6 @@
 				return $message;
 			}
 		}
-
 		/*
 		蒋周杰
 		获取小班的信息
@@ -104,7 +104,6 @@
 			import("Home.Action.GroupClassSch.GroupClassSchCountService");
 			$gcsCS = new GroupClassSchCountService();
 			$inquiry = new Model("group");
-
 			if(is_null($groupID)){
 				//获取多个小班的信息
 				$classlist = $inquiry->join("inner join tp_tegroupclasssalary on
@@ -132,20 +131,19 @@
 					}
 				}
 			}else{
+
 				//根据ID查询具体某个小班的信息
 				$classresult = $inquiry->join("inner join tp_tegroupclasssalary on
 					tp_tegroupclasssalary.groupID = tp_group.groupID
 					and tp_tegroupclasssalary.gIsLastest = 1
 					inner join tp_teacher on
-					tp_teacher.ID = tp_tegroupclasssalary.teacherID")->where("isdelete = 0 and groupID = {$groupID}")->field("tp_group.*,tp_teacher.account")->select();
+					tp_teacher.ID = tp_tegroupclasssalary.teacherID")->where("tp_group.isdelete = 0 and tp_group.groupID = {$groupID}")->field("tp_group.*,tp_teacher.account")->select();
 				//获取已上课时
 				$classresult = $classresult[0];
 				$classresult['haveclass'] = $gcsCS->countGroupClassWithStatus($classresult['groupID'],GlobalValue::haveClass);
 			}
-
 			return $classresult;
 		}
-
 
 		/*
 		蒋周杰
@@ -168,19 +166,19 @@
 			$studentlist = $inquiry->distinct(true)
 			->field(array('tp_groupstuclasssch.studentID','tp_student.account'))
 			->join("inner join tp_student on
-				tp_student.ID = tp_groupstuclasssch.studentID")
-			->where("tp_groupstuclasssch.groupID = {$groupID} and isdelete = 0")
+				tp_student.ID = tp_groupstuclasssch.studentID
+				inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID = tp_groupstuclasssch.groupClassSchID")
+			->where("tp_groupclasssch.groupID = {$groupID} and tp_groupstuclasssch.isdelete = 0")
 			->select();
-
 			$studentresult = array();
 			foreach ($studentlist as $key => $value) {
 				//获取该学生在小班中的已上课程数和课程总数
 				$studentlist[$key]['haveclass'] = $gscCS
 				->countStuGroupClassWithStatus($groupID,$value['studentID'],null,GlobalValue::haveClass);
+
 				$studentlist[$key]['classNumber'] = $gscCS
 				->countStuGroupClassWithStatus($groupID,$value['studentID'],null,GlobalValue::notClass) + $studentlist[$key]['haveclass'];
-
-				if($status == GlobalValue::avtive){
+				if($status == GlobalValue::active){
 					if($studentlist[$key]['haveclass'] < $studentlist[$key]['classNumber']){
 						array_push($studentresult,$studentlist[$key]);
 					}

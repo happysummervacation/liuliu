@@ -4,6 +4,8 @@
 	*该类主要是用来处理与班级课程相关的数据
 	*/
 	class GroupClassSchBasicService extends Action{
+		private $reClassTime = 1800;  //外教一节课的时间差
+		private $chClassTime = 3600;  //中教一节课的时间差
 		/*
 		*俞鹏泽
 		*该函数用来为某个小班课添加某个小班课程课程
@@ -144,7 +146,7 @@
 		蒋周杰
 		给老师添加一节小班的上课时间
 		参数一：教师的ID
-		参数二：要开放的时间(不是时间戳,是时间的字符串)
+		参数二：要开放的时间(不是时间戳,是时间的自出川)
 		*/
 		public function addGroupClass($teacherID = null,$date = null){
 			$inquiry = new Model();

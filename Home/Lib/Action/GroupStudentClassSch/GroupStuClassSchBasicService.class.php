@@ -4,15 +4,17 @@
 	*该类专门用来处理学生小班课表相关操作
 	*/
 	class GroupStuClassSchBasicService extends Action{
+
+
 		/*
 		*俞鹏泽
 		*添加学生的小班课表
 		*/
 		//参数一:学生的ID
 		//参数二:班级课表的ID
-		public function addGroupStuClassInfo($studentID = null,$groupClassSchID = null){
+		public function addGroupStuClassInfo($studentID = null,$groupClassSchID = null,$orderPackageID = null){
 			$message = array();
-			if(is_null($studentID) || is_null($groupClassSchID)){
+			if(is_null($studentID) || is_null($groupClassSchID) || is_null($orderPackageID)){
 				$message['status'] = false;
 				$message['message'] = "添加学生课表数据时缺乏必要的数据,添加学生课表数据失败";
 				return $message;
@@ -23,6 +25,7 @@
 			$data['groupClassSchID'] = $groupClassSchID;
 			$data['studentID'] = $studentID;
 			$data['createTime'] = getTime();
+			$data['orderPackageID'] = $orderPackageID;
 			$result = $inquiry->add($data);
 			if($result){
 				$message['status'] = true;
@@ -39,6 +42,7 @@
 		*俞鹏泽
 		*删除某个学生在某个小班的一节课程(这里的删除一节课就是在逻辑上就是删除一条数据)
 		*/
+		//未改！
 		public function deleteStuGroupClass($studentID = null,$groupID = null){
 			$message = array();
 			if(is_null($studentID) || is_null($groupID)){
@@ -47,15 +51,11 @@
 				return $message;
 			}
 
-			$inquiry = new Model("groupstuclasssch");
+			$inquiry = new Model();
+			$sql = "update tp_groupstuclasssch,tp_groupclasssch SET tp_groupstuclasssch.isdelete=1 WHERE tp_groupstuclasssch.groupClassSchID =tp_groupclasssch.groupClassSchID  and tp_groupclasssch.groupID={$groupID} and tp_groupstuclasssch.studentID={$studentID} and tp_groupstuclasssch.stuClassStatus = 0 ";
+			$result = $inquiry->execute($sql);
 
-			$data['tp_groupstuclasssch.isdelete'] = 1;
-
-			$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
-			tp_groupstuclasssch.groupStuClassSchID and tp_groupstuclasssch.studentID={$studentID}
-			inner join tp_group on tp_group.groupID=tp_groupclasssch.groupID and tp_groupclasssch.
-			groupID={$groupID}")->save($data);
-			if($result){
+			if($result || $result == '0'){
 				$message['status'] = true;
 				$message['message'] = "更新学生的小班数据成功";
 				return $message;
@@ -65,6 +65,7 @@
 				return $message;
 			}
 		}
+
 
 		/*
 		*俞鹏泽
@@ -115,12 +116,22 @@
 			/*
 			*该查询联查了  tp_groupclasssch,tp_groupstuclasssch,tp_class,tp_teacher四张表
 			*/
-			$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
-			tp_groupstuclasssch.groupClassSchID and isdelete=0 and {$statusString}")
-			->join("inner join tp_class on tp_class.classID=tp_groupclasssch.classID and {$teaCondition}
-			 and {$timeCondition}")
-			->join("inner join tp_teacher on tp_class.teacherID=tp_teacher.ID")
-			->select();
+			if(is_null($field)){
+				$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
+				tp_groupstuclasssch.groupClassSchID and tp_groupstuclasssch.isdelete=0 and {$statusString}")
+				->join("inner join tp_class on tp_class.classID=tp_groupclasssch.classID and {$teaCondition}
+				 and {$timeCondition}")
+				->join("inner join tp_teacher on tp_class.teacherID=tp_teacher.ID")
+				->select();
+			}else{
+				$result = $inquiry->join("inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID=
+				tp_groupstuclasssch.groupClassSchID and tp_groupstuclasssch.isdelete=0 and {$statusString}")
+				->join("inner join tp_class on tp_class.classID=tp_groupclasssch.classID and {$teaCondition}
+				 and {$timeCondition}")
+				->join("inner join tp_teacher on tp_class.teacherID=tp_teacher.ID")
+				->field($fieldString)
+				->select();
+			}
 
 			return $result;
 		}
@@ -129,11 +140,10 @@
 		蒋周杰
 		获取添加学生的学生列表
 		参数一：classID   用于查小班的信息
-		参数二：
 		*/
 
 		public function getStudentList($groupID = null){
-			if(is_null($classID)){
+			if(is_null($groupID)){
 				return null;
 			}
 
@@ -142,17 +152,16 @@
 			$groupBS = new GroupBasicService();
 			$groupInfo = $groupBS->getGroupClassInfo($groupID);
 
-
 			//查询所有学生
 			$inquiry = new Model("orderpackage");
 			$studentList = $inquiry
 			->join("inner join tp_student on tp_student.ID = tp_orderpackage.studentID")
-			->where("tp_orderpackage.category = {$groupInfo['category']}
+			->where("tp_orderpackage.category = {$groupInfo['gcategory']}
 				and tp_orderpackage.classType = 1
 				and tp_orderpackage.studentNumber = {$groupInfo['gstudentNumber']}
 				and tp_orderpackage.teacherNation = {$groupInfo['gteacherType']}
-				tp_orderpackage.teacherType = {$groupInfo['gteacherLevel']}
-				and tp_orderpackage.status = 1 and tp_orderpackage.isdelete = 0")
+				and tp_orderpackage.teacherType = {$groupInfo['gteacherLevel']}
+				and tp_orderpackage.status = 1 and tp_orderpackage.isdelete = 0 ")
 			->select();
 
 			$result = array();
@@ -165,8 +174,13 @@
 				if($value['haveclass']<$value['classNumber']+$value['otherClass']){
 					$result[$value['ID']]['ID'] = $value['ID'];
 					$result[$value['ID']]['account'] = $value['account'];
+
 					//可继续添加学生的一些信息
 				}
+			}
+			foreach ($result as $key => $value) {
+				$result[$key]['packageList'] =
+				$this->getGroupOptionPackageInfo($value['ID'],$groupID);
 			}
 			return $result;
 		}
@@ -193,8 +207,8 @@
 
 			$inquiry = new Model();
 			//查询该小班的所有课程
-			$sql = "select * from tp_groupclasssch where
-			isdelete = 0 and gclassStatus = 0 and groupID = {$groupID}";
+			$sql = "select * from tp_groupclasssch inner join tp_class on tp_class.classID = tp_groupclasssch.classID where
+			tp_groupclasssch.isdelete = 0 and gclassStatus = 0 and groupID = {$groupID} ";
 			$classList = $inquiry->query($sql);
 
 			//筛选出可增加学生的课程
@@ -209,7 +223,6 @@
 					array_push($result,$classList[$key]);
 				}
 			}
-
 			return $result;
 		}
 
@@ -229,15 +242,14 @@
 			import("Home.Action.Group.GroupBasicService");
 			$groupBS = new GroupBasicService();
 			$groupInfo = $groupBS->getGroupClassInfo($groupID);
-
 			//查询该学生符合小班的套餐
 			$inquiry = new Model("orderpackage");
 			$packageList = $inquiry
-			->where("category = {$groupInfo['category']}
+			->where("category = {$groupInfo['gcategory']}
 				and classType = 1
 				and studentNumber = {$groupInfo['gstudentNumber']}
 				and teacherNation = {$groupInfo['gteacherType']}
-				teacherType = {$groupInfo['gteacherLevel']}
+				and teacherType = {$groupInfo['gteacherLevel']}
 				and status = 1 and isdelete = 0
 				and studentID = {$studentID} ")
 			->select();
@@ -249,6 +261,7 @@
 				$haveclass = $opCS-> getGroupPackagehaveclass($value['orderpackageID']);
 				$packageList[$key]['classNum'] = $value['classNumber']+$value['otherClass']-$haveclass;
 			}
+
 
 			return $packageList;
 		}

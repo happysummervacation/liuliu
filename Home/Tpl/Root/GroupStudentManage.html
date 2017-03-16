@@ -53,8 +53,8 @@
     <include file="Public:PublicBodyRoot" />
 
         <!-- Page Content -->
-        <div id="page-wrapper">
-            <div class="container-fluid">
+<div id="page-wrapper">
+    <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 class="page-header">小班课学生管理</h1>
@@ -62,9 +62,9 @@
                     <!-- /.col-lg-12 -->
                 </div>
                 <!-- /.row -->
-                <div class="row clearfix">
-                  <div class="col-lg-12">
-                      <div class="panel panel-default"  style="border-radius: 0px;">
+            <div class="row clearfix">
+                <div class="col-lg-12">
+                    <div class="panel panel-default"  style="border-radius: 0px;">
                         <div class="panel-heading">
                           小班学生管理                         
                         </div>
@@ -75,47 +75,112 @@
                                   <tr>
                                     <th>学生ID</th>
                                     <th>学生名</th>
-                                    <th>加入时间</th>
-                                    <th>离开时间</th>
                                     <th>以上课时</th>
                                     <th>剩余课时</th>
                                     <th>操作</th>
                                   </tr>
                                 </thead>
                                 <tbody>
+                                <php> foreach($studentList as $key => $value){ </php>
                                   <tr>
-                                    <td>jack</td>
-                                    <td>杰克</td>
-                                    <td></td>
-                                    <td></td>
-                                    <td>0</td>
-                                    <td>24</td>
+                                    <td><{$value['studentID']}></td>
+                                    <td><{$value['account']}></td>
+                                    <td><{$value[haveclass]}></td>
+                                    <td><{$value[classNumber]}></td>
                                     <td>
                                       <div class="btn-group btn-group-sm">
                                         <button class="btn btn-default" type="button">详细信息</button> 
-                                        <button class="btn btn-default" type="button">换班</button> 
+                                      <!--   <button class="btn btn-default" type="button">换班</button>  -->
                                         <!-- <button class="btn btn-default" type="button">请假</button> -->
-                                        <button class="btn btn-default" type="button" onclick="removeClass()">退班</button>
+                                        <button class="btn btn-default removeclass" type="button" >退班</button>
                                       </div>
                                     </td>
                                   </tr>
+                                <php>}</php>
                                 </tbody>
                               </table>
                             </div>
                         </div>
                         <div class="panel-footer clearfix">
-                          <button class="btn btn-primary pull-right"> 添加学生</button>
+                          <button class="btn btn-primary pull-right" id="addstudent"> 添加学生</button>
                         </div>
                       </div>
                     </div>
                 </div>
-  
-            </div>
+        		<div class="row clearfix second-table" id="openclassbox" style="display:none">
+      			  <div class="col-lg-12">
+      		    	<div class="panel panel-default"  style="border-radius: 0px;">
+      			       	<div class="panel-heading">
+      	               添加学生                       
+      	             </div>
+      			     <table class="table" id="cleartime">
+      						<thead>
+      							<tr>
+        							<th>学号ID</th>
+        							<th>学生名</th>
+                      <th>套餐名称</th>
+                      <th>套餐剩余课时</th>
+      							</tr>
+      							</thead>
+      							<tbody>
+                    <php> foreach($addstudentList as $key => $value){</php>
+        							<tr>
+        							  <td><{$value['ID']}></td>
+        							  <td><{$value['account']}></td>
+                        <td><select class="form-control package_list">
+                          <php> foreach($value['packageList'] as $key => $package){</php>
+                          <option value="<{$package['orderpackageID']}>_<{$package['classNum']}>"><{$package['packageName']}></option> 
+                    <php>}</php>
+                      </select></td>
+                      <td><{$addstudentList[$value['ID']]['packageList'][0]['classNum']}></td>
+      							  <td><button class="btn btn-primary chooseclass" data-toggle="modal" data-target="#checkclass"> 添加课程</button></td>
+      							</tr> 
+                    <php> }</php>
+      							</tbody>
+      					</table>       
+      		 		</div>
+      		  </div>   
+		</div>
+    </div>        
             <!-- /.container-fluid -->
-        </div>
+</div>
         <!-- /#page-wrapper -->
-
+<div class="modal fade" id="checkclass" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">给&nbsp;<span id="stu_acc"></span>&nbsp;选择课程(剩余课时&nbsp;<span id="res_cls"></span>&nbsp;节)<span id="packageID" style="display: none;"></span></h4>
+          </div>
+          <div class="modal-body">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>课程编号</th>
+                  <th style="text-align: center;">选择时间</th>
+                  <th>选择课程</th>
+                </tr>
+              </thead>
+              <tbody>
+              <php> foreach($orderclassList as $key => $value){</php>
+              	<tr>
+                  <td><{$value['groupClassSchID']}></td>
+					        <td><{$value['classStartTime']|date='Y-m-d H:i',###}></td>
+					        <td><input  type="checkbox" name="check"/></td>
+              	</tr>
+              <php>}</php>
+              </tbody>
+            </table>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+            <button type="button" class="btn btn-primary" id="send">确认提交</button>
+          </div>
+        </div>
+      </div>
     </div>
+
+	
     <!-- /#wrapper -->
     <!-- jQuery -->
     <script src="__PUBLIC__/bower_components/jquery/dist/jquery.min.js"></script>
@@ -144,6 +209,12 @@
 
     <script type="text/javascript">
       //初始化表格
+      
+     
+      $('#addstudent').click(function(){
+      $('#openclassbox').slideToggle();
+    });
+       
       $(document).ready(function() {
           $('#dataTables-example2').DataTable({
                   responsive: true
@@ -153,15 +224,82 @@
       function load(url){
         window.location.href=url;
       }
-
-      function removeClass(){
+	
+      $('.removeclass').click(function (){
         var re=confirm('退课将会取消此学生在这个小班剩余的所有课程！\n请确认您的操作！');
+        var stu_id=$(this).parents('tr').find('td').eq(0).html();
         if(re){
-          window.location.href="<{:U('Group:RemoveClass')}>";
+          window.location.href="<{:U('GroupClass/RemoveClass')}>"+"/groupID/<{$groupID}>/studentID/"+stu_id;
         }else{
           return;
         }
-      }
+      })
+      
+      
+      //获取课程数据
+      $('.chooseclass').click(function(){
+      	var student_id = $(this).parents('tr').find('td').eq(0).html();
+        var studen_res = $(this).parents('tr').find('td').eq(3).html();
+        $('#stu_acc').html(student_id);
+        $('#res_cls').html(studen_res);
+        $('#packageID').html($(this).parents('tr').find('select').val().split("_")[0]);
+        $('input[name="check"]').removeAttr('checked');
+        if(studen_res<0){
+          $('#send').attr('disabled','disabled');
+        }else{
+          $('#send').removeAttr('disabled');
+        }
+      });
+      
+      $('input[name="check"]').click(function(){
+        var clasnum = parseInt($('#res_cls').html());
+        if($(this).is(':checked')){
+          clasnum--;
+        }else{
+          clasnum++;
+        }
+        $('#res_cls').html(clasnum);
+        if(clasnum<0){
+          $('#send').attr('disabled','disabled');
+        }else{
+          $('#send').removeAttr('disabled');
+        }
+      })
+		  $('.package_list').change(function(){
+        var tem=$(this).val();
+        var te=tem.split('_');
+        $(this).parents('tr').find('td').eq(3).html(te[1]);
+      });
+      $('#send').click(function(){
+        $(this).attr('disabled','disabled');
+      	var arrays=new Array();
+      	var len=document.getElementsByName('check');
+      	for(var i=0;i<len.length;i++){
+      		if(len[i].checked){
+      		var temp = $('#checkclass').find('tbody tr').eq(i).find('td').eq(0).html();
+      		//add arr
+      		arrays.push(temp);
+      		}
+      	}
+      	data=JSON.stringify(arrays);
+      	$.ajax({
+      		url:"<{:U('GroupClass/ajaxOrderGroupClass')}>",
+      		type:'post',
+      		data:'classList='+data+"&student="+$('#stu_acc').html()+"&packageID="+$('#packageID').html()+"&groupID="+<{$groupID}>,
+          async:true,
+          success:function(msg){
+            if(msg!=''){
+              alert(msg);
+            }else{
+              alert('失败！');
+            }
+             location.reload();//flash
+          },
+          error:function(error){
+            alert(error);
+          }
+      	});
+      });
     </script>
   
 </body>
