@@ -238,12 +238,12 @@ user-select: none;
                                         <input type="text" class="form-control manage" disabled="true"  id="studentmanage">
                                     </div>
                                 </div>
-                                <div class="form-group" >
+                                <!-- <div class="form-group" >
                                     <label class="col-sm-4 control-label">Consultants Charged:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control managephone" disabled="true"  id="studentmanagephone">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group" >
                                     <label class="col-sm-4 control-label">Elective Student:</label>
                                     <div class="col-sm-6">
@@ -256,25 +256,25 @@ user-select: none;
                                         <input type="text" class="form-control studentphone" disabled="true" id="bookname">
                                     </div>
                                 </div>
-                                <div class="form-group" >
+                                <!-- <div class="form-group" >
                                     <label class="col-sm-4 control-label">Teaching materials:</label>
                                     <div class="col-sm-6">
                                         <a href="" id="booklink" >Teaching materials</a>
                                     </div>
-                                </div>
-                                 <div class="form-group" >
+                                </div> -->
+                                 <!-- <div class="form-group" >
                                     <label class="col-sm-4 control-label">Student Number:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control classtudent" readonly="true" id="student_id" name='student_id'>
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group" >
                                     <label class="col-sm-4 control-label">Student Contact:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control studentphone" disabled="true" id="studentphone">
                                     </div>
                                 </div>
-                                <div class="form-group" >
+                                <!-- <div class="form-group" >
                                     <label class="col-sm-4 control-label">Current Progress:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control studentphone" id="book_progress" name="book_progress">
@@ -285,7 +285,7 @@ user-select: none;
                                      <div class="col-sm-6">
                                         <input type="text" class="form-control studentphone" id="book_full_progress" name="book_full_progress">
                                     </div>
-                                </div>
+                                </div> -->
                                 <div class="form-group" >
                                     <label class="col-sm-4 control-label">Course Remark:</label>
                                     <div class="col-sm-6">
@@ -296,8 +296,7 @@ user-select: none;
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary" name="btntype" value="save">Save Change</button>
-                                    <button type="submit" class="btn btn-danger" name="btntype" value="cancel">Cancel Course</button>
-                                    </a>
+                                    <!-- <button type="submit" class="btn btn-danger" name="btntype" value="cancel">Cancel Course</button> -->
                                     </form>
                                 </div>
                         </div>
@@ -583,10 +582,13 @@ user-select: none;
             content=kecheng[i]['student'];
             title="Trial Lesson";
             textColor="#FFF";
+        }else if(state == '8'){  //表示小班课
+            color="#802A2A";   //棕色
+            content=kecheng[i]['student'];
+            title="Group Lesson";
+            textColor="#FFF";
         }
-        // console.log(dijizhou,dijitian,dijihang,color);
         huatu.push({'dijizhou':dijizhou,'dijitian':dijitian,'dijihang':dijihang,'color':color,'content':content,'title':title,'textColor':textColor});
-
     }
 
 
@@ -760,7 +762,7 @@ user-select: none;
                 var zongzuobiao=$(this).parents('table').find('#thisweekdate th').eq(ind-1).html();
                 var nianfen=year;
                 var yuefen=zongzuobiao.substr(0,2);
-                console.log("月份："+yuefen);
+                // console.log("月份："+yuefen);
                 if(month==1){
                     var yuefen=zongzuobiao.substr(0,2);
                     if(yuefen=="12"){
@@ -772,7 +774,7 @@ user-select: none;
                     // console.log(yuefen);
                     if(yuefen=="1"){
                         nianfen +=1;
-                        console.log(nianfen);
+                        // console.log(nianfen);
                     }
                 }
 
@@ -785,21 +787,26 @@ user-select: none;
             // alert(jsonarr);
             $.ajax({
                 type:'POST',
-                url:"<{:U('Teacher/GetClassInfo')}>",
+                url:"<{:U('Class/GetClassInfo')}>",
                 data:'data='+jsonarr,
                 dataType:'json',
                 success:function(msg){
-                    $('#class_id').val(msg['class_id']);
-                    $('#studentmanage').val(msg['class_type']);
-                    $('#studentmanagephone').val(msg['adminphone']);
-                    $('#choosestudent').val(msg['studentname']);
-                    $('#student_id').val(msg['student_id']);
-                    $('#studentphone').val(msg['studentphone']);
-                    $('#book_progress').val(msg['book_progress']);
-                    $('#book_full_progress').val(msg['book_full_progress']);
+                    console.log(msg);
+                    $('#class_id').val(msg['classID']);
+                    $('#studentmanage').val(msg['packageName']);
+                    // $('#studentmanagephone').val(msg['phone']);
+                    $('#choosestudent').val(msg['account']);
+                    $('#student_id').val(msg['ID']);
+                    $('#studentphone').val(msg['phone']);
+                    // $('#book_progress').val(msg['book_progress']);
+                    // $('#book_full_progress').val(msg['book_full_progress']);
                     $('#remark').val(msg['remark']);
-                    $('#booklink').attr('href',"/liuliu/Public/generic/web/viewer.html?file=../../.."+msg['download_link']);
-                    $('#bookname').val(msg['bookname']);
+                    // $('#booklink').attr('href',"/liuliu/Public/generic/web/viewer.html?file=../../.."+msg['download_link']);
+                    var material = msg['material'];
+                    if(!material){
+                        material = material.split(":")[1];
+                    }
+                    $('#bookname').val(material);
                     // alert(msg['download_link']);
                 },
                 error:function(error){

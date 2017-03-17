@@ -24,8 +24,12 @@
 		*俞鹏泽
 		*根据教师开放的课程信息,订购该教师的课程信息,已将当前时间(用来区分课程是否过期)来获取各种课程状态
 		*/
-		public static function getClassStatusWithCondition($openClassResult = null,$oneOrderClassResult = null,$nowTime = null){
-			if(is_null($openClassResult) || is_null($oneOrderClassResult)){
+		//参数一:教师开放的时间段
+		//参数二:表示一对一的课程的数据
+		//参数三:表示小班的课程
+		public static function getClassStatusWithCondition($openClassResult = null,$oneOrderClassResult = null,
+		$groupClassResult = null,$nowTime = null){
+			if(is_null($openClassResult) || is_null($oneOrderClassResult) || is_null($groupClassResult)){
 				return null;
 			}
 			if(is_null($nowTime)){
@@ -60,6 +64,16 @@
 						}elseif(7 == (int)$o_value['classStatus']){   //表示意外情况
 							$tem['student'] = $o_value['account'];
 							$tem['state'] = 6;
+						}
+					}
+				}
+
+				foreach ($groupClassResult as $g_key => $g_value) {
+					if($g_value['classID'] == $value['classID']){
+						//获取学生的数据
+						foreach ($g_value['student'] as $s_key => $s_value) {
+							$tem['student'] = $tem['student'].$s_value['account'].":";
+							$tem['state'] = 8;   //表示是小班课
 						}
 					}
 				}

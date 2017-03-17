@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 暂时完成一对一的课程的展示(小班课的课程展示暂时还没有完成)
 <head>
@@ -103,7 +103,161 @@ user-select: none;
 </head>
 
 <body>
-    <include file="Public:PublicBodyAdmin" />
+     <div id="wrapper">
+
+        <!-- Navigation -->
+        <!-- 标题 -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="topmen">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>66Speak Home Page</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+           <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h3 align="center">Beijing Time&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h3>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <?php echo count($unreadmessage) ?>
+                        <!-- <?php dump($unreadmessage) ?> -->
+                        <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
+                                <a href="<?php echo U('Teacher/InformationCenter');?>">
+                                <div>
+                                    <strong><?php echo ($value['account']); ?></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><?php echo (date("Y-m-d H:i:s",$value['create_time'])); ?></em>
+                                    </span>
+                                </div>
+                                <div><?php echo ($value['content']); ?></div>
+                                </a>
+                            </li><?php endif; endforeach; endif; ?>
+                        <li>
+                            <a class="text-center" href="<?php echo U('Teacher/InformationCenter');?>">
+                                <strong>All Messages</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> Quit</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                        </li>
+                        <li>
+                          <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> Teacher Center</a>
+                        </li>
+                            <li>
+                                <a href="<?php echo U('Class/getTeacherClassPlan');?>"><i class="fa fa-calendar fa-fw"></i> Current Month's Schedule</a>
+                            </li>
+                             <li>
+                                <a href="<?php echo U('Comment/TeacherCommentManage',array('type'=>'now'));?>"><i class="fa fa-calendar fa-fw"></i> Course Feedback</a>
+                            </li>
+                            <li>
+                                <!--HistoryFeedback-->
+                               <a href="<?php echo U('Comment/TeacherCommentManage',array('type'=>'history'));?>"><i class="fa fa-calendar fa-fw"></i> Feedback History</a>
+                           </li>
+                        <li>
+                            <a href="#"><i class="fa fa-film fa-fw"></i> Video Upload<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=history"> Video History</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="__PUBLIC__/plug-in/examples/simple/index.html">现在上传</a> -->
+                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=updateVideo"> Upload Video</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Video/showVideoInfo');?>?type=updateIntroduction"> Upload Introduction Video</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-pencil fa-fw"></i> Teacher Information<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="Information.html">个人信息修改</a> -->
+                                    <a href="<?php echo U('Info/Information');?>"> Teacher Information</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="Information.html">个人信息修改</a> -->
+                                    <a href="<?php echo U('Teacher/QualificationsInformation');?>"> Qualification Information</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="ResetPassword.html">密码修改</a> -->
+                                    <a href="<?php echo U('Info/resetPassword');?>"> Password Reset</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-credit-card fa-fw"></i> Teacher Salary<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <!-- <a href="MyMoney.html">我的工资</a> -->
+                                    <a href="<?php echo U('Money/teacherSalaryManage',array('type'=>'mymoney'));?>"> Teacher Salary</a>
+                                </li>
+                                <li>
+                                    <!-- <a href="HowCaculate.html">工资计算</a> -->
+                                    <a href="<?php echo U('Money/teacherSalaryManage',array('type'=>'howcacu'));?>"> Salary Settlement</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Book/showBookInfo');?>"><i class="fa fa-book fa-fw"></i> Teaching Material</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Contract/showContract');?>"><i class="fa fa-gavel fa-fw"></i> Teacher Contracts</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('UserCenter/showRule');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Teacher need to know</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/contractAdmin');?>"><i class="fa fa-exclamation-triangle fa-fw"></i> Admin Information</a>
+                        </li>
+                        <!-- <li>
+                          <span ><?php echo date('Y/m/d H:i:s',$nowtime);?></span>
+                        </li> -->
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
 
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -120,10 +274,8 @@ user-select: none;
                         <div class="panel panel-primary">
                         <div class="panel-heading">
                         <?php
-                            $this_month = (int)$this_month;
-                            $this_year = (int)$this_year;
-                        ?>
-                            <span><{$this_year}> year <{$this_month}> month</span>&nbsp;Teacher's Schedule
+ $this_month = (int)$this_month; $this_year = (int)$this_year; ?>
+                            <span><?php echo ($this_year); ?> year <?php echo ($this_month); ?> month</span>&nbsp;Teacher's Schedule
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -222,7 +374,7 @@ user-select: none;
                             <h4 class="modal-title" id="myModalLabel">Course Information</h4>
                           </div>
                           <div class="modal-body">
-                            <form role="form" class="form-horizontal" action="<{:U('Teacher/UpdateTeacherCLassInfor')}>" method="post">
+                            <form role="form" class="form-horizontal" action="<?php echo U('Teacher/UpdateTeacherCLassInfor');?>" method="post">
                                 <!-- <div class="form-group">
                                     <label class="col-sm-4 control-label">Course Number:</label>
                                     <div class="col-sm-6"> -->
@@ -261,8 +413,8 @@ user-select: none;
                                     <div class="col-sm-6">
                                         <a href="" id="booklink" >Teaching materials</a>
                                     </div>
-                                </div>
-                                 <div class="form-group" >
+                                </div> -->
+                                 <!-- <div class="form-group" >
                                     <label class="col-sm-4 control-label">Student Number:</label>
                                     <div class="col-sm-6">
                                         <input type="text" class="form-control classtudent" readonly="true" id="student_id" name='student_id'>
@@ -296,8 +448,7 @@ user-select: none;
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                                     <button type="submit" class="btn btn-primary" name="btntype" value="save">Save Change</button>
-                                    <button type="submit" class="btn btn-danger" name="btntype" value="cancel">Cancel Course</button>
-                                    </a>
+                                    <!-- <button type="submit" class="btn btn-danger" name="btntype" value="cancel">Cancel Course</button> -->
                                     </form>
                                 </div>
                         </div>
@@ -308,7 +459,7 @@ user-select: none;
                         <div class="modal-content">
                             <div class="modal-header">Schedule of Other Months</div>
                             <div class="modal-body">
-                                <form action="<{:U('Class/getTeacherClassPlan',array('user_id'=>$teacherID))}>" method="post">
+                                <form action="<?php echo U('Class/getTeacherClassPlan');?>" method="post">
                                   <div class="form-group">
                                     <label for="recipient-name" class="control-label">Choose Year:</label>
                                     <select class="form-control" name="year" id='nowyear123'>
@@ -374,7 +525,7 @@ user-select: none;
     <script src="__PUBLIC__/js/time.js"></script>
     <script type="text/javascript">
         upDateTime();
-        var teachertype=<{$teacherType}>;//0表示中教,课程时间一个小时;1表示外交,课程时间半个小时.
+        var teachertype=<?php echo ($teacherType); ?>;//0表示中教,课程时间一个小时;1表示外交,课程时间半个小时.
         // var teachertype=0;
         var classtime=(teachertype)?30:60;//表示课程时间
         var classnumber=(teachertype)?31:15;
@@ -589,9 +740,7 @@ user-select: none;
             title="Group Lesson";
             textColor="#FFF";
         }
-        // console.log(dijizhou,dijitian,dijihang,color);
         huatu.push({'dijizhou':dijizhou,'dijitian':dijitian,'dijihang':dijihang,'color':color,'content':content,'title':title,'textColor':textColor});
-
     }
 
 
@@ -765,7 +914,7 @@ user-select: none;
                 var zongzuobiao=$(this).parents('table').find('#thisweekdate th').eq(ind-1).html();
                 var nianfen=year;
                 var yuefen=zongzuobiao.substr(0,2);
-                console.log("月份："+yuefen);
+                // console.log("月份："+yuefen);
                 if(month==1){
                     var yuefen=zongzuobiao.substr(0,2);
                     if(yuefen=="12"){
@@ -777,7 +926,7 @@ user-select: none;
                     // console.log(yuefen);
                     if(yuefen=="1"){
                         nianfen +=1;
-                        console.log(nianfen);
+                        // console.log(nianfen);
                     }
                 }
 
@@ -790,22 +939,11 @@ user-select: none;
             // alert(jsonarr);
             $.ajax({
                 type:'POST',
-                url:"<{:U('Teacher/GetClassInfo',array('teacherID'=>$teacherID))}>",
+                url:"<?php echo U('Class/GetClassInfo');?>",
                 data:'data='+jsonarr,
                 dataType:'json',
                 success:function(msg){
-                    // $('#class_id').val(msg['class_id']);
-                    // $('#studentmanage').val(msg['class_type']);
-                    // $('#studentmanagephone').val(msg['adminphone']);
-                    // $('#choosestudent').val(msg['studentname']);
-                    // $('#student_id').val(msg['student_id']);
-                    // $('#studentphone').val(msg['studentphone']);
-                    // $('#book_progress').val(msg['book_progress']);
-                    // $('#book_full_progress').val(msg['book_full_progress']);
-                    // $('#remark').val(msg['remark']);
-                    // $('#booklink').attr('href',"/liuliu/Public/generic/web/viewer.html?file=../../.."+msg['download_link']);
-                    // $('#bookname').val(msg['bookname']);
-                    // // alert(msg['download_link']);
+                    console.log(msg);
                     $('#class_id').val(msg['classID']);
                     $('#studentmanage').val(msg['packageName']);
                     // $('#studentmanagephone').val(msg['phone']);
@@ -817,9 +955,7 @@ user-select: none;
                     $('#remark').val(msg['remark']);
                     // $('#booklink').attr('href',"/liuliu/Public/generic/web/viewer.html?file=../../.."+msg['download_link']);
                     var material = msg['material'];
-                    if(material){
-                        material = material.split(":")[1];
-                    }
+                    material = material.split(":")[1];
                     $('#bookname').val(material);
                     // alert(msg['download_link']);
                 },
@@ -874,23 +1010,23 @@ user-select: none;
         var jsonarr=JSON.stringify(arr);
         // console.log(jsonarr);
 
-        post("<{:U('Class/ClassManage',array('user_id'=>$teacherID))}>/type/add", {data:jsonarr,year:<{$this_year}>,month:<{$this_month}>});
+        post("<?php echo U('Class/ClassManage');?>/type/add", {data:jsonarr,year:<?php echo ($this_year); ?>,month:<?php echo ($this_month); ?>});
 
 
         // $.ajax({
         //     type:'POST',
-        //     url:"<{:U('Teacher/PostCourse')}>",
+        //     url:"<?php echo U('Teacher/PostCourse');?>",
         //     data:'data='+jsonarr,
         //     dataType:'json',
         //     // success:function(msg){
         //     //     alert(msg.responseText);
         //     //     // location.reload();//刷新页面
-        //     //       window.location.href="<{:U('Teacher/')}>";
+        //     //       window.location.href="<?php echo U('Teacher/');?>";
         //     //
         //     // },
         //     // error:function(error){
         //     //     alert(error.responseText);
-        //     //       window.location.href="<{:U('Teacher/')}>";
+        //     //       window.location.href="<?php echo U('Teacher/');?>";
         //     // }
         // });
 
@@ -925,10 +1061,10 @@ user-select: none;
         });
         var jsonarr=JSON.stringify(arr);
 
-        post("<{:U('Class/ClassManage',array('user_id'=>$teacherID))}>/type/delete", {data:jsonarr,year:<{$this_year}>,month:<{$this_month}>});
+        post("<?php echo U('Class/ClassManage');?>/type/delete", {data:jsonarr,year:<?php echo ($this_year); ?>,month:<?php echo ($this_month); ?>});
         // $.ajax({
         //     type:'POST',
-        //     url:"<{:U('Teacher/BatchDeleteTeacherClass')}>",
+        //     url:"<?php echo U('Teacher/BatchDeleteTeacherClass');?>",
         //     data:'data='+jsonarr,
         //     dataType:'json',
         //     success:function(msg){

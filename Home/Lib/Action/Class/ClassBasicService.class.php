@@ -166,19 +166,130 @@
 			inner join tp_class on tp_class.classID=
 			tp_oneorderclass.classID and tp_oneorderclass.isdelete=0 and
 			tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime}
+			and tp_class.teacherID={$teacherID}
 			inner join tp_student on tp_student.ID=tp_oneorderclass.studentID";
 			$orderClassResult = $inquiry->query($sql);
+
+			//获取指定教师的小班的课程数据
+			$gsql  ="select * from tp_groupclasssch
+			inner join tp_class on tp_class.classID=tp_groupclasssch.classID and tp_groupclasssch.
+			isdelete=0 and tp_class.teacherID={$teacherID} and tp_groupclasssch.gclassStatus!=2
+			and tp_class.classStartTime>={$startTime} and tp_class.classEndTime<={$endTime};
+			";
+			$groupClassResult = $inquiry->query($gsql);
+
+			foreach ($groupClassResult as $key => $value) {
+				$temsql = "select tp_student.account from tp_groupstuclasssch inner join tp_groupclasssch on
+				tp_groupclasssch.groupClassSchID=tp_groupstuclasssch.groupClassSchID and
+				tp_groupstuclasssch.groupClassSchID={$value['groupClassSchID']} and
+				tp_groupstuclasssch.isdelete=0
+				inner join tp_student on tp_student.ID=tp_groupstuclasssch.studentID";
+				$temresult = $inquiry->query($temsql);
+				$groupClassResult[$key]['student'] = $temresult;
+			}
 
 			//获取当前时间
 			$nowTime = getTime();
 			import("Home.Action.Class.ClassBasicFilter");
-			$dealResult = ClassBasicFilter::getClassStatusWithCondition($openClassResult,$orderClassResult);
+			$dealResult = ClassBasicFilter::getClassStatusWithCondition($openClassResult,$orderClassResult,$groupClassResult);
 
 			if(is_null($dealResult)){
 				return "{}";
 			}else{
 				return $dealResult;
 			}
+		}
+
+		/*
+		*俞鹏泽
+		*根据前端传输的数据来获取当前该时间的课学生的信息
+		*/
+		//参数一:教师的ID
+		//参数二:课程的开始时间
+		//流程:
+		//1.先根据教师来获取教师的类型,同时获取该节课的开始时间和结束时间   (这一步不需要)
+		//2.根据课程的开始结束时间获取课程tp_class中的数据.判断是小班还是一对一课程
+		//3.获取必要的数据
+
+		//小班的课程数据暂时没有写
+		public function getClassInfoService($teacherID = null,$time = null){
+			if(is_null($teacherID) || is_null($time)){
+				return null;
+			}
+
+			// import("Home.Action.User.UserBasicOperate");
+			import("Home.Action.Class.ClassBasicOperate");
+			// $userOp = new UserBasicOperate();
+			$classOp = new ClassBasicOperate();
+
+			// $userResult = $userOp->getUserInfo('teacher',$teacherID,null,null,null,"teacher_type")[0]['teacher_type'];
+			// $classStartTime = $time;
+			// $classEndTime = 0;
+			// if(0 == $userResult){
+			// 	$classEndTime = $classStartTime+$this->chClassTime;
+			// }elseif(1 == $userResult){
+			// 	$classEndTime = $classStartTime+$this->reClassTime;
+			// }
+			//根据时间以及教师ID来获取classID
+			$classID = MD5($time.$teacherID);
+			$classType = $classOp->getClassInfo($classID,'classType')[0]['classType'];
+			$inquiry = "";
+			if(0 == (int)$classType){
+				$inquiry = new Model("oneorderclass");
+				$result = $inquiry
+				->join("inner join tp_class on tp_class.classID=tp_oneorderclass.classID and
+				tp_class.classID='{$classID}' and (tp_oneorderclass.classStatus!=2)
+				inner join tp_student on tp_student.ID=tp_oneorderclass.studentID
+				inner join tp_orderpackage on tp_orderpackage.orderpackageID=tp_oneorderclass.orderpackageID
+				inner join tp_packageconfig on tp_packageconfig.packageconID=tp_orderpackage.category")
+				->field("tp_student.account,tp_student.phone,tp_student.ID,tp_class.remark,
+				tp_orderpackage.material,tp_class.classID,tp_packageconfig.packageName")
+				->select();
+
+				//做一下数据处理
+				$result = $result[0];
+				return $result;
+			}elseif(1 == (int)$classType){
+				$inquiry = new Model("groupclasssch");
+				//先获取小班的班级数据
+				//在获取每个班级中的学生的上课数据
+				$gsql  ="select tp_class.classID,tp_packageconfig.packageName,tp_group.material,
+				tp_class.remark,tp_groupclasssch.groupClassSchID
+				from tp_groupclasssch
+				inner join tp_class on tp_class.classID=tp_groupclasssch.classID and tp_groupclasssch.
+				isdelete=0 and tp_class.teacherID={$teacherID} and tp_groupclasssch.gclassStatus!=2
+				and tp_class.classID='{$classID}'
+				inner join tp_group on tp_group.groupID=tp_groupclasssch.groupID
+				inner join tp_packageconfig on tp_packageconfig.packageconID=tp_group.gcategory;
+				";
+				$groupClassResult = $inquiry->query($gsql);
+
+				foreach ($groupClassResult as $key => $value) {
+					$temsql = "select tp_student.account,tp_student.phone from tp_groupstuclasssch inner join tp_groupclasssch on
+					tp_groupclasssch.groupClassSchID=tp_groupstuclasssch.groupClassSchID and
+					tp_groupstuclasssch.groupClassSchID={$value['groupClassSchID']} and
+					tp_groupstuclasssch.isdelete=0
+					inner join tp_student on tp_student.ID=tp_groupstuclasssch.studentID";
+					$temresult = $inquiry->query($temsql);
+					$groupClassResult[$key]['student'] = $temresult;
+				}
+				//进行数据处理
+				foreach ($groupClassResult as $key => $value) {
+					$temstu = "";
+					$temphone = "";
+					foreach ($value['student'] as $t_key => $t_value) {
+						$temstu .= $temstu.$t_value['account'].":";
+						$temphone .= $t_temphone.$t_value['phone'].":";
+					}
+					$groupClassResult[$key]['phone'] = $temphone;
+					$groupClassResult[$key]['student'] = $temstu;
+				}
+				return $groupClassResult[0];
+			}elseif(2 == (int)$classType){
+
+			}
+
+
 		}
 	}
  ?>

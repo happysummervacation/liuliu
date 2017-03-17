@@ -200,5 +200,47 @@
 				echo "用户权限不够";
 			}
 		}
+
+		/*
+		*俞鹏泽
+		*根据必要的
+		*/
+		public function GetClassInfo(){
+			$this->CheckSession();
+
+			$ajaxResult = judgeAjaxRequest();
+			if(!$ajaxResult){
+				echo "非指定的访问方式";
+				return;
+			}
+
+			$identity = $_SESSION['identity'];
+			import("Home.Action.Class.ClassBasicService");
+			$classSerOp = new ClassBasicService();
+			if(1 == $identity || '1' == $identity){
+				$teacherID = $_SESSION['ID'];
+				$time = json_decode($_POST['data'],true);
+				$time = strtotime("{$time[0]['year']}-{$time[0]['date']} {$time[0]['time']}");
+				$result = $classSerOp->getClassInfoService($teacherID,$time);
+
+				echo json_encode($result);  //返回数据
+			}elseif(2 == $identity || '2' == $identity){
+				$teacherID = $_GET['teacherID'];
+				$time = json_decode($_POST['data'],true);
+				$time = strtotime("{$time[0]['year']}-{$time[0]['date']} {$time[0]['time']}");
+				$result = $classSerOp->getClassInfoService($teacherID,$time);
+
+				echo json_encode($result);  //返回数据
+			}elseif(4 == $identity || '4' == $identity){
+				$teacherID = $_GET['teacherID'];
+				$time = json_decode($_POST['data'],true);
+				$time = strtotime("{$time[0]['year']}-{$time[0]['date']} {$time[0]['time']}");
+				$result = $classSerOp->getClassInfoService($teacherID,$time);
+
+				echo json_encode($result);  //返回数据
+			}else{
+				echo "你没有权限进行查询";
+			}
+		}
 	}
  ?>

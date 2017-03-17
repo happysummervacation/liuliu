@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html lang="en">
 暂时完成一对一的课程的展示(小班课的课程展示暂时还没有完成)
 <head>
@@ -103,7 +103,238 @@ user-select: none;
 </head>
 
 <body>
-    <include file="Public:PublicBodyAdmin" />
+    <div id="wrapper">
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/liuliu/index.php" ><strong>溜溜英语首页</strong></a>
+            </div>
+            <!-- /.navbar-header -->
+            <!-- 显示北京时间 -->
+            <div style="text-align: center;position:fixed;right: 45%;" class="hidden-xs">
+                <h4>北京时间&nbsp;&nbsp;&nbsp;<span class="time"><?php echo date('Y/m/d H:i:s',$nowtime);?></span></h4>
+            </div>
+            <div style="text-align: center;position:absolute;right: 20%;margin-top: -45px;" class="visible-xs">
+                <h4><span  class="time2"><?php echo date('H:i:s',$nowtime);?></span></h4>
+            </div>
+            <!-- //显示北京时间 -->
+            <!-- 消息中心 -->
+           <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                      <?php echo count($unreadmessage) ?>
+                      <i class="fa fa-envelope fa-fw"></i>
+                      <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-messages">
+                        <?php if(is_array($unreadmessage)): foreach($unreadmessage as $key=>$value): if(($value['isdelete']) == "0"): ?><li>
+                                <a href="<?php echo U('Root/InformationCenter');?>">
+                                <div>
+                                    <strong><?php echo ($value['account']); ?></strong>
+                                    <span class="pull-right text-muted">
+                                        <em><?php echo (date("Y-m-d H:i:s",$value['create_time'])); ?></em>
+                                    </span>
+                                </div>
+                                <div><?php echo ($value['content']); ?></div>
+                                </a>
+                            </li><?php endif; endforeach; endif; ?>
+                        <li>
+                        <!-- 9.06修改01 -->
+                            <a class="text-center" href="<?php echo U('Root/InformationCenter');?>">
+                                <strong>查看所有消息</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        <!-- //9.06修改01 -->
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-messages -->
+                </li>
+                <!-- 用户 -->
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="<?php echo U('Login/doLogout');?>"><i class="fa fa-sign-out fa-fw"></i> 注销</a>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+                        <li class="sidebar-search">
+                            <!-- <div class="input-group custom-search-form">
+                                <input type="text" class="form-control" placeholder="搜索...">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="button">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </span>
+                            </div> -->
+                            <!-- /input-group -->
+                        </li>
+                        <li>
+                            <a href="<?php echo U('UserCenter/index');?>"><i class="fa fa-home fa-fw"></i> 系统中心</a>
+                        </li>
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-mortar-board fa-fw"></i> 教师管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchTeacher');?>">搜索教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckTeacher');?>">查看教师</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateTeacher');?>">创建教师</a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchTeacher');?>"> <i class="fa fa-mortar-board fa-fw"></i> 搜索教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 查看教师</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/teacher"> <i class="fa fa-mortar-board fa-fw"></i> 创建教师</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> 学员管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchStudent');?>">搜索学生</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckStudent');?>">查看学生</a>
+                                </li>
+                            </ul>
+                        </li> -->
+                        <li>
+                             <a href="<?php echo U('Group/GroupManage');?>"><i class="fa fa-bell fa-fw"></i> 小班管理</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/SearchStudent');?>"> <i class="fa fa-users fa-fw"></i> 搜索学生</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/student"> <i class="fa fa-users fa-fw"></i> 查看学生</a>
+                        </li>
+
+                        <!-- <li>
+                            <a href="#"><i class="fa fa-umbrella fa-fw"></i> 顾问管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Root/SearchAdmin');?>">搜索顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CheckAdmin');?>">查看顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/CreateAdmin');?>">创建顾问</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/DownloadLogfile');?>">
+                                    操作历史
+                                    </a>
+                                </li>
+                            </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Root/SearchAdmin');?>"> <i class="fa fa-umbrella fa-fw"></i> 搜索顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showManagedUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 查看顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/admin"> <i class="fa fa-umbrella fa-fw"></i> 创建顾问</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Root/DownloadLogfile');?>"> <i class="fa fa-umbrella fa-fw"></i>
+                            操作历史
+                            </a>
+                        </li>
+
+                        <!-- <li>
+                          <a href="#"><i class="fa fa-umbrella fa-fw"></i> 最高管理员管理<span class="fa arrow"></span></a>
+                          <ul class="nav nav-second-level">
+                              <li>
+                                  <a href="<?php echo U('Root/Information');?>">查看管理员</a>
+                              </li>
+                              <li>
+                                  <a href="<?php echo U('Root/CreateRoot');?>">创建管理员</a>
+                              </li>
+                          </ul>
+                        </li> -->
+
+                        <li>
+                            <a href="<?php echo U('Info/Information');?>"> <i class="fa fa-umbrella fa-fw"></i> 查看管理员</a>
+                        </li>
+                        <li>
+                            <a href="<?php echo U('Info/showCreateUser');?>/personType/root"> <i class="fa fa-umbrella fa-fw"></i> 创建管理员</a>
+                        </li>
+
+
+
+                        <li>
+                            <a href="#"><i class="fa fa-laptop fa-fw"></i> 系统管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('System/showSystemSet');?>"> 参数设置</a>
+                                </li>
+                                <li>
+                                     <a href="<?php echo U('Package/packageShow');?>"> 套餐管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/salaryMgr');?>">
+                                        工资管理
+                                    </a>
+                                    <!-- <a href="">
+                                        工资管理
+                                    </a> -->
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-suitcase fa-fw"></i> 材料管理<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="<?php echo U('Book/showBookInfo');?>"> 教材管理</a>
+                                </li>
+                                <li>
+                                    <a href="<?php echo U('Root/OtherMaterial');?>"> 其他教材管理</a>
+                                </li>
+                                 <li>
+                                     <a href="<?php echo U('Root/VideoManage');?>"> 视频管理</a>
+                                </li>
+                            </ul>
+                                    <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                             <a href="<?php echo U('Root/Message');?>"><i class="fa fa-bell fa-fw"></i> 消息推送</a>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
 
         <!-- Page Content -->
         <div id="page-wrapper">
@@ -120,10 +351,8 @@ user-select: none;
                         <div class="panel panel-primary">
                         <div class="panel-heading">
                         <?php
-                            $this_month = (int)$this_month;
-                            $this_year = (int)$this_year;
-                        ?>
-                            <span><{$this_year}> year <{$this_month}> month</span>&nbsp;Teacher's Schedule
+ $this_month = (int)$this_month; $this_year = (int)$this_year; ?>
+                            <span><?php echo ($this_year); ?> year <?php echo ($this_month); ?> month</span>&nbsp;Teacher's Schedule
                         </div>
                         <!-- /.panel-heading -->
                         <div class="panel-body">
@@ -222,7 +451,7 @@ user-select: none;
                             <h4 class="modal-title" id="myModalLabel">Course Information</h4>
                           </div>
                           <div class="modal-body">
-                            <form role="form" class="form-horizontal" action="<{:U('Teacher/UpdateTeacherCLassInfor')}>" method="post">
+                            <form role="form" class="form-horizontal" action="<?php echo U('Teacher/UpdateTeacherCLassInfor');?>" method="post">
                                 <!-- <div class="form-group">
                                     <label class="col-sm-4 control-label">Course Number:</label>
                                     <div class="col-sm-6"> -->
@@ -308,7 +537,7 @@ user-select: none;
                         <div class="modal-content">
                             <div class="modal-header">Schedule of Other Months</div>
                             <div class="modal-body">
-                                <form action="<{:U('Class/getTeacherClassPlan',array('user_id'=>$teacherID))}>" method="post">
+                                <form action="<?php echo U('Class/getTeacherClassPlan',array('user_id'=>$teacherID));?>" method="post">
                                   <div class="form-group">
                                     <label for="recipient-name" class="control-label">Choose Year:</label>
                                     <select class="form-control" name="year" id='nowyear123'>
@@ -374,7 +603,7 @@ user-select: none;
     <script src="__PUBLIC__/js/time.js"></script>
     <script type="text/javascript">
         upDateTime();
-        var teachertype=<{$teacherType}>;//0表示中教,课程时间一个小时;1表示外交,课程时间半个小时.
+        var teachertype=<?php echo ($teacherType); ?>;//0表示中教,课程时间一个小时;1表示外交,课程时间半个小时.
         // var teachertype=0;
         var classtime=(teachertype)?30:60;//表示课程时间
         var classnumber=(teachertype)?31:15;
@@ -790,10 +1019,11 @@ user-select: none;
             // alert(jsonarr);
             $.ajax({
                 type:'POST',
-                url:"<{:U('Teacher/GetClassInfo',array('teacherID'=>$teacherID))}>",
+                url:"<?php echo U('Class/GetClassInfo',array('teacherID'=>$teacherID));?>",
                 data:'data='+jsonarr,
                 dataType:'json',
                 success:function(msg){
+                    console.log(msg);
                     // $('#class_id').val(msg['class_id']);
                     // $('#studentmanage').val(msg['class_type']);
                     // $('#studentmanagephone').val(msg['adminphone']);
@@ -874,23 +1104,23 @@ user-select: none;
         var jsonarr=JSON.stringify(arr);
         // console.log(jsonarr);
 
-        post("<{:U('Class/ClassManage',array('user_id'=>$teacherID))}>/type/add", {data:jsonarr,year:<{$this_year}>,month:<{$this_month}>});
+        post("<?php echo U('Class/ClassManage',array('user_id'=>$teacherID));?>/type/add", {data:jsonarr,year:<?php echo ($this_year); ?>,month:<?php echo ($this_month); ?>});
 
 
         // $.ajax({
         //     type:'POST',
-        //     url:"<{:U('Teacher/PostCourse')}>",
+        //     url:"<?php echo U('Teacher/PostCourse');?>",
         //     data:'data='+jsonarr,
         //     dataType:'json',
         //     // success:function(msg){
         //     //     alert(msg.responseText);
         //     //     // location.reload();//刷新页面
-        //     //       window.location.href="<{:U('Teacher/')}>";
+        //     //       window.location.href="<?php echo U('Teacher/');?>";
         //     //
         //     // },
         //     // error:function(error){
         //     //     alert(error.responseText);
-        //     //       window.location.href="<{:U('Teacher/')}>";
+        //     //       window.location.href="<?php echo U('Teacher/');?>";
         //     // }
         // });
 
@@ -925,10 +1155,10 @@ user-select: none;
         });
         var jsonarr=JSON.stringify(arr);
 
-        post("<{:U('Class/ClassManage',array('user_id'=>$teacherID))}>/type/delete", {data:jsonarr,year:<{$this_year}>,month:<{$this_month}>});
+        post("<?php echo U('Class/ClassManage',array('user_id'=>$teacherID));?>/type/delete", {data:jsonarr,year:<?php echo ($this_year); ?>,month:<?php echo ($this_month); ?>});
         // $.ajax({
         //     type:'POST',
-        //     url:"<{:U('Teacher/BatchDeleteTeacherClass')}>",
+        //     url:"<?php echo U('Teacher/BatchDeleteTeacherClass');?>",
         //     data:'data='+jsonarr,
         //     dataType:'json',
         //     success:function(msg){
