@@ -308,7 +308,15 @@
 					 ->order("classEndTime asc")->select();
 				}elseif(1 == $type){
 					//小班课
-					//$result = $inquiry->table()->where()->select();
+					$sql="select * from tp_groupstuclasssch
+					inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID = tp_groupstuclasssch.groupClassSchID
+					inner join tp_group on tp_groupclasssch.groupID = tp_group.groupID
+					inner join tp_tegroupclasssalary on tp_group.groupID=tp_tegroupclasssalary.groupID
+					inner join tp_teacher on tp_teacher.ID = tp_tegroupclasssalary.teacherID
+					inner join tp_class on tp_class.classID = tp_groupclasssch.classID
+					where tp_tegroupclasssalary.gIsLastest = 1 and tp_tegroupclasssalary.isdelete = 0 and tp_groupstuclasssch.isdelete = 0 and tp_groupstuclasssch.studentID = 21 and
+						tp_class.classEndTime > {$time}";
+					$result = $inquiry->query($sql);
 				}
 			}
 			return $result;
@@ -338,6 +346,36 @@
 
 			return $result;
 		}
+
+		/*
+		蒋周杰
+		学生小班上课操作
+		*/
+		public function StudentAttendGroupClass($studentID = null,$orderClassID = null){
+			$message = array();
+			if(is_null($studentID) || is_null($orderClassID)){
+				$message['status'] = false;
+				$message['message'] = "缺失重要的数据";
+				return $message;
+			}
+
+			//更新两个课程表的课程状态
+			$data1['gclassStatus'] = 1;
+			$inquiry = new Model();
+			$result1 = $inquiry->table('tp_groupclasssch')->where("groupClassSchID = {$orderClassID}")->save($data1);
+
+			$data2['stuClassStatus'] = 1;
+			$result2 =$inquiry->table('tp_groupstuclasssch')->where("studentID = {$studentID} and groupClassSchID = {$orderClassID}")->save($data2);
+			//获取教师的ZOOM
+			$zoom = $inquiry->table('tp_groupclasssch,tp_teacher,tp_tegroupclasssalary')
+			->where("tp_groupclasssch.groupClassSchID = {$orderClassID} and tp_tegroupclasssalary.groupID = tp_groupclasssch.groupID and tp_tegroupclasssalary.gIsLastest = 1 and tp_tegroupclasssalary.teacherID = tp_teacher.ID")->field(array('zoom'))
+			->select();
+			header("location:".$zoom[0]['zoom']);
+			$message['status'] = true;
+			$message['message'] = "正常上课";
+			return $message;
+		}
+
 
 		/*
 		*俞鹏泽

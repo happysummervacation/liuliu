@@ -238,35 +238,33 @@
                                             <th style="display: none">教师ID</th>
                                             <!-- <th>课堂笔记</th> -->
                                             <th>上课链接</th>
-                                            <th>取消选课</th>
+                                           <!--  <th>取消选课</th> -->
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                    	<?php foreach ($data as $key => $value) { ?>
+                                    	<?php foreach ($classdata as $key => $value) { ?>
                                             <tr >
-                                                <td><?php echo ($value['orderclass_id']); ?> </td>
-                                                <td><?php echo ($value['class_type']); ?></td>
-                                                <td><?php echo ($value['bookname']); ?></td>
-                                                <td><?php echo (date('Y-m-d H:i',$value['start_time'])); ?> </td>
+                                                <td><?php echo ($value['groupStuClassSchID']); ?> </td>
+                                                <td><?php echo ($value['groupName']); ?></td>
+                                                <td><?php echo ($value['material']); ?></td>
+                                                <td><?php echo (date('Y-m-d H:i',$value['classStartTime'])); ?> </td>
                                                 <!-- <td><a href="#"><?php echo ($value['manage_name']); ?> </a></td> -->
                                                 <!-- <td><?php echo (date('Y-m-d H:i:s',$value['class_start_time'])); ?> </td> -->
-                                                <td><?php echo ($value['end_time']-$value['start_time'])/60-5;?>分钟</td>
+                                                <td><?php echo ($value['classEndTime']-$value['classStartTime'])/60-5;?>分钟</td>
                                                 <td><a href="#" data-toggle="modal" data-target="#modalmoneyinfo" class="getTeacherInfo" ><?php echo ($value['englishname']); ?></a> </td>
-                                                <td style="display: none"><?php echo ($value['teacher_id']); ?></td>
+                                                <td style="display: none"><?php echo ($value['ID']); ?></td>
                                                <!--  <td><a href="<?php if(is_null($value['note_link'])) { echo '#';} else {echo $value['note_link'];}?>">查看</a></td> -->
                                                 <!-- <td><a href="<?php echo ($value['zoom']); ?>"><button class="btn btn-primary">GO!</button></a></td> -->
 
                                                 <!--这里面要加一个上课按钮的生效判断-->
-                                                <! --这里表示只有上课前五分钟上课按钮生效-->
-                                                <?php
- $check = md5($value['orderclass_id']); $class_type = md5($value['_class_type']); ?>
+                                               <!--  <?php
+ $check = md5($value['groupStuClassSchID']); $class_type = md5($value['classType']); ?> -->
                                                     <!-- 这里的class_type是class中的 -->
-                                                <?php if((int)$value['start_time']-(int)$button_effect_time<=$nowtime){?>
-                                                <td><a href="<?php echo U('Student/JudgeFirstClass',array('class_id'=>$value['orderclass_id'],'check'=>$check, 'class_type'=>$value['_class_type'],'class_check'=>$class_type,'teacher'=>$value['teacher_id'],'time'=>$value['start_time'],'endtime'=>$value['end_time']));?>">
-                                                  <input type="button" value="GO" class="btn btn-primary">
-                                                  <!-- onclick='window.open("<?php echo $value['zoom'];?>")' -->
-                                                </a>
+                                                <?php if($time['nowtime']>=$value['classStartTime']-$time['buttonEffectTime']&&$time['nowtime']<=$value['classEndTime']+$time['buttonLostTime']){?>
+                                                <td>
+                                                    <a href="<?php echo U('OrderClass/studentAttendClass',array('ID'=>$value['groupClassSchID'],'classtype'=>'group'));?>">
+                                                      <input type="button" value="GO" class="btn btn-primary">
+                                                    </a>
                                                 </td>
                                                 <?php }else{?>
                                                   <td>还没有到上课时间</td>
@@ -274,7 +272,7 @@
                                                 <!-- <td><a href="#"><input type="button" value="GO" class="btn btn-primary" onclick='window.open("<?php echo $value['zoom'];?>")'></a></td> -->
 
                                                 <!--取消选课还没有做-->
-                                                <td><a href="<?php $check = md5($value['orderclass_id']); echo U('Student/CancelClass',array('orderclass_id'=>$value['orderclass_id'],'check'=>$check));?>"><button class="btn btn-danger">取消</button></a></td>
+                                                <!-- <td><a href="<?php $check = md5($value['orderclass_id']); echo U('Student/CancelClass',array('orderclass_id'=>$value['orderclass_id'],'check'=>$check));?>"><button class="btn btn-danger">取消</button></a></td> -->
                                                 <!-- 点击取消弹出一个确认框，有确认和取消的那种 -->
                                             </tr>
                                         <?php } ?>

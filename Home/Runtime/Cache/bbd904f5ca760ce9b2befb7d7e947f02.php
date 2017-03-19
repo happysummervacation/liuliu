@@ -518,10 +518,10 @@
                 更换教材
                 </div>
                   <div class="modal-body"  style="overflow: auto;">
-                   <form class="form-horizontal" action="<?php echo U('Book/selectBookForStudent');?>" method="post" role="form" style>
+                   <form class="form-horizontal" action="<?php echo U('Book/selectBookForGroup');?>" method="post" role="form" style>
                      <div class="form-group" style="margin: 10px;">
                        <label for="name">选择列表</label>
-                         <select class="form-control" name="BookID" id="classList">
+                         <select class="form-control" name="BookID" id="classlist">
                          </select>
                      </div>
                      <div class="form-group" style="margin: 10px;">
@@ -715,13 +715,14 @@
     }
 
     $('.changeMgr').click(function(){
-      var data={};
-      data.classid=$(this).parents('tr').find('td').eq(0).attr('value');
+      var data='';
+      data=$(this).parents('tr').find('td').eq(0).html();
       $.ajax({
-        utl:"",
+        utl:"<?php echo U('Group/ajaxGetMaterialInfo');?>",
         type:'post',
-        data:data,
+        data:'groupID='+data,
         success:function(msg){
+          alert(msg);
           var tr=JSON.parse(msg);
           var str="";
           for(var i=0;i<tr.length;i++){
@@ -736,6 +737,7 @@
       })
       $('#bookMgr').modal();
     });
+
     $('#classlist').change(function(){
       var src=$(this).val().split("_");
       $('#bookMgr').find('img').attr('src',src[1]);

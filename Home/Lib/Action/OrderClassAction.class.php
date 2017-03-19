@@ -114,17 +114,21 @@
 					// $result = $ocBS->getClass($_SESSION['ID'],0);
 					// $this->assign("classdata",$result);
 					// $this->display("Student:MySchedule");
-
 					$result = $ocBS->getClass($_SESSION['ID'],0);
 					$time = $this->systemSet;
 					$time['nowtime'] = getTime();
 					$this->assign("time",$time);
 					$this->assign("classdata",$result);
+
 					$this->display("Student:MySchedule");
 				}elseif("group" == $type){
 					//获取小班课的课程
 					$result = $ocBS->getClass($_SESSION['ID'],1);
+					$time = $this->systemSet;
+					$time['nowtime'] = getTime();
+					$this->assign("time",$time);
 					$this->assign("classdata",$result);
+
 					$this->display("Student:GroupClassSchedule");
 				}else{
 					$this->error("没有指定操作");
@@ -391,34 +395,43 @@
 			$this->CheckSession();
 
 			$identity = $_SESSION['identity'];
-
+			$type = $_GET['classtype'];
 			import("Home.Action.OrderClass.OrderClassBasicService");
 			$ordSerOp = new OrderClassBasicService();
 			if("0" == $identity || 0 == $identity){
-				//判断学生是否签过相应套餐的合同
-				$studentID = $_SESSION['ID'];
-				$orderClassID = $_GET['ID'];
-				$classType = $_GET['classtype'];
+					if($type == 'onetoone'){
+						//判断学生是否签过相应套餐的合同
+						$studentID = $_SESSION['ID'];
+						$orderClassID = $_GET['ID'];
+						$classType = $_GET['classtype'];
 
-				$result = $ordSerOp->studentAttendClassService($studentID,$orderClassID,$classType);
+						$result = $ordSerOp->studentAttendClassService($studentID,$orderClassID,$classType);
 
-				if(!$result['status'] && !empty($result['contractInfo'])){
-					//表明需要进行合同的签订
-					$contractInfo = $result['contractInfo'];
-					$contractInfo['startTime'] = getTime();
-					$contractInfo['nowTime'] = getTime();
+					if(!$result['status'] && !empty($result['contractInfo'])){
+						//表明需要进行合同的签订
+						$contractInfo = $result['contractInfo'];
+						$contractInfo['startTime'] = getTime();
+						$contractInfo['nowTime'] = getTime();
 
-					$this->assign("orderClassID",$orderClassID);
-					$this->assign("contract_data",$contractInfo);
-					$this->assign("classType",$classType);
-					$this->assign("onlyreadflag",false);
-					$this->display("Student:Contract");
-					return;
-				}elseif(!$result['status'] && empty($result['contractInfo'])){
-					$this->error("发生错误,请联系课程顾问");
-					return;
-				}else{
-					;
+						$this->assign("orderClassID",$orderClassID);
+						$this->assign("contract_data",$contractInfo);
+						$this->assign("classType",$classType);
+						$this->assign("onlyreadflag",false);
+						$this->display("Student:Contract");
+						return;
+					}elseif(!$result['status'] && empty($result['contractInfo'])){
+						$this->error("发生错误,请联系课程顾问");
+						return;
+					}else{
+						;
+					}
+				}elseif($type == 'group'){
+					$studentID = $_SESSION['ID'];
+					$orderClassID = $_GET['ID'];
+					$result = $ordSerOp->StudentAttendGroupClass($studentID,$orderClassID);
+					if(!$result['status']){
+						$this->error("发生错误,请联系课程顾问");
+					}
 				}
 			}else{
 				$this->error("你没有权限进行操作");

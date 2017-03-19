@@ -1,0 +1,526 @@
+[ 2017-07-21T11:55:52+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/getStudentOrderClassTimeTable/type/group
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000596s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000712s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Dispatcher.class.php 第 120 行.
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000337s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000393s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `tp_systemset` [ RunTime:0.000899s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_systemset`  [ RunTime:0.000189s ]
+
+[ 2017-07-21T11:55:52+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/getStudentOrderClassTimeTable/type/group
+SQL: SHOW COLUMNS FROM `tp_systemset` [ RunTime:0.000535s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_systemset`  [ RunTime:0.000123s ]
+
+[ 2017-07-21T11:55:52+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/getStudentOrderClassTimeTable/type/group
+SQL: select * from tp_groupstuclasssch
+					inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID = tp_groupstuclasssch.groupClassSchID
+					inner join tp_group on tp_groupclasssch.groupID = tp_group.groupID
+					inner join tp_tegroupclasssalary on tp_group.groupID=tp_tegroupclasssalary.groupID
+					inner join tp_teacher on tp_teacher.ID = tp_tegroupclasssalary.teacherID
+					inner join tp_class on tp_class.classID = tp_groupclasssch.classID
+					where tp_tegroupclasssalary.gIsLastest = 1 and tp_tegroupclasssalary.isdelete = 0 and tp_groupstuclasssch.isdelete = 0 and tp_groupstuclasssch.studentID = 21 and
+						tp_class.classEndTime > 1500609352 [ RunTime:0.000914s ]
+INFO: [ view_template ] --START--
+INFO: Run LocationTemplate Behavior [ RunTime:0.000258s ]
+INFO: [ view_template ] --END-- [ RunTime:0.000302s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 273 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 273 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 168 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 273 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 168 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 197 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 197 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 137 行.
+NOTIC: [8] Undefined variable: nowtime /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 63 行.
+NOTIC: [8] Undefined variable: nowtime /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 66 行.
+NOTIC: [8] Undefined variable: unreadmessage /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 73 行.
+NOTIC: [8] Undefined variable: unreadmessage /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 77 行.
+NOTIC: [8] Undefined index: manage_name /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 251 行.
+NOTIC: [8] Undefined index: class_start_time /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 252 行.
+NOTIC: [8] Undefined index: note_link /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 256 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+NOTIC: [8] Undefined index: manage_name /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 251 行.
+NOTIC: [8] Undefined index: class_start_time /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 252 行.
+NOTIC: [8] Undefined index: note_link /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 256 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+INFO: Run ParseTemplate Behavior [ RunTime:0.020468s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020522s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:0.000340s ]
+INFO: Run TokenBuild Behavior [ RunTime:0.000204s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:0.000113s ]
+INFO: Run ShowRuntime Behavior [ RunTime:0.000277s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001045s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:0.000401s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000442s ]
+
+[ 2017-07-21T11:55:53+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/studentAttendClass/ID/4/classtype/group
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000498s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000572s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Dispatcher.class.php 第 120 行.
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000306s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000347s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `tp_systemset` [ RunTime:0.000862s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_systemset`  [ RunTime:0.000185s ]
+
+[ 2017-07-21T11:55:53+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/studentAttendClass/ID/4/classtype/group
+SQL: SHOW COLUMNS FROM `tp_systemset` [ RunTime:0.000610s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_systemset`  [ RunTime:0.000143s ]
+
+[ 2017-07-21T11:55:53+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/studentAttendClass/ID/4/classtype/group
+SQL: UPDATE `tp_groupclasssch` SET `gclassStatus`=1 WHERE ( groupClassSchID = 4 ) [ RunTime:0.253373s ]
+SQL: UPDATE `tp_groupstuclasssch` SET `stuClassStatus`=1 WHERE ( studentID = 21 and groupClassSchID = 4 ) [ RunTime:0.080450s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT `zoom` FROM `tp_groupclasssch`,`tp_teacher`,`tp_tegroupclasssalary` WHERE ( tp_groupclasssch.groupClassSchID = 4 and tp_tegroupclasssalary.groupID = tp_groupclasssch.groupID and tp_tegroupclasssalary.gIsLastest = 1 and tp_tegroupclasssalary.teacherID = tp_teacher.ID )  [ RunTime:0.000677s ]
+
+[ 2017-07-21T11:55:59+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/getStudentOrderClassTimeTable/type/group
+INFO: [ route_check ] --START--
+INFO: Run CheckRoute Behavior [ RunTime:0.000564s ]
+INFO: [ route_check ] --END-- [ RunTime:0.000632s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Dispatcher.class.php 第 120 行.
+INFO: [ app_begin ] --START--
+INFO: Run ReadHtmlCache Behavior [ RunTime:0.000308s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000350s ]
+NOTIC: [8192] mysql_connect(): The mysql extension is deprecated and will be removed in the future: use mysqli or PDO instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Driver/Db/DbMysql.class.php 第 55 行.
+SQL: SHOW COLUMNS FROM `tp_systemset` [ RunTime:0.000955s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_systemset`  [ RunTime:0.000191s ]
+
+[ 2017-07-21T11:55:59+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/getStudentOrderClassTimeTable/type/group
+SQL: SHOW COLUMNS FROM `tp_systemset` [ RunTime:0.000563s ]
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Core/Db.class.php 第 568 行.
+SQL: SELECT * FROM `tp_systemset`  [ RunTime:0.000131s ]
+
+[ 2017-07-21T11:55:59+08:00 ] 127.0.0.1 /liuliu3/app.php/OrderClass/getStudentOrderClassTimeTable/type/group
+SQL: select * from tp_groupstuclasssch
+					inner join tp_groupclasssch on tp_groupclasssch.groupClassSchID = tp_groupstuclasssch.groupClassSchID
+					inner join tp_group on tp_groupclasssch.groupID = tp_group.groupID
+					inner join tp_tegroupclasssalary on tp_group.groupID=tp_tegroupclasssalary.groupID
+					inner join tp_teacher on tp_teacher.ID = tp_tegroupclasssalary.teacherID
+					inner join tp_class on tp_class.classID = tp_groupclasssch.classID
+					where tp_tegroupclasssalary.gIsLastest = 1 and tp_tegroupclasssalary.isdelete = 0 and tp_groupstuclasssch.isdelete = 0 and tp_groupstuclasssch.studentID = 21 and
+						tp_class.classEndTime > 1500609359 [ RunTime:0.001073s ]
+INFO: [ view_template ] --START--
+INFO: Run LocationTemplate Behavior [ RunTime:0.000184s ]
+INFO: [ view_template ] --END-- [ RunTime:0.000227s ]
+INFO: [ view_parse ] --START--
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 273 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 273 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 168 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 273 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 168 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 197 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 399 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 404 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 197 行.
+NOTIC: [8192] preg_replace(): The /e modifier is deprecated, use preg_replace_callback instead /opt/lampp/htdocs/liuliu3/ThinkPHP/Lib/Template/ThinkTemplate.class.php 第 137 行.
+NOTIC: [8] Undefined variable: nowtime /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 63 行.
+NOTIC: [8] Undefined variable: nowtime /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 66 行.
+NOTIC: [8] Undefined variable: unreadmessage /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 73 行.
+NOTIC: [8] Undefined variable: unreadmessage /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 77 行.
+NOTIC: [8] Undefined index: manage_name /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 251 行.
+NOTIC: [8] Undefined index: class_start_time /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 252 行.
+NOTIC: [8] Undefined index: note_link /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 256 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+NOTIC: [8] Undefined index: manage_name /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 251 行.
+NOTIC: [8] Undefined index: class_start_time /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 252 行.
+NOTIC: [8] Undefined index: note_link /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 256 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+NOTIC: [8] Undefined index: orderclass_id /opt/lampp/htdocs/liuliu3/Home/Runtime/Cache/4bd874924d4f434f4a98f1fd75a157da.php 第 275 行.
+INFO: Run ParseTemplate Behavior [ RunTime:0.020668s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.020735s ]
+INFO: [ view_filter ] --START--
+INFO: Run ContentReplace Behavior [ RunTime:0.000356s ]
+INFO: Run TokenBuild Behavior [ RunTime:0.000212s ]
+INFO: Run WriteHtmlCache Behavior [ RunTime:0.000118s ]
+INFO: Run ShowRuntime Behavior [ RunTime:0.000275s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001080s ]
+INFO: [ view_end ] --START--
+INFO: Run ShowPageTrace Behavior [ RunTime:0.000409s ]
+INFO: [ view_end ] --END-- [ RunTime:0.000451s ]
+
